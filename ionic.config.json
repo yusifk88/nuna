@@ -1,0 +1,7 @@
+{
+  "name": "nuna",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "vue"
+}
