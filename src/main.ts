@@ -1,12 +1,13 @@
-import { createApp } from 'vue'
+import {createApp} from 'vue'
 import App from './App.vue'
 import router from './router';
+import axios from "axios";
 
-import { IonicVue } from '@ionic/vue';
+import {IonicVue} from '@ionic/vue';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/vue/css/core.css';
-
+import "/node_modules/flag-icons/css/flag-icons.min.css";
 /* Basic CSS for apps built with Ionic */
 import '@ionic/vue/css/normalize.css';
 import '@ionic/vue/css/structure.css';
@@ -23,10 +24,54 @@ import '@ionic/vue/css/display.css';
 /* Theme variables */
 import './theme/variables.css';
 
-const app = createApp(App)
-  .use(IonicVue)
-  .use(router);
-  
+import store from './store'
+
+const app = createApp(App).use(store)
+    .use(IonicVue)
+    .use(router);
+
 router.isReady().then(() => {
-  app.mount('#app');
+
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    window.axios = axios;
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    window.axios.defaults.baseURL = "http://127.0.0.1:8000/api/";
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    window.axios.defaults.headers.common = {
+        "X-Requested-With": "XMLHttpRequest",
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + localStorage.token
+    };
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    window.axios.defaults.headers.get["Accept"] = "application/json";
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    window.axios.defaults.headers.post["Accept"] = "application/json";
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    window.axios.defaults.headers.post["Content-Type"] = "application/json";
+    axios.interceptors.response.use(
+        function (response) {
+
+
+            return response;
+        },
+        function (error) {
+
+            store.state.errorsArr = error.response.data.errors;
+            store.state.showErrorToast = true;
+
+            return Promise.reject(error);
+        }
+    );
+
+
+    app.mount('#app');
+
+    store.commit("initUser");
+
 });
