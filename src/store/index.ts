@@ -8,7 +8,12 @@ export default createStore({
         errorMessage: "Something went wrong",
         errorsArr: [],
         user: null,
-        initApp: false
+        initApp: false,
+        ErrorPosition:"bottom",
+        headerTransparent:false,
+        mainLoading:false,
+        mainLoadingText:"Please wait",
+        mainLoadingDescription:""
     },
     mutations: {
         initUser(state) {
@@ -18,7 +23,6 @@ export default createStore({
                 .then(res => {
                     state.user = res.data;
                     state.initApp = false;
-                    console.log(state.user)
 
                 })
                 .catch(error => {

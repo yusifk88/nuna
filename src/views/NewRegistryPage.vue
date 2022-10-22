@@ -1,7 +1,7 @@
 <template>
   <ion-page >
-    <ion-header >
-      <ion-toolbar>
+    <ion-header style="box-shadow: none !important;" v-if="!$store.state.headerTransparent" >
+      <ion-toolbar >
         <ion-back-button slot="start"></ion-back-button>
 <ion-title>
   {{$route.params.type}} registry
@@ -25,5 +25,16 @@ export default {
 </script>
 
 <style scoped>
+
+ion-header{
+  box-shadow: none !important;
+
+}
+ion-toolbar{
+  box-shadow: none !important;
+  border: none !important;
+  --border-width: 0;
+  --box-shadow: none;
+}
 
 </style>

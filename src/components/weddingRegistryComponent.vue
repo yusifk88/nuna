@@ -1,6 +1,9 @@
 <template>
-  <ion-content class="ion-padding" :fullscreen="true">
+  <ion-content :class="step<=5 ? 'ion-padding' : 'no-padding'" :fullscreen="true">
+
+
   <span v-if="step==1" class="ion-text-center content-span">
+
     <h1 style="font-family: cursive; font-weight: bolder">Congratulations On your wedding <br> {{
         $store.state.user.first_name
       }}</h1>
@@ -25,12 +28,12 @@
       <h1>Hello {{ $store.state.user.first_name }},</h1>
       <h2 class="font-weight-light">Are you the groom or the bride?</h2>
 
-<!--      <alert-component-->
+      <!--      <alert-component-->
 
-<!--          title="What does this mean?"-->
-<!--          description=" Depending on your choice, we would assume you are the the bride or groom<br>-->
-<!--      eg. If you say you are the bride then the only person we need to register is the groom and vise versa."-->
-<!--      ></alert-component>-->
+      <!--          title="What does this mean?"-->
+      <!--          description=" Depending on your choice, we would assume you are the the bride or groom<br>-->
+      <!--      eg. If you say you are the bride then the only person we need to register is the groom and vise versa."-->
+      <!--      ></alert-component>-->
 
 
       <ion-button style="transition: 0.1s ease-in-out" @click="groosatusSeleted=true; userIsGroom=false; setUser()"
@@ -59,28 +62,30 @@
 
 
     <div class="smooth-in" v-if="step==3">
-      
+
       <center>
         <ion-avatar>
           <img :src="avatarUrl">
         </ion-avatar>
       </center>
 
-      <h4 class="ion-text-center ion-margin-top">{{userIsGroom ? "Bride " : "Groom "}} information</h4>
+      <h4 class="ion-text-center ion-margin-top">{{ userIsGroom ? "Bride " : "Groom " }} information</h4>
 
 
       <ion-list class="ion-margin-top" v-if="userIsGroom">
 
         <ion-item fill="outline" shape="round">
-          <ion-input :autofocus="true" v-model="bride_name" type="text" placeholder="Bride's full Name"></ion-input>
+          <ion-input :autofocus="true" v-model="bride_name" type="text" placeholder="Bride's full Name*"></ion-input>
         </ion-item>
 
         <ion-item class="ion-margin-top" fill="outline" shape="round">
-          <ion-input :autofocus="true" type="text" v-model="bride_phone_number" placeholder="Bride's phone number"></ion-input>
+          <ion-input inputmode="tel" v-model="bride_phone_number"
+                     placeholder="Bride's phone number(optional)"></ion-input>
         </ion-item>
 
         <ion-item class="ion-margin-top" fill="outline" shape="round">
-          <ion-input :autofocus="true" type="text" v-model="bride_email" placeholder="Bride's email address"></ion-input>
+          <ion-input inputmode="email" v-model="bride_email"
+                     placeholder="Bride's email address(optional)"></ion-input>
         </ion-item>
 
       </ion-list>
@@ -89,15 +94,17 @@
       <ion-list class="ion-margin-top" v-else>
 
         <ion-item fill="outline" shape="round">
-          <ion-input :autofocus="true" v-model="groom_name" type="text" placeholder="Groom's full Name"></ion-input>
+          <ion-input :autofocus="true" v-model="groom_name" type="text" placeholder="Groom's full Name*"></ion-input>
         </ion-item>
 
         <ion-item class="ion-margin-top" fill="outline" shape="round">
-          <ion-input type="tel" :autofocus="true"  v-model="groom_phone_number" placeholder="Groom's phone number"></ion-input>
+          <ion-input inputmode="tel" v-model="groom_phone_number"
+                     placeholder="Groom's phone number(optional)"></ion-input>
         </ion-item>
 
         <ion-item class="ion-margin-top" fill="outline" shape="round">
-          <ion-input type="email" :autofocus="true"  v-model="groom_email" placeholder="Groom's email address"></ion-input>
+          <ion-input inputmode="email" v-model="groom_email"
+                     placeholder="Groom's email address(optional)"></ion-input>
         </ion-item>
 
       </ion-list>
@@ -115,34 +122,41 @@
 
       <h2 class="ion-text-center ion-no-margin">All about the big day!</h2>
 
-      <alert-component class="ion-margin-top" title="What's a tag?"
-                       description="A tag is a unique text that identifies your wedding registry link. If you do not create one, a random tag would be created for you."></alert-component>
+      <!--      <alert-component class="ion-margin-top" title="What's a tag?"-->
+      <!--                       description="A tag is a unique text that identifies your wedding registry link. If you do not create one, a random tag would be created for you."></alert-component>-->
 
       <ion-list class="ion-margin-top">
 
         <ion-item class="ion-margin-top" fill="outline" shape="round">
-          <ion-input v-model="tag" type="text" placeholder="Wedding #tag"></ion-input>
+          <ion-input v-model="tag" type="text" placeholder="Wedding #tag (optional)"></ion-input>
         </ion-item>
 
-        <ion-item shape="round"  class="ion-margin-top" fill="outline">
+        <ion-item shape="round" class="ion-margin-top" fill="outline">
           <ion-label>Date & Time:</ion-label>
           <ion-datetime-button datetime="datetime"></ion-datetime-button>
-          <ion-modal :keep-contents-mounted="true">
-            <ion-datetime hourCycle="h12" locale="en-GB" id="datetime"></ion-datetime>
+          <ion-modal
+
+              :keep-contents-mounted="true">
+            <ion-datetime @ionChange="dateSelected" :show-default-buttons="true" hourCycle="h12" locale="en-GB"
+                          id="datetime">
+              <span slot="title">Set the wedding date & tIme</span>
+            </ion-datetime>
           </ion-modal>
 
         </ion-item>
 
-        <ion-item fill="outline" shape="round"  class="ion-margin-top">
-          <ion-textarea rows="1" :autoGrow="true"  placeholder="RSVP Tel number"></ion-textarea>
+        <ion-item fill="outline" shape="round" class="ion-margin-top">
+          <ion-input v-model="rsvPhoneNumber" inputmode="tel" rows="1" :autoGrow="true"
+                     placeholder="RSVP Tel number (optional)"></ion-input>
         </ion-item>
 
-        <ion-item fill="outline" shape="round"  class="ion-margin-top">
-          <ion-textarea rows="1" :autoGrow="true"  placeholder="RSVP contact person name"></ion-textarea>
+        <ion-item fill="outline" shape="round" class="ion-margin-top">
+          <ion-input v-model="rsvPerson" rows="1" placeholder="RSVP contact person name (optional)"></ion-input>
         </ion-item>
 
-  <ion-item fill="outline" shape="round"  class="ion-margin-top">
-          <ion-textarea rows="1" :autoGrow="true"  placeholder="Describe the location"></ion-textarea>
+        <ion-item fill="outline" shape="round" class="ion-margin-top">
+          <ion-textarea v-model="location" rows="1" :autoGrow="true"
+                        placeholder="Describe the location (optional)"></ion-textarea>
         </ion-item>
 
 
@@ -151,106 +165,312 @@
       <ion-button
           expand="block"
           shape="round"
+          id="open-modal"
           fill="clear"
 
-      >Attach map location<ion-icon :icon="locationOutline"></ion-icon></ion-button>
+      >Attach map location
+        <ion-icon :icon="locationOutline"></ion-icon>
+      </ion-button>
 
+      <ion-modal
+          :initial-breakpoint="0.25"
+          :breakpoints="[0, 0.25, 0.5, 0.75]"
+          handle-behavior="cycle"
+          mode="ios" ref="modal" trigger="open-modal">
+        <google-places-component @canceled="cacnelSearch"></google-places-component>
+      </ion-modal>
+
+      <ion-button
+          expand="block"
+          shape="round"
+          fill="clear"
+          @click="showSocial=!showSocial"
+
+      >Show social or video links
+        <ion-icon v-if="!showSocial" :icon="caretDownOutline"></ion-icon>
+        <ion-icon v-else :icon="caretUpOutline"></ion-icon>
+      </ion-button>
+
+      <ion-item v-if="showSocial" fill="outline" shape="round" class="ion-margin-top">
+        <ion-input v-model="zoomLink" inputmode="url" rows="1" placeholder="Zoom link"></ion-input>
+      </ion-item>
+
+      <ion-item v-if="showSocial" fill="outline" shape="round" class="ion-margin-top">
+        <ion-input v-model="youtubeLink" inputmode="url" rows="1" placeholder="YouTube link"></ion-input>
+      </ion-item>
 
 
       <!--      <maps-component v-if="addMap"></maps-component>-->
     </div>
 
-    <div class="smooth-in" v-if="step==5">
+    <div class="smooth-in" v-if="step===5">
 
       <h2 class="ion-text-center">Let's style things up</h2>
 
-      <h4 class="font-weight-light">Add at most 4 photos to your registry page:</h4>
+      <p>Add upto 4 photos to your wedding page:</p>
       <ion-grid>
 
         <ion-row>
           <ion-col size="6">
-            <thumbnail-component></thumbnail-component>
+            <thumbnail-component @photoSelected="file=>photoOne=file" uuid="img1"></thumbnail-component>
           </ion-col>
 
           <ion-col size="6">
-            <thumbnail-component></thumbnail-component>
-          </ion-col>
-
-
-          <ion-col size="6">
-            <thumbnail-component></thumbnail-component>
+            <thumbnail-component @photoSelected="file=>photoTwo=file" uuid="img2"></thumbnail-component>
           </ion-col>
 
 
           <ion-col size="6">
-            <thumbnail-component></thumbnail-component>
+            <thumbnail-component @photoSelected="file=>photoThree=file" uuid="img3"></thumbnail-component>
+          </ion-col>
+
+
+          <ion-col size="6">
+            <thumbnail-component @photoSelected="file=>photoFour=file" uuid="img4"></thumbnail-component>
           </ion-col>
 
 
         </ion-row>
       </ion-grid>
 
-      <h4 class="font-weight-light">Share something nice about your union:</h4>
+      <p>Share something nice about your union:</p>
 
       <ion-item shape="round" fill="outline" class="ion-margin-top">
-        <ion-textarea rows="1" :autoGrow="true" placeholder="A short beautiful story"></ion-textarea>
+        <ion-textarea v-model="story" rows="1" :autoGrow="true" placeholder="A short beautiful story"></ion-textarea>
       </ion-item>
 
-      <h4 class="font-weight-light">How do you want to say thank you?</h4>
+      <p>How do you want to say thank you?</p>
       <ion-radio-group :value="thankYouvalue">
 
-      <ion-slides :options="slideOption" :scrollbar="true">
+        <ion-slides :options="slideOption" :scrollbar="true">
 
 
-        <ion-slide v-for="(page,index) in sampleThanks" :key="index">
-          <ion-card @click="thankYouvalue=index" color="primary"  class="ion-text-left" mode="ios">
-            <ion-item color="primary">
-              <ion-radio color="warning" :value="index"></ion-radio>
-              <ion-label>Select</ion-label>
+          <ion-slide v-for="(page,index) in sampleThanks" :key="index">
+            <ion-card @click="thankYouvalue=index; thankYouText=page.text.trim()" color="primary" class="ion-text-left"
+                      mode="ios">
+              <ion-item color="primary">
+                <ion-radio color="warning" :value="index"></ion-radio>
+                <ion-label>Select</ion-label>
 
-            </ion-item>
-            <ion-card-header>
-              <ion-card-title>{{page.title}}
+              </ion-item>
+              <ion-card-header>
+                <ion-card-title>{{ page.title }}
 
+
+                </ion-card-title>
+              </ion-card-header>
+              <ion-card-content class="ion-text-left">
+
+                <p>{{ page.text }}</p>
+                <ion-card-subtitle>
+                  {{ page.subTitle }}<br>
+                  {{ groom_name }} & {{ bride_name }}
+                </ion-card-subtitle>
+              </ion-card-content>
+
+            </ion-card>
+          </ion-slide>
+
+        </ion-slides>
+
+      </ion-radio-group>
+
+
+      <ion-item shape="round" fill="outline" class="ion-margin-top">
+        <ion-textarea v-model="thankYouText" rows="1" :autoGrow="true"
+                      placeholder="Edit thank you message"></ion-textarea>
+      </ion-item>
+
+    </div>
+
+    <div style="height: 100vh" class="smooth-in ion-color-primary" v-if="step===6">
+
+      <ion-slides :pager="true" :options="previewSlideOption">
+
+
+        <ion-slide v-if="photoOne">
+
+          <ion-card style="width: 100%; height: 300px;margin: 0!important;" mode="ios" class="card-gradient no-margin">
+            <ion-card-header class="ion-margin-top ion-padding-top">
+              <ion-card-title style="color: white!important;">Our Story
+                <ion-icon :icon="heartCircleOutline"></ion-icon>
 
               </ion-card-title>
-            </ion-card-header>
-            <ion-card-content class="ion-text-left">
 
-              <p>{{page.text}}</p>
-              <ion-card-subtitle>
-                {{page.subTitle}}<br>
-                {{ groom_name }} & {{ bride_name }}
-              </ion-card-subtitle>
+            </ion-card-header>
+
+            <ion-card-content>
+
+              {{ story }}
             </ion-card-content>
 
           </ion-card>
+
+
+        </ion-slide>
+
+
+        <ion-slide v-if="photoOne">
+
+          <img height="300px" width="100%" :src="photoOne.preview" alt="image">
+        </ion-slide>
+
+        <ion-slide v-if="photoTwo">
+
+          <img height="300px" width="100%" :src="photoTwo.preview" alt="image">
+        </ion-slide>
+
+        <ion-slide v-if="photoThree">
+
+          <img width="100%" :src="photoThree.preview" alt="image">
+        </ion-slide>
+
+        <ion-slide v-if="photoFour">
+
+          <img height="300px" width="100%" :src="photoFour.preview" alt="image">
         </ion-slide>
 
       </ion-slides>
-      </ion-radio-group>
+
+
+      <ion-list :inset="true" lines="inset">
+        <ion-list-header>
+          <ion-label>
+            <ion-icon :icon="personOutline"></ion-icon>
+            Bride's Info.
+          </ion-label>
+        </ion-list-header>
+        <ion-item>
+          <ion-label><h1>{{ bride_name ? bride_name : "N/A" }}</h1>
+            <p>Name</p>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label><h1>{{ bride_phone_number ? bride_phone_number : "N/A" }}</h1>
+            <p>Phone Number</p>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label><h1>{{ bride_email ? bride_email : "N/A" }}</h1>
+            <p>Email</p>
+          </ion-label>
+        </ion-item>
+
+
+        <ion-list-header>
+          <ion-label>
+            <ion-icon :icon="personOutline"></ion-icon>
+            Groom's Info.
+          </ion-label>
+        </ion-list-header>
+        <ion-item>
+          <ion-label><h1>{{ groom_name ? groom_name : "N/A" }}</h1>
+            <p>Name</p>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label><h1>{{ groom_phone_number ? groom_phone_number : "N/A" }}</h1>
+            <p>Phone Number</p>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label><h1>{{ groom_email ? groom_email : "N/A" }}</h1>
+            <p>Email</p>
+          </ion-label>
+        </ion-item>
+
+
+        <ion-list-header>
+          <ion-label>
+            <ion-icon :icon="informationOutline"></ion-icon>
+            About the wedding
+          </ion-label>
+        </ion-list-header>
+
+        <ion-item>
+          <ion-label>
+            <h1>{{ tag ? tag : "N/A" }}</h1>
+            <p>
+              Wedding Tag
+            </p>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label><h1>{{ date ? date : "N/A" }}</h1>
+            <p>Date & Time</p>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label><h1>{{ rsvPhoneNumber ? rsvPhoneNumber : "N/A" }}</h1>
+            <p>RSV Tel.</p>
+          </ion-label>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>
+            <h1>{{ rsvPerson ? rsvPerson : "N/A" }}</h1>
+            <p>RSV Person</p>
+
+          </ion-label>
+        </ion-item>
+
+
+        <ion-list-header v-if="youtubeLink&&zoomLink">
+          <ion-label>
+            <ion-icon :icon="linkOutline"></ion-icon>
+            Links
+          </ion-label>
+        </ion-list-header>
+
+
+        <ion-item v-if="youtubeLink">
+          <ion-button size="large" :href="youtubeLink" color="danger" fill="clear" expand="block">
+            <ion-icon :icon="logoYoutube"></ion-icon>
+            YouTube
+          </ion-button>
+        </ion-item>
+
+        <ion-item v-if="zoomLink">
+          <ion-button size="large" :href="zoomLink" color="primary" fill="clear" expand="block">Zoom</ion-button>
+        </ion-item>
+
+      </ion-list>
+
 
     </div>
 
 
   </ion-content>
+
+
   <ion-footer :translucent="true" collapse="fade" v-if="step>2">
+    <ion-progress-bar buffer=".8" class="ion-margin-top" :value="progressvalue"></ion-progress-bar>
+
     <ion-toolbar>
       <ion-button slot="start" fill="clear" @click="step--">
         <ion-icon :icon="caretBackOutline"></ion-icon>
         Prev.
       </ion-button>
 
-      <ion-button @click="step++" slot="end" shape="round">
-        Continue
-        <ion-icon :icon="caretForwardOutline"></ion-icon>
+      <ion-button v-if="step<6" @click="gotoNext(step)" slot="end" shape="round" size="large">
 
+        {{ step === 5 ? "Preview" : "Continue" }}
+
+        <ion-icon v-if="step<=5" :icon="caretForwardOutline"></ion-icon>
+
+      </ion-button>
+
+      <ion-button @click="saveEvent" slot="end" shape="round" v-else color="success" size="large">
+        Create event
+        <ion-icon :icon="checkmarkOutline"></ion-icon>
       </ion-button>
     </ion-toolbar>
   </ion-footer>
 </template>
 
 <script>
+
+
 import {
   IonAvatar,
   IonButton,
@@ -277,7 +497,9 @@ import {
   IonSlide,
   IonSlides,
   IonTextarea,
-  IonToolbar
+  IonToolbar,
+  IonProgressBar,
+  IonListHeader
 } from "@ionic/vue";
 import WeddinWelcomAnimation from "@/components/weddinWelcomAnimation";
 import {
@@ -288,17 +510,28 @@ import {
   checkmarkOutline,
   femaleOutline,
   maleOutline,
-    locationOutline
+  locationOutline,
+  caretDownOutline,
+  caretUpOutline,
+  personOutline,
+  informationOutline,
+  linkOutline,
+  logoYoutube,
+  heartCircleOutline
+
 } from "ionicons/icons";
-import AlertComponent from "@/components/alertComponent";
 import ThumbnailComponent from "@/components/thumbnailComponent";
+import GooglePlacesComponent from "@/components/GooglePlacesComponent";
+import axios from "axios";
 
 export default {
   name: "weddingRegistryComponent",
   components: {
+    IonListHeader,
+    IonProgressBar,
+    GooglePlacesComponent,
     IonAvatar,
     ThumbnailComponent,
-    AlertComponent,
     WeddinWelcomAnimation,
     IonContent,
     IonButton,
@@ -328,23 +561,55 @@ export default {
   },
   data() {
     return {
-      slideOption:{
+      heartCircleOutline,
+      story: "",
+      linkOutline,
+      logoYoutube,
+      informationOutline,
+      personOutline,
+      youtubeLink: "",
+      zoomLink: "",
+      photoOne: null,
+      photoTwo: null,
+      photoThree: null,
+      photoFour: null,
+      rsvPhoneNumber: "",
+      rsvPerson: "",
+      location: "",
+      showSocial: false,
+      caretUpOutline,
+      caretDownOutline,
+      thankYouText: "",
+      showMore: false,
+      dialogCanDismiss: false,
+      slideOption: {
         initialSlide: 0,
         speed: 400,
-        effect:"overflow"
+        effect: "overflow"
       },
-      thankYouvalue:0,
+      previewSlideOption: {
+        slidesPerView: 1,
+        cycle: true,
+        initialSlide: 0,
+        speed: 400,
+        effect: "overflow",
+        autoplay: {
+          delay: 5000,
+        }
+
+      },
+      thankYouvalue: 0,
       sampleThanks: [
         {
-          title:"Dear [Name],",
+          title: "Dear [Name],",
           text: "We are so thankful to have your love and support towards our wedding day.\n" +
               "                We wouldn’t want it any other way. Thank you for playing a big part in making our big day a reality.\n" +
               "                We truly appreciate you.\n" +
               "                All our love,",
-          subTitle:""
+          subTitle: ""
         },
         {
-          title:"Dear [Donor],",
+          title: "Dear [Donor],",
 
           text: "This is a note to thank you for being there for us and supporting us.\n" +
               "                Your gift to us means more than you know. We are grateful to have family/friends\n" +
@@ -354,7 +619,7 @@ export default {
           subTitle: "Much love,"
         },
         {
-          title:"Dear [Donor],",
+          title: "Dear [Donor],",
           text: "Thank you for contributing to our wedding.\n" +
               "                Because of your generosity we will be able to celebrate our love with friends and family like you.",
           subTitle: "Thanks again,"
@@ -375,25 +640,119 @@ export default {
       caretForwardOutline,
       checkmarkCircle,
       locationOutline,
-      groom_name: "",
+      groom_name: null,
       groom_phone_number: "",
       groom_email: "",
-      bride_name: "",
+      bride_name: null,
       bride_phone_number: "",
       bride_email: "",
-      date: ""
+      date: "",
+      dateTime: "",
+      maxStep: 5
+    }
+  },
+  watch: {
+    step() {
+
+      this.$store.state.headerTransparent = this.step >= 6;
+
     }
   },
   computed: {
+    progressvalue() {
+
+      return (this.step / this.maxStep).toFixed(2);
+
+    },
     user() {
       return this.$store.state.user;
     },
-    avatarUrl(){
+    avatarUrl() {
       return this.userIsGroom ? "https://objectstorage.uk-london-1.oraclecloud.com/n/lrj6a9vl4is6/b/MyBucket/o/person1.png" : "https://objectstorage.uk-london-1.oraclecloud.com/n/lrj6a9vl4is6/b/MyBucket/o/avatar-2191918.png";
 
     }
   },
   methods: {
+
+    saveEvent() {
+
+      this.$store.state.mainLoadingText = "Hung on...";
+      this.$store.state.mainLoadingDescription = "We are saving your event...";
+      this.$store.state.mainLoading = true;
+
+
+      const formData = new FormData();
+
+      formData.append("bride_name", this.bride_name);
+      formData.append("bride_phone_number", this.bride_phone_number);
+      formData.append("bride_email", this.bride_email);
+      formData.append("groom_name", this.groom_name);
+      formData.append("groom_phone_number", this.groom_phone_number);
+      formData.append("groom_email", this.groom_email);
+      formData.append("tag", this.tag);
+      formData.append("date_time", this.date);
+      formData.append("youtube_link", this.youtubeLink);
+      formData.append("zoom_link", this.zoomLink);
+      formData.append("location", this.location);
+      formData.append("story", this.story);
+      formData.append("rsv_tel", this.rsvPhoneNumber);
+      formData.append("rsv_person", this.rsvPerson);
+      formData.append("photo_one", this.photoOne ? this.photoOne.file : null);
+      formData.append("photo_two", this.photoTwo ? this.photoTwo.file : null);
+      formData.append("photo_three", this.photoThree ? this.photoThree.file : null);
+
+
+      axios.post("/wedding", formData)
+          .then(res => {
+            this.$store.state.mainLoading = false;
+
+            console.log(res.data);
+
+          })
+          .catch(error => {
+            console.log(error)
+          })
+
+
+    },
+
+
+    dateSelected(dateTime) {
+      this.date = dateTime.detail.value;
+    },
+    gotoNext(index) {
+
+      if (index === 3) {
+        if (this.userIsGroom && !this.bride_name) {
+
+          this.$store.state.ErrorPosition = "top";
+          this.$store.state.errorsArr = {name: ["You said you are the groom, Bride's name is required"]};
+          this.$store.state.showErrorToast = true;
+          return
+
+        } else if (!this.userIsGroom && !this.groom_name) {
+          this.$store.state.ErrorPosition = "top";
+
+          this.$store.state.errorsArr = {name: ["You said you are the bride, Groom's name is required"]};
+          this.$store.state.showErrorToast = true;
+          return
+
+        }
+
+
+      }
+
+      this.step = index + 1;
+
+    },
+    cacnelSearch() {
+      this.dialogCanDismiss = true;
+
+      this.$refs.modal.$el.dismiss(null, 'cancel');
+
+      this.dialogCanDismiss = false;
+
+    },
     setUser() {
       if (this.userIsGroom) {
 
@@ -417,7 +776,17 @@ export default {
 }
 </script>
 
+
 <style scoped>
+
+.card-gradient {
+
+  --background: rgb(131, 58, 180);
+  background: linear-gradient(90deg, rgba(131, 58, 180, 1) 0%, rgba(253, 29, 29, 1) 50%, rgba(252, 176, 69, 1) 100%);
+  color: #ffffff !important;
+  box-shadow: none !important;
+}
+
 ion-thumbnail {
   --size: 100%;
   --border-radius: 14px;

@@ -6,7 +6,7 @@
         <ion-row>
           <ion-col class="ion-align-self-start">
             <img height="50"
-                 src="https://objectstorage.uk-london-1.oraclecloud.com/n/lrj6a9vl4is6/b/MyBucket/o/logo-placeholder-image.png">
+                 src="https://objectstorage.uk-london-1.oraclecloud.com/n/lrj6a9vl4is6/b/MyBucket/o/logo.png">
           </ion-col>
 
           <ion-col size="2" class="ion-align-self-end">

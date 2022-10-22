@@ -3,10 +3,14 @@
 
     <ion-content class="ion-padding" :fullscreen="true">
 
-      <h1 class="ion-text-center" style="margin-top: 45%">Welcome to Nuna</h1>
-      <span v-if="step==1">
+      <center>
 
-      <h3 class="ion-text-center">Let's get started</h3>
+      <img style="margin-top: 40%; text-align: center"  width="100" src="https://objectstorage.uk-london-1.oraclecloud.com/n/lrj6a9vl4is6/b/MyBucket/o/logo.png">
+      </center>
+
+      <h5 class="ion-text-center" >Create Account</h5>
+      <div v-if="step==1" class="smooth-in">
+
       <ion-item shape="round" fill="outline" class="ion-margin-bottom">
         <ion-avatar slot="start">
           <flag :iso="countryCode"></flag>
@@ -31,13 +35,13 @@
         <ion-icon :icon="arrowForwardOutline"/>
       </ion-button>
 
-    </span>
+    </div>
 
 
-      <span id="section" v-if="step==2">
+      <div id="section" class="smooth-in" v-if="step==2">
 
 
-      <h3 class="ion-text-center">Personal Information</h3>
+      <h6 class="ion-text-center">Personal Information</h6>
  <ion-button fill="clear" class="ion-align-self-start" @click="step=step-1"><ion-icon
      :icon="arrowBackOutline"></ion-icon>Back</ion-button>
 
@@ -64,12 +68,12 @@
         <ion-icon :icon="arrowForwardOutline"/>
       </ion-button>
 
-    </span>
+    </div>
 
-      <span id="section" v-if="step==3">
+      <div id="section" v-if="step==3" class="smooth-in">
 
 
-      <h3 class="ion-text-center">Account Information</h3>
+      <h6 class="ion-text-center">Account Information</h6>
  <ion-button :disabled="progress" fill="clear" class="ion-align-self-start" @click="step=step-1"><ion-icon
      :icon="arrowBackOutline"></ion-icon>Back</ion-button>
 
@@ -103,7 +107,7 @@
 
       </ion-button>
 
-    </span>
+    </div>
 
 
       <p>Already have an account?
@@ -229,5 +233,21 @@ export default defineComponent({
 </script>
 
 <style scoped>
+
+@keyframes slide-in {
+  0% {
+    opacity: 0;
+    transform: translateX(250px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.smooth-in {
+  animation: slide-in 0.3s ease-in-out 0s 1 normal forwards;
+}
 
 </style>

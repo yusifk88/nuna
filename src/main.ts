@@ -23,11 +23,19 @@ import '@ionic/vue/css/display.css';
 
 /* Theme variables */
 import './theme/variables.css';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import Vuelidate from 'vuelidate'
 
-import store from './store'
+import store from './store';
 
-const app = createApp(App).use(store)
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+
+const app = createApp(App)
+    .use(store)
     .use(IonicVue)
+    .use(Vuelidate)
     .use(router);
 
 router.isReady().then(() => {

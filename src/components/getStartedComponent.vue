@@ -19,27 +19,6 @@
 
   </ion-col>
 
-    <ion-col size="6" class="no-padding">
-    <ion-card color="success" mode="ios" class="no-margin">
-      <ion-card-content class="ion-text-center">
-        <img height="80" src="https://objectstorage.uk-london-1.oraclecloud.com/n/lrj6a9vl4is6/b/MyBucket/o/undraw_baby_re_1b87.svg">
-      </ion-card-content>
-      <ion-card-header>
-        <ion-card-subtitle>
-          <ion-icon :icon="addCircleOutline"></ion-icon> Baby shower
-        </ion-card-subtitle>
-      </ion-card-header>
-      <ion-card-content>
-
-        <p>
-          Make a registry for your baby shower
-        </p>
-
-      </ion-card-content>
-    </ion-card>
-
-  </ion-col>
-
 
     <ion-col size="6" class="no-padding">
     <ion-card color="danger" mode="ios" class="no-margin ion-margin-top">
@@ -60,33 +39,6 @@
     </ion-card>
   </ion-col>
 
-
-    <ion-col size="6" class="no-padding">
-
-    <ion-card
-        color="secondary"
-        mode="ios"
-        class="no-margin ion-margin-top"
-    >
-      <ion-card-content class="ion-text-center">
-        <img height="80" src="https://objectstorage.uk-london-1.oraclecloud.com/n/lrj6a9vl4is6/b/MyBucket/o/undraw_motherhood_re_pk2m.svg">
-      </ion-card-content>
-
-      <ion-card-header>
-        <ion-card-subtitle>
-          <ion-icon :icon="addCircleOutline"></ion-icon>Naming Registry
-        </ion-card-subtitle>
-      </ion-card-header>
-
-      <ion-card-content>
-        <p>
-          Make a registry for a naming ceremony
-        </p>
-      </ion-card-content>
-
-    </ion-card>
-
-  </ion-col>
 
 
 

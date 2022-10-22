@@ -4,6 +4,7 @@
       :message="errorMessage"
       :duration="5000"
       @didDismiss="hideToast"
+      :position="$store.state.ErrorPosition"
       color="danger"
       :icon="warningOutline"
 
@@ -17,8 +18,8 @@ import {warningOutline} from "ionicons/icons";
 export default {
   name: "errorComponent",
   components: {IonToast},
-  data(){
-    return{
+  data() {
+    return {
       warningOutline
 
     }
@@ -31,6 +32,7 @@ export default {
         if (keys.length) {
 
           keys.forEach(key => {
+
             if (!message) {
               message = this.$store.state.errorsArr[key][0] + '\n';
 
@@ -38,7 +40,7 @@ export default {
               message += this.$store.state.errorsArr[key][0] + '\n';
             }
           })
-        }else {
+        } else {
           message = "Something went wrong, could not process request";
         }
 

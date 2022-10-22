@@ -2,8 +2,12 @@
   <ion-page>
 
     <ion-content class="ion-padding" :fullscreen="true">
+      <center>
 
-      <h1 class="ion-text-center" style="margin-top: 50%">Welcome to Nuna</h1>
+        <img style="margin-top: 40%; text-align: center"  width="100" src="https://objectstorage.uk-london-1.oraclecloud.com/n/lrj6a9vl4is6/b/MyBucket/o/logo.png">
+      </center>
+
+      <h4 class="ion-text-center" >Login</h4>
 
       <ion-item fill="outline" shape="round">
         <ion-input v-model="email" type="text" placeholder="Phone Number or Email"></ion-input>
