@@ -1,24 +1,40 @@
 <template>
-  <ion-item>
-    <ion-thumbnail slot="start">
-      <img alt="wedding photo" :src="imgURL"/>
+  <ion-item-sliding>
 
-    </ion-thumbnail>
+    <ion-item-options side="start">
 
-    <ion-label>
-      <h1>{{ item.groom_name }} & {{ item.bride_name }}</h1>
-      <h4>GHS200/GHS5,000</h4>
-      <p>{{ item.date_time }}</p>
-    </ion-label>
-    <ion-icon color="success" v-if="item.public" :icon="globeOutline" slot="end"></ion-icon>
-    <ion-icon class="text-muted" v-else :icon="cloudOfflineOutline" slot="end"></ion-icon>
-  </ion-item>
+      <ion-item-option v-if="!item.public" colo="success">
+        <ion-icon :icon="globeOutline"></ion-icon>
+      </ion-item-option>
+
+      <ion-item-option v-else color="danger">
+        <ion-icon :icon="cloudOfflineOutline"></ion-icon>
+      </ion-item-option>
+
+
+    </ion-item-options>
+
+    <ion-item detail="true">
+      <ion-thumbnail slot="start">
+        <img alt="wedding photo" :src="imgURL"/>
+
+      </ion-thumbnail>
+
+      <ion-label>
+        <h1>{{ item.groom_name }} & {{ item.bride_name }}</h1>
+        <h4>GHS200/GHS5,000</h4>
+        <p>{{ item.date_time }}</p>
+      </ion-label>
+      <ion-icon color="success" v-if="item.public" :icon="globeOutline" slot="end"></ion-icon>
+      <ion-icon class="text-muted" v-else :icon="cloudOfflineOutline" slot="end"></ion-icon>
+    </ion-item>
+  </ion-item-sliding>
 
 </template>
 
 <script>
-import {IonIcon, IonItem, IonLabel, IonThumbnail} from "@ionic/vue";
-import {globeOutline,closeCircleOutline, cloudOfflineOutline} from "ionicons/icons";
+import {IonIcon, IonItem, IonItemOption, IonItemOptions, IonItemSliding, IonLabel, IonThumbnail} from "@ionic/vue";
+import {closeCircleOutline, cloudOfflineOutline, globeOutline} from "ionicons/icons";
 
 export default {
   props: {
@@ -27,7 +43,7 @@ export default {
     }
   },
   components: {
-    IonItem, IonLabel, IonThumbnail, IonIcon
+    IonItem, IonLabel, IonThumbnail, IonIcon, IonItemSliding, IonItemOptions, IonItemOption
   },
   name: "WeddingListItemComponent",
   data() {
