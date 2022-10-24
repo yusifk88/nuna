@@ -30,6 +30,7 @@
     "ionicons": "^6.0.3",
     "lottie-vuejs": "^0.4.0",
     "vue": "^3.2.21",
+    "vue-content-loading": "^1.6.0",
     "vue-meta": "^2.4.0",
     "vue-router": "^4.0.12",
     "vuelidate": "^0.7.7",

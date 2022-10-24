@@ -55,7 +55,9 @@
         <ion-icon :icon="checkmarkOutline" v-if="groosatusSeleted && userIsGroom"></ion-icon>
 
         I am the groom
+
         <ion-icon :icon="maleOutline"></ion-icon>
+
       </ion-button>
 
     </div>
@@ -147,11 +149,11 @@
 
         <ion-item fill="outline" shape="round" class="ion-margin-top">
           <ion-input v-model="rsvPhoneNumber" inputmode="tel" rows="1" :autoGrow="true"
-                     placeholder="RSVP Tel number (optional)"></ion-input>
+                     placeholder="RSVP Tel number*"></ion-input>
         </ion-item>
 
         <ion-item fill="outline" shape="round" class="ion-margin-top">
-          <ion-input v-model="rsvPerson" rows="1" placeholder="RSVP contact person name (optional)"></ion-input>
+          <ion-input v-model="rsvPerson" rows="1" placeholder="RSVP contact person name*"></ion-input>
         </ion-item>
 
         <ion-item fill="outline" shape="round" class="ion-margin-top">
@@ -176,7 +178,8 @@
           :initial-breakpoint="0.25"
           :breakpoints="[0, 0.25, 0.5, 0.75]"
           handle-behavior="cycle"
-          mode="ios" ref="modal" trigger="open-modal">
+          mode="ios" ref="modal" trigger="open-modal"
+      >
         <google-places-component @canceled="cacnelSearch"></google-places-component>
       </ion-modal>
 
@@ -490,35 +493,34 @@ import {
   IonItem,
   IonLabel,
   IonList,
+  IonListHeader,
   IonModal,
+  IonProgressBar,
   IonRadio,
   IonRadioGroup,
   IonRow,
   IonSlide,
   IonSlides,
   IonTextarea,
-  IonToolbar,
-  IonProgressBar,
-  IonListHeader
+  IonToolbar
 } from "@ionic/vue";
 import WeddinWelcomAnimation from "@/components/weddinWelcomAnimation";
 import {
   arrowForwardOutline,
   caretBackOutline,
+  caretDownOutline,
   caretForwardOutline,
+  caretUpOutline,
   checkmarkCircle,
   checkmarkOutline,
   femaleOutline,
-  maleOutline,
-  locationOutline,
-  caretDownOutline,
-  caretUpOutline,
-  personOutline,
+  heartCircleOutline,
   informationOutline,
   linkOutline,
+  locationOutline,
   logoYoutube,
-  heartCircleOutline
-
+  maleOutline,
+  personOutline
 } from "ionicons/icons";
 import ThumbnailComponent from "@/components/thumbnailComponent";
 import GooglePlacesComponent from "@/components/GooglePlacesComponent";
@@ -695,7 +697,7 @@ export default {
       formData.append("zoom_link", this.zoomLink);
       formData.append("location", this.location);
       formData.append("story", this.story);
-      formData.append("rsv_tel", this.rsvPhoneNumber);
+      formData.append("rsv_phone_number", this.rsvPhoneNumber);
       formData.append("rsv_person", this.rsvPerson);
       formData.append("photo_one", this.photoOne ? this.photoOne.file : null);
       formData.append("photo_two", this.photoTwo ? this.photoTwo.file : null);
@@ -704,13 +706,18 @@ export default {
 
       axios.post("/wedding", formData)
           .then(res => {
-            this.$store.state.mainLoading = false;
 
+            this.$store.state.mainLoading = false;
             console.log(res.data);
+            const url = "/event/wedding/" + res.data.data.id;
+            this.$router.push({path: url});
 
           })
           .catch(error => {
-            console.log(error)
+
+            this.$store.state.mainLoading = false;
+
+
           })
 
 
@@ -728,18 +735,43 @@ export default {
           this.$store.state.ErrorPosition = "top";
           this.$store.state.errorsArr = {name: ["You said you are the groom, Bride's name is required"]};
           this.$store.state.showErrorToast = true;
-          return
+          return;
 
         } else if (!this.userIsGroom && !this.groom_name) {
           this.$store.state.ErrorPosition = "top";
 
           this.$store.state.errorsArr = {name: ["You said you are the bride, Groom's name is required"]};
           this.$store.state.showErrorToast = true;
-          return
+          return;
 
         }
 
 
+      }
+
+
+      if (index === 4) {
+
+        if (!this.rsvPhoneNumber) {
+          this.$store.state.ErrorPosition = "top";
+
+          this.$store.state.errorsArr = {name: ["RSVP Phone number is required"]};
+          this.$store.state.showErrorToast = true;
+
+          return;
+        }
+
+
+        if (!this.rsvPerson) {
+          this.$store.state.ErrorPosition = "top";
+
+          this.$store.state.errorsArr = {name: ["RSVP person name is required"]};
+          this.$store.state.showErrorToast = true;
+
+          return;
+
+
+        }
       }
 
       this.step = index + 1;
@@ -757,12 +789,21 @@ export default {
       if (this.userIsGroom) {
 
         this.groom_name = this.user.first_name + " " + this.user.last_name;
+        this.groom_email = this.user.email;
+        this.groom_phone_number = this.user.phone_number;
+        this.bride_email = "";
+        this.bride_phone_number = "";
         this.bride_name = "";
 
       } else {
 
         this.groom_name = "";
         this.bride_name = this.user.first_name + " " + this.user.last_name;
+        this.bride_email = this.user.email;
+        this.bride_phone_number = this.user.phone_number;
+
+        this.groom_email = "";
+        this.groom_phone_number = "";
 
       }
       this.step = 3;
@@ -807,6 +848,8 @@ ion-thumbnail {
 .font-weight-light {
   font-weight: lighter;
 }
+
+
 
 .smooth-in {
   animation: slide-in 0.3s ease-in-out 0s 1 normal forwards;

@@ -30,9 +30,16 @@ export default defineComponent({
 
 <style>
 
+.text-muted{
+ color: grey;
+}
 ion-header{
   box-shadow: none !important;
 
+}
+
+.font-weight-bold {
+  font-weight: bolder !important;
 }
 
 ion-toolbar{

@@ -1,5 +1,7 @@
 <template>
   <ion-page>
+
+
     <ion-header mode="ios" v-if="!$store.state.initApp">
       <ion-toolbar>
 
@@ -26,48 +28,63 @@
     </ion-header>
     <ion-content :fullscreen="true" class="ion-padding">
 
-      <ion-text v-if="$store.state.user">
-        <h1>Howdy {{ $store.state.user.first_name }},</h1>
-      </ion-text>
+      <ion-row>
+        <ion-col size="10">
+          <ion-text v-if="$store.state.user">
+            <h2>{{ $store.state.user.first_name }} {{ $store.state.user.last_name }}</h2>
 
-      <verify-card-component></verify-card-component>
+            <small v-if="!dashboard" class="text-muted">Let's get you up and running</small>
+            <small v-else class="text-muted">Good morning</small>
 
-      <ion-text v-if="$store.state.user">
-        <p>Let's get you up and running</p>
-      </ion-text>
+          </ion-text>
+        </ion-col>
+        <ion-col size="2">
 
-      <get-started-component></get-started-component>
+          <ion-button @click="getDashboard" size="large" fill="clear">
+            <ion-icon :icon="reloadCircleOutline"></ion-icon>
+          </ion-button>
+
+        </ion-col>
+      </ion-row>
+
+
+      <get-started-component v-if="!dashboard"></get-started-component>
+
+      <dashboard-cards v-else :weddings="dashboard.weddings"></dashboard-cards>
 
 
     </ion-content>
   </ion-page>
 </template>
 
-<script lang="ts">
+<script>
 
 import store from "@/store";
 import {defineComponent} from 'vue';
-import {arrowForwardOutline, warningOutline} from "ionicons/icons";
+import {arrowForwardOutline, reloadCircleOutline, warningOutline} from "ionicons/icons";
 import {
   IonAvatar,
-  IonRow,
-  IonCol,
-  IonPage,
-  IonHeader,
-  IonToolbar,
-  IonContent,
-  IonText,
   IonBadge,
-  IonIcon
+  IonButton,
+  IonCol,
+  IonContent,
+  IonHeader,
+  IonIcon,
+  IonPage,
+  IonRow,
+  IonText,
+  IonToolbar
 } from '@ionic/vue';
-import VerifyCardComponent from "@/components/verifyCardComponent.vue";
 import GetStartedComponent from "@/components/getStartedComponent.vue";
+import axios from "axios";
+import DashboardCards from "@/components/dashboardCards";
 
 export default defineComponent({
   name: 'Tab1Page',
   components: {
+    DashboardCards,
+    IonButton,
     GetStartedComponent,
-    VerifyCardComponent,
     IonBadge,
     IonAvatar,
     IonRow,
@@ -83,8 +100,41 @@ export default defineComponent({
     return {
       store,
       arrowForwardOutline,
-      warningOutline
+      warningOutline,
+      reloadCircleOutline,
+      dashboard: null
     }
+  },
+  methods: {
+    getDashboard(e) {
+
+      this.$store.state.mainLoadingText = "Hung on...";
+      this.$store.state.mainLoadingDescription = "We are getting your dashboard...";
+      this.$store.state.mainLoading = true;
+
+      axios.get("/dashboard")
+          .then(res => {
+            console.log(res.data.data);
+
+            this.dashboard = res.data.data;
+
+            this.$store.state.mainLoading = false;
+            if (e) {
+              e.target.complete();
+            }
+          })
+          .catch(erros => {
+            if (e) {
+              e.target.complete();
+            }
+
+          })
+
+
+    }
+  },
+  mounted() {
+    this.getDashboard();
   }
 
 });

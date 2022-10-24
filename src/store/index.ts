@@ -13,7 +13,8 @@ export default createStore({
         headerTransparent:false,
         mainLoading:false,
         mainLoadingText:"Please wait",
-        mainLoadingDescription:""
+        mainLoadingDescription:"",
+        baseURL:"http://127.0.0.1:8000"
     },
     mutations: {
         initUser(state) {
