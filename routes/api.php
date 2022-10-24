@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DashboardControler;
+use App\Http\Controllers\WeddingsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -18,6 +20,20 @@ use Illuminate\Support\Facades\Route;
 Route::post("signup", [AuthController::class, "signUp"]);
 Route::post("login", [AuthController::class, "login"]);
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+
+Route::middleware('auth:sanctum')->group(function () {
+
+    Route::get("user", function (Request $request) {
+        return $request->user();
+    });
+
+
+    /**
+     * wedding routes
+     */
+    Route::post("wedding", [WeddingsController::class, "store"]);
+    Route::get("weddings/{id}", [WeddingsController::class, "show"]);
+    Route::get("weddings", [WeddingsController::class, "index"]);
+    Route::get("dashboard", [DashboardControler::class, "show"]);
+
 });
