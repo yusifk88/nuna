@@ -1,8 +1,8 @@
 <template>
   <ion-page>
-    <ion-header>
-      <ion-toolbar>
-        <ion-title>Your Registries</ion-title>
+    <ion-header mode="ios">
+      <ion-toolbar mode="ios">
+        <ion-title>My Registries</ion-title>
       </ion-toolbar>
     </ion-header>
     <ion-content :fullscreen="true" class="ion-padding-bottom">
@@ -13,7 +13,7 @@
 
       <ion-header collapse="condense">
         <ion-toolbar>
-          <ion-title size="large">Your Registries</ion-title>
+          <ion-title size="large">My Registries</ion-title>
         </ion-toolbar>
       </ion-header>
 
@@ -29,36 +29,17 @@
       <ion-list v-else>
         <wedding-list-item-component
             v-for="item in items" :key="item.id" :item="item"
+            @click="$router.push({path:'/event/wedding/'+item.id})"
         ></wedding-list-item-component>
       </ion-list>
 
 
-      <ion-fab id="open-modal" vertical="bottom" class="ion-margin" horizontal="end" slot="fixed">
+      <ion-fab @click="$router.push({path:'/new/wedding'})" id="open-modal" vertical="bottom" class="ion-margin" horizontal="end" slot="fixed">
         <ion-fab-button>
           <ion-icon :icon="addOutline"></ion-icon>
         </ion-fab-button>
       </ion-fab>
 
-      <ion-modal
-          :initial-breakpoint="0.4"
-          :breakpoints="[0.4, 0.5, 0.75]"
-          handle-behavior="cycle"
-          mode="ios"
-          ref="modal"
-          trigger="open-modal"
-      >
-        <ion-content>
-
-          <ion-header>
-            <ion-toolbar>
-              <ion-title>Create a registry</ion-title>
-            </ion-toolbar>
-          </ion-header>
-
-          <get-started-component class="ion-margin"></get-started-component>
-        </ion-content>
-
-      </ion-modal>
 
     </ion-content>
   </ion-page>
@@ -73,7 +54,6 @@ import {
   IonHeader,
   IonIcon,
   IonList,
-  IonModal,
   IonPage,
   IonRefresher,
   IonRefresherContent,
@@ -85,12 +65,10 @@ import {addOutline} from "ionicons/icons";
 import NoRecordComponent from "@/components/NoRecordComponent";
 import axios from "axios";
 import WeddingListItemComponent from "@/components/WeddingListItemComponent";
-import GetStartedComponent from "@/components/getStartedComponent";
 
 export default defineComponent({
   name: 'Tab2Page',
   components: {
-    GetStartedComponent,
     WeddingListItemComponent,
     IonList,
     NoRecordComponent,
@@ -104,7 +82,6 @@ export default defineComponent({
     IonFab,
     IonFabButton,
     IonIcon,
-    IonModal
 
   },
 

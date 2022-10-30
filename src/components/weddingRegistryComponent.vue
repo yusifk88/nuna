@@ -164,23 +164,50 @@
 
       </ion-list>
 
+      <div v-if="googlePlace" class="place-container ion-padding ion-text-center">
+
+        <ion-icon color="primary" :icon="locationOutline" size="large"></ion-icon>
+        <h3>{{ googlePlace.route }}</h3>
+        <p>
+          <small class="text-muted">{{ googlePlace.administrative_area_level_1 }}
+            {{ googlePlace.administrative_area_level_2 }}, {{ googlePlace.country }}</small>
+        </p>
+
+        <ion-button
+            shape="round"
+            size="small"
+            fill="outline"
+            @click="googlePlace=null"
+        >
+          <ion-icon :icon="pencilOutline"></ion-icon>
+        </ion-button>
+
+
+      </div>
+
       <ion-button
           expand="block"
           shape="round"
-          id="open-modal"
+          id="open-map"
           fill="clear"
+          size="large"
+          v-if="!googlePlace"
 
       >Attach map location
         <ion-icon :icon="locationOutline"></ion-icon>
       </ion-button>
 
       <ion-modal
-          :initial-breakpoint="0.25"
-          :breakpoints="[0, 0.25, 0.5, 0.75]"
+          v-if="!googlePlace"
+          :initial-breakpoint="0.5"
+          :breakpoints="[0, 0.25, 0.5, 0.75,1]"
           handle-behavior="cycle"
-          mode="ios" ref="modal" trigger="open-modal"
+          mode="ios" ref="modal" trigger="open-map"
       >
-        <google-places-component @canceled="cacnelSearch"></google-places-component>
+        <google-places-component
+            @placeSelected="setPlace"
+            @canceled="cacnelSearch"
+        ></google-places-component>
       </ion-modal>
 
       <ion-button
@@ -188,8 +215,9 @@
           shape="round"
           fill="clear"
           @click="showSocial=!showSocial"
+          size="large"
 
-      >Show social or video links
+      >Add video links
         <ion-icon v-if="!showSocial" :icon="caretDownOutline"></ion-icon>
         <ion-icon v-else :icon="caretUpOutline"></ion-icon>
       </ion-button>
@@ -203,7 +231,6 @@
       </ion-item>
 
 
-      <!--      <maps-component v-if="addMap"></maps-component>-->
     </div>
 
     <div class="smooth-in" v-if="step===5">
@@ -280,8 +307,14 @@
 
 
       <ion-item shape="round" fill="outline" class="ion-margin-top">
-        <ion-textarea v-model="thankYouText" rows="1" :autoGrow="true"
-                      placeholder="Edit thank you message"></ion-textarea>
+
+        <ion-textarea
+            v-model="thankYouText"
+            rows="1"
+            :autoGrow="true"
+            placeholder="Edit thank you message"
+        ></ion-textarea>
+
       </ion-item>
 
     </div>
@@ -314,23 +347,32 @@
 
 
         <ion-slide v-if="photoOne">
+          <div :style="'background-image:url('+photoOne.preview+')'"
+               style="height: 300px; width: 100%; background-repeat: no-repeat; background-size: cover; border-radius: 3%;">
+          </div>
 
-          <img height="300px" width="100%" :src="photoOne.preview" alt="image">
         </ion-slide>
 
         <ion-slide v-if="photoTwo">
+          <div :style="'background-image:url('+photoTwo.preview+')'"
+               style="height: 300px; width: 100%; background-repeat: no-repeat; background-size: cover; border-radius: 3%;">
+          </div>
 
-          <img height="300px" width="100%" :src="photoTwo.preview" alt="image">
         </ion-slide>
 
         <ion-slide v-if="photoThree">
 
-          <img width="100%" :src="photoThree.preview" alt="image">
+          <div :style="'background-image:url('+photoThree.preview+')'"
+               style="height: 300px; width: 100%; background-repeat: no-repeat; background-size: cover; border-radius: 3%;">
+          </div>
+
         </ion-slide>
 
         <ion-slide v-if="photoFour">
+          <div :style="'background-image:url('+photoFour.preview+')'"
+               style="height: 300px; width: 100%; background-repeat: no-repeat; background-size: cover; border-radius: 3%;">
+          </div>
 
-          <img height="300px" width="100%" :src="photoFour.preview" alt="image">
         </ion-slide>
 
       </ion-slides>
@@ -520,6 +562,7 @@ import {
   locationOutline,
   logoYoutube,
   maleOutline,
+  pencilOutline,
   personOutline
 } from "ionicons/icons";
 import ThumbnailComponent from "@/components/thumbnailComponent";
@@ -564,6 +607,7 @@ export default {
   data() {
     return {
       heartCircleOutline,
+      pencilOutline,
       story: "",
       linkOutline,
       logoYoutube,
@@ -650,7 +694,8 @@ export default {
       bride_email: "",
       date: "",
       dateTime: "",
-      maxStep: 5
+      maxStep: 5,
+      googlePlace: null
     }
   },
   watch: {
@@ -661,6 +706,15 @@ export default {
     }
   },
   computed: {
+
+    goeLocation() {
+      if (this.googlePlace) {
+        return this.googlePlace.longitude + "," + this.googlePlace.latitude;
+      }
+
+      return null;
+
+    },
     progressvalue() {
 
       return (this.step / this.maxStep).toFixed(2);
@@ -675,6 +729,12 @@ export default {
     }
   },
   methods: {
+
+    setPlace(place) {
+      this.googlePlace = place;
+      console.log(place);
+
+    },
 
     saveEvent() {
 
@@ -696,6 +756,7 @@ export default {
       formData.append("youtube_link", this.youtubeLink);
       formData.append("zoom_link", this.zoomLink);
       formData.append("location", this.location);
+      formData.append("coordinates", this.goeLocation);
       formData.append("story", this.story);
       formData.append("rsv_phone_number", this.rsvPhoneNumber);
       formData.append("rsv_person", this.rsvPerson);
@@ -708,7 +769,6 @@ export default {
           .then(res => {
 
             this.$store.state.mainLoading = false;
-            console.log(res.data);
             const url = "/event/wedding/" + res.data.data.id;
             this.$router.push({path: url});
 
@@ -819,6 +879,11 @@ export default {
 
 
 <style scoped>
+.place-container {
+
+  border: 1px solid #cccccc;
+  border-radius: 1%;
+}
 
 .card-gradient {
 
@@ -848,7 +913,6 @@ ion-thumbnail {
 .font-weight-light {
   font-weight: lighter;
 }
-
 
 
 .smooth-in {

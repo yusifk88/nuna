@@ -22,10 +22,11 @@
         color="primary"
         expand="block"
         shape="round"
+        v-if="showButton"
         size="large"
     >
       {{buttonText}}
-      <ion-icon v-if="showIcon" :icon="arrowForwardOutline"></ion-icon>
+      <ion-icon v-if="showIcon" :icon="buttonIcon"></ion-icon>
     </ion-button>
   </center>
   </div>
@@ -39,6 +40,10 @@ import {arrowForwardOutline} from "ionicons/icons";
 
 export default {
   props: {
+    showButton:{
+      default:true,
+      type:Boolean
+    },
     title:{
       default:"No record found",
       type:String

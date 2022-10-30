@@ -5,39 +5,48 @@
     </ion-toolbar>
     <ion-toolbar color="primary">
 
+      <ion-row>
+        <ion-col size="10">
+          <vue-google-autocomplete
 
-      <ion-searchbar
-          :debounce="1000"
-          :searchIcon="locationOutline"
-          mode="ios"
-          inputmode="search"
-          ref="origin"
-          show-cancel-button="always"
-          show-clear-button="focus"
-          @ionCancel="cancelSearch"
-          @ionChange="resolvePlace($event)"
-          id="placeInput"
-          placeholder="Search for location...">
-      </ion-searchbar>
+              id="map"
+              classname="search-input"
+              style="width: 100%; height: 50px; border: 0; background-color: #28b9b7; border-radius: 10px"
+              placeholder="Enter name of place"
+              v-on:placechanged="onPlaceChanged"
+              :country="countryCodes"
+              ref="address"
+          >
+          </vue-google-autocomplete>
+        </ion-col>
+        <ion-col size="2">
+          <ion-button @click="cancelSearch" class="no-padding">
+            <ion-icon class="no-margin" size="large" :icon="closeOutline"></ion-icon>
+          </ion-button>
+        </ion-col>
+      </ion-row>
 
     </ion-toolbar>
   </ion-header>
   <ion-content>
 
-
   </ion-content>
 </template>
 
 <script>
-import {IonContent, IonHeader, IonTitle, IonToolbar, IonSearchbar} from "@ionic/vue";
-import {locationOutline} from "ionicons/icons";
+import {IonButton, IonCol, IonContent, IonHeader, IonIcon, IonRow, IonTitle, IonToolbar} from "@ionic/vue";
+
+import VueGoogleAutocomplete from "vue-google-autocomplete";
+import {closeOutline} from "ionicons/icons";
 
 export default {
   name: "GooglePlacesComponent",
   data() {
     return {
-      locationOutline,
-      placesAutocomplete: null
+      closeOutline,
+      placesAutocomplete: null,
+      searchTerm: "",
+      noResults: true
     }
   },
   components: {
@@ -45,43 +54,93 @@ export default {
     IonContent,
     IonToolbar,
     IonTitle,
-    IonSearchbar
+    IonRow,
+    IonCol,
+    IonButton,
+    IonIcon,
+    VueGoogleAutocomplete
+  },
+
+  computed: {
+    hasRecords() {
+
+      const places = document.getElementsByClassName('pac-item').length;
+      return places >0;
+
+    },
+    user() {
+
+      return this.$store.state.user;
+    },
+    countryCodes() {
+      if (this.user) {
+        return [this.user.country_code.toLowerCase()]
+
+      }
+
+
+      return ['gh'];
+    }
   },
   methods: {
-    cancelSearch() {
-      this.$emit("canceled")
+    cancelSearch(){
+      this.$emit("canceled");
     },
-    resolvePlace(e) {
-
-      const ref = e.target.value;
-
-      window.axios.get("https://api.locationiq.com/v1/autocomplete?key=pk.919099bf1235b89ff497014e3956f7e2&q=" + ref)
-          .then(res => {
-            console.log(res);
-          })
-
+    onPlaceChanged(place) {
+      this.$emit("placeSelected",place);
+      this.$emit("canceled");
     }
 
   },
   mounted() {
-
-
-    // eslint-disable-next-line no-undef
-    var geocoder = new maptiler.Geocoder({
-      input: 'placeInput',
-      key: '7RlnOzLa8P5hwn0Y4xw7',
-      countryCode: "GH"
-    });
-
-    geocoder.on('select', function (item) {
-      console.log('Selected', item);
-    });
-
+    this.$refs.address.focus();
   }
 }
 </script>
 
 <style>
+.pac-container {
+
+  width: 95% !important;
+  margin-top: 20px;
+  box-shadow: none;
+  border: none;
+
+}
+
+.pac-item {
+
+  padding: 10px;
+  transition: 0.3s ease-in-out;
+
+}
+
+.pac-item:active {
+  background-color: grey;
+
+}
+
+.pac-item:focus {
+  background-color: grey;
+
+}
+
+
+.search-input {
+  color: white;
+  padding: 10px;
+
+}
+
+.search-input:focus {
+  outline: none !important;
+}
+
+.search-input::placeholder {
+  color: white;
+  opacity: 0.7;
+}
+
 .maptiler-geocoder {
   width: 100% !important;
   border: none !important;

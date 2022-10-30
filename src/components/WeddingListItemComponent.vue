@@ -3,7 +3,7 @@
 
     <ion-item-options side="start">
 
-      <ion-item-option v-if="!item.public" colo="success">
+      <ion-item-option v-if="!item.public" color="success">
         <ion-icon :icon="globeOutline"></ion-icon>
       </ion-item-option>
 
@@ -12,9 +12,14 @@
       </ion-item-option>
 
 
+      <ion-item-option>
+        <ion-icon :icon="copyOutline"></ion-icon>
+      </ion-item-option>
+
+
     </ion-item-options>
 
-    <ion-item detail="true">
+    <ion-item botton detail="true">
       <ion-thumbnail slot="start">
         <img alt="wedding photo" :src="imgURL"/>
 
@@ -28,13 +33,14 @@
       <ion-icon color="success" v-if="item.public" :icon="globeOutline" slot="end"></ion-icon>
       <ion-icon class="text-muted" v-else :icon="cloudOfflineOutline" slot="end"></ion-icon>
     </ion-item>
+
   </ion-item-sliding>
 
 </template>
 
 <script>
 import {IonIcon, IonItem, IonItemOption, IonItemOptions, IonItemSliding, IonLabel, IonThumbnail} from "@ionic/vue";
-import {closeCircleOutline, cloudOfflineOutline, globeOutline} from "ionicons/icons";
+import {closeCircleOutline, cloudOfflineOutline, copyOutline, globeOutline} from "ionicons/icons";
 
 export default {
   props: {
@@ -50,7 +56,8 @@ export default {
     return {
       globeOutline,
       closeCircleOutline,
-      cloudOfflineOutline
+      cloudOfflineOutline,
+      copyOutline
     }
   },
   computed: {
@@ -78,7 +85,8 @@ export default {
       }
 
     }
-  }
+  },
+
 }
 </script>
 

@@ -21,6 +21,8 @@ import '@ionic/vue/css/text-transformation.css';
 import '@ionic/vue/css/flex-utils.css';
 import '@ionic/vue/css/display.css';
 
+import VueGoogleMaps from '@fawmi/vue-google-maps'
+
 /* Theme variables */
 import './theme/variables.css';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -35,7 +37,12 @@ import store from './store';
 const app = createApp(App)
     .use(store)
     .use(IonicVue)
-    .use(Vuelidate)
+    .use(VueGoogleMaps, {
+        load: {
+            key: 'AIzaSyDlKd1XANeleo81umo7SdNW2cn5w32f8iM',
+        },
+        autobindAllEvents: true
+    })
     .use(router);
 
 router.isReady().then(() => {

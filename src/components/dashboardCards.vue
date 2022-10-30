@@ -13,7 +13,12 @@
 
      <ion-col col="3">
 
-       {{wedding.view}} <ion-icon :icon="eyeOutline"></ion-icon> | <ion-icon v-if="wedding.public" :icon="globeOutline"></ion-icon> <ion-icon v-else :icon="cloudOfflineOutline"></ion-icon>
+       <qrcode-vue
+           render-as="svg"
+           size="55"
+           :value="getURL(wedding)"
+           level="L"
+       ></qrcode-vue>
 
      </ion-col>
    </ion-row>
@@ -23,9 +28,21 @@
 
          <p class="ion-margin-bottom ion-padding-bottom">{{ wedding.date_time }}</p>
 
+<ion-row>
+  <ion-col size="8">
+        <small class="ion-margin-top ion-padding-top">Target/Contributed</small>
+         <h3 class="font-weight-bold">GHS{{
+             Number(wedding.items_sum_target_amount).toFixed("2")
+           }}/GHS{{ Number(wedding.items_sum_amount_contributed).toFixed("2") }}</h3>
+  </ion-col>
+  <ion-col size="4">
+            <img height="80"
+                 src="https://objectstorage.uk-london-1.oraclecloud.com/n/lrj6a9vl4is6/b/MyBucket/o/wedding.svg">
 
-         <small class="ion-margin-top ion-padding-top">Target/Contributed</small>
-         <h3 class="font-weight-bold">GHS{{ Number(wedding.items_sum_target_amount).toFixed("2") }}/GHS{{ Number(wedding.items_sum_amount_contributed).toFixed("2") }}</h3>
+  </ion-col>
+</ion-row>
+         
+
        </ion-card-content>
      </ion-card>
    </ion-slide>
@@ -34,6 +51,9 @@
 </template>
 
 <script>
+
+import QrcodeVue from 'qrcode.vue'
+
 import {
   IonCard,
   IonCardContent,
@@ -44,10 +64,10 @@ import {
   IonRow,
   IonSlide,
   IonSlides,
-    IonIcon,
 } from "@ionic/vue";
 
-import {eyeOutline,globeOutline,cloudOfflineOutline} from "ionicons/icons";
+import {cloudOfflineOutline, eyeOutline, globeOutline} from "ionicons/icons";
+
 export default {
   props: {
     weddings: {
@@ -55,6 +75,7 @@ export default {
     }
   },
   components: {
+    QrcodeVue,
     IonSlides,
     IonSlide,
     IonCard,
@@ -64,11 +85,20 @@ export default {
     IonCardSubtitle,
     IonRow,
     IonCol,
-    IonIcon
   },
   name: "dashboardCards",
-  data(){
-    return{
+
+  methods: {
+
+    getURL(wedding) {
+
+      return "https://mynuuna.com/w/" + wedding.tag;
+
+
+    }
+  },
+  data() {
+    return {
       eyeOutline,
       globeOutline,
       cloudOfflineOutline

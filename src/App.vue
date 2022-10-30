@@ -30,6 +30,16 @@ export default defineComponent({
 
 <style>
 
+ion-toolbar{
+  --border-color:transparent;
+  --border-width:0;
+}
+
+ion-badge {
+  position: absolute;
+  left: -12px;
+}
+
 .text-muted{
  color: grey;
 }
