@@ -11,7 +11,7 @@ class WishList extends Model
     use HasFactory, SoftDeletes;
 
     protected $table = "wish_list";
-    protected $fillable = ["user_id", "wedding_id", "name", "description", "img_url", "target_amount", "amount_contributed", "visible"];
+    protected $fillable = ["user_id", "wedding_id", "name","type", "description", "img_url", "target_amount", "amount_contributed", "visible"];
     protected $casts = [
         "visible" => "bool"
     ];

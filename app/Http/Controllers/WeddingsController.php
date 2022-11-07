@@ -72,6 +72,7 @@ class WeddingsController extends Controller
             "rsv_phone_number" => $request->rsv_phone_number,
             "rsv_person" => $request->rsv_person,
             "location" => $request->location,
+            "story"=>$request->story,
             "coordinates" => $request->coordinates,
             "date_time" => Carbon::parse($request->date_time)->toDateTimeString(),
             "user_id" => $request->user()->id,

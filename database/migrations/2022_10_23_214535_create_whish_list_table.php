@@ -16,8 +16,9 @@ class CreateWhishListTable extends Migration
         Schema::create('wish_list', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger("user_id");
-            $table->unsignedBigInteger("wadding_id");
+            $table->unsignedBigInteger("wedding_id");
             $table->string("name");
+            $table->string("type");
             $table->longText("description")->nullable();
             $table->longText("img_url")->nullable();
             $table->double("target_amount")->default(0);
@@ -25,7 +26,7 @@ class CreateWhishListTable extends Migration
             $table->boolean("visible")->default(true);
             $table->softDeletes();
             $table->index("user_id");
-            $table->index("wadding_id");
+            $table->index("wedding_id");
             $table->foreign("user_id")->references("id")->on("users");
             $table->timestamps();
         });
@@ -38,6 +39,6 @@ class CreateWhishListTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('whish_list');
+        Schema::dropIfExists('wish_list');
     }
 }

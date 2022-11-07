@@ -26,6 +26,7 @@ class CreateWeddingTable extends Migration
             $table->string("rsv_phone_number")->nullable();
             $table->string("rsv_person")->nullable();
             $table->longText("location")->nullable();
+            $table->longText("story")->nullable();
             $table->string("coordinates")->nullable();
             $table->dateTime("date_time");
             $table->longText("photo_one")->nullable();

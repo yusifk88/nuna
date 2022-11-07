@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardControler;
 use App\Http\Controllers\WeddingsController;
+use App\Http\Controllers\WishListCOntroller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -35,5 +36,15 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get("weddings/{id}", [WeddingsController::class, "show"]);
     Route::get("weddings", [WeddingsController::class, "index"]);
     Route::get("dashboard", [DashboardControler::class, "show"]);
+
+
+    /**
+     * wishlist item
+     */
+
+    Route::post("wishlist/{id}", [WishListCOntroller::class, "store"]);
+    Route::get("wishlist/{id}", [WishListCOntroller::class, "items"]);
+
+
 
 });
