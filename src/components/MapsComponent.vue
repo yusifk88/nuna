@@ -1,5 +1,5 @@
 <template>
-  <ion-card mode="ios">
+  <ion-card mode="ios" class="no-margin">
     <GMapMap
         :center="center"
         :zoom="10"

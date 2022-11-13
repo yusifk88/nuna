@@ -148,12 +148,12 @@
         </ion-item>
 
         <ion-item fill="outline" shape="round" class="ion-margin-top">
-          <ion-input v-model="rsvPhoneNumber" inputmode="tel" rows="1" :autoGrow="true"
+          <ion-input v-model="rsvPhoneNumber" inputmode="tel" :autoGrow="true"
                      placeholder="RSVP Tel number*"></ion-input>
         </ion-item>
 
         <ion-item fill="outline" shape="round" class="ion-margin-top">
-          <ion-input v-model="rsvPerson" rows="1" placeholder="RSVP contact person name*"></ion-input>
+          <ion-input v-model="rsvPerson"  placeholder="RSVP contact person name*"></ion-input>
         </ion-item>
 
         <ion-item fill="outline" shape="round" class="ion-margin-top">
@@ -202,7 +202,9 @@
           :initial-breakpoint="0.5"
           :breakpoints="[0, 0.25, 0.5, 0.75,1]"
           handle-behavior="cycle"
-          mode="ios" ref="modal" trigger="open-map"
+          mode="ios"
+          ref="modal"
+          trigger="open-map"
       >
         <google-places-component
             @placeSelected="setPlace"
@@ -223,11 +225,11 @@
       </ion-button>
 
       <ion-item v-if="showSocial" fill="outline" shape="round" class="ion-margin-top">
-        <ion-input v-model="zoomLink" inputmode="url" rows="1" placeholder="Zoom link"></ion-input>
+        <ion-input v-model="zoomLink" inputmode="url"  placeholder="Zoom link"></ion-input>
       </ion-item>
 
       <ion-item v-if="showSocial" fill="outline" shape="round" class="ion-margin-top">
-        <ion-input v-model="youtubeLink" inputmode="url" rows="1" placeholder="YouTube link"></ion-input>
+        <ion-input v-model="youtubeLink" inputmode="url" placeholder="YouTube link"></ion-input>
       </ion-item>
 
 

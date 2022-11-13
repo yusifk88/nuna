@@ -12,10 +12,10 @@
           </ion-col>
 
           <ion-col size="2" class="ion-align-self-end">
-            <ion-badge v-if="$store.state.user && !$store.state.user.email_verified_at" color="danger">
+            <ion-badge v-if="$store.state.user && !$store.state.user.email_verified_at" color="warning">
               <ion-icon :icon="warningOutline"></ion-icon>
             </ion-badge>
-            <ion-avatar style="border: 2px solid red" v-if="$store.state.user">
+            <ion-avatar style="border: 2px solid #ffd200" v-if="$store.state.user">
               <img width="10" :alt="$store.state.user.first_name+' profile photo'"
                    src="https://ionicframework.com/docs/demos/api/avatar/avatar.svg"/>
             </ion-avatar>

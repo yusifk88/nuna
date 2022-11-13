@@ -16,6 +16,9 @@
           <ion-title size="large">My Registries</ion-title>
         </ion-toolbar>
       </ion-header>
+      <list-loading-component :show-header="false" :count="5" v-if="loading"></list-loading-component>
+
+      <span v-else>
 
       <no-record-component
           title="You have not created any registries yet"
@@ -34,7 +37,11 @@
       </ion-list>
 
 
-      <ion-fab @click="$router.push({path:'/new/wedding'})" id="open-modal" vertical="bottom" class="ion-margin" horizontal="end" slot="fixed">
+
+      </span>
+
+      <ion-fab  v-if="items && items.length" @click="$router.push({path:'/new/wedding'})" id="open-modal" vertical="bottom" class="ion-margin"
+               horizontal="end" slot="fixed">
         <ion-fab-button>
           <ion-icon :icon="addOutline"></ion-icon>
         </ion-fab-button>
@@ -58,17 +65,19 @@ import {
   IonRefresher,
   IonRefresherContent,
   IonTitle,
-  IonToolbar,
+  IonToolbar
 } from '@ionic/vue';
 import {addOutline} from "ionicons/icons";
 
 import NoRecordComponent from "@/components/NoRecordComponent";
 import axios from "axios";
 import WeddingListItemComponent from "@/components/WeddingListItemComponent";
+import ListLoadingComponent from "@/components/ListLoadingComponent";
 
 export default defineComponent({
   name: 'Tab2Page',
   components: {
+    ListLoadingComponent,
     WeddingListItemComponent,
     IonList,
     NoRecordComponent,
@@ -83,13 +92,16 @@ export default defineComponent({
     IonFabButton,
     IonIcon,
 
+
+
   },
 
   data() {
 
     return {
       items: [],
-      addOutline
+      addOutline,
+      loading: false
     }
 
   },
@@ -97,14 +109,12 @@ export default defineComponent({
   methods: {
     getRegostries(e) {
 
-      this.$store.state.mainLoadingText = "Hung on...";
-      this.$store.state.mainLoadingDescription = "We are getting your registries...";
-      this.$store.state.mainLoading = true;
+      this.loading = true;
 
       axios.get("/weddings")
           .then(res => {
             this.items = res.data.data;
-            this.$store.state.mainLoading = false;
+            this.loading = false;
             if (e) {
               e.target.complete();
             }

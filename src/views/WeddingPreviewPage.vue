@@ -1,5 +1,5 @@
 <template>
-  <ion-page>
+  <ion-page ref="mainPage">
     <ion-header>
       <ion-toolbar>
         <ion-back-button slot="start"></ion-back-button>
@@ -7,92 +7,110 @@
           {{ wedding ? wedding.tag : "Wedding tag..." }}
         </ion-title>
       </ion-toolbar>
+      <ion-toolbar>
+        <ion-segment color="primary" :value="defaultSegment">
+
+          <ion-segment-button @click="defaultSegment='items'" value="items">
+            Wish List
+          </ion-segment-button>
+
+          <ion-segment-button @click="defaultSegment='guest'" value="guest">
+            Guest
+          </ion-segment-button>
+
+
+          <ion-segment-button @click="defaultSegment='donors'" value="donors">
+            Donors
+          </ion-segment-button>
+
+
+          <ion-segment-button @click="defaultSegment='info'" value="info">
+            Event Info.
+          </ion-segment-button>
+
+
+        </ion-segment>
+      </ion-toolbar>
     </ion-header>
     <ion-content :fullscreen="true" class="ion-padding" v-if="wedding">
 
-      <ion-slides :pager="true" :option="previewSlideOption">
-        <ion-slide>
-
-          <div :style="'background-image:url('+imgURL+')'"
-               style="margin:5px; height: 300px; width: 100%; background-repeat: no-repeat; background-size: cover; border-radius: 3%;">
-            <div
-                style="width: 100%;height: 100%; padding: 10px; background-color: rgba(0,0,0,0.38); color: white;  border-radius: 3%; text-align: center;">
-              <h3 style="font-family: cursive;" class="ion-margin-top">Our Story</h3>
-              <small class="ion-margin-top" style="display: block;">{{ wedding.story }}</small>
-              <ion-icon class="ion-margin-top" style="margin-right: -10px" :icon="heartOutline" size="large"></ion-icon>
-              <ion-icon class="ion-margin-top" style="margin-left: -10px" :icon="heartOutline" size="large"></ion-icon>
-              <h3 style="font-family: cursive;" class="ion-margin-top">{{ wedding.tag }}</h3>
-            </div>
-          </div>
-        </ion-slide>
-
-        <ion-slide v-if="wedding.photo_one">
-
-          <div :style="'background-image:url('+$store.state.baseURL+wedding.photo_one+')'"
-               style="margin:5px;height: 300px; width: 100%; background-repeat: no-repeat; background-size: cover; border-radius: 3%;">
-          </div>
-
-        </ion-slide>
-
-        <ion-slide v-if="wedding.photo_two">
-
-          <div :style="'background-image:url('+$store.state.baseURL+wedding.photo_two+')'"
-               style="margin:5px;height: 300px; width: 100%; background-repeat: no-repeat; background-size: cover; border-radius: 3%;">
-          </div>
-
-        </ion-slide>
-
-
-        <ion-slide v-if="wedding.photo_three">
-
-          <div :style="'background-image:url('+$store.state.baseURL+wedding.photo_three+')'"
-               style="margin:5px;height: 300px; width: 100%; background-repeat: no-repeat; background-size: cover; border-radius: 3%;">
-          </div>
-
-        </ion-slide>
-        <ion-slide v-if="wedding.photo_four">
-
-          <div :style="'background-image:url('+$store.state.baseURL+wedding.photo_four+')'"
-               style="margin:5px;height: 300px; width: 100%; background-repeat: no-repeat; background-size: cover; border-radius: 3%;">
-          </div>
-
-        </ion-slide>
-
-
-      </ion-slides>
-
-
-      <ion-segment :scrollable="true" :value="defaultSegment">
-
-        <ion-segment-button @click="defaultSegment='items'" value="items">
-          Wish List
-        </ion-segment-button>
-
-        <ion-segment-button @click="defaultSegment='guest'" value="guest">
-          Guest
-        </ion-segment-button>
-
-
-        <ion-segment-button @click="defaultSegment='donors'" value="donors">
-          Donors
-        </ion-segment-button>
-
-
-        <ion-segment-button @click="defaultSegment='info'" value="info">
-          Event Info.
-        </ion-segment-button>
-
-
-      </ion-segment>
 
       <ion-content style="transition: 0.3s ease-in-out;" class="no-padding" v-if="defaultSegment==='items'">
 
-        <wish-list-component></wish-list-component>
+        <wish-list-component v-if="wedding" :wedding-i-d="wedding.id"></wish-list-component>
 
       </ion-content>
 
       <ion-content style="transition: 0.3s ease-in-out;" class="no-padding" v-if="defaultSegment==='info'">
+        <ion-slides :pager="true" :option="previewSlideOption">
+          <ion-slide>
+
+            <div :style="'background-image:url('+imgURL+')'"
+                 style="margin:5px; height: 300px; width: 100%; background-repeat: no-repeat; background-size: cover; border-radius: 3%;">
+              <div
+                  style="width: 100%;height: 100%; padding: 10px; background-color: rgba(0,0,0,0.38); color: white;  border-radius: 3%; text-align: center;">
+                <h3 style="font-family: cursive;" class="ion-margin-top">Our Story</h3>
+                <small class="ion-margin-top" style="display: block;">{{ wedding.story }}</small>
+                <ion-icon class="ion-margin-top" style="margin-right: -10px" :icon="heartOutline"
+                          size="large"></ion-icon>
+                <ion-icon class="ion-margin-top" style="margin-left: -10px" :icon="heartOutline"
+                          size="large"></ion-icon>
+                <h3 style="font-family: cursive;" class="ion-margin-top">{{ wedding.tag }}</h3>
+              </div>
+            </div>
+          </ion-slide>
+
+          <ion-slide v-if="wedding.photo_one">
+
+            <div :style="'background-image:url('+$store.state.baseURL+wedding.photo_one+')'"
+                 style="margin:5px;height: 300px; width: 100%; background-repeat: no-repeat; background-size: cover; border-radius: 3%;">
+            </div>
+
+          </ion-slide>
+
+          <ion-slide v-if="wedding.photo_two">
+
+            <div :style="'background-image:url('+$store.state.baseURL+wedding.photo_two+')'"
+                 style="margin:5px;height: 300px; width: 100%; background-repeat: no-repeat; background-size: cover; border-radius: 3%;">
+            </div>
+
+          </ion-slide>
+
+
+          <ion-slide v-if="wedding.photo_three">
+
+            <div :style="'background-image:url('+$store.state.baseURL+wedding.photo_three+')'"
+                 style="margin:5px;height: 300px; width: 100%; background-repeat: no-repeat; background-size: cover; border-radius: 3%;">
+            </div>
+
+          </ion-slide>
+          <ion-slide v-if="wedding.photo_four">
+
+            <div :style="'background-image:url('+$store.state.baseURL+wedding.photo_four+')'"
+                 style="margin:5px;height: 300px; width: 100%; background-repeat: no-repeat; background-size: cover; border-radius: 3%;">
+            </div>
+
+          </ion-slide>
+
+
+        </ion-slides>
+
         <h2>Reservation</h2>
+
+        <ion-row>
+          <ion-col size="12" class="ion-text-center">
+
+            <qrcode-vue
+                render-as="svg"
+                size="120"
+                :value="getURL(wedding)"
+                level="L"
+                class="ion-margin"
+            ></qrcode-vue>
+
+          </ion-col>
+        </ion-row>
+
 
         <div
             style=" background-image: url('/assets/rsvp_card.png'); height: 350px; width: 100%; background-repeat: no-repeat; background-size: cover; background-position: center; border-radius: 3%;">
@@ -112,7 +130,7 @@
         <h2>Location</h2>
 
         <p>{{ wedding.location }}</p>
-        <maps-component :place="position" v-if="wedding.coordinates"></maps-component>
+        <maps-component class="no-margin" :place="position" v-if="wedding.coordinates"></maps-component>
 
       </ion-content>
 
@@ -122,12 +140,16 @@
 
 <script>
 
+import QrcodeVue from 'qrcode.vue'
+
 import {
   IonBackButton,
+  IonCol,
   IonContent,
   IonHeader,
   IonIcon,
   IonPage,
+  IonRow,
   IonSegment,
   IonSegmentButton,
   IonSlide,
@@ -145,6 +167,7 @@ import MapsComponent from "@/components/MapsComponent";
 export default {
   name: "WeddingPreviewPage",
   components: {
+    QrcodeVue,
     MapsComponent,
     WishListComponent,
     IonSegment,
@@ -157,7 +180,9 @@ export default {
     IonBackButton,
     IonTitle,
     IonContent,
-    IonIcon
+    IonIcon,
+    IonRow,
+    IonCol
   },
   data() {
     return {
@@ -251,6 +276,13 @@ export default {
     }
   },
   methods: {
+
+    getURL(wedding) {
+
+      return "https://mynuuna.com/w/" + wedding.tag;
+
+
+    },
     getWedding() {
       this.$store.state.mainLoadingText = "Hung on...";
       this.$store.state.mainLoadingDescription = "We are getting your wedding...";
