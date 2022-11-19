@@ -8,21 +8,15 @@
         </ion-title>
       </ion-toolbar>
       <ion-toolbar>
-        <ion-segment color="primary" :value="defaultSegment">
+        <ion-segment :scrollable="true" color="primary" :value="defaultSegment">
 
           <ion-segment-button @click="defaultSegment='items'" value="items">
-            Wish List
+            Contributions
           </ion-segment-button>
 
           <ion-segment-button @click="defaultSegment='guest'" value="guest">
             Guest
           </ion-segment-button>
-
-
-          <ion-segment-button @click="defaultSegment='donors'" value="donors">
-            Donors
-          </ion-segment-button>
-
 
           <ion-segment-button @click="defaultSegment='info'" value="info">
             Event Info.
@@ -37,9 +31,12 @@
 
       <ion-content style="transition: 0.3s ease-in-out;" class="no-padding" v-if="defaultSegment==='items'">
 
-        <wish-list-component v-if="wedding" :wedding-i-d="wedding.id"></wish-list-component>
+<!--        <wish-list-component v-if="wedding" :wedding-i-d="wedding.id"></wish-list-component>-->
+
+            <cash-target-component v-if="wedding" :wedding-i-d="wedding.id" ></cash-target-component>
 
       </ion-content>
+
 
       <ion-content style="transition: 0.3s ease-in-out;" class="no-padding" v-if="defaultSegment==='info'">
         <ion-slides :pager="true" :option="previewSlideOption">
@@ -161,15 +158,15 @@ import {heartOutline} from "ionicons/icons";
 import moment from "moment";
 
 import axios from "axios";
-import WishListComponent from "@/components/wishListComponent";
 import MapsComponent from "@/components/MapsComponent";
+import CashTargetComponent from "@/components/CashTargetComponent";
 
 export default {
   name: "WeddingPreviewPage",
   components: {
+    CashTargetComponent,
     QrcodeVue,
     MapsComponent,
-    WishListComponent,
     IonSegment,
     IonSegmentButton,
     IonSlide,

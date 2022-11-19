@@ -20,6 +20,7 @@ import '@ionic/vue/css/text-alignment.css';
 import '@ionic/vue/css/text-transformation.css';
 import '@ionic/vue/css/flex-utils.css';
 import '@ionic/vue/css/display.css';
+import VueApexCharts from "vue3-apexcharts";
 
 import VueGoogleMaps from '@fawmi/vue-google-maps'
 
@@ -37,6 +38,7 @@ import store from './store';
 const app = createApp(App)
     .use(store)
     .use(IonicVue)
+    .use(VueApexCharts)
     .use(VueGoogleMaps, {
         load: {
             key: 'AIzaSyDlKd1XANeleo81umo7SdNW2cn5w32f8iM',

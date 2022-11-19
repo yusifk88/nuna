@@ -2,7 +2,12 @@
 <span>
  <ion-slides class="no-padding no-margin">
    <ion-slide class="no-margin no-padding" v-for="wedding in weddings" :key="wedding.id">
-     <ion-card mode="ios" color="tertiary" class="no-margin ion-text-left" style="width: 100%; height: 200px">
+     <ion-card
+         mode="ios"
+         color="primary"
+         class="no-margin ion-text-left"
+         @click="$router.push({path:'/event/wedding/'+wedding.id})"
+         style="width: 100%; height: 200px; background-image: url('/assets/cardBG.png'); background-size: contain; background-blend-mode: color-burn;">
  <ion-card-header>
    <ion-row>
     <ion-col size="9" class="no-padding">
@@ -31,9 +36,9 @@
 <ion-row>
   <ion-col size="8">
         <small class="ion-margin-top ion-padding-top">Target/Contributed</small>
-         <h3 class="font-weight-bold">GHS{{
+         <h2 class="font-weight-bold">GHS{{
              Number(wedding.items_sum_target_amount).toFixed("2")
-           }}/GHS{{ Number(wedding.items_sum_amount_contributed).toFixed("2") }}</h3>
+           }}/GHS{{ Number(wedding.items_sum_amount_contributed).toFixed("2") }}</h2>
   </ion-col>
   <ion-col size="4">
             <img height="80"
@@ -108,5 +113,7 @@ export default {
 </script>
 
 <style scoped>
+
+
 
 </style>

@@ -1,11 +1,11 @@
 <template>
   <ion-header>
     <ion-toolbar>
-      <ion-button @click="step=1;$emit('stepUp',0.25)" v-if="step>1" slot="start" size="small" fill="clear"
-                  color="primary">Change
-      </ion-button>
+<!--      <ion-button @click="step=1;$emit('stepUp',0.25)" v-if="step>1" slot="start" size="small" fill="clear"-->
+<!--                  color="primary">Change-->
+<!--      </ion-button>-->
 
-      <ion-title>Add item to wishlist</ion-title>
+      <ion-title>Add target to wishlist</ion-title>
       <ion-button @click="$emit('canceled')" slot="end" size="small" fill="clear" color="medium">Cancel</ion-button>
     </ion-toolbar>
 
@@ -207,7 +207,7 @@ export default {
     return {
       cashOutline,
       addOutline,
-      step: 1,
+      step: 2,
       photo: null,
       cash: {
         amount: 0,

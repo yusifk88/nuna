@@ -30,6 +30,10 @@ export default defineComponent({
 
 <style>
 
+ion-card{
+  box-shadow: none !important;
+}
+
 ion-toolbar{
   --border-color:transparent;
   --border-width:0;
@@ -48,6 +52,11 @@ ion-header{
 
 }
 
+ion-button{
+  box-shadow: none !important;
+
+
+}
 .font-weight-bold {
   font-weight: bolder !important;
 }

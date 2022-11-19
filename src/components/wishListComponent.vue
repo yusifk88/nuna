@@ -84,7 +84,7 @@ export default {
   },
   data() {
     return {
-      initState: 0.3,
+      initState: 0.5,
       addOutline,
       newItem: false,
       presentingElement: undefined,

@@ -18,7 +18,7 @@
        class="ion-margin-top"
        @click="start"
        style="z-index: 999999 !important;"
-   >Create your registry<ion-icon :icon="arrowForwardOutline"></ion-icon></ion-button>
+   >Create registry<ion-icon :icon="arrowForwardOutline"></ion-icon></ion-button>
   </span>
 
     <weddin-welcom-animation v-if="step===1"></weddin-welcom-animation>

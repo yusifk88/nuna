@@ -2,7 +2,7 @@
   <ion-row>
     <ion-col size="6">
 
-      <ion-card mode="ios" class="no-margin" color="warning">
+      <ion-card mode="ios" class="no-margin" color="primary">
         <ion-card-header>
           <ion-card-subtitle>
            Total Guests
@@ -49,55 +49,6 @@
     </ion-col>
   </ion-row>
 
-  <ion-row>
-    <ion-col size="6">
-
-      <ion-card mode="ios" class="no-margin" color="default">
-        <ion-card-header>
-          <ion-card-subtitle>
-           Total Amount
-          </ion-card-subtitle>
-        </ion-card-header>
-        <ion-card-content>
-
-          <ion-row>
-            <ion-col size="8">
-              <h1 class="font-weight-bold">20K</h1>
-            </ion-col>
-            <ion-col size="4">
-              <ion-icon size="large" :icon="cashOutline"></ion-icon>
-            </ion-col>
-          </ion-row>
-
-        </ion-card-content>
-      </ion-card>
-    </ion-col>
-    <ion-col size="6">
-
-      <ion-card mode="ios" class="no-margin" color="primary">
-        <ion-card-header>
-          <ion-card-subtitle>
-            Wish List
-          </ion-card-subtitle>
-        </ion-card-header>
-        <ion-card-content>
-
-          <ion-row>
-            <ion-col size="8">
-
-              <h2 class="font-weight-bold">5 Items</h2>
-
-            </ion-col>
-            <ion-col size="4">
-              <ion-icon size="large" :icon="cartOutline"></ion-icon>
-            </ion-col>
-          </ion-row>
-
-        </ion-card-content>
-      </ion-card>
-
-    </ion-col>
-  </ion-row>
 </template>
 
 <script>

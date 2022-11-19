@@ -8,7 +8,8 @@
         <ion-row>
           <ion-col class="ion-align-self-start">
             <img height="40"
-                 src="https://objectstorage.uk-london-1.oraclecloud.com/n/lrj6a9vl4is6/b/MyBucket/o/logo.png">
+                 src="https://objectstorage.uk-london-1.oraclecloud.com/n/lrj6a9vl4is6/b/MyBucket/o/logo.png"
+            >
           </ion-col>
 
           <ion-col size="2" class="ion-align-self-end">
@@ -31,7 +32,7 @@
     <ion-content :fullscreen="true" class="ion-padding">
 
       <ion-row>
-        <ion-col size="8">
+        <ion-col size="7">
           <ion-text v-if="$store.state.user">
             <h2 class="no-margin no-padding">{{ $store.state.user.first_name }} {{ $store.state.user.last_name }}</h2>
 
@@ -41,11 +42,11 @@
           </ion-text>
         </ion-col>
 
-        <ion-col size="2">
+        <ion-col size="3">
 
-          <ion-fab-button @click="$router.push({path:'/new/wedding'})" id="add-shortcut" size="small" shape="round">
-            <ion-icon :icon="addOutline"></ion-icon>
-          </ion-fab-button>
+          <ion-button @click="$router.push({path:'/new/wedding'})" id="add-shortcut" fill="clear" shape="round">
+            <ion-icon :icon="addOutline"></ion-icon> Target
+          </ion-button>
 
 
         </ion-col>
@@ -102,7 +103,6 @@ import {
   IonRow,
   IonText,
   IonToolbar,
-    IonFabButton,
     IonButton
 } from '@ionic/vue';
 import GetStartedComponent from "@/components/getStartedComponent.vue";
@@ -128,7 +128,6 @@ export default defineComponent({
     IonPage,
     IonText,
     IonIcon,
-    IonFabButton,
     IonButton,
 
   },
