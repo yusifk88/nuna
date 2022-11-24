@@ -32,32 +32,34 @@
     <ion-content :fullscreen="true" class="ion-padding">
 
       <ion-row>
-        <ion-col size="7">
+        <ion-col size="8">
           <ion-text v-if="$store.state.user">
-            <h2 class="no-margin no-padding">{{ $store.state.user.first_name }} {{ $store.state.user.last_name }}</h2>
-
             <small v-if="!dashboard" class="text-muted">Let's get you up and running</small>
-            <small v-else class="text-muted ion-margin-start">Good day!</small>
+            <small v-else class="text-muted font-weight-bold">Good day!</small>
+
+            <h2 class="no-margin no-padding">{{ $store.state.user.first_name }} {{ $store.state.user.last_name }}</h2>
 
           </ion-text>
         </ion-col>
 
-        <ion-col size="3">
+        <ion-col size="2">
 
-          <ion-button @click="$router.push({path:'/new/wedding'})" id="add-shortcut" fill="clear" shape="round">
-            <ion-icon :icon="addOutline"></ion-icon> Target
+          <ion-button class="ion-margin-top" @click="getDashboard" shape="round" size="small" fill="clear">
+            <ion-icon size="large" :icon="reloadCircleOutline"></ion-icon>
           </ion-button>
-
 
         </ion-col>
 
         <ion-col size="2">
 
-          <ion-button class="ion-margin-top" @click="getDashboard" size="small" fill="clear">
-            <ion-icon size="large" :icon="reloadCircleOutline"></ion-icon>
+          <ion-button class="ion-margin-top" @click="$router.push({path:'/new/wedding'})" id="add-shortcut" fill="clear" shape="round" size="small">
+            <ion-icon size="large" :icon="shareOutline"></ion-icon>
           </ion-button>
 
+
         </ion-col>
+
+
 
 
       </ion-row>
@@ -91,7 +93,7 @@
 
 import store from "@/store";
 import {defineComponent} from 'vue';
-import {arrowForwardOutline, reloadCircleOutline, warningOutline,addOutline} from "ionicons/icons";
+import {arrowForwardOutline, reloadCircleOutline, warningOutline,addOutline,shareOutline} from "ionicons/icons";
 import {
   IonAvatar,
   IonBadge,
@@ -138,6 +140,7 @@ export default defineComponent({
       warningOutline,
       reloadCircleOutline,
       addOutline,
+      shareOutline,
       dashboard: null
     }
   },
@@ -152,6 +155,7 @@ export default defineComponent({
       axios.get("/dashboard")
           .then(res => {
             this.dashboard = res.data.data;
+            this.$store.state.weddings = this.dashboard.weddings;
 
             this.$store.state.mainLoading = false;
             if (e) {

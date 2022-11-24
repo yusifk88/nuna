@@ -8,6 +8,7 @@ export default createStore({
         errorMessage: "Something went wrong",
         errorsArr: [],
         user: null,
+        weddings:[],
         initApp: false,
         ErrorPosition:"bottom",
         headerTransparent:false,

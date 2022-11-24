@@ -2,7 +2,13 @@
   <ion-row>
     <ion-col size="6">
 
-      <ion-card mode="ios" class="no-margin" color="primary">
+      <ion-card
+          mode="ios"
+          class="no-margin"
+          color="primary"
+          style="background-image: url('/assets/patternpad.png'); background-size: contain; background-blend-mode: color-burn;"
+
+      >
         <ion-card-header>
           <ion-card-subtitle>
            Total Guests
@@ -25,7 +31,13 @@
     </ion-col>
     <ion-col size="6">
 
-      <ion-card mode="ios" class="no-margin" color="success">
+      <ion-card
+          mode="ios"
+          class="no-margin"
+          color="success"
+          style="background-image: url('/assets/patternpad.png'); background-size: contain; background-blend-mode: color-burn;"
+
+      >
         <ion-card-header>
           <ion-card-subtitle>
             Contributors

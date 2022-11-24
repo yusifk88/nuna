@@ -2,7 +2,7 @@
   <ion-content class="no-padding">
 
     <small class="text-muted">ALl Time</small>
-    <h3>GHS6,000.00/GHS10,000.00</h3>
+    <h3>GHS{{!wedding ? 0 : wedding.items_sum_target_amount}}/GHS{{!wedding ? 0 :wedding.items_sum_amount_contributed}}</h3>
     <ion-progress-bar color="success" value="0.8" style="height: 10px; border-radius: 5px"></ion-progress-bar>
 
 
@@ -66,13 +66,9 @@
 
 <script>
 import {
-  IonCard,
-  IonCardHeader,
-  IonCardSubtitle,
-  IonCardTitle,
+
   IonContent,
-  IonSegment,
-  IonSegmentButton,
+
     IonList,
     IonItem,
     IonLabel,
@@ -169,6 +165,19 @@ export default {
     }
   },
   computed: {
+
+    wedding(){
+      const weddings = this.$store.state.weddings;
+
+      if (weddings && weddings.length>=1){
+        return weddings[0];
+
+      }
+      return  null;
+
+
+    },
+
     filterName() {
       if (this.defaultSegment == "1d") {
         return "1 Day"
@@ -197,12 +206,6 @@ export default {
   },
   components: {
     IonContent,
-    IonSegment,
-    IonSegmentButton,
-    IonCard,
-    IonCardHeader,
-    IonCardSubtitle,
-    IonCardTitle,
     IonList,
     IonItem,
     IonLabel,

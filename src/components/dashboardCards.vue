@@ -7,13 +7,15 @@
          color="primary"
          class="no-margin ion-text-left"
          @click="$router.push({path:'/event/wedding/'+wedding.id})"
-         style="width: 100%; height: 200px; background-image: url('/assets/cardBG.png'); background-size: contain; background-blend-mode: color-burn;">
+         style="width: 100%; height: 200px; background-image: url('/assets/cardBG.png'); background-size: contain; background-blend-mode: darken;"
+     >
  <ion-card-header>
    <ion-row>
     <ion-col size="9" class="no-padding">
 
     <ion-card-title>Wedding</ion-card-title>
     <ion-card-subtitle>{{ wedding.groom_name }} & {{ wedding.bride_name }}</ion-card-subtitle>
+      <small>On {{ dateFormat(wedding.date_time) }}</small>
     </ion-col>
 
      <ion-col col="3">
@@ -31,7 +33,7 @@
   </ion-card-header>
        <ion-card-content>
 
-         <p class="ion-margin-bottom ion-padding-bottom">{{ wedding.date_time }}</p>
+         <p class="ion-margin-bottom ion-padding-bottom"></p>
 
 <ion-row>
   <ion-col size="8">
@@ -72,6 +74,7 @@ import {
 } from "@ionic/vue";
 
 import {cloudOfflineOutline, eyeOutline, globeOutline} from "ionicons/icons";
+import moment from "moment";
 
 export default {
   props: {
@@ -94,6 +97,11 @@ export default {
   name: "dashboardCards",
 
   methods: {
+    dateFormat(date){
+
+      return moment(date).format("Do MMM,YYYY h:mm a");
+
+    },
 
     getURL(wedding) {
 
