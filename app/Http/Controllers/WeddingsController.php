@@ -18,11 +18,30 @@ class WeddingsController extends Controller
 
         $user = \request()->user();
 
-        $weddings = Wedding::withSum("items","target_amount")
-            ->withSum("items","amount_contributed")
+        $weddings = Wedding::withSum("items", "target_amount")
+            ->withSum("items", "amount_contributed")
             ->where("user_id", $user->id)->orderBy("id", "desc")->get();
 
         return success_response($weddings);
+
+
+    }
+
+
+    public function publicPage($tag)
+    {
+
+        $wedding = Wedding::where("tag", $tag)->first();
+
+        //dd($wedding);
+
+        if (!$wedding) {
+            abort(404);
+
+        }
+
+
+        return view("wedding.index", ["wedding" => $wedding]);
 
 
     }
@@ -44,10 +63,6 @@ class WeddingsController extends Controller
 
 
     }
-
-
-
-
 
 
     public function store(Request $request): JsonResponse
@@ -72,7 +87,7 @@ class WeddingsController extends Controller
             "rsv_phone_number" => $request->rsv_phone_number,
             "rsv_person" => $request->rsv_person,
             "location" => $request->location,
-            "story"=>$request->story,
+            "story" => $request->story,
             "coordinates" => $request->coordinates,
             "date_time" => Carbon::parse($request->date_time)->toDateTimeString(),
             "user_id" => $request->user()->id,
