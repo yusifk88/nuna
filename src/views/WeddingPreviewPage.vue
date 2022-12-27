@@ -31,7 +31,7 @@
 
       <ion-content style="transition: 0.3s ease-in-out;" class="no-padding" v-if="defaultSegment==='items'">
 
-<!--        <wish-list-component v-if="wedding" :wedding-i-d="wedding.id"></wish-list-component>-->
+        <wish-list-component v-if="wedding" :wedding-i-d="wedding.id"></wish-list-component>
 
             <cash-target-component v-if="wedding" :wedding-i-d="wedding.id" ></cash-target-component>
 

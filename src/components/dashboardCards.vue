@@ -7,7 +7,7 @@
          color="primary"
          class="no-margin ion-text-left"
          @click="$router.push({path:'/event/wedding/'+wedding.id})"
-         style="width: 100%; height: 200px; background-image: url('/assets/cardBG.png'); background-size: contain; background-blend-mode: darken;"
+         style="width: 100%; height: 200px;"
      >
  <ion-card-header>
    <ion-row>

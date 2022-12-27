@@ -5,47 +5,53 @@
 
       <center>
 
-      <img style="margin-top: 40%; text-align: center"  width="100" src="https://objectstorage.uk-london-1.oraclecloud.com/n/lrj6a9vl4is6/b/MyBucket/o/logo.png">
+        <img style="margin-top: 40%; text-align: center" width="100"
+             src="https://objectstorage.uk-london-1.oraclecloud.com/n/lrj6a9vl4is6/b/MyBucket/o/logo.png">
       </center>
 
-      <h5 class="ion-text-center" >Create Account</h5>
+      <h5 class="ion-text-center">Create Account</h5>
       <div v-if="step==1" class="smooth-in">
 
-      <ion-item shape="round" fill="outline" class="ion-margin-bottom">
-        <ion-avatar slot="start">
-          <flag :iso="countryCode"></flag>
-        </ion-avatar>
-        <ion-select
-            interface="action-sheet"
-            placeholder="Select your country"
-            cancelText="Cancel"
-            v-model="countryCode"
-        >
-          <ion-select-option
-              v-for="country in countries"
-              :key="country.code"
-              :value="country.code"
-          ><flag :iso="country.code"></flag> {{ country.name }}
-          </ion-select-option>
+        <ion-item shape="round" fill="outline" class="ion-margin-bottom">
+          <ion-avatar slot="start">
+            <flag :iso="countryCode"></flag>
+          </ion-avatar>
+          <ion-select
+              interface="action-sheet"
+              placeholder="Select your country"
+              cancelText="Cancel"
+              v-model="countryCode"
+          >
+            <ion-select-option
+                v-for="country in countries"
+                :key="country.code"
+                :value="country.code"
+            >
+              <flag :iso="country.code"></flag>
+              {{ country.name }}
+            </ion-select-option>
 
-        </ion-select>
-      </ion-item>
+          </ion-select>
+        </ion-item>
 
-      <ion-button @click="goToStep(2)" size="large" expand="block" shape="round">Continue
-        <ion-icon :icon="arrowForwardOutline"/>
-      </ion-button>
+        <ion-button @click="goToStep(2)" size="large" expand="block" shape="round">Continue
+          <ion-icon :icon="arrowForwardOutline"/>
+        </ion-button>
 
-    </div>
+      </div>
 
 
       <div id="section" class="smooth-in" v-if="step==2">
 
 
-      <h6 class="ion-text-center">Personal Information</h6>
- <ion-button fill="clear" class="ion-align-self-start" @click="step=step-1"><ion-icon
-     :icon="arrowBackOutline"></ion-icon>Back</ion-button>
+        <h6 class="ion-text-center">Personal Information</h6>
+        <ion-button fill="clear" class="ion-align-self-start" @click="step=step-1">
+          <ion-icon
+              :icon="arrowBackOutline"></ion-icon>
+          Back
+        </ion-button>
 
-       <ion-item fill="outline" shape="round">
+        <ion-item fill="outline" shape="round">
           <ion-input v-model="firstName" type="text" placeholder="First Name"></ion-input>
         </ion-item>
 
@@ -54,30 +60,42 @@
         </ion-item>
 
 
-        <ion-item class="ion-margin-top" fill="outline" shape="round">
-            <ion-input v-model="birthDate" type="date" placeholder="Date of Birth"></ion-input>
+        <ion-item shape="round" class="ion-margin-top" fill="outline">
+          <ion-label>Birth Date:</ion-label>
+          <ion-datetime-button datetime="datetime"></ion-datetime-button>
+          <ion-modal
+              :keep-contents-mounted="true">
+            <ion-datetime presentation="date" @ionChange="dateSelected" :show-default-buttons="true" hourCycle="h12" locale="en-GB"
+                          id="datetime">
+              <span slot="title">Set your date of birth</span>
+            </ion-datetime>
+          </ion-modal>
 
         </ion-item>
 
+
         <ion-item class="ion-margin-top" fill="outline" shape="round">
-            <ion-input v-model="idnumber" type="text" placeholder="ID Number"></ion-input>
+          <ion-input v-model="idnumber" type="text" placeholder="ID Number"></ion-input>
         </ion-item>
 
-      <ion-button @click="goToStep(3)" :disabled="!firstName || !lastName || !birthDate || !idnumber"
-                  class="ion-margin-top" size="large" expand="block" shape="round">Continue
-        <ion-icon :icon="arrowForwardOutline"/>
-      </ion-button>
+        <ion-button @click="goToStep(3)" :disabled="!firstName || !lastName || !birthDate || !idnumber"
+                    class="ion-margin-top" size="large" expand="block" shape="round">Continue
+          <ion-icon :icon="arrowForwardOutline"/>
+        </ion-button>
 
-    </div>
+      </div>
 
       <div id="section" v-if="step==3" class="smooth-in">
 
 
-      <h6 class="ion-text-center">Account Information</h6>
- <ion-button :disabled="progress" fill="clear" class="ion-align-self-start" @click="step=step-1"><ion-icon
-     :icon="arrowBackOutline"></ion-icon>Back</ion-button>
+        <h6 class="ion-text-center">Account Information</h6>
+        <ion-button :disabled="progress" fill="clear" class="ion-align-self-start" @click="step=step-1">
+          <ion-icon
+              :icon="arrowBackOutline"></ion-icon>
+          Back
+        </ion-button>
 
-       <ion-item fill="outline" shape="round">
+        <ion-item fill="outline" shape="round">
           <ion-input :disabled="progress" v-model="email" type="email" placeholder="Email"></ion-input>
         </ion-item>
 
@@ -86,28 +104,28 @@
         </ion-item>
 
         <ion-item class="ion-margin-top" fill="outline" shape="round">
-            <ion-input :disabled="progress" v-model="password" type="password" placeholder="Password"></ion-input>
+          <ion-input :disabled="progress" v-model="password" type="password" placeholder="Password"></ion-input>
         </ion-item>
 
         <ion-item class="ion-margin-top" fill="outline" shape="round">
-            <ion-input :disabled="progress" v-model="passwordConfirmation" type="password"
-                       placeholder="Confirm Password"></ion-input>
+          <ion-input :disabled="progress" v-model="passwordConfirmation" type="password"
+                     placeholder="Confirm Password"></ion-input>
         </ion-item>
 
-      <ion-button @click="signup"
-                  :disabled="!email || !phoneNumber || !password || !passwordConfirmation || progress"
-                  class="ion-margin-top" size="large"
-                  expand="block" shape="round">
-        <template v-if="!progress">
-             Finish
-        <ion-icon :icon="checkmarkOutline"/>
-        </template>
+        <ion-button @click="signup"
+                    :disabled="!email || !phoneNumber || !password || !passwordConfirmation || progress"
+                    class="ion-margin-top" size="large"
+                    expand="block" shape="round">
+          <template v-if="!progress">
+            Finish
+            <ion-icon :icon="checkmarkOutline"/>
+          </template>
 
-        <ion-spinner v-else></ion-spinner>
+          <ion-spinner v-else></ion-spinner>
 
-      </ion-button>
+        </ion-button>
 
-    </div>
+      </div>
 
 
       <p>Already have an account?
@@ -123,18 +141,22 @@
 import {defineComponent} from 'vue';
 import store from "@/store";
 import {
-  IonPage,
-  IonContent,
-  IonItem,
+  IonAvatar,
   IonButton,
+  IonContent,
+  IonIcon,
+  IonInput,
+  IonItem,
+  IonPage,
   IonSelect,
   IonSelectOption,
-  IonIcon,
-  IonAvatar,
-  IonInput,
   IonSpinner,
+  IonDatetime,
+  IonDatetimeButton,
+    IonModal,
+    IonLabel
 } from '@ionic/vue';
-import {arrowForwardOutline, arrowBackOutline, checkmarkOutline} from "ionicons/icons";
+import {arrowBackOutline, arrowForwardOutline, checkmarkOutline} from "ionicons/icons";
 import Flag from "@/components/flag.vue";
 import axios from "axios";
 
@@ -151,10 +173,14 @@ export default defineComponent({
     IonSelectOption,
     IonIcon,
     IonAvatar,
-    IonInput
+    IonInput,
+    IonDatetime,
+    IonDatetimeButton,
+    IonModal,
+    IonLabel
   },
-  data(){
-    return{
+  data() {
+    return {
       arrowForwardOutline,
       arrowBackOutline,
       checkmarkOutline,
@@ -187,42 +213,45 @@ export default defineComponent({
     }
   },
   methods: {
-      goToStep(userStep: number) {
-       this.step = userStep;
-      },
-      signup() {
+
+    dateSelected(dateTime: { detail: { value: string; }; }) {
+      this.birthDate = dateTime.detail.value;
+    },
+    goToStep(userStep: number) {
+      this.step = userStep;
+    },
+    signup() {
 
 
-       this.progress = true;
-        const formData = new FormData();
-        formData.append("first_name", this.firstName);
-        formData.append("last_name", this.lastName);
-        formData.append("phone_number", this.phoneNumber);
-        formData.append("country_code", this.countryCode);
-        formData.append("id_number", this.idnumber);
-        formData.append("birth_date", this.birthDate);
-        formData.append("email", this.email);
-        formData.append("password", this.password);
-        formData.append("password_confirmation", this.passwordConfirmation);
-        axios.post("signup", formData)
-            .then(res => {
-              this.progress = false;
-              localStorage.token = res.data.data.token;
-              store.state.user = res.data.data.user;
+      this.progress = true;
+      const formData = new FormData();
+      formData.append("first_name", this.firstName);
+      formData.append("last_name", this.lastName);
+      formData.append("phone_number", this.phoneNumber);
+      formData.append("country_code", this.countryCode);
+      formData.append("id_number", this.idnumber);
+      formData.append("birth_date", this.birthDate);
+      formData.append("email", this.email);
+      formData.append("password", this.password);
+      formData.append("password_confirmation", this.passwordConfirmation);
+      axios.post("signup", formData)
+          .then(res => {
+            this.progress = false;
+            localStorage.token = res.data.data.token;
+            store.state.user = res.data.data.user;
 
-              axios.defaults.headers.common = {
-                Authorization: `Bearer ${localStorage.token}`,
-              };
+            axios.defaults.headers.common = {
+              Authorization: `Bearer ${localStorage.token}`,
+            };
 
-              this.$router.push("/tabs");
+            this.$router.push("/tabs");
 
 
-            })
-            .catch(error => {
-              this.progress = false;
+          })
+          .catch(error => {
+            this.progress = false;
 
-            })
-
+          })
 
 
     }
