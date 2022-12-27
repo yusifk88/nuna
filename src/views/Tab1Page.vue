@@ -52,7 +52,7 @@
 
         <ion-col size="2">
 
-          <ion-button class="ion-margin-top" @click="$router.push({path:'/new/wedding'})" id="add-shortcut" fill="clear" shape="round" size="small">
+          <ion-button class="ion-margin-top" @click="shareLink(getURL(dashboard.weddings[0]))" id="add-shortcut" fill="clear" shape="round" size="small">
             <ion-icon size="large" :icon="shareOutline"></ion-icon>
           </ion-button>
 
@@ -92,6 +92,8 @@
 <script>
 
 import store from "@/store";
+import { Share } from '@capacitor/share';
+
 import {defineComponent} from 'vue';
 import {arrowForwardOutline, reloadCircleOutline, warningOutline,addOutline,shareOutline} from "ionicons/icons";
 import {
@@ -145,6 +147,23 @@ export default defineComponent({
     }
   },
   methods: {
+    getURL(wedding) {
+
+      return "https://mynuuna.com/w/" + wedding.tag;
+
+
+    },
+   async shareLink(link){
+
+      await Share.share({
+        title: this.dashboard.weddings[0].tag,
+        text: this.dashboard.weddings[0].groom_name+" and "+this.dashboard.weddings[0].bride_name+"'s wedding",
+        url: link,
+        dialogTitle: 'Share you wedding link',
+      });
+
+    },
+
 
     getDashboard(e) {
 

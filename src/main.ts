@@ -54,7 +54,7 @@ router.isReady().then(() => {
     window.axios = axios;
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    window.axios.defaults.baseURL = "http://127.0.0.1:8000/api/";
+    window.axios.defaults.baseURL = "https://mynunaa.com/api/";
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     window.axios.defaults.headers.common = {

@@ -6,7 +6,7 @@
           mode="ios"
           class="no-margin"
           color="primary"
-          style="background-image: url('/assets/patternpad.png'); background-size: contain; background-blend-mode: color-burn;"
+          style="background-image: url('/assets/patternpad.png'); background-size: contain; background-blend-mode: darken;"
 
       >
         <ion-card-header>
@@ -35,7 +35,7 @@
           mode="ios"
           class="no-margin"
           color="success"
-          style="background-image: url('/assets/patternpad.png'); background-size: contain; background-blend-mode: color-burn;"
+          style="background-image: url('/assets/patternpad.png'); background-size: contain; background-blend-mode: darken;"
 
       >
         <ion-card-header>

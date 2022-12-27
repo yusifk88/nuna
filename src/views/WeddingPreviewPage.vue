@@ -95,7 +95,7 @@
         <h2>Reservation</h2>
 
         <ion-row>
-          <ion-col size="12" class="ion-text-center">
+          <ion-col size="6" class="ion-text-center">
 
             <qrcode-vue
                 render-as="svg"
@@ -105,6 +105,9 @@
                 class="ion-margin"
             ></qrcode-vue>
 
+          </ion-col>
+          <ion-col size="6" class="ion-text-center">
+            <a :href="getURL(wedding)">Preview</a>
           </ion-col>
         </ion-row>
 

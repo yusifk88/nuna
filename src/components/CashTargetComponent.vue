@@ -3,7 +3,7 @@
 
     <small class="text-muted">ALl Time</small>
     <h3>GHS{{!wedding ? 0 : wedding.items_sum_target_amount}}/GHS{{!wedding ? 0 :wedding.items_sum_amount_contributed}}</h3>
-    <ion-progress-bar color="success" value="0.8" style="height: 10px; border-radius: 5px"></ion-progress-bar>
+    <ion-progress-bar color="success" :value="percent" style="height: 10px; border-radius: 5px"></ion-progress-bar>
 
 
 <!--    <ion-segment-->
@@ -165,6 +165,20 @@ export default {
     }
   },
   computed: {
+    percent(){
+
+      if (!this.wedding){
+        return 0;
+
+      }
+      if (this.wedding.items_sum_amount_contributed<=0){
+        return 0;
+      }
+
+      return this.wedding.items_sum_amount_contributed/this.wedding.items_sum_target_amount;
+
+    },
+
 
     wedding(){
       const weddings = this.$store.state.weddings;

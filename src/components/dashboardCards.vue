@@ -43,8 +43,8 @@
            }}/GHS{{ Number(wedding.items_sum_amount_contributed).toFixed("2") }}</h2>
   </ion-col>
   <ion-col size="4">
-            <img height="80"
-                 src="https://objectstorage.uk-london-1.oraclecloud.com/n/lrj6a9vl4is6/b/MyBucket/o/wedding.svg">
+
+    <img height="80" src="https://objectstorage.uk-london-1.oraclecloud.com/n/lrj6a9vl4is6/b/MyBucket/o/wedding.svg">
 
   </ion-col>
 </ion-row>

@@ -18,6 +18,7 @@
     "@capacitor/haptics": "4.0.1",
     "@capacitor/ios": "4.2.0",
     "@capacitor/keyboard": "4.0.1",
+    "@capacitor/share": "^4.1.0",
     "@capacitor/status-bar": "4.0.1",
     "@fawmi/vue-google-maps": "^0.9.79",
     "@ionic-native/geolocation": "^5.36.0",
