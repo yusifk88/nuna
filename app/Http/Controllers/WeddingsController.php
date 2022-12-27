@@ -7,7 +7,9 @@ use App\Repositories\UtilityRepository;
 use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
+use Symfony\Component\HttpFoundation\Response;
 
 class WeddingsController extends Controller
 {
@@ -76,6 +78,9 @@ class WeddingsController extends Controller
         ]);
 
 
+        Log::info($request->all());
+
+
         $wedding = new Wedding([
             "bride_name" => $request->bride_name,
             "bride_phone_number" => $request->bride_phone_number,
@@ -99,8 +104,12 @@ class WeddingsController extends Controller
 
         $wedding->save();
 
-        return success_response($wedding);
+        if ($wedding) {
 
+            return success_response($wedding);
+        }
+
+        return failed_response([], Response::HTTP_INTERNAL_SERVER_ERROR, "Something went wrong, could not create wedding registry");
 
     }
 }

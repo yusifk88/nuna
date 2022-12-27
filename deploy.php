@@ -8,6 +8,7 @@ require 'recipe/laravel.php';
 set('application', 'backend');
 
 set('repository', 'https://github.com/yusifk88/nuna.git');
+set('branch', 'main');
 
 add('shared_files', ['.env']);
 add('shared_dirs', ['vendor']);
@@ -17,7 +18,6 @@ add('writable_dirs', ['storage']);
 
 host('206.189.30.177')
     ->set('remote_user', 'deployer')
-    ->identityFile('~/.ssh/deployerkey')
     ->set('deploy_path', '/var/www/html/backend');
 
 // Hooks
