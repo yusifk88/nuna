@@ -62,7 +62,7 @@
           <ion-label>
             GHS
           </ion-label>
-          <ion-input :disabled="saving" v-model="cash.amount" inputmode="decimal"
+          <ion-input :autofocus="true" :disabled="saving" v-model="cash.amount" inputmode="decimal"
                      placeholder="Target Amount"></ion-input>
         </ion-item>
 

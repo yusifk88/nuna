@@ -26,7 +26,7 @@
 
     <ion-modal
         :initial-breakpoint="initState"
-        :breakpoints="[0, 0.25,0.3, 0.5,0.6, 0.75,1]"
+        :breakpoints="[0,0.5]"
         mode="ios"
         :is-open="newItem"
         :swipeToClose="true"
@@ -37,14 +37,13 @@
           @itemSaved="itemWasCreated"
           :wedding-i-d="weddingID"
           @stepUp="stepUp"
-
           @canceled="canDismiss=true;newItem=false"></new-wish-list-item>
 
     </ion-modal>
     </span>
 
 
-    <ion-fab slot="fixed" vertical="bottom" horizontal="end" v-if="items && items.length">
+    <ion-fab slot="fixed" vertical="bottom" horizontal="end" v-if="false">
       <ion-fab-button @click="newItem=true">
         <ion-icon :icon="addOutline"></ion-icon>
       </ion-fab-button>

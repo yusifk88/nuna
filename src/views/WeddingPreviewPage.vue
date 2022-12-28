@@ -31,9 +31,9 @@
 
       <ion-content style="transition: 0.3s ease-in-out;" class="no-padding" v-if="defaultSegment==='items'">
 
-        <wish-list-component v-if="wedding" :wedding-i-d="wedding.id"></wish-list-component>
+<!--        <wish-list-component  :wedding-i-d="wedding.id"></wish-list-component>-->
 
-            <cash-target-component v-if="wedding" :wedding-i-d="wedding.id" ></cash-target-component>
+            <cash-target-component :wedding="wedding" @cashAdded="getWedding"  :wedding-i-d="wedding.id" ></cash-target-component>
 
       </ion-content>
 
@@ -279,7 +279,7 @@ export default {
 
     getURL(wedding) {
 
-      return "https://mynuuna.com/w/" + wedding.tag;
+      return "https://mynunaa.com/w/" + wedding.tag;
 
 
     },

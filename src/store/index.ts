@@ -15,7 +15,7 @@ export default createStore({
         mainLoading:false,
         mainLoadingText:"Please wait",
         mainLoadingDescription:"",
-        baseURL:"http://127.0.0.1:8000"
+        baseURL:"https://mynunaa.com"
     },
     mutations: {
         initUser(state) {

@@ -149,7 +149,7 @@ export default defineComponent({
   methods: {
     getURL(wedding) {
 
-      return "https://mynuuna.com/w/" + wedding.tag;
+      return "https://mynunaa.com/w/" + wedding.tag;
 
 
     },
