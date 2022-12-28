@@ -7,7 +7,6 @@ use App\Repositories\UtilityRepository;
 use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -52,7 +51,9 @@ class WeddingsController extends Controller
     public function show($id)
     {
 
-        $wedding = Wedding::where("id", $id)
+        $wedding = Wedding::withSum("items", "target_amount")
+            ->withSum("items", "amount_contributed")
+            ->where("id", $id)
             ->where("user_id", \request()->user()->id)
             ->first();
         if ($wedding) {
@@ -76,9 +77,6 @@ class WeddingsController extends Controller
             "date_time" => "required",
             "tag" => "unique:wedding,tag"
         ]);
-
-
-        Log::info($request->all());
 
 
         $wedding = new Wedding([
