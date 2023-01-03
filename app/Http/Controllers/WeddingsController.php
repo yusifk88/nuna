@@ -42,7 +42,12 @@ class WeddingsController extends Controller
         }
 
 
-        return view("wedding.index", ["wedding" => $wedding]);
+       $year = Carbon::parse($wedding->date_time)->year;
+       $month = Carbon::parse($wedding->date_time)->month;
+       $day = Carbon::parse($wedding->date_time)->day;
+
+
+        return view("wedding.index", ["wedding" => $wedding,"year"=>$year,"month"=>$month,"day"=>$day]);
 
 
     }

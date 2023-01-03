@@ -16,9 +16,9 @@ add('writable_dirs', ['storage']);
 
 // Hosts
 
-host('206.189.30.177')
+host('134.209.186.174')
     ->set('remote_user', 'deployer')
-    ->set('deploy_path', '/var/www/html/backend');
+    ->set('deploy_path', '/var/www/html/mynunaa.com');
 
 // Hooks
 before('deploy:symlink', 'artisan:migrate');

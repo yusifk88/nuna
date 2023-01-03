@@ -16,19 +16,19 @@
           content="{{$wedding->groom_name}} & {{$wedding->bride_name}}'s wedding at {{$wedding->location}}"/>
     <meta name="keywords"
           content="wedding, {{$wedding->groom_name}}, {{$wedding->bride_name}}, {{$wedding->location}}  "/>
-    <meta name="author" content="FREEHTML5.CO"/>
+    <meta name="author" content="Nuna Technologies"/>
 
     <meta property="og:title"
           content="{{$wedding->groom_name}} & {{$wedding->bride_name}}'s wedding at {{$wedding->location}}"/>
-    <meta property="og:image" content=""/>
-    <meta property="og:url" content=""/>
+    <meta property="og:image" content="{{$wedding->photo_one}}"/>
+    <meta property="og:url" content="https://mynunna.com/w/{{$wedding->tag}}"/>
     <meta property="og:site_name" content="Nuna"/>
     <meta property="og:description"
           content="{{$wedding->groom_name}} & {{$wedding->bride_name}}'s wedding at {{$wedding->location}}"/>
     <meta name="twitter:title"
           content="{{$wedding->groom_name}} & {{$wedding->bride_name}}'s wedding at {{$wedding->location}}"/>
-    <meta name="twitter:image" content=""/>
-    <meta name="twitter:url" content=""/>
+    <meta name="twitter:image" content="{{$wedding->photo_one}}"/>
+    <meta name="twitter:url" content="https://mynunna.com/w/{{$wedding->tag}}"/>
     <meta name="twitter:card"
           content="{{$wedding->groom_name}} & {{$wedding->bride_name}}'s wedding at {{$wedding->location}}"/>
 
@@ -70,22 +70,17 @@
         <div class="container">
             <div class="row">
                 <div class="col-xs-2">
-                    <div id="fh5co-logo"><a href="index.html">Wedding<strong>.</strong></a></div>
+                    <div id="fh5co-logo"><a href="">Wedding<strong>.</strong></a></div>
                 </div>
                 <div class="col-xs-10 text-right menu-1">
                     <ul>
                         <li class="active"><a href="index.html">Home</a></li>
-                        <li><a href="about.html">Story</a></li>
-                        <li class="has-dropdown">
-                            <a href="gallery.html">Gallery</a>
-                            <ul class="dropdown">
-                                <li><a href="#">HTML5</a></li>
-                                <li><a href="#">CSS3</a></li>
-                                <li><a href="#">Sass</a></li>
-                                <li><a href="#">jQuery</a></li>
-                            </ul>
+                        <li><a href="#fh5co-couple-story">Story</a></li>
+                        <li>
+                            <a href="#fh5co-gallery">Gallery</a>
+
                         </li>
-                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="#fh5co-started">Contact</a></li>
                     </ul>
                 </div>
             </div>
@@ -108,7 +103,7 @@
 
                             <a href="#" class="btn btn-primary btn-lg">Send a gift</a>
                             <a href="#" class="btn btn-default btn-lg">Save the date</a>
-                            <a href="#" class="btn btn-primary btn-lg">Add RSVP</a>
+                            <a href="#fh5co-started" class="btn btn-primary btn-lg">Add RSVP</a>
                         </div>
                     </div>
                 </div>
@@ -167,13 +162,12 @@
                                     <h3>Main Ceremony</h3>
                                     <div class="event-col">
                                         <i class="icon-clock"></i>
-                                        <span>4:00 PM</span>
-                                        <span>6:00 PM</span>
+                                        <span>{{\Carbon\Carbon::parse($wedding->date_time)->toTimeString()}}</span>
                                     </div>
                                     <div class="event-col">
                                         <i class="icon-calendar"></i>
-                                        <span>Monday 28</span>
-                                        <span>November, 2016</span>
+                                        <span>{{\Carbon\Carbon::parse($wedding->date_time)->isoFormat('MMMM Do, YYYY')}}</span>
+
                                     </div>
                                     <div class="event-col">
                                         <i class="icon-add-user"></i>
@@ -498,16 +492,25 @@
             <div class="row animate-box">
                 <div class="col-md-10 col-md-offset-1">
                     <form class="form-inline">
+
                         <div class="col-md-4 col-sm-4">
                             <div class="form-group">
-                                <label for="name" class="sr-only">Name</label>
-                                <input type="name" class="form-control" id="name" placeholder="Name">
+                                <label for="name" class="sr-only">Full Name</label>
+                                <input type="text" class="form-control" id="name" placeholder="Full Name">
                             </div>
                         </div>
+
+                          <div class="col-md-4 col-sm-4">
+                            <div class="form-group">
+                                <label for="name" class="sr-only">Phone Number</label>
+                                <input type="tel" class="form-control" id="phone_number" placeholder="Phone Number">
+                            </div>
+                        </div>
+
                         <div class="col-md-4 col-sm-4">
                             <div class="form-group">
-                                <label for="email" class="sr-only">Email</label>
-                                <input type="email" class="form-control" id="email" placeholder="Email">
+                                <label for="email" class="sr-only">Email(optional)</label>
+                                <input type="email" class="form-control" id="email" placeholder="Email(optional)">
                             </div>
                         </div>
                         <div class="col-md-4 col-sm-4">
@@ -575,16 +578,16 @@
 
     // default example
     simplyCountdown('.simply-countdown-one', {
-        year: d.getFullYear(),
-        month: d.getMonth() + 1,
-        day: d.getDate()
+        year: <?=$year?>,
+        month: <?=$month?> + 1,
+        day: <?=$day?>,
     });
 
     //jQuery example
     $('#simply-countdown-losange').simplyCountdown({
-        year: d.getFullYear(),
-        month: d.getMonth() + 1,
-        day: d.getDate(),
+        year: <?=$year?>,
+        month: <?=$month?> + 1,
+        day: <?=$day?>,
         enableUtc: false
     });
 </script>
