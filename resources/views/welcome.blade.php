@@ -49,7 +49,7 @@
     <link rel="stylesheet" href="/assets/css/style.css">
     <link href="//cdn-images.mailchimp.com/embedcode/classic-071822.css" rel="stylesheet" type="text/css">
     <style type="text/css">
-        #mc_embed_signup{background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif;  width:600px; padding: 25px}
+        #mc_embed_signup{background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif;  width:100%; padding: 25px}
         /* Add your own Mailchimp form style overrides in your site stylesheet or in this style block.
            We recommend moving this block and the preceding CSS link to the HEAD of your HTML file. */
     </style>
@@ -137,7 +137,7 @@
 
                                     <!-- Begin Mailchimp Signup Form -->
 
-                                    <div id="mc_embed_signup">
+                                    <div id="mc_embed_signup" class="card">
                                         <form action="https://mynunaa.us13.list-manage.com/subscribe/post?u=cf98938053d7813a773a3a678&amp;id=391548aa93&amp;f_id=0040e1e2f0" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
                                             <div id="mc_embed_signup_scroll">
                                                 <h2>Join Nuna</h2>
@@ -489,7 +489,7 @@
 
                             <!-- Begin Mailchimp Signup Form -->
 
-                            <div id="mc_embed_signup">
+                            <div id="mc_embed_signup" class="card">
                                 <form action="https://mynunaa.us13.list-manage.com/subscribe/post?u=cf98938053d7813a773a3a678&amp;id=391548aa93&amp;f_id=0040e1e2f0" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
                                     <div id="mc_embed_signup_scroll">
                                         <h2>Join Nuna</h2>
