@@ -5,25 +5,19 @@
       <ion-card
           mode="ios"
           class="no-margin"
-          color="primary"
-          style="background-image: url('/assets/patternpad.png'); background-size: contain; background-blend-mode: darken;"
+          style="background-color: rgba(0,128,128,0.2)"
 
       >
-        <ion-card-header>
-          <ion-card-subtitle>
-           Total Guests
-          </ion-card-subtitle>
-        </ion-card-header>
+
         <ion-card-content>
 
           <ion-row>
-            <ion-col size="8">
+            <ion-col size="12" class="ion-text-center">
 
-              <h1 class="font-weight-bold">300</h1>
+              <h1 class="font-weight-light" style="color: teal">300 <ion-icon size="small" :icon="peopleOutline"></ion-icon></h1>
+              <small style="color: teal">Total Guests</small>
             </ion-col>
-            <ion-col size="4">
-              <ion-icon size="large" :icon="peopleOutline"></ion-icon>
-            </ion-col>
+
           </ion-row>
 
         </ion-card-content>
@@ -34,25 +28,19 @@
       <ion-card
           mode="ios"
           class="no-margin"
-          color="success"
-          style="background-image: url('/assets/patternpad.png'); background-size: contain; background-blend-mode: darken;"
+          style="background-color: rgba(45,211,111,0.19);color:#2dd36f;"
 
       >
-        <ion-card-header>
-          <ion-card-subtitle>
-            Contributors
-          </ion-card-subtitle>
-        </ion-card-header>
+
         <ion-card-content>
 
           <ion-row>
-            <ion-col size="8">
+            <ion-col size="12" class="ion-text-center">
 
-              <h1 class="font-weight-bold">30</h1>
+              <h1 class="font-weight-light">30  <ion-icon size="small" :icon="peopleOutline"></ion-icon></h1>
+              <small>Contributors</small>
             </ion-col>
-            <ion-col size="4">
-              <ion-icon size="large" :icon="peopleOutline"></ion-icon>
-            </ion-col>
+
           </ion-row>
 
         </ion-card-content>
@@ -64,12 +52,12 @@
 </template>
 
 <script>
-import {IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCol, IonRow,IonIcon} from "@ionic/vue";
+import {IonCard, IonCardContent, IonCol, IonRow,IonIcon} from "@ionic/vue";
 import {peopleOutline,cashOutline,cartOutline} from "ionicons/icons";
 
 export default {
   name: "dashboardSummaryComponent",
-  components: {IonRow, IonCol, IonCard, IonCardSubtitle, IonCardHeader, IonCardContent,IonIcon},
+  components: {IonRow, IonCol, IonCard, IonCardContent,IonIcon},
   data() {
     return {
       peopleOutline,

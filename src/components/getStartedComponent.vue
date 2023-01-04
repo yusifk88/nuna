@@ -1,61 +1,41 @@
 <template>
 <ion-row>
-  <ion-col size="6" class="no-padding">
-    <ion-card router-link="/new/wedding" mode="ios" class="no-margin" color="tertiary">
-      <ion-card-content class="ion-text-center">
-        <img height="80" src="https://objectstorage.uk-london-1.oraclecloud.com/n/lrj6a9vl4is6/b/MyBucket/o/wedding.svg">
-      </ion-card-content>
-      <ion-card-header>
-        <ion-card-subtitle>
-         <ion-icon :icon="addCircleOutline"></ion-icon> wedding Registry
-        </ion-card-subtitle>
-      </ion-card-header>
-      <ion-card-content>
-        <p>
-          Make a registry for your wedding.
-        </p>
-      </ion-card-content>
-    </ion-card>
+  <ion-col size="12" class="no-padding">
+
+    <no-record-component
+        title="You have no registries yet"
+        description="Your account is currently empty, create your first wedding registry page."
+        button-text="Create registry"
+        :button-icon="arrowForwardOutline"
+        show-icon
+        @buttonTapped="NoRecordButtonTapped"
+    ></no-record-component>
 
   </ion-col>
-
-
-    <ion-col size="6" class="no-padding">
-    <ion-card color="danger" mode="ios" class="no-margin ion-margin-top">
-      <ion-card-content class="ion-text-center">
-        <img height="80" src="https://objectstorage.uk-london-1.oraclecloud.com/n/lrj6a9vl4is6/b/MyBucket/o/undraw_heartbroken_cble.svg">
-      </ion-card-content>
-      <ion-card-header>
-        <ion-card-subtitle>
-          <ion-icon :icon="addCircleOutline"></ion-icon> Funeral Registry
-        </ion-card-subtitle>
-      </ion-card-header>
-      <ion-card-content>
-        <p>
-          Make a Registry for a funeral
-        </p>
-
-      </ion-card-content>
-    </ion-card>
-  </ion-col>
-
-
-
-
 
 </ion-row>
 </template>
 
 <script>
-import {addCircleOutline} from "ionicons/icons";
-import {IonRow,IonCol,IonCard,IonCardContent,IonCardHeader,IonCardSubtitle,IonIcon} from "@ionic/vue";
+import {addCircleOutline,arrowForwardOutline} from "ionicons/icons";
+import {IonRow,IonCol} from "@ionic/vue";
+import NoRecordComponent from "@/components/NoRecordComponent";
 
 export default {
   name: "getStartedComponent",
-  components:{IonRow,IonCol,IonCard,IonCardContent,IonCardHeader,IonCardSubtitle,IonIcon},
+  components:{NoRecordComponent, IonRow,IonCol},
   data(){
     return{
-      addCircleOutline
+      addCircleOutline,
+      arrowForwardOutline
+
+    }
+  },
+  methods:{
+    NoRecordButtonTapped() {
+      this.$router.push({
+        path: "/new/wedding"
+      });
 
     }
   }

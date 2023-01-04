@@ -1,6 +1,10 @@
 apply plugin: 'com.android.application'
 
 android {
+
+    lint {
+        checkReleaseBuilds false
+    }
     compileSdkVersion rootProject.ext.compileSdkVersion
     defaultConfig {
         applicationId "io.ionic.starter"

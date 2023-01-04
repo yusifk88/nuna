@@ -13,10 +13,8 @@
           </ion-col>
 
           <ion-col size="2" class="ion-align-self-end">
-            <ion-badge v-if="$store.state.user && !$store.state.user.email_verified_at" color="warning">
-              <ion-icon :icon="warningOutline"></ion-icon>
-            </ion-badge>
-            <ion-avatar style="border: 2px solid #ffd200" v-if="$store.state.user">
+
+            <ion-avatar v-if="$store.state.user">
               <img width="10" :alt="$store.state.user.first_name+' profile photo'"
                    src="https://ionicframework.com/docs/demos/api/avatar/avatar.svg"/>
             </ion-avatar>
@@ -28,8 +26,13 @@
 
     </ion-header>
 
+    <list-loading-component v-if="loading" :count="6"></list-loading-component>
 
-    <ion-content :fullscreen="true" class="ion-padding">
+    <ion-content v-else :fullscreen="true" class="ion-padding">
+
+      <ion-refresher @ionRefresh="getDashboard($event)" slot="fixed">
+        <ion-refresher-content></ion-refresher-content>
+      </ion-refresher>
 
       <ion-row>
         <ion-col size="8">
@@ -52,7 +55,7 @@
 
         <ion-col size="2">
 
-          <ion-button class="ion-margin-top" @click="shareLink(getURL(dashboard.weddings[0]))" id="add-shortcut" fill="clear" shape="round" size="small">
+          <ion-button v-if="dashboard && dashboard.weddings.length>0" class="ion-margin-top" @click="shareLink(getURL(dashboard.weddings[0]))" id="add-shortcut" fill="clear" shape="round" size="small">
             <ion-icon size="large" :icon="shareOutline"></ion-icon>
           </ion-button>
 
@@ -87,6 +90,9 @@
       <dashbord-recent-acitivities-component v-if="dashboard && dashboard.weddings.length"></dashbord-recent-acitivities-component>
     </ion-content>
   </ion-page>
+
+<!--  <loading-component></loading-component>-->
+
 </template>
 
 <script>
@@ -98,7 +104,6 @@ import {defineComponent} from 'vue';
 import {arrowForwardOutline, reloadCircleOutline, warningOutline,addOutline,shareOutline} from "ionicons/icons";
 import {
   IonAvatar,
-  IonBadge,
   IonCol,
   IonContent,
   IonHeader,
@@ -107,22 +112,25 @@ import {
   IonRow,
   IonText,
   IonToolbar,
-    IonButton
+    IonButton,
+    IonRefresher,
+    IonRefresherContent
 } from '@ionic/vue';
 import GetStartedComponent from "@/components/getStartedComponent.vue";
 import axios from "axios";
 import DashboardCards from "@/components/dashboardCards";
 import DashboardSummaryComponent from "@/components/dashboardSummaryComponent";
 import DashbordRecentAcitivitiesComponent from "@/components/dashbordRecentAcitivitiesComponent";
+import ListLoadingComponent from "@/components/ListLoadingComponent";
 
 export default defineComponent({
   name: 'Tab1Page',
   components: {
+    ListLoadingComponent,
     DashbordRecentAcitivitiesComponent,
     DashboardSummaryComponent,
     DashboardCards,
     GetStartedComponent,
-    IonBadge,
     IonAvatar,
     IonRow,
     IonCol,
@@ -133,7 +141,8 @@ export default defineComponent({
     IonText,
     IonIcon,
     IonButton,
-
+    IonRefresher,
+    IonRefresherContent
   },
   data() {
     return {
@@ -143,13 +152,15 @@ export default defineComponent({
       reloadCircleOutline,
       addOutline,
       shareOutline,
+      loading:false,
       dashboard: null
     }
   },
   methods: {
+
     getURL(wedding) {
 
-      return "https://mynunaa.com/w/" + wedding.tag;
+      return this.store.state.baseURL+"/w/" + wedding.tag;
 
 
     },
@@ -167,16 +178,15 @@ export default defineComponent({
 
     getDashboard(e) {
 
-      this.$store.state.mainLoadingText = "Hung on...";
-      this.$store.state.mainLoadingDescription = "We are getting your dashboard...";
-      this.$store.state.mainLoading = true;
+     this.loading=true;
 
       axios.get("/dashboard")
           .then(res => {
             this.dashboard = res.data.data;
             this.$store.state.weddings = this.dashboard.weddings;
 
-            this.$store.state.mainLoading = false;
+            this.loading=false;
+
             if (e) {
               e.target.complete();
             }

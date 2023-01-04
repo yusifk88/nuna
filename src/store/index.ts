@@ -15,6 +15,7 @@ export default createStore({
         mainLoading:false,
         mainLoadingText:"Please wait",
         mainLoadingDescription:"",
+        baseURLALT:"http://127.0.0.1:8000",
         baseURL:"https://mynunaa.com"
     },
     mutations: {
@@ -29,6 +30,7 @@ export default createStore({
                 })
                 .catch(error => {
                     if (error.response.status == 401) {
+                        state.mainLoading=false;
                         router.push("/login");
                     }
                     state.initApp = false;

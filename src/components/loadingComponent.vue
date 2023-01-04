@@ -1,10 +1,14 @@
 <template xmlns:ion-card-content="http://www.w3.org/1999/html">
-  <ion-modal @onDidDismiss="()=>$store.state.mainLoading=false" :isOpen="$store.state.mainLoading" :canDismiss="$store.state.mainLoading" :keep-contents-mounted="true" id="loading-modal" ref="modal" >
+  <ion-modal
+      @onDidDismiss="()=>$store.state.mainLoading=false"
+      :isOpen="$store.state.mainLoading"
+      :canDismiss="$store.state.mainLoading"
+      :keep-contents-mounted="true"
+      id="loading-modal" ref="modal" >
 
 <div class="ion-padding ion-text-center">
 
     <lottie-animation
-        @click="$store.state.mainLoading=false"
         :width="250"
         :height="200"
         path="wait.json"></lottie-animation>

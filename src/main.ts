@@ -28,7 +28,6 @@ import VueGoogleMaps from '@fawmi/vue-google-maps'
 import './theme/variables.css';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-import Vuelidate from 'vuelidate'
 
 import store from './store';
 
@@ -54,7 +53,7 @@ router.isReady().then(() => {
     window.axios = axios;
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    window.axios.defaults.baseURL = "https://mynunaa.com/api/";
+    window.axios.defaults.baseURL = store.state.baseURL + "/api/";
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     window.axios.defaults.headers.common = {

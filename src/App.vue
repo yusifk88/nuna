@@ -4,7 +4,7 @@
     <ion-spinner style="font-size: 200px !important; margin: auto !important;" name="dots" color="primary" v-if="$store.state.initApp"></ion-spinner>
     <ion-router-outlet v-else/>
 
-    <loading-component></loading-component>
+<!--    <loading-component v-if="!$store.state.initApp"></loading-component>-->
   </ion-app>
 </template>
 
@@ -13,13 +13,11 @@
 import { IonApp, IonRouterOutlet,IonSpinner } from '@ionic/vue';
 import { defineComponent } from 'vue';
 import ErrorComponent from "@/components/errorComponent.vue";
-import LoadingComponent from "@/components/loadingComponent.vue";
 
 
 export default defineComponent({
   name: 'App',
   components: {
-    LoadingComponent,
     ErrorComponent,
     IonApp,
     IonRouterOutlet,
