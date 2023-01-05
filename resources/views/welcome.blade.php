@@ -80,7 +80,7 @@
                     <!-- Logo -->
                     <div class="col-xl-2 col-lg-2 col-md-2">
                         <div class="logo">
-                            <a href="index.html"><img width="150" height="50"
+                            <a href="/"><img width="150" height="50"
                                                       src="https://objectstorage.uk-london-1.oraclecloud.com/n/lrj6a9vl4is6/b/MyBucket/o/logo.png"
                                                       alt=""></a>
                         </div>
@@ -179,7 +179,7 @@
                         <div class="col-lg-6">
                             <div class="hero__img  f-right" data-animation="fadeInRight"
                                  data-delay="1s">
-                                <img src="assets/img/hero/hero_right.png" alt="">
+                                <img src="https://objectstorage.uk-london-1.oraclecloud.com/n/lrj6a9vl4is6/b/MyBucket/o/main_shot.png" alt="App screenshot fo getting started">
                             </div>
                         </div>
                     </div>
@@ -345,7 +345,7 @@
                 <!-- slider Heading -->
                 <div class="col-xl-4 col-lg-4 col-md-8">
                     <div class="single-cases-info mb-30">
-                        <h3>Nuna<br> Screenshot</h3>
+                        <h3>Nuna<br> Screenshots</h3>
 {{--                        <p>Lorem ipsum dolor sit amet, consecadipiscing elit, sed do eiusmod tempor incididunt ut ore et--}}
 {{--                            dolore magna aliqua. Quis ipsum suspendisse gravida. Risus commodo viverra maecenasan lacus--}}
 {{--                            vel facilisis. </p>--}}
@@ -354,20 +354,20 @@
                 <!-- OwL -->
                 <div class="col-xl-8 col-lg-8 col-md-col-md-7">
                     <div class="app-active owl-carousel">
-                        <div class="single-cases-img">
-                            <img src="assets/img/gallery/App1.png" alt="">
+                        <div class="single-cases-img app-img">
+                            <img src="https://objectstorage.uk-london-1.oraclecloud.com/n/lrj6a9vl4is6/b/MyBucket/o/Apple%20iPhone%2011%20Pro%20Max%20Screenshot%200%20copy.png" alt="">
                         </div>
                         <div class="single-cases-img">
-                            <img src="assets/img/gallery/App2.png" alt="">
+                            <img src="https://objectstorage.uk-london-1.oraclecloud.com/n/lrj6a9vl4is6/b/MyBucket/o/Apple%20iPhone%2011%20Pro%20Max%20Screenshot%200%20copy%203.png" alt="">
                         </div>
                         <div class="single-cases-img">
-                            <img src="assets/img/gallery/App3.png" alt="">
+                            <img src="https://objectstorage.uk-london-1.oraclecloud.com/n/lrj6a9vl4is6/b/MyBucket/o/Apple%20iPhone%2011%20Pro%20Max%20Screenshot%200%20copy%202.png" alt="">
                         </div>
                         <div class="single-cases-img">
-                            <img src="assets/img/gallery/App2.png" alt="">
+                            <img src="https://objectstorage.uk-london-1.oraclecloud.com/n/lrj6a9vl4is6/b/MyBucket/o/Apple%20iPhone%2011%20Pro%20Max%20Screenshot%200%20copy%205.png" alt="">
                         </div>
                         <div class="single-cases-img">
-                            <img src="assets/img/gallery/App1.png" alt="">
+                            <img src="https://objectstorage.uk-london-1.oraclecloud.com/n/lrj6a9vl4is6/b/MyBucket/o/Apple%20iPhone%2011%20Pro%20Max%20Screenshot%200.png" alt="">
                         </div>
                     </div>
                 </div>
@@ -533,7 +533,7 @@
                 </div>
                 <div class="col-xl-6 col-lg-6">
                     <div class="app-img">
-                        <img src="assets/img/shape/available-app.png" alt="">
+                        <img class="img-fluid" src="https://objectstorage.uk-london-1.oraclecloud.com/n/lrj6a9vl4is6/b/MyBucket/o/Apple%20iPhone%2011%20Pro%20Max%20Screenshot%200%20copy%205.png" alt="">
                     </div>
                 </div>
             </div>
@@ -557,7 +557,7 @@
                 </div>
                 <div class="col-xl-2 col-lg-3">
                     <div class="say-btn">
-                        <a href="#" class="btn radius-btn">Contact Us</a>
+                        <a href="mailto:hello@mynunaa.com" class="btn radius-btn">Contact Us</a>
                     </div>
                 </div>
             </div>
