@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\WeddingEventResource;
+use App\Models\Event;
+use App\Models\Reservation;
 use App\Models\Wedding;
 use App\Repositories\UtilityRepository;
 use Carbon\Carbon;
@@ -12,6 +15,93 @@ use Symfony\Component\HttpFoundation\Response;
 
 class WeddingsController extends Controller
 {
+
+
+    public function guests()
+    {
+
+        $weddingID = isset($_GET['wedding_id']) ? $_GET['wedding_id'] : null;
+        if ($weddingID) {
+
+            $guests = Reservation::where("wedding_id", $weddingID)->orderBy("id", "desc")->get();
+
+        } else {
+
+
+            $guests = Reservation::whereIn("wedding_id", Wedding::select("id")->where("user_id", \request()->user()->id))->orderBy("id", "desc")->get();
+        }
+        // $guests->data = WeddingEventResource::collection($guests->data());
+        return success_response(WeddingEventResource::collection($guests));
+
+    }
+
+    public function weddingActivities()
+    {
+
+
+        $today = Event::whereIn("wedding_id", Wedding::select("id")->where("user_id", \request()->user()->id))
+            ->whereDate("created_at", Carbon::now()->toDateString())->take(5)->orderBy("id", "desc")->get();
+
+        if ($today) {
+            return success_response(WeddingEventResource::collection($today));
+        } else {
+            $recent = Event::whereIn("wedding_id", Wedding::select("id")->where("user_id", \request()->user()->id))->take(5)->orderBy("id", "desc")->get();
+
+            return success_response(WeddingEventResource::collection($recent));
+
+        }
+
+
+    }
+
+
+    public function SaveRSV(int $id, Request $request)
+    {
+        $request->validate([
+            "name" => "required",
+            "phone_number" => "required"
+        ]);
+
+
+        $existingRSVP = Reservation::where("phone_number", $request->phone_number)->where("wedding_id", $id)->first();
+
+        if ($existingRSVP) {
+            $existingRSVP->update([
+                "name" => $request->name,
+                "email" => $request->email
+            ]);
+
+        } else {
+
+
+            $rsvp = new Reservation([
+                "wedding_id" => $id,
+                "name" => $request->name,
+                "phone_number" => $request->phone_number,
+                "email" => $request->email
+            ]);
+            $rsvp->save();
+
+
+            $wedding_event = new Event([
+                "wedding_id" => $id,
+                "title" => $request->name . " would be attending",
+                "description" => $request->name . " has indicated that they would be attending",
+                "type" => "attendance"
+            ]);
+
+            $wedding_event->save();
+
+        }
+        $wedding = Wedding::find($id);
+
+
+        return view("wedding.success_message", [
+            "wedding" => $wedding,
+            "name" => $request->name
+        ]);
+
+    }
 
 
     public function index(): JsonResponse
@@ -42,12 +132,12 @@ class WeddingsController extends Controller
         }
 
 
-       $year = Carbon::parse($wedding->date_time)->year;
-       $month = Carbon::parse($wedding->date_time)->month;
-       $day = Carbon::parse($wedding->date_time)->day;
+        $year = Carbon::parse($wedding->date_time)->year;
+        $month = Carbon::parse($wedding->date_time)->month;
+        $day = Carbon::parse($wedding->date_time)->day;
 
 
-        return view("wedding.index", ["wedding" => $wedding,"year"=>$year,"month"=>$month,"day"=>$day]);
+        return view("wedding.index", ["wedding" => $wedding, "year" => $year, "month" => $month, "day" => $day]);
 
 
     }

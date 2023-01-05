@@ -19,3 +19,4 @@ Route::get('/', function () {
 });
 
 Route::get("w/{tag}", [WeddingsController::class, "publicPage"]);
+Route::post("w/{id}/attending", [WeddingsController::class, "SaveRSV"])->name("reserve");

@@ -35,6 +35,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post("wedding", [WeddingsController::class, "store"]);
     Route::get("weddings/{id}", [WeddingsController::class, "show"]);
     Route::get("weddings", [WeddingsController::class, "index"]);
+    Route::get("activities", [WeddingsController::class, "weddingActivities"]);
+    Route::get("guests-list", [WeddingsController::class, "guests"]);
     Route::get("dashboard", [DashboardControler::class, "show"]);
 
 
@@ -44,7 +46,6 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::post("wishlist/{id}", [WishListCOntroller::class, "store"]);
     Route::get("wishlist/{id}", [WishListCOntroller::class, "items"]);
-
 
 
 });

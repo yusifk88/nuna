@@ -35,6 +35,8 @@
     <link href='https://fonts.googleapis.com/css?family=Work+Sans:400,300,600,400italic,700' rel='stylesheet'
           type='text/css'>
     <link href="https://fonts.googleapis.com/css?family=Sacramento" rel="stylesheet">
+    <link rel="shortcut icon" type="image/x-icon"
+          href="https://objectstorage.uk-london-1.oraclecloud.com/n/lrj6a9vl4is6/b/MyBucket/o/logo.png">
 
     <!-- Animate.css -->
     <link rel="stylesheet" href="/css/animate.css">
@@ -491,26 +493,27 @@
             </div>
             <div class="row animate-box">
                 <div class="col-md-10 col-md-offset-1">
-                    <form class="form-inline">
+                    <form class="form-inline" method="post" action="{{route("reserve",$wedding->id)}}">
+                        {{csrf_field()}}
 
                         <div class="col-md-4 col-sm-4">
                             <div class="form-group">
-                                <label for="name" class="sr-only">Full Name</label>
-                                <input type="text" class="form-control" id="name" placeholder="Full Name">
+                                <label for="name" class="sr-only">Full Name*</label>
+                                <input name="name" required type="text" class="form-control" id="name" placeholder="Full Name*">
                             </div>
                         </div>
 
                           <div class="col-md-4 col-sm-4">
                             <div class="form-group">
-                                <label for="name" class="sr-only">Phone Number</label>
-                                <input type="tel" class="form-control" id="phone_number" placeholder="Phone Number">
+                                <label for="name" class="sr-only">Phone Number*</label>
+                                <input name="phone_number" required type="tel" class="form-control" id="phone_number" placeholder="Phone Number*">
                             </div>
                         </div>
 
                         <div class="col-md-4 col-sm-4">
                             <div class="form-group">
                                 <label for="email" class="sr-only">Email(optional)</label>
-                                <input type="email" class="form-control" id="email" placeholder="Email(optional)">
+                                <input name="email" type="email" class="form-control" id="email" placeholder="Email(optional)">
                             </div>
                         </div>
                         <div class="col-md-4 col-sm-4">
