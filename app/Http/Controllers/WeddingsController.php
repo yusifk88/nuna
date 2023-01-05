@@ -181,7 +181,7 @@ class WeddingsController extends Controller
             "groom_name" => $request->groom_name,
             "groom_email" => $request->groom_email,
             "groom_phone_number" => $request->groom_phone_number,
-            "tag" => UtilityRepository::makeTag($request->tag, $request->bride_name, $request->groom_name),
+            "tag" => str_replace("#","", UtilityRepository::makeTag($request->tag, $request->bride_name, $request->groom_name)),
             "rsv_phone_number" => $request->rsv_phone_number,
             "rsv_person" => $request->rsv_person,
             "location" => $request->location,
