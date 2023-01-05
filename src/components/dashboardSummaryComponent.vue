@@ -6,6 +6,7 @@
           mode="ios"
           class="no-margin"
           style="background-color: rgba(0,128,128,0.2)"
+          @click="$emit('guestTapped')"
 
       >
 
@@ -14,7 +15,7 @@
           <ion-row>
             <ion-col size="12" class="ion-text-center">
 
-              <h1 class="font-weight-light" style="color: teal">300 <ion-icon size="small" :icon="peopleOutline"></ion-icon></h1>
+              <h1 class="font-weight-light" style="color: teal">{{dashboard ? dashboard.guest : 0}} <ion-icon size="small" :icon="peopleOutline"></ion-icon></h1>
               <small style="color: teal">Total Guests</small>
             </ion-col>
 
@@ -37,7 +38,7 @@
           <ion-row>
             <ion-col size="12" class="ion-text-center">
 
-              <h1 class="font-weight-light">30  <ion-icon size="small" :icon="peopleOutline"></ion-icon></h1>
+              <h1 class="font-weight-light">0 <ion-icon size="small" :icon="peopleOutline"></ion-icon></h1>
               <small>Contributors</small>
             </ion-col>
 
@@ -58,6 +59,11 @@ import {peopleOutline,cashOutline,cartOutline} from "ionicons/icons";
 export default {
   name: "dashboardSummaryComponent",
   components: {IonRow, IonCol, IonCard, IonCardContent,IonIcon},
+  props:{
+    dashboard:{
+      type:Object
+    }
+  },
   data() {
     return {
       peopleOutline,

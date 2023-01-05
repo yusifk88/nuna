@@ -1,5 +1,5 @@
 <template>
-  <ion-page>
+  <ion-page ref="page">
 
 
     <ion-header mode="ios" v-if="!$store.state.initApp">
@@ -55,14 +55,14 @@
 
         <ion-col size="2">
 
-          <ion-button v-if="dashboard && dashboard.weddings.length>0" class="ion-margin-top" @click="shareLink(getURL(dashboard.weddings[0]))" id="add-shortcut" fill="clear" shape="round" size="small">
+          <ion-button v-if="dashboard && dashboard.weddings.length>0" class="ion-margin-top"
+                      @click="shareLink(getURL(dashboard.weddings[0]))" id="add-shortcut" fill="clear" shape="round"
+                      size="small">
             <ion-icon size="large" :icon="shareOutline"></ion-icon>
           </ion-button>
 
 
         </ion-col>
-
-
 
 
       </ion-row>
@@ -79,30 +79,56 @@
         </ion-col>
       </ion-row>
 
-      <dashboard-summary-component v-if="dashboard && dashboard.weddings.length"></dashboard-summary-component>
+      <dashboard-summary-component @guestTapped="showGuest" :dashboard="dashboard"
+                                   v-if="dashboard && dashboard.weddings.length"></dashboard-summary-component>
 
       <ion-row v-if="dashboard && dashboard.weddings.length">
         <ion-col size="12">
-      <h3>Recent Activities</h3>
+          <h3>Recent Activities</h3>
         </ion-col>
       </ion-row>
 
-      <dashbord-recent-acitivities-component v-if="dashboard && dashboard.weddings.length"></dashbord-recent-acitivities-component>
+      <dashbord-recent-acitivities-component
+          v-if="dashboard && dashboard.weddings.length"></dashbord-recent-acitivities-component>
+
+
+      <ion-modal mode="ios" ref="modal" :is-open="showGuestDialog" :presenting-element="presentingElement">
+        <ion-header>
+          <ion-toolbar>
+            <ion-title>Guest List</ion-title>
+            <ion-buttons slot="end">
+              <ion-button @click="dismiss">Close</ion-button>
+            </ion-buttons>
+          </ion-toolbar>
+        </ion-header>
+
+
+        <ion-content>
+
+          <guest-list></guest-list>
+
+        </ion-content>
+
+
+      </ion-modal>
+
+
     </ion-content>
   </ion-page>
 
-<!--  <loading-component></loading-component>-->
 
 </template>
 
 <script>
 
 import store from "@/store";
-import { Share } from '@capacitor/share';
+import {Share} from '@capacitor/share';
 
 import {defineComponent} from 'vue';
-import {arrowForwardOutline, reloadCircleOutline, warningOutline,addOutline,shareOutline} from "ionicons/icons";
+import {arrowForwardOutline, reloadCircleOutline, warningOutline, addOutline, shareOutline} from "ionicons/icons";
 import {
+  IonTitle,
+  IonButtons,
   IonAvatar,
   IonCol,
   IonContent,
@@ -112,9 +138,10 @@ import {
   IonRow,
   IonText,
   IonToolbar,
-    IonButton,
-    IonRefresher,
-    IonRefresherContent
+  IonButton,
+  IonRefresher,
+  IonRefresherContent,
+  IonModal
 } from '@ionic/vue';
 import GetStartedComponent from "@/components/getStartedComponent.vue";
 import axios from "axios";
@@ -122,10 +149,15 @@ import DashboardCards from "@/components/dashboardCards";
 import DashboardSummaryComponent from "@/components/dashboardSummaryComponent";
 import DashbordRecentAcitivitiesComponent from "@/components/dashbordRecentAcitivitiesComponent";
 import ListLoadingComponent from "@/components/ListLoadingComponent";
+import GuestList from "@/components/GuestList";
 
 export default defineComponent({
   name: 'Tab1Page',
   components: {
+    GuestList,
+    IonTitle,
+    IonButtons,
+    IonModal,
     ListLoadingComponent,
     DashbordRecentAcitivitiesComponent,
     DashboardSummaryComponent,
@@ -146,29 +178,39 @@ export default defineComponent({
   },
   data() {
     return {
+      showGuestDialog: false,
       store,
       arrowForwardOutline,
       warningOutline,
       reloadCircleOutline,
       addOutline,
       shareOutline,
-      loading:false,
-      dashboard: null
+      loading: false,
+      dashboard: null,
+      presentingElement: null
     }
   },
   methods: {
 
+    dismiss() {
+      this.$refs.modal.$el.dismiss();
+      this.showGuestDialog=false;
+    },
+    showGuest() {
+      this.showGuestDialog=true;
+    },
+
     getURL(wedding) {
 
-      return this.store.state.baseURL+"/w/" + wedding.tag;
+      return this.store.state.baseURL + "/w/" + wedding.tag;
 
 
     },
-   async shareLink(link){
+    async shareLink(link) {
 
       await Share.share({
         title: this.dashboard.weddings[0].tag,
-        text: this.dashboard.weddings[0].groom_name+" and "+this.dashboard.weddings[0].bride_name+"'s wedding",
+        text: this.dashboard.weddings[0].groom_name + " and " + this.dashboard.weddings[0].bride_name + "'s wedding",
         url: link,
         dialogTitle: 'Share you wedding link',
       });
@@ -178,20 +220,23 @@ export default defineComponent({
 
     getDashboard(e) {
 
-     this.loading=true;
+      this.loading = true;
 
       axios.get("/dashboard")
           .then(res => {
             this.dashboard = res.data.data;
             this.$store.state.weddings = this.dashboard.weddings;
 
-            this.loading=false;
+            this.loading = false;
 
             if (e) {
               e.target.complete();
             }
           })
-          .catch(erros => {
+          .catch(() => {
+
+            this.loading = false;
+
             if (e) {
               e.target.complete();
             }
@@ -203,6 +248,7 @@ export default defineComponent({
   },
   mounted() {
     this.getDashboard();
+    this.presentingElement = this.$refs.page.$el;
   }
 
 });

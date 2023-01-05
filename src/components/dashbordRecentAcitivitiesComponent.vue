@@ -1,7 +1,14 @@
 <template>
-  <ion-list class="no-margin">
 
-    <ion-item :detail="true" v-for="(item,index) in items" :key="index">
+  <loading-component v-if="loading"></loading-component>
+  <span v-else>
+
+  <no-record-component :show-button="false" title="No Activities Yet"
+                       description="You do not have activities on your wedding page yet"
+                       v-if="!items.length"></no-record-component>
+  <ion-list class="no-margin" v-else>
+
+    <ion-item  v-for="(item,index) in items" :key="index">
       <ion-icon v-if="item.type=='gift'" class="gift-icon" :icon="giftOutline"></ion-icon>
       <ion-icon v-if="item.type=='wish'" class="wish-icon" :icon="heartOutline"></ion-icon>
       <ion-icon v-if="item.type=='attendance'" class="attendance-icon" :icon="personAddOutline"></ion-icon>
@@ -10,44 +17,53 @@
       <ion-label>
         <h2>{{ item.title }}</h2>
         <p>{{ item.description }}</p>
+        <p>{{item.human_date}}</p>
       </ion-label>
     </ion-item>
 
   </ion-list>
+      </span>
+
 </template>
 
 <script>
 import {IonIcon, IonItem, IonLabel, IonList} from "@ionic/vue";
-import {giftOutline,heartOutline,personAddOutline} from "ionicons/icons";
+import {giftOutline, heartOutline, personAddOutline} from "ionicons/icons";
+import NoRecordComponent from "@/components/NoRecordComponent";
+import LoadingComponent from "@/components/loadingComponent";
+import axios from "axios";
 
 export default {
   name: "dashbordRecentAcitivitiesComponent",
-  components: {IonList, IonItem, IonLabel, IonIcon},
+  components: {LoadingComponent, NoRecordComponent, IonList, IonItem, IonLabel, IonIcon},
   data() {
     return {
       giftOutline,
       heartOutline,
       personAddOutline,
-      items: [
-        {
-          title: "Yusif Contributed",
-          description: "Yusif has contributed GHS2,000 to your electric stove wish",
-          type: "gift"
-        },
-        {
-          title: "Rosemary's Wish",
-          description: "I wish you an everlasting union and a happy home",
-          type: "wish"
-        },
-        {
-          title: "Issac would be present",
-          description: "Issac has indicated that they would be attending your wedding",
-          type: "attendance"
-        },
-
-
-      ]
+      items: [],
+      loading: false
     }
+  },
+  methods: {
+
+    getActitvties() {
+      this.loading = true;
+      axios.get("/activities")
+          .then(res => {
+            console.log(res.data);
+            this.items = res.data.data;
+            this.loading = false;
+          })
+          .catch(() => {
+            this.loading = false;
+          })
+
+    }
+  },
+  mounted() {
+
+    this.getActitvties();
   }
 }
 </script>
@@ -61,7 +77,7 @@ export default {
   background-color: #2DD36F4A;
   margin: 5px;
   margin-left: 0 !important;
-  color:#2dd36f;
+  color: #2dd36f;
 
 }
 
@@ -74,6 +90,7 @@ export default {
   color: #9c2dd3;
 
 }
+
 .attendance-icon {
   padding: 10px;
   border-radius: 20%;

@@ -37,6 +37,11 @@
 
       </ion-content>
 
+      <ion-content style="transition: 0.3s ease-in-out;" class="no-padding" v-if="defaultSegment==='guest'">
+          <guest-list :wedding-i-d="wedding.id"></guest-list>
+
+      </ion-content>
+
 
       <ion-content style="transition: 0.3s ease-in-out;" class="no-padding" v-if="defaultSegment==='info'">
         <ion-slides :pager="true" :option="previewSlideOption">
@@ -163,10 +168,12 @@ import moment from "moment";
 import axios from "axios";
 import MapsComponent from "@/components/MapsComponent";
 import CashTargetComponent from "@/components/CashTargetComponent";
+import GuestList from "@/components/GuestList";
 
 export default {
   name: "WeddingPreviewPage",
   components: {
+    GuestList,
     CashTargetComponent,
     QrcodeVue,
     MapsComponent,
