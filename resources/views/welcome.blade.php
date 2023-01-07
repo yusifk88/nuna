@@ -165,8 +165,8 @@
                             <div class="footer-tittle">
                                 <h4>Support</h4>
                                 <ul>
-                                    <li><a href="#">Report a bug</a></li>
-                                    <li><a href="{{route('privacy')}}">Privacy Policy</a></li>
+{{--                                    <li><a href="#">Report a bug</a></li>--}}
+{{--                                    <li><a href="{{route('privacy')}}">Privacy Policy</a></li>--}}
                                     <li><a href="{{route('privacy')}}">Terms & Conditions</a></li>
 {{--                                    <li><a href="#">Sitemap</a></li>--}}
 {{--                                    <li><a href="#">FAQs</a></li>--}}
