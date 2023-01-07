@@ -15,8 +15,13 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
 });
+
+Route::get('/privacy-policy', function () {
+    return view('terms');
+})->name("privacy");
+
 
 Route::get("w/{tag}", [WeddingsController::class, "publicPage"]);
 Route::post("w/{id}/attending", [WeddingsController::class, "SaveRSV"])->name("reserve");
