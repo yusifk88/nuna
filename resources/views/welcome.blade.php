@@ -22,7 +22,7 @@
           content="Nuna"/>
 
     <meta name="twitter:image"
-          content="https://objectstorage.uk-london-1.oraclecloud.com/n/lrj6a9vl4is6/b/MyBucket/o/logo.png"/>
+          content="https://objectstorage.uk-london-1.oraclecloud.com/n/lrj6a9vl4is6/b/MyBucket/o/image1.jpeg"/>
 
     <meta name="twitter:url" content="https://mynunna.com"/>
     <meta name="twitter:card"
