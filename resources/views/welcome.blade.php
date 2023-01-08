@@ -13,7 +13,7 @@
 
     <meta property="og:title"
           content="Nuna"/>
-    <meta property="og:image" content="https://objectstorage.uk-london-1.oraclecloud.com/n/lrj6a9vl4is6/b/MyBucket/o/logo.png"/>
+    <meta property="og:image" content="https://objectstorage.uk-london-1.oraclecloud.com/n/lrj6a9vl4is6/b/MyBucket/o/image1.jpeg"/>
     <meta property="og:url" content="https://mynunna.com"/>
     <meta property="og:site_name" content="Nuna"/>
     <meta property="og:description"
