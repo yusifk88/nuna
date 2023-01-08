@@ -20,7 +20,27 @@
 
     <meta property="og:title"
           content="{{$wedding->groom_name}} & {{$wedding->bride_name}}'s wedding at {{$wedding->location}}"/>
-    <meta property="og:image" content="{{url($wedding->photo_one)}}"/>
+
+    @if($wedding->photo_one)
+        <meta property="og:image" content="{{url($wedding->photo_one)}}"/>
+
+    @elseif($wedding->photo_two)
+
+        <meta property="og:image" content="{{url($wedding->photo_two)}}"/>
+
+    @elseif($wedding->photo_three)
+        <meta property="og:image" content="{{url($wedding->photo_three)}}"/>
+    @elseif($wedding->photo_four)
+
+        <meta property="og:image" content="{{url($wedding->photo_four)}}"/>
+
+    @else
+
+        <meta property="og:image"
+              content="https://objectstorage.uk-london-1.oraclecloud.com/n/lrj6a9vl4is6/b/MyBucket/o/logo.png"/>
+    @endif
+
+
     <meta property="og:url" content="https://mynunna.com/w/{{$wedding->tag}}"/>
     <meta property="og:site_name" content="Nuna"/>
     <meta property="og:description"
@@ -499,21 +519,24 @@
                         <div class="col-md-4 col-sm-4">
                             <div class="form-group">
                                 <label for="name" class="sr-only">Full Name*</label>
-                                <input name="name" required type="text" class="form-control" id="name" placeholder="Full Name*">
+                                <input name="name" required type="text" class="form-control" id="name"
+                                       placeholder="Full Name*">
                             </div>
                         </div>
 
-                          <div class="col-md-4 col-sm-4">
+                        <div class="col-md-4 col-sm-4">
                             <div class="form-group">
                                 <label for="name" class="sr-only">Phone Number*</label>
-                                <input name="phone_number" required type="tel" class="form-control" id="phone_number" placeholder="Phone Number*">
+                                <input name="phone_number" required type="tel" class="form-control" id="phone_number"
+                                       placeholder="Phone Number*">
                             </div>
                         </div>
 
                         <div class="col-md-4 col-sm-4">
                             <div class="form-group">
                                 <label for="email" class="sr-only">Email(optional)</label>
-                                <input name="email" type="email" class="form-control" id="email" placeholder="Email(optional)">
+                                <input name="email" type="email" class="form-control" id="email"
+                                       placeholder="Email(optional)">
                             </div>
                         </div>
                         <div class="col-md-4 col-sm-4">
