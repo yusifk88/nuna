@@ -20,14 +20,14 @@
 
     <meta property="og:title"
           content="{{$wedding->groom_name}} & {{$wedding->bride_name}}'s wedding at {{$wedding->location}}"/>
-    <meta property="og:image" content="{{$wedding->photo_one}}"/>
+    <meta property="og:image" content="{{url($wedding->photo_one)}}"/>
     <meta property="og:url" content="https://mynunna.com/w/{{$wedding->tag}}"/>
     <meta property="og:site_name" content="Nuna"/>
     <meta property="og:description"
           content="{{$wedding->groom_name}} & {{$wedding->bride_name}}'s wedding at {{$wedding->location}}"/>
     <meta name="twitter:title"
           content="{{$wedding->groom_name}} & {{$wedding->bride_name}}'s wedding at {{$wedding->location}}"/>
-    <meta name="twitter:image" content="{{$wedding->photo_one}}"/>
+    <meta name="twitter:image" content="{{url($wedding->photo_one)}}"/>
     <meta name="twitter:url" content="https://mynunna.com/w/{{$wedding->tag}}"/>
     <meta name="twitter:card"
           content="{{$wedding->groom_name}} & {{$wedding->bride_name}}'s wedding at {{$wedding->location}}"/>
