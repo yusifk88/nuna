@@ -20,7 +20,8 @@ class WeddingsController extends Controller
     public function guests()
     {
 
-        $weddingID = isset($_GET['wedding_id']) ? $_GET['wedding_id'] : null;
+        $weddingID = $_GET['wedding_id'] ?? null;
+
         if ($weddingID) {
 
             $guests = Reservation::where("wedding_id", $weddingID)->orderBy("id", "desc")->get();
@@ -30,7 +31,10 @@ class WeddingsController extends Controller
 
             $guests = Reservation::whereIn("wedding_id", Wedding::select("id")->where("user_id", \request()->user()->id))->orderBy("id", "desc")->get();
         }
+
         // $guests->data = WeddingEventResource::collection($guests->data());
+
+
         return success_response(WeddingEventResource::collection($guests));
 
     }
@@ -42,8 +46,9 @@ class WeddingsController extends Controller
         $today = Event::whereIn("wedding_id", Wedding::select("id")->where("user_id", \request()->user()->id))
             ->whereDate("created_at", Carbon::now()->toDateString())->take(5)->orderBy("id", "desc")->get();
 
-        if ($today) {
+        if (count($today)) {
             return success_response(WeddingEventResource::collection($today));
+
         } else {
             $recent = Event::whereIn("wedding_id", Wedding::select("id")->where("user_id", \request()->user()->id))->take(5)->orderBy("id", "desc")->get();
 
@@ -181,7 +186,7 @@ class WeddingsController extends Controller
             "groom_name" => $request->groom_name,
             "groom_email" => $request->groom_email,
             "groom_phone_number" => $request->groom_phone_number,
-            "tag" => str_replace("#","", UtilityRepository::makeTag($request->tag, $request->bride_name, $request->groom_name)),
+            "tag" => str_replace("#", "", UtilityRepository::makeTag($request->tag, $request->bride_name, $request->groom_name)),
             "rsv_phone_number" => $request->rsv_phone_number,
             "rsv_person" => $request->rsv_person,
             "location" => $request->location,
