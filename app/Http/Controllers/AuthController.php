@@ -11,6 +11,13 @@ class AuthController extends Controller
 {
 
 
+    public function SetPushUserID(Request $request)
+    {
+        $request->validate(["user_id" => "required"]);
+
+
+    }
+
     public function signUp(Request $request)
     {
 
