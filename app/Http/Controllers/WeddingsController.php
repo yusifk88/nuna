@@ -11,6 +11,7 @@ use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Ladumor\OneSignal\OneSignal;
 use Symfony\Component\HttpFoundation\Response;
 
 class WeddingsController extends Controller
@@ -96,6 +97,14 @@ class WeddingsController extends Controller
             ]);
 
             $wedding_event->save();
+
+            $user = $request->user();
+
+            if ($user->notification_token){
+
+                OneSignal::sendPush([$user->notification_token],$request->name . " would be attending 🎉");
+
+            }
 
         }
         $wedding = Wedding::find($id);

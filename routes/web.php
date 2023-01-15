@@ -26,8 +26,3 @@ Route::get('/privacy-policy', function () {
 Route::get("w/{tag}", [WeddingsController::class, "publicPage"]);
 Route::post("w/{id}/attending", [WeddingsController::class, "SaveRSV"])->name("reserve");
 
-$notification=[
-    "include_player_ids"=>['ad3ccedf-6cfe-454b-9239-a295fd0b2e8a'],
-];
-
-\Ladumor\OneSignal\OneSignal::sendPush($notification,"Hi, Yusif, this is another testing message from the backend","Testing");
