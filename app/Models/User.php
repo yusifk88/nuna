@@ -26,7 +26,8 @@ class User extends Authenticatable
         'id_number',
         'email',
         'password',
-        'approved'
+        'approved',
+        'notification_token'
     ];
 
     /**

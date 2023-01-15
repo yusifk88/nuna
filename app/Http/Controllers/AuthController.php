@@ -15,6 +15,8 @@ class AuthController extends Controller
     {
         $request->validate(["user_id" => "required"]);
 
+        User::where("id",$request->user()->id)->update(["notification_token"=>$request->user_id]);
+
 
     }
 
