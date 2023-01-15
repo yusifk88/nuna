@@ -109,7 +109,7 @@ class WeddingsController extends Controller
                     $player_ids=[
                         "include_player_ids"=>[$user->notification_token],
                     ];
-                    OneSignal::sendPush($player_ids, $request->name . " would be attending 🎉");
+                    OneSignal::sendPush($player_ids, $request->name . " would be attending your wedding (".$wedding->tage."🎉)");
 
                 }
             }
