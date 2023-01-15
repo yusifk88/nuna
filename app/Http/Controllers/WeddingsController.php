@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Resources\WeddingEventResource;
 use App\Models\Event;
 use App\Models\Reservation;
+use App\Models\User;
 use App\Models\Wedding;
 use App\Repositories\UtilityRepository;
 use Carbon\Carbon;
@@ -98,12 +99,16 @@ class WeddingsController extends Controller
 
             $wedding_event->save();
 
-            $user = $request->user();
 
-            if ($user->notification_token){
+            $wedding = Wedding::find($id);
+            if ($wedding) {
+                $user = User::find($wedding->user_id);
 
-                OneSignal::sendPush([$user->notification_token],$request->name . " would be attending 🎉");
+                if ($user && $user->notification_token) {
 
+                    OneSignal::sendPush([$user->notification_token], $request->name . " would be attending 🎉");
+
+                }
             }
 
         }
