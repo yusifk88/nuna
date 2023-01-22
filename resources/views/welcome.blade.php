@@ -47,7 +47,6 @@
     <link rel="stylesheet" href="/assets/css/slick.css">
     <link rel="stylesheet" href="/assets/css/nice-select.css">
     <link rel="stylesheet" href="/assets/css/style.css">
-
     <!--Start of Tawk.to Script-->
     <script type="text/javascript">
         var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
@@ -246,8 +245,6 @@
 
 </footer>
 
-<!-- JS here -->
-
 <!-- All JS Custom Plugins Link Here here -->
 <script src="/assets/js/vendor/modernizr-3.5.0.min.js"></script>
 
@@ -284,6 +281,8 @@
 <script src="/assets/js/plugins.js"></script>
 <script src="/assets/js/main.js"></script>
 <script type='text/javascript' src='//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js'></script><script type='text/javascript'>(function($) {window.fnames = new Array(); window.ftypes = new Array();fnames[0]='EMAIL';ftypes[0]='email';fnames[1]='FNAME';ftypes[1]='text';fnames[2]='LNAME';ftypes[2]='text';fnames[3]='ADDRESS';ftypes[3]='address';fnames[4]='PHONE';ftypes[4]='phone';fnames[5]='BIRTHDAY';ftypes[5]='birthday';}(jQuery));var $mcj = jQuery.noConflict(true);</script>
+
+
 
 
 </body>

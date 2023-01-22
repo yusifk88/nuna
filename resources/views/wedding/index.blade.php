@@ -7,6 +7,7 @@
 <html class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!-->
 <html class="no-js"> <!--<![endif]-->
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -51,6 +52,7 @@
     <meta name="twitter:url" content="https://mynunna.com/w/{{$wedding->tag}}"/>
     <meta name="twitter:card"
           content="{{$wedding->groom_name}} & {{$wedding->bride_name}}'s wedding at {{$wedding->location}}"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/add-to-calendar-button@1/assets/css/atcb.min.css">
 
     <link href='https://fonts.googleapis.com/css?family=Work+Sans:400,300,600,400italic,700' rel='stylesheet'
           type='text/css'>
@@ -124,7 +126,7 @@
                             <div class="simply-countdown simply-countdown-one"></div>
 
                             <a href="#" class="btn btn-primary btn-lg">Send a gift</a>
-                            <a href="#" class="btn btn-default btn-lg">Save the date</a>
+                            <button id="calendar-button" class="btn btn-default btn-lg">Save the date</button>
                             <a href="#fh5co-started" class="btn btn-primary btn-lg">Add RSVP</a>
                         </div>
                     </div>
@@ -575,6 +577,31 @@
     <a href="#" class="js-gotop"><i class="icon-arrow-up"></i></a>
 </div>
 
+
+<script src="https://cdn.jsdelivr.net/npm/add-to-calendar-button@1" async defer></script>
+<!-- JS here -->
+
+
+<script>
+    const config = {
+        name:" <?php echo $wedding->groom_name." & ".$wedding->bride_name."'s wedding" ?>",
+        description: "<?= $wedding->groom_name." & ".$wedding->bride_name."'s wedding <br> [url]".url('/w/')."/".$wedding->tag."[/url]" ?>",
+        startDate: "<?php echo \Carbon\Carbon::parse($wedding->date_time)->format("Y-m-d")?>",
+        endDate: "<?php echo \Carbon\Carbon::parse($wedding->date_time)->format("Y-m-d")?>",
+        options: [
+            "Apple",
+            "Google",
+            "Yahoo",
+            "iCal"],
+        timeZone: "Europe/Berlin",
+        trigger: "click",
+        iCalFileName: "Wedding-Event",
+    };
+    const button = document.getElementById('calendar-button');
+    button.addEventListener('click', () => atcb_action(config, button));
+
+</script>
+
 <!-- jQuery -->
 <script src="/js/jquery.min.js"></script>
 <!-- jQuery Easing -->
@@ -604,15 +631,15 @@
 
     // default example
     simplyCountdown('.simply-countdown-one', {
-        year: <?=$year?>,
-        month: <?=$month?> + 1,
-        day: <?=$day?>,
+        year: "<?=$year?>",
+        month: "<?=$month+1?> ",
+        day: "<?=$day?>",
     });
 
     //jQuery example
     $('#simply-countdown-losange').simplyCountdown({
         year: <?=$year?>,
-        month: <?=$month?> + 1,
+        month: <?=$month+ 1?>,
         day: <?=$day?>,
         enableUtc: false
     });
