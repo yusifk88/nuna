@@ -7,7 +7,11 @@ use App\Models\Event;
 use App\Models\Reservation;
 use App\Models\User;
 use App\Models\Wedding;
+use App\Models\WeddingContribution;
+use App\Repositories\Payswitch;
+use App\Repositories\pushNotificationRepository;
 use App\Repositories\UtilityRepository;
+use App\Repositories\WeddingRepository;
 use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -18,6 +22,142 @@ use Symfony\Component\HttpFoundation\Response;
 class WeddingsController extends Controller
 {
 
+
+    public function contributions(): JsonResponse
+    {
+
+        $wedding_id = \request()->get("wedding_id");
+        if ($wedding_id){
+
+            $list = WeddingContribution::where("wedding_id", $wedding_id)->where("success", true)->orderBy("id", "desc")->get();
+        }else{
+            $user = auth()->user();
+            $list = WeddingContribution::whereIn("wedding_id", Wedding::select("id")->where("user_id",$user->id))->where("success", true)->orderBy("id", "desc")->get();
+
+        }
+        $contributions = WeddingEventResource::collection($list);
+        return success_response($contributions);
+
+
+    }
+
+    public function confirmPayment()
+    {
+        $status = \request()->get("status");
+        $code = \request()->get("code");
+        $reason = \request()->get("reason");
+        $transaction_id = \request()->get("transaction_id");
+        $record = WeddingContribution::where("transaction_id", $transaction_id)->first();
+        $wedding = Wedding::find($record->wedding_id);
+
+
+        if ($status == 'approved' && $code == '000' && $transaction_id) {
+
+
+            if ($record) {
+
+                $res = Payswitch::verifyTransaction($transaction_id);
+                if ($res && $res->code == '00') {
+
+                    $record->success = true;
+                    $record->message = $record->reason;
+                    $record->update();
+
+                    $wedding = Wedding::find($record->wedding_id);
+
+                    $wedding_event = new Event([
+                        "wedding_id" => $record->wedding_id,
+                        "title" => $record->name . "'s contribution",
+                        "description" => $record->name . " contributed GHS" . number_format($record->amount, 2),
+                        "type" => "gift"
+                    ]);
+
+                    $wedding_event->save();
+
+
+                    $user = User::find($wedding->user_id);
+                    $message = "🎁 You have received " . number_format($record->amount, 2) . " from " . $record->name . " as contribution for your wedding(" . $wedding->tag . ")!";
+
+
+                    pushNotificationRepository::sendNotification($user, $message);
+
+
+                    $data = [
+                        "wedding" => $wedding,
+                        "amount" => $record->amount,
+                    ];
+
+                    return view("wedding.payment_success", $data);
+
+                }
+
+            }
+
+        } else {
+
+            return view("wedding.payment_failed", ["reason" => $reason, "wedding" => $wedding]);
+        }
+
+
+    }
+
+
+    public function initCheckout(Request $request, int $wedding_id)
+    {
+
+        $request->validate([
+            "name" => "required",
+            "email" => "required|email",
+            "phone_number" => "required",
+            "amount" => "required|numeric"
+        ]);
+
+        if ($request->attending) {
+
+            WeddingRepository::createAttendant($request->name, $request->phone_number, $wedding_id, $request->email);
+
+        }
+
+        $url = config("app.url") . "/w/confirm";
+
+        $transaction_id = Payswitch::getMaxID();
+
+        $checkout = Payswitch::initialize_collection($request->amount, $request->email, $transaction_id, $url);
+
+        if ($checkout && $checkout->status === 'success') {
+
+
+            WeddingContribution::create([
+                "name" => $request->name,
+                "email" => $request->email,
+                "amount" => $request->amount,
+                "phone_number" => $request->phone_number,
+                "checkout_token" => $checkout->token,
+                "message" => $checkout->reason,
+                "wedding_id" => $wedding_id,
+                "transaction_id" => $transaction_id
+            ]);
+
+            return redirect($checkout->checkout_url);
+        }
+        echo "Sorry, we could not initialize the checkout";
+
+    }
+
+
+    public function paymentPage(string $tag)
+    {
+
+        $wedding = Wedding::where("tag", $tag)->first();
+
+        if (!$wedding) {
+            abort(Response::HTTP_NOT_FOUND, "Wedding not found");
+        }
+
+        return view("wedding.pay_page", ['wedding' => $wedding]);
+
+
+    }
 
     public function guests()
     {
@@ -70,51 +210,9 @@ class WeddingsController extends Controller
         ]);
 
 
-        $existingRSVP = Reservation::where("phone_number", $request->phone_number)->where("wedding_id", $id)->first();
-
-        if ($existingRSVP) {
-            $existingRSVP->update([
-                "name" => $request->name,
-                "email" => $request->email
-            ]);
-
-        } else {
+        WeddingRepository::createAttendant($request->name, $request->phone_number, $id, $request->email);
 
 
-            $rsvp = new Reservation([
-                "wedding_id" => $id,
-                "name" => $request->name,
-                "phone_number" => $request->phone_number,
-                "email" => $request->email
-            ]);
-            $rsvp->save();
-
-
-            $wedding_event = new Event([
-                "wedding_id" => $id,
-                "title" => $request->name . " would be attending",
-                "description" => $request->name . " has indicated that they would be attending",
-                "type" => "attendance"
-            ]);
-
-            $wedding_event->save();
-
-
-            $wedding = Wedding::find($id);
-            if ($wedding) {
-                $user = User::find($wedding->user_id);
-
-                if ($user && $user->notification_token) {
-
-                    $player_ids=[
-                        "include_player_ids"=>[$user->notification_token],
-                    ];
-                    OneSignal::sendPush($player_ids, $request->name . " would be attending your wedding (".$wedding->tage."🎉)");
-
-                }
-            }
-
-        }
         $wedding = Wedding::find($id);
 
 
@@ -132,7 +230,7 @@ class WeddingsController extends Controller
         $user = \request()->user();
 
         $weddings = Wedding::withSum("items", "target_amount")
-            ->withSum("items", "amount_contributed")
+            ->withSum("contributions", "amount")
             ->where("user_id", $user->id)->orderBy("id", "desc")->get();
 
         return success_response($weddings);
@@ -169,7 +267,7 @@ class WeddingsController extends Controller
     {
 
         $wedding = Wedding::withSum("items", "target_amount")
-            ->withSum("items", "amount_contributed")
+            ->withSum("contributions", "amount")
             ->where("id", $id)
             ->where("user_id", \request()->user()->id)
             ->first();

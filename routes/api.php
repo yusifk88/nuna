@@ -40,6 +40,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get("activities", [WeddingsController::class, "weddingActivities"]);
     Route::get("guests-list", [WeddingsController::class, "guests"]);
     Route::get("dashboard", [DashboardControler::class, "show"]);
+    Route::get("contributions", [WeddingsController::class, "contributions"]);
 
 
     /**

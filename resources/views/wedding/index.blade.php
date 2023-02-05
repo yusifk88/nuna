@@ -125,7 +125,7 @@
 
                             <div class="simply-countdown simply-countdown-one"></div>
 
-                            <a href="#" class="btn btn-primary btn-lg">Send a gift</a>
+                            <a href="{{route('initPayment',$wedding->tag)}}" class="btn bg-success btn-lg">Send a gift</a>
                             <button id="calendar-button" class="btn btn-default btn-lg">Save the date</button>
                             <a href="#fh5co-started" class="btn btn-primary btn-lg">Add RSVP</a>
                         </div>
@@ -592,7 +592,8 @@
             "Apple",
             "Google",
             "Yahoo",
-            "iCal"],
+            "iCal"
+        ],
         timeZone: "Europe/Berlin",
         trigger: "click",
         iCalFileName: "Wedding-Event",

@@ -14,7 +14,7 @@ class Wedding extends Model
     protected $table = "wedding";
     protected $fillable = ["user_id", "bride_name", "bride_phone_number", "bride_email", "groom_name", "groom_phone_number",
         "groom_email", "tag", "rsv_phone_number", "rsv_person", "location", "coordinates", "date_time", "photo_one", "photo_two",
-        "photo_three", "photo_four", "zoom_link", "youtube_link", "public","story"];
+        "photo_three", "photo_four", "zoom_link", "youtube_link", "public", "story"];
 
     protected $casts = [
         "public" => "bool",
@@ -22,9 +22,17 @@ class Wedding extends Model
     ];
 
 
-    public function items(){
+    public function items()
+    {
 
-        return $this->hasMany(WishList::class,"wedding_id","id");
+        return $this->hasMany(WishList::class, "wedding_id", "id");
+
+    }
+
+    public function contributions()
+    {
+
+        return $this->hasMany(WeddingContribution::class, "wedding_id", "id")->where("success", true);
 
     }
 
