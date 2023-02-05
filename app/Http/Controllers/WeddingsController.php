@@ -15,6 +15,7 @@ use App\Repositories\WeddingRepository;
 use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Ladumor\OneSignal\OneSignal;
 use Symfony\Component\HttpFoundation\Response;
@@ -27,12 +28,12 @@ class WeddingsController extends Controller
     {
 
         $wedding_id = \request()->get("wedding_id");
-        if ($wedding_id){
+        if ($wedding_id) {
 
             $list = WeddingContribution::where("wedding_id", $wedding_id)->where("success", true)->orderBy("id", "desc")->get();
-        }else{
+        } else {
             $user = auth()->user();
-            $list = WeddingContribution::whereIn("wedding_id", Wedding::select("id")->where("user_id",$user->id))->where("success", true)->orderBy("id", "desc")->get();
+            $list = WeddingContribution::whereIn("wedding_id", Wedding::select("id")->where("user_id", $user->id))->where("success", true)->orderBy("id", "desc")->get();
 
         }
         $contributions = WeddingEventResource::collection($list);
@@ -123,6 +124,8 @@ class WeddingsController extends Controller
         $transaction_id = Payswitch::getMaxID();
 
         $checkout = Payswitch::initialize_collection($request->amount, $request->email, $transaction_id, $url);
+
+        Log::info($checkout);
 
         if ($checkout && $checkout->status === 'success') {
 
