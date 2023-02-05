@@ -77,7 +77,7 @@ class WeddingsController extends Controller
 
 
                     $user = User::find($wedding->user_id);
-                    $message = "🎁 You have received GHS" . number_format($record->amount, 2) . " from " . $record->name . " as contribution for your wedding(" . $wedding->tag . ")!";
+                    $message = "🎁 You have received GHS" . number_format($record->amount, 2) . " from " . $record->name . " as a gift for your wedding(" . $wedding->tag . ")!";
 
 
                     pushNotificationRepository::sendNotification($user, $message);
