@@ -125,7 +125,6 @@ class WeddingsController extends Controller
 
         $checkout = Payswitch::initialize_collection($request->amount, $request->email, $transaction_id, $url);
 
-        Log::info((array)$checkout);
 
         if ($checkout && $checkout->status === 'success') {
 
