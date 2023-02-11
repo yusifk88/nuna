@@ -79,8 +79,12 @@
         </ion-col>
       </ion-row>
 
-      <dashboard-summary-component @guestTapped="showGuest" :dashboard="dashboard"
-                                   v-if="dashboard && dashboard.weddings.length"></dashboard-summary-component>
+      <dashboard-summary-component
+          @guestTapped="showGuest"
+          @contributionTapped="showcontribution"
+          :dashboard="dashboard"
+          v-if="dashboard && dashboard.weddings.length"
+      ></dashboard-summary-component>
 
       <ion-row v-if="dashboard && dashboard.weddings.length">
         <ion-col size="12">
@@ -95,7 +99,7 @@
       <ion-modal mode="ios" ref="modal" :is-open="showGuestDialog" :presenting-element="presentingElement">
         <ion-header>
           <ion-toolbar>
-            <ion-title>Guest List</ion-title>
+            <ion-title>{{ dialogType === 'guest' ? 'Guests' : 'Contributions' }} List</ion-title>
             <ion-buttons slot="end">
               <ion-button @click="dismiss">Close</ion-button>
             </ion-buttons>
@@ -103,9 +107,10 @@
         </ion-header>
 
 
-        <ion-content>
+        <ion-content class="ion-padding">
 
-          <guest-list></guest-list>
+          <guest-list v-if="dialogType==='guest'"></guest-list>
+          <contribution-list v-else></contribution-list>
 
         </ion-content>
 
@@ -150,10 +155,12 @@ import DashboardSummaryComponent from "@/components/dashboardSummaryComponent";
 import DashbordRecentAcitivitiesComponent from "@/components/dashbordRecentAcitivitiesComponent";
 import ListLoadingComponent from "@/components/ListLoadingComponent";
 import GuestList from "@/components/GuestList";
+import ContributionList from "@/components/contributionList";
 
 export default defineComponent({
   name: 'Tab1Page',
   components: {
+    ContributionList,
     GuestList,
     IonTitle,
     IonButtons,
@@ -187,17 +194,23 @@ export default defineComponent({
       shareOutline,
       loading: false,
       dashboard: null,
-      presentingElement: null
+      presentingElement: null,
+      dialogType: "guest"
     }
   },
   methods: {
 
     dismiss() {
       this.$refs.modal.$el.dismiss();
-      this.showGuestDialog=false;
+      this.showGuestDialog = false;
     },
     showGuest() {
-      this.showGuestDialog=true;
+      this.showGuestDialog = true;
+      this.dialogType = "guest";
+    },
+    showcontribution() {
+      this.showGuestDialog = true;
+      this.dialogType = "contribution";
     },
 
     getURL(wedding) {

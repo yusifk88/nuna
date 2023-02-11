@@ -27,6 +27,7 @@
     <ion-col size="6">
 
       <ion-card
+          @click="$emit('contributionTapped')"
           mode="ios"
           class="no-margin"
           style="background-color: rgba(45,211,111,0.19);color:#2dd36f;"
@@ -38,7 +39,7 @@
           <ion-row>
             <ion-col size="12" class="ion-text-center">
 
-              <h1 class="font-weight-light">0 <ion-icon size="small" :icon="peopleOutline"></ion-icon></h1>
+              <h1 class="font-weight-light">{{dashboard ? dashboard.contributions : 0}} <ion-icon size="small" :icon="peopleOutline"></ion-icon></h1>
               <small>Contributors</small>
             </ion-col>
 

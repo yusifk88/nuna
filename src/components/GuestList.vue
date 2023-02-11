@@ -33,6 +33,7 @@ import axios from "axios";
 import LoadingComponent from "@/components/loadingComponent";
 import NoRecordComponent from "@/components/NoRecordComponent";
 import {IonList, IonItem, IonLabel, IonAvatar} from "@ionic/vue";
+import store from "@/store";
 
 export default {
   props: {
@@ -44,8 +45,12 @@ export default {
   components: {LoadingComponent, IonList, IonItem, IonLabel, NoRecordComponent, IonAvatar},
   data() {
     return {
-      items: [],
       loading: false
+    }
+  },
+  computed:{
+    items(){
+      return store.state.guestList;
     }
   },
   methods: {
@@ -55,7 +60,7 @@ export default {
       axios.get(URL)
           .then(res => {
             this.loading = false;
-            this.items = res.data.data;
+            store.state.guestList = res.data.data;
           })
 
     }

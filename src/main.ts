@@ -23,6 +23,7 @@ import '@ionic/vue/css/display.css';
 import VueApexCharts from "vue3-apexcharts";
 
 import VueGoogleMaps from '@fawmi/vue-google-maps'
+import OneSignal from 'onesignal-cordova-plugin';
 
 /* Theme variables */
 import './theme/variables.css';
@@ -46,7 +47,80 @@ const app = createApp(App)
     })
     .use(router);
 
+
+function OneSignalInit(): void {
+    // Uncomment to set OneSignal device logging to VERBOSE
+    OneSignal.setLogLevel(6, 0);
+
+    // NOTE: Update the setAppId value below with your OneSignal AppId.
+    OneSignal.setAppId("c45edfd9-b1eb-4a14-a715-31ed1de6d715");
+
+    OneSignal.setNotificationOpenedHandler(function (jsonData) {
+
+        console.log('notificationOpenedCallback: ' + JSON.stringify(jsonData));
+
+    });
+
+
+    if (store.state.user && store.state.user.email.length > 0) {
+
+        // eslint-disable-next-line @typescript-eslint/no-var-requires
+        const {v4: uuidv4} = require('uuid');
+
+        const UUID = uuidv4();
+
+        OneSignal.setEmail(store.state.user.email);
+        OneSignal.setSMSNumber(store.state.user.phone_number);
+
+        OneSignal.setExternalUserId(UUID);
+
+        console.log(UUID);
+
+
+    }
+
+
+    OneSignal.getDeviceState(deviceState => {
+
+        if (deviceState.subscribed){
+
+            axios.post("/set-user-push-id",{user_id:deviceState.userId})
+
+        }
+
+    });
+
+
+    // OneSignal.addSubscriptionObserver(state => {
+    //
+    //     console.log(state);
+    //
+    // });
+
+    // Prompts the user for notification permissions.
+    //    * Since this shows a generic native prompt, we recommend instead using an In-App Message to prompt for notification permission (See step 7) to better communicate to your users what notifications they will get.
+    OneSignal.promptForPushNotificationsWithUserResponse(function (accepted) {
+        console.log(accepted);
+    });
+
+
+}
+
+document.addEventListener("deviceready", OneSignalInit, false);
+
+
 router.isReady().then(() => {
+
+
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    // OneSignal.addSubscriptionObserver().subscribe((state) => {
+    //
+    //     if (!state.from.subscribed && state.to.subscribed) {
+    //         console.log("Subscribed for OneSignal push notifications! :: ID "+state.to.userId);
+    //     }
+    //     window.alert(JSON.stringify(state));
+    // });
 
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
@@ -89,5 +163,6 @@ router.isReady().then(() => {
     app.mount('#app');
 
     store.commit("initUser");
+
 
 });

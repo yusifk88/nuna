@@ -27,7 +27,7 @@
 
       <ion-label>
         <h1>{{ item.groom_name }} & {{ item.bride_name }}</h1>
-        <h4>GHS{{item.items_sum_amount_contributed}}/GHS{{item.items_sum_target_amount}}</h4>
+        <h4>GHS{{item.contributions_sum_amount}}/GHS{{item.items_sum_target_amount}}</h4>
         <p>{{ item.date_time }}</p>
       </ion-label>
       <ion-icon v-show="false" color="success" v-if="item.public" :icon="globeOutline" slot="end"></ion-icon>

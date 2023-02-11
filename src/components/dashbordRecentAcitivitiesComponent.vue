@@ -51,7 +51,6 @@ export default {
       this.loading = true;
       axios.get("/activities")
           .then(res => {
-            console.log(res.data);
             this.items = res.data.data;
             this.loading = false;
           })

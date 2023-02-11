@@ -3,7 +3,9 @@
 
     <small v-if="wedding && wedding.items_sum_target_amount >0 " class="text-muted">ALl Time</small>
     <h3 v-if="wedding && wedding.items_sum_target_amount >0">
-      GHS{{ !wedding ? 0 : wedding.items_sum_target_amount }}/GHS{{ !wedding ? 0 : wedding.items_sum_amount_contributed }}</h3>
+      GHS{{ !wedding ? 0 : wedding.contributions_sum_amount }}/GHS{{
+        !wedding ? 0 : wedding.items_sum_target_amount
+      }}</h3>
     <ion-progress-bar v-if="wedding && wedding.items_sum_target_amount >0" color="success" :value="percent"
                       style="height: 10px; border-radius: 5px"></ion-progress-bar>
 
@@ -45,33 +47,9 @@
 
     <!--    </ion-card>-->
 
-    <h2 v-if="items.length">Contributions</h2>
 
-    <ion-list v-if="items.length" class="no-margin">
+  <contribution-list @createNew="newItem=true" :wedding="wedding"></contribution-list>
 
-      <ion-item v-for="(item,index) in items" :key="index">
-
-        <ion-icon class="gift-icon" :icon="giftOutline"></ion-icon>
-
-        <ion-label>
-          <h2>GHS{{ item.amount }}</h2>
-          <p>From {{ item.name }}</p>
-        </ion-label>
-        <small class="text-muted">{{ item.create_at }}</small>
-      </ion-item>
-
-    </ion-list>
-
-    <no-record-component
-        :show-button="wedding && wedding.items_sum_target_amount <=0"
-        title="No contributions yet"
-        description="You do not have contributions yet, Good luck XD!"
-        button-text="Add cash target"
-        @buttonTapped="newItem=true"
-        :button-icon="addOutline"
-        :show-icon="true"
-        v-else
-    ></no-record-component>
 
     <ion-modal
         :initial-breakpoint="initState"
@@ -98,17 +76,17 @@
 import {addOutline} from "ionicons/icons";
 
 import NewWishListItem from "@/components/newWishListItem";
-import {IonContent, IonIcon, IonItem, IonLabel, IonList, IonModal, IonProgressBar} from "@ionic/vue";
+import {IonContent, IonModal, IonProgressBar} from "@ionic/vue";
 
 import {giftOutline} from "ionicons/icons";
-import NoRecordComponent from "@/components/NoRecordComponent";
-import axios from "axios";
+
+import ContributionList from "@/components/contributionList";
 
 
 export default {
   props: {
-    wedding:{
-      type:Object
+    wedding: {
+      type: Object
     },
     weddingID: {
       type: Number
@@ -122,6 +100,7 @@ export default {
       newItem: false,
       defaultSegment: '1d',
       giftOutline,
+      loading:false,
       items: [],
       series: [{
         name: "Contribution",
@@ -182,11 +161,11 @@ export default {
         return 0;
 
       }
-      if (this.wedding.items_sum_amount_contributed <= 0) {
+      if (this.wedding.contributions_sum_amount <= 0) {
         return 0;
       }
 
-      return this.wedding.items_sum_amount_contributed / this.wedding.items_sum_target_amount;
+      return this.wedding.contributions_sum_amount / this.wedding.items_sum_target_amount;
 
     },
 
@@ -227,31 +206,12 @@ export default {
 
       this.newItem = false;
       this.$emit("cashAdded");
-    },
-    getItems() {
-      this.loading = true;
-      axios.get("/wishlist/" + this.weddingID)
-          .then(res => {
-
-            this.items = res.data.data;
-
-            this.loading = false;
-
-          })
-          .catch(error => {
-            this.loading = false;
-
-
-          });
     }
   },
+
   components: {
-    NoRecordComponent,
+    ContributionList,
     IonContent,
-    IonList,
-    IonItem,
-    IonLabel,
-    IonIcon,
     IonProgressBar,
     IonModal,
     NewWishListItem
@@ -262,15 +222,7 @@ export default {
 
 <style scoped>
 
-.gift-icon {
-  padding: 10px;
-  border-radius: 20%;
-  background-color: #2DD36F4A;
-  margin: 5px;
-  margin-left: 0 !important;
-  color: #2dd36f;
 
-}
 
 ion-card {
 

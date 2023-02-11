@@ -15,7 +15,7 @@
           </ion-segment-button>
 
           <ion-segment-button @click="defaultSegment='guest'" value="guest">
-            Guest
+            Guests
           </ion-segment-button>
 
           <ion-segment-button @click="defaultSegment='info'" value="info">
@@ -37,7 +37,8 @@
 
       </ion-content>
 
-      <ion-content style="transition: 0.3s ease-in-out;" class="no-padding" v-if="defaultSegment==='guest'">
+      <ion-content style="transition: 0.3s ease-in-out;" class="ion-padding" v-if="defaultSegment==='guest'">
+
           <guest-list :wedding-i-d="wedding.id"></guest-list>
 
       </ion-content>
@@ -125,7 +126,7 @@
                 class="font-weight-light">{{ weddingNames }}</h2>
             <p style="color: black; margin-top: 0!important; margin-bottom: 0; letter-spacing: 0.1em;">
               {{ weddingDate }}</p>
-            <p style="color: black; margin-top: 0!important; letter-spacing: 0.3em;">Tel:
+            <p style="color: black; margin-top: 0!important; letter-spacing: 0.3em;">RSVP:
               {{ wedding.rsv_phone_number }}</p>
 
           </div>
@@ -232,7 +233,7 @@ export default {
       if (this.wedding) {
 
 
-        return moment(this.wedding.date).format("dddd, Do MMMM Y h:mm a");
+        return moment(this.wedding.date_time).format("dddd, Do MMMM Y h:mm a");
 
       }
 
