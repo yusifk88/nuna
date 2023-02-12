@@ -9,13 +9,13 @@
     "license": "MIT",
     "require": {
         "php": "^8.0|8.1.11",
+        "ext-curl": "*",
         "fruitcake/laravel-cors": "^2.2.0",
         "guzzlehttp/guzzle": "^7.5.0",
         "ladumor/one-signal": "^0.4.3",
         "laravel/framework": "^v8.83.27",
         "laravel/sanctum": "^2.15.1",
-        "laravel/tinker": "^2.7.3",
-      "ext-curl": "*"
+        "laravel/tinker": "^2.7.3"
     },
     "require-dev": {
         "facade/ignition": "^2.17.6",
@@ -63,7 +63,10 @@
     "config": {
         "optimize-autoloader": true,
         "preferred-install": "dist",
-        "sort-packages": true
+        "sort-packages": true,
+        "allow-plugins": {
+            "php-http/discovery": true
+        }
     },
     "minimum-stability": "dev",
     "prefer-stable": true

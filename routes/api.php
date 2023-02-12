@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AIController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardControler;
 use App\Http\Controllers\WeddingsController;
@@ -29,8 +30,7 @@ Route::middleware('auth:sanctum')->group(function () {
     });
 
 
-
-    Route::post("set-user-push-id",[AuthController::class,"SetPushUserID"]);
+    Route::post("set-user-push-id", [AuthController::class, "SetPushUserID"]);
     /**
      * wedding routes
      */
@@ -41,6 +41,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get("guests-list", [WeddingsController::class, "guests"]);
     Route::get("dashboard", [DashboardControler::class, "show"]);
     Route::get("contributions", [WeddingsController::class, "contributions"]);
+    Route::get("get-love-story", [AIController::class, "loveStory"]);
 
 
     /**

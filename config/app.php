@@ -119,6 +119,7 @@ return [
     |
     */
 
+    'open_ai_key'=>env("OPEN_AI_KEY"),
     'key' => env('APP_KEY'),
 
     'cipher' => 'AES-256-CBC',

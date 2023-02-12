@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\WeddingsController;
 use App\Repositories\Payswitch;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
+use Repositories\OpenAI;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,6 +33,3 @@ Route::post("w/{id}/attending", [WeddingsController::class, "SaveRSV"])->name("r
 Route::post("w/{id}/checkout", [WeddingsController::class, "initCheckout"])->name("initCheckout");
 
 
-//$res = Payswitch::initialize_collection(100, "ykatulie@gmail.com");
-//
-//dd($res);
