@@ -151,7 +151,7 @@
                     </div>
                     <div class="desc-groom">
                         <h3>{{$wedding->groom_name}}</h3>
-                        <p>{{$wedding->story}}</p>
+                        <p>{!! $wedding->story !!}</p>
                     </div>
                 </div>
                 <p class="heart text-center"><i class="icon-heart2"></i></p>
@@ -161,7 +161,7 @@
                     </div>
                     <div class="desc-bride">
                         <h3>{{$wedding->bride_name}}</h3>
-                        <p>{{$wedding->story}}</p>
+                        <p>{!! $wedding->story !!}</p>
                     </div>
                 </div>
             </div>
@@ -243,7 +243,7 @@
                 <div class="col-md-8 col-md-offset-2 text-center fh5co-heading animate-box">
                     <span>We Love Each Other</span>
                     <h2>Our Story</h2>
-                    <p>{{$wedding->story}}</p>
+                    <p>{!!$wedding->story!!}</p>
                 </div>
             </div>
             {{--            <div class="row">--}}
@@ -297,7 +297,7 @@
                 <div class="col-md-8 col-md-offset-2 text-center fh5co-heading animate-box">
                     <span>Our Memories</span>
                     <h2>Wedding Gallery</h2>
-                    <p>{{$wedding->story}}</p>
+                    <p>{!!$wedding->story!!}</p>
                 </div>
             </div>
             <div class="row row-bottom-padded-md">

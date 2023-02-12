@@ -67,7 +67,7 @@ class Payswitch
 
     public static function getMaxID()
     {
-        $maxID = 8;
+        $maxID = 10;
         $lastRecord = WeddingContribution::get()->last();
 
         if ($lastRecord) {

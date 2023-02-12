@@ -21,7 +21,7 @@
                         <div class="col-md-6 border">
 
                             <div class="alert alert-primary mt-2">
-                                <h5>Please fill the form to submit your contribution to {{$wedding->groom_name}} and {{$wedding->bride_name}}.</h5>
+                                <p>Please fill the form to submit your gift to {{$wedding->groom_name}} and {{$wedding->bride_name}}.</p>
                             </div>
                             <form method="post" action="{{route('initCheckout',$wedding->id)}}">
                                 {{csrf_field()}}
@@ -81,7 +81,7 @@
 
                             <h1 style="font-size: 50px" class="mt-5">Thank You❤️</h1>
 
-                            <p class="text-muted">Thank you for your generous contribution to our union.</p>
+                            <p class="text-muted">Thank you for the gift, we appreciate your kind gesture.</p>
 
                             <a class="btn btn-primary btn-lg btn-link w-100" href="{{url("/w",$wedding->tag)}}">Go back</a>
 

@@ -15,7 +15,7 @@ class AuthController extends Controller
     {
         $request->validate(["user_id" => "required"]);
 
-        User::where("id",$request->user()->id)->update(["notification_token"=>$request->user_id]);
+        User::where("id", $request->user()->id)->update(["notification_token" => $request->user_id]);
 
 
     }
@@ -26,16 +26,27 @@ class AuthController extends Controller
         $request->validate([
             "first_name" => "required",
             "last_name" => "required",
-            "phone_number" => "required|unique:users,phone_number",
+            "phone_number" => "required|unique:users,phone_number|min:10",
             "email" => "required|unique:users,email",
             "birth_date" => "required|date",
             "country_code" => "required",
-            "id_number" => "required|unique:users,email",
             'password' => 'required|min:6|required_with:password_confirmation|same:password_confirmation',
             'password_confirmation' => 'required|min:6'
         ]);
 
+
+        $currencies = [
+            "gh" => "GHS",
+            "ke" => "KSH",
+            "ng" => "NGN"
+        ];
+
+
+        $currency = $currencies[strtolower($request->country_code)] ?? "GHS";
+
         $allData = $request->all();
+        $allData['currency'] = $currency;
+
         $allData['password'] = Hash::make($request->password);
 
 

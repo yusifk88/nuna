@@ -156,6 +156,13 @@ class WeddingsController extends Controller
             abort(Response::HTTP_NOT_FOUND, "Wedding not found");
         }
 
+        $user = User::find($wedding->user_id);
+        if (strtolower($user->country_code) !== "gh") {
+            $error = "Sorry, payment is not available in " . $user->country_code . " yet";
+            return view("wedding.payment_failed", ['wedding' => $wedding, "reason" => $error]);
+        }
+
+
         return view("wedding.pay_page", ['wedding' => $wedding]);
 
 
