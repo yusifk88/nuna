@@ -38,7 +38,7 @@
 <ion-row>
   <ion-col size="8">
         <small class="ion-margin-top ion-padding-top">Target/Contributed</small>
-         <h2 class="font-weight-bold">GHS{{ Number(wedding.contributions_sum_amount).toFixed("2") }}/GHS{{Number(wedding.items_sum_target_amount).toFixed("2") }}</h2>
+         <h2 class="font-weight-bold">{{user.currency}}{{ Number(wedding.contributions_sum_amount).toFixed("2") }}/{{user.currency}}{{Number(wedding.items_sum_target_amount).toFixed("2") }}</h2>
   </ion-col>
   <ion-col size="4">
 
@@ -106,6 +106,11 @@ export default {
       return "https://mynuuna.com/w/" + wedding.tag;
 
 
+    }
+  },
+  computed:{
+    user(){
+      return this.$store.state.user;
     }
   },
   data() {

@@ -8,7 +8,7 @@
       <ion-icon class="gift-icon" :icon="giftOutline"></ion-icon>
 
       <ion-label>
-        <h2>GHS{{ item.amount }}</h2>
+        <h2>{{user.currency}}{{ item.amount }}</h2>
         <p>From {{ item.name }}</p>
       </ion-label>
       <small class="text-muted">{{ item.human_date }}</small>
@@ -54,6 +54,9 @@ export default {
   computed: {
     items() {
       return store.state.contributionList;
+    },
+    user(){
+      return this.$store.state.user;
     }
   },
   methods: {

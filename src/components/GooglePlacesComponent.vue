@@ -16,6 +16,8 @@
               v-on:placechanged="onPlaceChanged"
               :country="countryCodes"
               ref="address"
+              types="establishment"
+              :enableGeolocation="true"
           >
           </vue-google-autocomplete>
         </ion-col>

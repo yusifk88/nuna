@@ -60,7 +60,7 @@
 
         <ion-item shape="round" fill="outline" class="ion-margin-bottom">
           <ion-label>
-            GHS
+            {{user.currency}}
           </ion-label>
           <ion-input :autofocus="true" :disabled="saving" v-model="cash.amount" inputmode="decimal"
                      placeholder="Target Amount"></ion-input>
@@ -116,7 +116,7 @@
 
         <ion-item shape="round" fill="outline" class="ion-margin-top">
           <ion-label>
-            GHS
+            {{user.currency}}
           </ion-label>
           <ion-input :disabled="saving" v-model="item.amount" inputmode="decimal" placeholder="Price"></ion-input>
         </ion-item>
@@ -222,6 +222,11 @@ export default {
         description: ""
       },
       saving: false
+    }
+  },
+  computed:{
+    user(){
+      return this.$store.state.user;
     }
   },
   methods: {

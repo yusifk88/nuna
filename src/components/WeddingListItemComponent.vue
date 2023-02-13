@@ -3,17 +3,18 @@
 
     <ion-item-options side="start">
 
-      <ion-item-option v-if="!item.public" color="success">
-        <ion-icon :icon="globeOutline"></ion-icon>
-      </ion-item-option>
+<!--      <ion-item-option v-if="!item.public" color="success">-->
+<!--        <ion-icon :icon="globeOutline"></ion-icon>-->
+<!--      </ion-item-option>-->
 
-      <ion-item-option v-else color="danger">
-        <ion-icon :icon="cloudOfflineOutline"></ion-icon>
-      </ion-item-option>
+<!--      <ion-item-option v-else color="danger">-->
+<!--        <ion-icon :icon="cloudOfflineOutline"></ion-icon>-->
+<!--      </ion-item-option>-->
 
 
       <ion-item-option>
-        <ion-icon :icon="copyOutline"></ion-icon>
+        Share <ion-icon :icon="shareOutline" style="font-size: 20px" ></ion-icon>
+
       </ion-item-option>
 
 
@@ -27,7 +28,7 @@
 
       <ion-label>
         <h1>{{ item.groom_name }} & {{ item.bride_name }}</h1>
-        <h4>GHS{{item.contributions_sum_amount}}/GHS{{item.items_sum_target_amount}}</h4>
+        <h4>{{user.currency}}{{item.contributions_sum_amount}}/{{user.currency}}{{item.items_sum_target_amount}}</h4>
         <p>{{ item.date_time }}</p>
       </ion-label>
       <ion-icon v-show="false" color="success" v-if="item.public" :icon="globeOutline" slot="end"></ion-icon>
@@ -40,7 +41,7 @@
 
 <script>
 import {IonIcon, IonItem, IonItemOption, IonItemOptions, IonItemSliding, IonLabel, IonThumbnail} from "@ionic/vue";
-import {closeCircleOutline, cloudOfflineOutline, copyOutline, globeOutline} from "ionicons/icons";
+import {closeCircleOutline, cloudOfflineOutline, copyOutline, globeOutline,shareOutline} from "ionicons/icons";
 
 export default {
   props: {
@@ -57,10 +58,14 @@ export default {
       globeOutline,
       closeCircleOutline,
       cloudOfflineOutline,
-      copyOutline
+      copyOutline,
+      shareOutline
     }
   },
   computed: {
+    user(){
+      return this.$store.state.user;
+    },
     imgURL() {
       if (this.item.photo_one) {
 

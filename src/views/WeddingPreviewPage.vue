@@ -53,7 +53,7 @@
               <div
                   style="width: 100%;height: 100%; padding: 10px; background-color: rgba(0,0,0,0.38); color: white;  border-radius: 3%; text-align: center;">
                 <h3 style="font-family: cursive;" class="ion-margin-top">Our Story</h3>
-                <small class="ion-margin-top" style="display: block;">{{ wedding.story }}</small>
+                <small class="ion-margin-top" style="display: block;" v-html="wedding.story"></small>
                 <ion-icon class="ion-margin-top" style="margin-right: -10px" :icon="heartOutline"
                           size="large"></ion-icon>
                 <ion-icon class="ion-margin-top" style="margin-left: -10px" :icon="heartOutline"

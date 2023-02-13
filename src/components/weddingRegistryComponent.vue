@@ -153,7 +153,7 @@
         </ion-item>
 
         <ion-item fill="outline" shape="round" class="ion-margin-top">
-          <ion-input v-model="rsvPerson"  placeholder="RSVP contact person name*"></ion-input>
+          <ion-input v-model="rsvPerson" placeholder="RSVP contact person name*"></ion-input>
         </ion-item>
 
         <ion-item fill="outline" shape="round" class="ion-margin-top">
@@ -225,7 +225,7 @@
       </ion-button>
 
       <ion-item v-if="showSocial" fill="outline" shape="round" class="ion-margin-top">
-        <ion-input v-model="zoomLink" inputmode="url"  placeholder="Zoom link"></ion-input>
+        <ion-input v-model="zoomLink" inputmode="url" placeholder="Zoom link"></ion-input>
       </ion-item>
 
       <ion-item v-if="showSocial" fill="outline" shape="round" class="ion-margin-top">
@@ -270,7 +270,18 @@
       <ion-item shape="round" fill="outline" class="ion-margin-top">
         <ion-textarea v-model="story" rows="1" :autoGrow="true" placeholder="A short beautiful story"></ion-textarea>
       </ion-item>
+      <ion-button id="ai-help-button" class="ion-margin" fill="clear">Seek suggestions</ion-button>
 
+      <ion-modal
+          :initial-breakpoint="0.75"
+          :breakpoints="[0, 0.25, 0.5, 0.75,1]"
+          handle-behavior="cycle"
+          mode="ios"
+          ref="AImodal"
+          trigger="ai-help-button"
+      >
+        <love-ai-component @selected="suggestionSelected"></love-ai-component>
+      </ion-modal>
       <p>How do you want to say thank you?</p>
       <ion-radio-group :value="thankYouvalue">
 
@@ -339,7 +350,9 @@
 
             <ion-card-content>
 
-              {{ story }}
+              <span v-html="story">
+
+              </span>
             </ion-card-content>
 
           </ion-card>
@@ -507,9 +520,13 @@
 
       </ion-button>
 
-      <ion-button @click="saveEvent" slot="end" shape="round" v-else color="success" size="large">
-        Create event
-        <ion-icon :icon="checkmarkOutline"></ion-icon>
+      <ion-button :disabled="loading" @click="saveEvent" slot="end" shape="round" v-else color="success" size="large">
+        <template v-if="!loading">
+
+          Create event
+          <ion-icon :icon="checkmarkOutline"></ion-icon>
+        </template>
+        <ion-spinner v-else></ion-spinner>
       </ion-button>
     </ion-toolbar>
   </ion-footer>
@@ -546,7 +563,8 @@ import {
   IonSlide,
   IonSlides,
   IonTextarea,
-  IonToolbar
+  IonToolbar,
+  IonSpinner
 } from "@ionic/vue";
 import WeddinWelcomAnimation from "@/components/weddinWelcomAnimation";
 import {
@@ -570,10 +588,13 @@ import {
 import ThumbnailComponent from "@/components/thumbnailComponent";
 import GooglePlacesComponent from "@/components/GooglePlacesComponent";
 import axios from "axios";
+import LoveAiComponent from "@/components/loveAiComponent";
 
 export default {
   name: "weddingRegistryComponent",
   components: {
+    IonSpinner,
+    LoveAiComponent,
     IonListHeader,
     IonProgressBar,
     GooglePlacesComponent,
@@ -697,7 +718,8 @@ export default {
       date: "",
       dateTime: "",
       maxStep: 5,
-      googlePlace: null
+      googlePlace: null,
+      loading: false
     }
   },
   watch: {
@@ -732,18 +754,21 @@ export default {
   },
   methods: {
 
+    suggestionSelected(story) {
+
+      this.story = story;
+      this.$refs.AImodal.$el.dismiss(null, 'cancel');
+
+    },
+
     setPlace(place) {
       this.googlePlace = place;
-      console.log(place);
 
     },
 
     saveEvent() {
 
-      this.$store.state.mainLoadingText = "Hung on...";
-      this.$store.state.mainLoadingDescription = "We are saving your event...";
-      this.$store.state.mainLoading = true;
-
+      this.loading = true;
 
       const formData = new FormData();
 
@@ -765,12 +790,14 @@ export default {
       formData.append("photo_one", this.photoOne ? this.photoOne.file : null);
       formData.append("photo_two", this.photoTwo ? this.photoTwo.file : null);
       formData.append("photo_three", this.photoThree ? this.photoThree.file : null);
+      formData.append("photo_four", this.photoFour ? this.photoFour.file : null);
 
 
       axios.post("/wedding", formData)
           .then(res => {
 
-            this.$store.state.mainLoading = false;
+            this.loading = false;
+
             const url = "/event/wedding/" + res.data.data.id;
             this.$router.push({path: url});
 

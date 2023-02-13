@@ -1,9 +1,9 @@
 <template>
   <ion-content class="no-padding">
 
-    <small v-if="wedding && wedding.items_sum_target_amount >0 " class="text-muted">ALl Time</small>
+    <small v-if="wedding && wedding.items_sum_target_amount >0 " class="text-muted">All Time</small>
     <h3 v-if="wedding && wedding.items_sum_target_amount >0">
-      GHS{{ !wedding ? 0 : wedding.contributions_sum_amount }}/GHS{{
+      {{user.currency}}{{ !wedding ? 0 : wedding.contributions_sum_amount }}/{{user.currency}}{{
         !wedding ? 0 : wedding.items_sum_target_amount
       }}</h3>
     <ion-progress-bar v-if="wedding && wedding.items_sum_target_amount >0" color="success" :value="percent"
@@ -155,6 +155,9 @@ export default {
     }
   },
   computed: {
+    user(){
+      return this.$store.state.user;
+    },
     percent() {
 
       if (!this.wedding) {

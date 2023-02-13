@@ -74,11 +74,11 @@
         </ion-item>
 
 
-        <ion-item class="ion-margin-top" fill="outline" shape="round">
-          <ion-input v-model="idnumber" type="text" placeholder="ID Number"></ion-input>
-        </ion-item>
+<!--        <ion-item class="ion-margin-top" fill="outline" shape="round">-->
+<!--          <ion-input v-model="idnumber" type="text" placeholder="ID Number"></ion-input>-->
+<!--        </ion-item>-->
 
-        <ion-button @click="goToStep(3)" :disabled="!firstName || !lastName || !birthDate || !idnumber"
+        <ion-button @click="goToStep(3)" :disabled="!firstName || !lastName || !birthDate"
                     class="ion-margin-top" size="large" expand="block" shape="round">Continue
           <ion-icon :icon="arrowForwardOutline"/>
         </ion-button>
@@ -129,7 +129,11 @@
 
 
       <p>Already have an account?
-        <ion-button fill="clear" class="ion-align-self-start" router-link="/login">Login</ion-button>
+        <ion-button
+            fill="clear"
+            class="ion-align-self-start"
+            router-link="/login"
+        >Login</ion-button>
       </p>
 
     </ion-content>
@@ -229,7 +233,6 @@ export default defineComponent({
       formData.append("last_name", this.lastName);
       formData.append("phone_number", this.phoneNumber);
       formData.append("country_code", this.countryCode);
-      formData.append("id_number", this.idnumber);
       formData.append("birth_date", this.birthDate);
       formData.append("email", this.email);
       formData.append("password", this.password);

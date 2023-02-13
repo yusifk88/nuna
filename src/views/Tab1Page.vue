@@ -14,8 +14,8 @@
 
           <ion-col size="2" class="ion-align-self-end">
 
-            <ion-avatar v-if="$store.state.user">
-              <img width="10" :alt="$store.state.user.first_name+' profile photo'"
+            <ion-avatar height="20" v-if="$store.state.user">
+              <img :alt="$store.state.user.first_name+' profile photo'"
                    src="https://ionicframework.com/docs/demos/api/avatar/avatar.svg"/>
             </ion-avatar>
 
