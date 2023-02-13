@@ -42,13 +42,35 @@
     @endif
 
 
+
+    @if($wedding->photo_one)
+        <meta property="twitter:image" content="{{url($wedding->photo_one)}}"/>
+
+    @elseif($wedding->photo_two)
+
+        <meta property="twitter:image" content="{{url($wedding->photo_two)}}"/>
+
+    @elseif($wedding->photo_three)
+        <meta property="twitter:image" content="{{url($wedding->photo_three)}}"/>
+    @elseif($wedding->photo_four)
+
+        <meta property="twitter:image" content="{{url($wedding->photo_four)}}"/>
+
+    @else
+
+        <meta property="twitter:image"
+              content="https://objectstorage.uk-london-1.oraclecloud.com/n/lrj6a9vl4is6/b/MyBucket/o/logo.png"/>
+    @endif
+
+
     <meta property="og:url" content="https://mynunna.com/w/{{$wedding->tag}}"/>
     <meta property="og:site_name" content="Nuna"/>
     <meta property="og:description"
           content="{{$wedding->groom_name}} & {{$wedding->bride_name}}'s wedding at {{$wedding->location}}"/>
     <meta name="twitter:title"
           content="{{$wedding->groom_name}} & {{$wedding->bride_name}}'s wedding at {{$wedding->location}}"/>
-    <meta name="twitter:image" content="{{url($wedding->photo_one)}}"/>
+
+
     <meta name="twitter:url" content="https://mynunna.com/w/{{$wedding->tag}}"/>
     <meta name="twitter:card"
           content="{{$wedding->groom_name}} & {{$wedding->bride_name}}'s wedding at {{$wedding->location}}"/>
