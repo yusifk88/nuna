@@ -318,10 +318,10 @@ class WeddingsController extends Controller
             "coordinates" => $request->coordinates,
             "date_time" => Carbon::parse($request->date_time)->toDateTimeString(),
             "user_id" => $request->user()->id,
-            "photo_one" => $request->hasFile("photo_one") ? Storage::url($request->file("photo_one")->store("/public/wedding/photos")) : null,
-            "photo_two" => $request->hasFile("photo_two") ? Storage::url($request->file("photo_two")->store("/public/wedding/photos")) : null,
-            "photo_three" => $request->hasFile("photo_three") ? Storage::url($request->file("photo_three")->store("/public/wedding/photos")) : null,
-            "photo_four" => $request->hasFile("photo_four") ? Storage::url($request->file("photo_four")->store("/public/wedding/photos")) : null
+            "photo_one" => $request->hasFile("photo_one") ? Storage::url($request->file("photo_one")->store("nuna/public/wedding/photos")) : null,
+            "photo_two" => $request->hasFile("photo_two") ? Storage::url($request->file("photo_two")->store("nuna/public/wedding/photos")) : null,
+            "photo_three" => $request->hasFile("photo_three") ? Storage::url($request->file("photo_three")->store("nuna/public/wedding/photos")) : null,
+            "photo_four" => $request->hasFile("photo_four") ? Storage::url($request->file("photo_four")->store("nuna/public/wedding/photos")) : null
         ]);
 
         $wedding->save();

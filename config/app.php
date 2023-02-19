@@ -137,6 +137,9 @@ return [
 
     'providers' => [
 
+
+        App\Providers\OciObjectStorageServiceProvider::class,
+
         /*
          * Laravel Framework Service Providers...
          */
