@@ -74,7 +74,7 @@ class Payswitch
         $lastRecord = WeddingContribution::select(DB::raw("max(id) as last_id"))->get()->first();
 
         if ($lastRecord) {
-            $maxID += $lastRecord->last_id + 1;
+            $maxID += $lastRecord->last_id;
         }
 
         return self::floatToMinor($maxID);
