@@ -1,6 +1,6 @@
 <template>
   <ion-page ref="mainPage">
-    <ion-header>
+    <ion-header class="ion-no-border">
       <ion-toolbar>
         <ion-back-button slot="start"></ion-back-button>
         <ion-title>
@@ -53,7 +53,8 @@
               <div
                   style="width: 100%;height: 100%; padding: 10px; background-color: rgba(0,0,0,0.38); color: white;  border-radius: 3%; text-align: center;">
                 <h3 style="font-family: cursive;" class="ion-margin-top">Our Story</h3>
-                <small class="ion-margin-top" style="display: block;" v-html="wedding.story"></small>
+                <small v-if="wedding && wedding.story" class="ion-margin-top" style="display: block;" v-html="wedding.story.substring(0,200)+'...'"></small>
+
                 <ion-icon class="ion-margin-top" style="margin-right: -10px" :icon="heartOutline"
                           size="large"></ion-icon>
                 <ion-icon class="ion-margin-top" style="margin-left: -10px" :icon="heartOutline"
@@ -256,19 +257,19 @@ export default {
       if (this.wedding) {
         if (this.wedding.photo_one) {
 
-          return this.$store.state.baseURL + this.wedding.photo_one;
+          return this.wedding.photo_one;
 
         } else if (this.wedding.photo_two) {
 
-          return this.$store.state.baseURL + this.wedding.photo_two;
+          return this.wedding.photo_two;
 
         } else if (this.wedding.photo_three) {
 
-          return this.$store.state.baseURL + this.wedding.photo_three;
+          return this.wedding.photo_three;
 
         } else if (this.wedding.photo_four) {
 
-          return this.$store.state.baseURL + this.wedding.photo_four;
+          return  this.wedding.photo_four;
 
         } else {
 

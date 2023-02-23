@@ -8,23 +8,24 @@
         $store.state.user.first_name
       }}</h1>
 
-    <img class="ion-margin-bottom" width="200"
+    <img alt="wedding illustration" class="ion-margin-bottom"
          src="https://objectstorage.uk-london-1.oraclecloud.com/n/lrj6a9vl4is6/b/MyBucket/o/love.svg"
-         alt="wedding illustration">
+         width="200">
    <ion-button
-       size="large"
+       class="ion-margin-top"
        expand="block"
        shape="round"
-       class="ion-margin-top"
-       @click="start"
+       size="large"
        style="z-index: 999999 !important;"
-   >Create registry<ion-icon :icon="arrowForwardOutline"></ion-icon></ion-button>
+       @click="start"
+       mode="ios"
+   >Create Registry<ion-icon :icon="arrowForwardOutline"></ion-icon></ion-button>
   </span>
 
     <weddin-welcom-animation v-if="step===1"></weddin-welcom-animation>
 
 
-    <div class="ion-text-center smooth-in" v-if="step===2">
+    <div v-if="step===2" class="ion-text-center smooth-in">
       <h1>Hello {{ $store.state.user.first_name }},</h1>
       <h2 class="font-weight-light">Are you the groom or the bride?</h2>
 
@@ -36,23 +37,25 @@
       <!--      ></alert-component>-->
 
 
-      <ion-button style="transition: 0.1s ease-in-out" @click="groosatusSeleted=true; userIsGroom=false; setUser()"
-                  class="ion-margin-top"
-                  expand="block"
+      <ion-button class="ion-margin-top" expand="block"
+                  fill="outline"
+                  shape="round"
                   size="large"
-                  shape="round" fill="outline"
+                  mode="ios"
+                  style="transition: 0.1s ease-in-out" @click="groosatusSeleted=true; userIsGroom=false; setUser()"
       >
-        <ion-icon :icon="checkmarkOutline" v-if="groosatusSeleted && !userIsGroom"></ion-icon>
+        <ion-icon v-if="groosatusSeleted && !userIsGroom" :icon="checkmarkOutline"></ion-icon>
         I am the bride
         <ion-icon :icon="femaleOutline"></ion-icon>
 
       </ion-button>
 
-      <ion-button style="transition: 0.1s ease-in-out" @click="groosatusSeleted=true; userIsGroom=true; setUser()"
-                  class="ion-margin-top" expand="block"
+      <ion-button class="ion-margin-top" expand="block"
+                  fill="outline" shape="round"
                   size="large"
-                  shape="round" fill="outline">
-        <ion-icon :icon="checkmarkOutline" v-if="groosatusSeleted && userIsGroom"></ion-icon>
+                  mode="ios"
+                  style="transition: 0.1s ease-in-out" @click="groosatusSeleted=true; userIsGroom=true; setUser()">
+        <ion-icon v-if="groosatusSeleted && userIsGroom" :icon="checkmarkOutline"></ion-icon>
 
         I am the groom
 
@@ -63,7 +66,7 @@
     </div>
 
 
-    <div class="smooth-in" v-if="step==3">
+    <div v-if="step==3" class="smooth-in">
 
       <center>
         <ion-avatar>
@@ -74,38 +77,39 @@
       <h4 class="ion-text-center ion-margin-top">{{ userIsGroom ? "Bride " : "Groom " }} information</h4>
 
 
-      <ion-list class="ion-margin-top" v-if="userIsGroom">
+      <ion-list v-if="userIsGroom" class="ion-margin-top">
 
-        <ion-item fill="outline" shape="round">
-          <ion-input :autofocus="true" v-model="bride_name" type="text" placeholder="Bride's full Name*"></ion-input>
+        <ion-item lines="none">
+          <ion-input v-model="bride_name" :autofocus="true" class="custom" placeholder="Bride's full Name*"
+                     type="text"></ion-input>
         </ion-item>
 
-        <ion-item class="ion-margin-top" fill="outline" shape="round">
-          <ion-input inputmode="tel" v-model="bride_phone_number"
+        <ion-item class="ion-margin-top" lines="none">
+          <ion-input v-model="bride_phone_number" class="custom" inputmode="tel"
                      placeholder="Bride's phone number(optional)"></ion-input>
         </ion-item>
 
-        <ion-item class="ion-margin-top" fill="outline" shape="round">
-          <ion-input inputmode="email" v-model="bride_email"
+        <ion-item class="ion-margin-top" lines="none">
+          <ion-input v-model="bride_email" class="custom" inputmode="email" lines="none"
                      placeholder="Bride's email address(optional)"></ion-input>
         </ion-item>
 
       </ion-list>
 
 
-      <ion-list class="ion-margin-top" v-else>
+      <ion-list v-else class="ion-margin-top">
 
-        <ion-item fill="outline" shape="round">
-          <ion-input :autofocus="true" v-model="groom_name" type="text" placeholder="Groom's full Name*"></ion-input>
+        <ion-item lines="none">
+          <ion-input v-model="groom_name" class="custom" placeholder="Groom's full Name*" type="text"></ion-input>
         </ion-item>
 
-        <ion-item class="ion-margin-top" fill="outline" shape="round">
-          <ion-input inputmode="tel" v-model="groom_phone_number"
+        <ion-item class="ion-margin-top" lines="none">
+          <ion-input v-model="groom_phone_number" class="custom" inputmode="tel"
                      placeholder="Groom's phone number(optional)"></ion-input>
         </ion-item>
 
-        <ion-item class="ion-margin-top" fill="outline" shape="round">
-          <ion-input inputmode="email" v-model="groom_email"
+        <ion-item class="ion-margin-top" lines="none">
+          <ion-input v-model="groom_email" class="custom" inputmode="email"
                      placeholder="Groom's email address(optional)"></ion-input>
         </ion-item>
 
@@ -115,7 +119,7 @@
     </div>
 
 
-    <div class="smooth-in" v-if="step==4">
+    <div v-if="step==4" class="smooth-in">
 
       <p class="ion-text-center ion-no-margin">
         <span style="font-size: 70px">🎊</span>
@@ -129,36 +133,36 @@
 
       <ion-list class="ion-margin-top">
 
-        <ion-item class="ion-margin-top" fill="outline" shape="round">
-          <ion-input v-model="tag" type="text" placeholder="Wedding #tag (optional)"></ion-input>
+        <ion-item lines="none">
+          <ion-input v-model="tag" class="custom" placeholder="Wedding #tag (optional)" type="text"></ion-input>
         </ion-item>
 
-        <ion-item shape="round" class="ion-margin-top" fill="outline">
+        <ion-item class="ion-margin-top" lines="none">
           <ion-label>Date & Time:</ion-label>
           <ion-datetime-button datetime="datetime"></ion-datetime-button>
           <ion-modal
 
               :keep-contents-mounted="true">
-            <ion-datetime @ionChange="dateSelected" :show-default-buttons="true" hourCycle="h12" locale="en-GB"
-                          id="datetime">
+            <ion-datetime id="datetime" :show-default-buttons="true" hourCycle="h12" locale="en-GB"
+                          @ionChange="dateSelected">
               <span slot="title">Set the wedding date & tIme</span>
             </ion-datetime>
           </ion-modal>
 
         </ion-item>
 
-        <ion-item fill="outline" shape="round" class="ion-margin-top">
-          <ion-input v-model="rsvPhoneNumber" inputmode="tel" :autoGrow="true"
+        <ion-item class="ion-margin-top" lines="none">
+          <ion-input v-model="rsvPhoneNumber" :autoGrow="true" class="custom" inputmode="tel"
                      placeholder="RSVP Tel number*"></ion-input>
         </ion-item>
 
-        <ion-item fill="outline" shape="round" class="ion-margin-top">
-          <ion-input v-model="rsvPerson" placeholder="RSVP contact person name*"></ion-input>
+        <ion-item class="ion-margin-top" lines="none">
+          <ion-input v-model="rsvPerson" class="custom" placeholder="RSVP contact person name*"></ion-input>
         </ion-item>
 
-        <ion-item fill="outline" shape="round" class="ion-margin-top">
-          <ion-textarea v-model="location" rows="1" :autoGrow="true"
-                        placeholder="Describe the location (optional)"></ion-textarea>
+        <ion-item class="ion-margin-top" lines="none">
+          <ion-textarea v-model="location" :autoGrow="true" class="custom" placeholder="Describe the location (optional)"
+                        rows="1"></ion-textarea>
         </ion-item>
 
 
@@ -166,7 +170,7 @@
 
       <div v-if="googlePlace" class="place-container ion-padding ion-text-center">
 
-        <ion-icon color="primary" :icon="locationOutline" size="large"></ion-icon>
+        <ion-icon :icon="locationOutline" color="primary" size="large"></ion-icon>
         <h3>{{ googlePlace.route }}</h3>
         <p>
           <small class="text-muted">{{ googlePlace.administrative_area_level_1 }}
@@ -174,10 +178,11 @@
         </p>
 
         <ion-button
+            fill="outline"
             shape="round"
             size="small"
-            fill="outline"
             @click="googlePlace=null"
+            mode="ios"
         >
           <ion-icon :icon="pencilOutline"></ion-icon>
         </ion-button>
@@ -186,12 +191,13 @@
       </div>
 
       <ion-button
-          expand="block"
-          shape="round"
-          id="open-map"
-          fill="clear"
-          size="large"
           v-if="!googlePlace"
+          id="open-map"
+          expand="block"
+          fill="clear"
+          shape="round"
+          size="large"
+          mode="ios"
 
       >Attach map location
         <ion-icon :icon="locationOutline"></ion-icon>
@@ -199,43 +205,44 @@
 
       <ion-modal
           v-if="!googlePlace"
-          :initial-breakpoint="0.5"
+          ref="modal"
           :breakpoints="[0, 0.25, 0.5, 0.75,1]"
+          :initial-breakpoint="0.5"
           handle-behavior="cycle"
           mode="ios"
-          ref="modal"
           trigger="open-map"
       >
         <google-places-component
-            @placeSelected="setPlace"
             @canceled="cacnelSearch"
+            @placeSelected="setPlace"
         ></google-places-component>
       </ion-modal>
 
       <ion-button
           expand="block"
-          shape="round"
           fill="clear"
-          @click="showSocial=!showSocial"
+          shape="round"
           size="large"
+          @click="showSocial=!showSocial"
+          mode="ios"
 
       >Add video links
         <ion-icon v-if="!showSocial" :icon="caretDownOutline"></ion-icon>
         <ion-icon v-else :icon="caretUpOutline"></ion-icon>
       </ion-button>
 
-      <ion-item v-if="showSocial" fill="outline" shape="round" class="ion-margin-top">
-        <ion-input v-model="zoomLink" inputmode="url" placeholder="Zoom link"></ion-input>
+      <ion-item v-if="showSocial" class="ion-margin-top" lines="none">
+        <ion-input v-model="zoomLink" class="custom" inputmode="url" placeholder="Zoom link"></ion-input>
       </ion-item>
 
-      <ion-item v-if="showSocial" fill="outline" shape="round" class="ion-margin-top">
-        <ion-input v-model="youtubeLink" inputmode="url" placeholder="YouTube link"></ion-input>
+      <ion-item v-if="showSocial" class="ion-margin-top" lines="none">
+        <ion-input v-model="youtubeLink" class="custom" inputmode="url" placeholder="YouTube link"></ion-input>
       </ion-item>
 
 
     </div>
 
-    <div class="smooth-in" v-if="step===5">
+    <div v-if="step===5" class="smooth-in">
 
       <h2 class="ion-text-center">Let's style things up</h2>
 
@@ -244,21 +251,21 @@
 
         <ion-row>
           <ion-col size="6">
-            <thumbnail-component @photoSelected="file=>photoOne=file" uuid="img1"></thumbnail-component>
+            <thumbnail-component uuid="img1" @photoSelected="file=>photoOne=file"></thumbnail-component>
           </ion-col>
 
           <ion-col size="6">
-            <thumbnail-component @photoSelected="file=>photoTwo=file" uuid="img2"></thumbnail-component>
-          </ion-col>
-
-
-          <ion-col size="6">
-            <thumbnail-component @photoSelected="file=>photoThree=file" uuid="img3"></thumbnail-component>
+            <thumbnail-component uuid="img2" @photoSelected="file=>photoTwo=file"></thumbnail-component>
           </ion-col>
 
 
           <ion-col size="6">
-            <thumbnail-component @photoSelected="file=>photoFour=file" uuid="img4"></thumbnail-component>
+            <thumbnail-component uuid="img3" @photoSelected="file=>photoThree=file"></thumbnail-component>
+          </ion-col>
+
+
+          <ion-col size="6">
+            <thumbnail-component uuid="img4" @photoSelected="file=>photoFour=file"></thumbnail-component>
           </ion-col>
 
 
@@ -267,17 +274,18 @@
 
       <p>Share something nice about your union:</p>
 
-      <ion-item shape="round" fill="outline" class="ion-margin-top">
-        <ion-textarea v-model="story" rows="1" :autoGrow="true" placeholder="A short beautiful story"></ion-textarea>
+      <ion-item class="ion-margin-top" lines="none">
+        <ion-textarea v-model="story" :autoGrow="true" class="custom" placeholder="A short beautiful story"
+                      rows="1"></ion-textarea>
       </ion-item>
       <ion-button id="ai-help-button" class="ion-margin" fill="clear">Seek suggestions</ion-button>
 
       <ion-modal
-          :initial-breakpoint="0.75"
+          ref="AImodal"
           :breakpoints="[0, 0.25, 0.5, 0.75,1]"
+          :initial-breakpoint="0.75"
           handle-behavior="cycle"
           mode="ios"
-          ref="AImodal"
           trigger="ai-help-button"
       >
         <love-ai-component @selected="suggestionSelected"></love-ai-component>
@@ -289,12 +297,11 @@
 
 
           <ion-slide v-for="(page,index) in sampleThanks" :key="index">
-            <ion-card @click="thankYouvalue=index; thankYouText=page.text.trim()" color="primary" class="ion-text-left"
-                      mode="ios">
+            <ion-card class="ion-text-left" color="primary" mode="ios"
+                      @click="thankYouvalue=index; thankYouText=page.text.trim()">
               <ion-item color="primary">
-                <ion-radio color="warning" :value="index"></ion-radio>
+                <ion-radio :value="index" color="warning"></ion-radio>
                 <ion-label>Select</ion-label>
-
               </ion-item>
               <ion-card-header>
                 <ion-card-title>{{ page.title }}
@@ -319,27 +326,28 @@
       </ion-radio-group>
 
 
-      <ion-item shape="round" fill="outline" class="ion-margin-top">
+      <ion-item class="ion-margin-top" lines="none">
 
         <ion-textarea
             v-model="thankYouText"
-            rows="1"
             :autoGrow="true"
+            class="custom"
             placeholder="Edit thank you message"
+            rows="1"
         ></ion-textarea>
 
       </ion-item>
 
     </div>
 
-    <div style="height: 100vh" class="smooth-in ion-color-primary" v-if="step===6">
+    <div v-if="step===6" class="smooth-in ion-color-primary" style="height: 100vh">
 
-      <ion-slides :pager="true" :options="previewSlideOption">
+      <ion-slides :options="previewSlideOption" :pager="true">
 
 
         <ion-slide v-if="photoOne">
 
-          <ion-card style="width: 100%; height: 300px;margin: 0!important;" mode="ios" class="card-gradient no-margin">
+          <ion-card class="card-gradient no-margin" mode="ios" style="width: 100%; height: 300px;margin: 0!important;">
             <ion-card-header class="ion-margin-top ion-padding-top">
               <ion-card-title style="color: white!important;">Our Story
                 <ion-icon :icon="heartCircleOutline"></ion-icon>
@@ -484,14 +492,14 @@
 
 
         <ion-item v-if="youtubeLink">
-          <ion-button size="large" :href="youtubeLink" color="danger" fill="clear" expand="block">
+          <ion-button mode="ios" :href="youtubeLink" color="danger" expand="block" fill="clear" size="large">
             <ion-icon :icon="logoYoutube"></ion-icon>
             YouTube
           </ion-button>
         </ion-item>
 
         <ion-item v-if="zoomLink">
-          <ion-button size="large" :href="zoomLink" color="primary" fill="clear" expand="block">Zoom</ion-button>
+          <ion-button mode="ios" :href="zoomLink" color="primary" expand="block" fill="clear" size="large">Zoom</ion-button>
         </ion-item>
 
       </ion-list>
@@ -503,16 +511,16 @@
   </ion-content>
 
 
-  <ion-footer :translucent="true" collapse="fade" v-if="step>2">
-    <ion-progress-bar buffer=".8" class="ion-margin-top" :value="progressvalue"></ion-progress-bar>
+  <ion-footer v-if="step>2" :translucent="true" collapse="fade">
+    <ion-progress-bar :value="progressvalue" buffer=".8" class="ion-margin-top"></ion-progress-bar>
 
     <ion-toolbar>
-      <ion-button slot="start" fill="clear" @click="step--">
+      <ion-button mode="ios" slot="start" fill="clear" @click="step--">
         <ion-icon :icon="caretBackOutline"></ion-icon>
         Prev.
       </ion-button>
 
-      <ion-button v-if="step<6" @click="gotoNext(step)" slot="end" shape="round" size="large">
+      <ion-button mode="ios" v-if="step<6" slot="end" shape="round" size="large" @click="gotoNext(step)">
 
         {{ step === 5 ? "Preview" : "Continue" }}
 
@@ -520,7 +528,7 @@
 
       </ion-button>
 
-      <ion-button :disabled="loading" @click="saveEvent" slot="end" shape="round" v-else color="success" size="large">
+      <ion-button mode="ios" v-else slot="end" :disabled="loading" color="success" shape="round" size="large" @click="saveEvent">
         <template v-if="!loading">
 
           Create event
@@ -562,9 +570,9 @@ import {
   IonRow,
   IonSlide,
   IonSlides,
+  IonSpinner,
   IonTextarea,
-  IonToolbar,
-  IonSpinner
+  IonToolbar
 } from "@ionic/vue";
 import WeddinWelcomAnimation from "@/components/weddinWelcomAnimation";
 import {
@@ -805,6 +813,7 @@ export default {
           .catch(error => {
 
             this.$store.state.mainLoading = false;
+            this.loading = false;
 
 
           })

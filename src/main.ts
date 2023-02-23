@@ -29,7 +29,6 @@ import OneSignal from 'onesignal-cordova-plugin';
 import './theme/variables.css';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-
 import store from './store';
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -82,9 +81,9 @@ function OneSignalInit(): void {
 
     OneSignal.getDeviceState(deviceState => {
 
-        if (deviceState.subscribed){
+        if (deviceState.subscribed) {
 
-            axios.post("/set-user-push-id",{user_id:deviceState.userId})
+            axios.post("/set-user-push-id", {user_id: deviceState.userId})
 
         }
 
@@ -152,8 +151,11 @@ router.isReady().then(() => {
         },
         function (error) {
 
-            store.state.errorsArr = error.response.data.errors;
-            store.state.showErrorToast = true;
+            if (error.response.status !== 401) {
+
+                store.state.errorsArr = error.response.data.errors;
+                store.state.showErrorToast = true;
+            }
 
             return Promise.reject(error);
         }

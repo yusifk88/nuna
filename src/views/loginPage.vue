@@ -9,16 +9,16 @@
 
       <h4 class="ion-text-center" >Login</h4>
 
-      <ion-item fill="outline" shape="round">
-        <ion-input v-model="email" type="text" placeholder="Phone Number or Email"></ion-input>
+      <ion-item lines="none">
+        <ion-input class="custom" v-model="email" type="text" placeholder="Phone Number or Email"></ion-input>
       </ion-item>
 
-      <ion-item class="ion-margin-top" fill="outline" shape="round">
-        <ion-input v-model="password" type="password" placeholder="Password"></ion-input>
+      <ion-item lines="none" class="ion-margin-top">
+        <ion-input class="custom" v-model="password" type="password" placeholder="Password"></ion-input>
       </ion-item>
 
 
-      <ion-button fill="clear" class="ion-align-self-start">Forget password?</ion-button>
+      <ion-button mode="ios" fill="clear" class="ion-align-self-start">Forget password?</ion-button>
 
       <ion-button
           size="large"
@@ -26,6 +26,7 @@
           :disabled="progress"
           shape="round"
           @click="login"
+          mode="ios"
       >
         <template v-if="!progress">
           Login
@@ -34,7 +35,7 @@
       </ion-button>
 
       <p>Don't have an account ?
-        <ion-button router-link="/register" fill="clear" class="ion-align-self-start">Sign Up</ion-button>
+        <ion-button mode="ios" router-link="/register" fill="clear" class="ion-align-self-start">Sign Up</ion-button>
       </p>
 
     </ion-content>

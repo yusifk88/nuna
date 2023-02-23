@@ -1,6 +1,6 @@
 <template>
   <ion-page>
-    <ion-header style="box-shadow: none !important;" v-if="!$store.state.headerTransparent">
+    <ion-header class="ion-no-border" style="box-shadow: none !important;" v-if="!$store.state.headerTransparent">
       <ion-toolbar>
         <ion-back-button slot="start"></ion-back-button>
         <ion-title>

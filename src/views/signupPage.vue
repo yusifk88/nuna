@@ -12,7 +12,7 @@
       <h5 class="ion-text-center">Create Account</h5>
       <div v-if="step==1" class="smooth-in">
 
-        <ion-item shape="round" fill="outline" class="ion-margin-bottom">
+        <ion-item class="ion-margin-bottom nuna-select-item" lines="none" >
           <ion-avatar slot="start">
             <flag :iso="countryCode"></flag>
           </ion-avatar>
@@ -51,16 +51,16 @@
           Back
         </ion-button>
 
-        <ion-item fill="outline" shape="round">
-          <ion-input v-model="firstName" type="text" placeholder="First Name"></ion-input>
+        <ion-item lines="none">
+          <ion-input class="custom" v-model="firstName" type="text" placeholder="First Name"></ion-input>
         </ion-item>
 
-        <ion-item class="ion-margin-top" fill="outline" shape="round">
-          <ion-input v-model="lastName" type="text" placeholder="Last Name"></ion-input>
+        <ion-item lines="none" class="ion-margin-top">
+          <ion-input class="custom" v-model="lastName" type="text" placeholder="Last Name"></ion-input>
         </ion-item>
 
 
-        <ion-item shape="round" class="ion-margin-top" fill="outline">
+        <ion-item style="margin-right: 16px; margin-left: 16px" lines="none" class="ion-margin-top nuna-select-item">
           <ion-label>Birth Date:</ion-label>
           <ion-datetime-button datetime="datetime"></ion-datetime-button>
           <ion-modal
@@ -78,7 +78,7 @@
 <!--          <ion-input v-model="idnumber" type="text" placeholder="ID Number"></ion-input>-->
 <!--        </ion-item>-->
 
-        <ion-button @click="goToStep(3)" :disabled="!firstName || !lastName || !birthDate"
+        <ion-button mode="ios" @click="goToStep(3)" :disabled="!firstName || !lastName || !birthDate"
                     class="ion-margin-top" size="large" expand="block" shape="round">Continue
           <ion-icon :icon="arrowForwardOutline"/>
         </ion-button>
@@ -89,32 +89,33 @@
 
 
         <h6 class="ion-text-center">Account Information</h6>
-        <ion-button :disabled="progress" fill="clear" class="ion-align-self-start" @click="step=step-1">
+        <ion-button mode="ios" :disabled="progress" fill="clear" class="ion-align-self-start" @click="step=step-1">
           <ion-icon
               :icon="arrowBackOutline"></ion-icon>
           Back
         </ion-button>
 
-        <ion-item fill="outline" shape="round">
-          <ion-input :disabled="progress" v-model="email" type="email" placeholder="Email"></ion-input>
+        <ion-item lines="none">
+          <ion-input class="custom" :disabled="progress" v-model="email" type="email" placeholder="Email"></ion-input>
         </ion-item>
 
-        <ion-item class="ion-margin-top" fill="outline" shape="round">
-          <ion-input :disabled="progress" v-model="phoneNumber" type="tel" placeholder="Phone Number"></ion-input>
+        <ion-item lines="none" class="ion-margin-top">
+          <ion-input class="custom" :disabled="progress" v-model="phoneNumber" type="tel" placeholder="Phone Number"></ion-input>
         </ion-item>
 
-        <ion-item class="ion-margin-top" fill="outline" shape="round">
-          <ion-input :disabled="progress" v-model="password" type="password" placeholder="Password"></ion-input>
+        <ion-item lines="none" class="ion-margin-top">
+          <ion-input class="custom" :disabled="progress" v-model="password" type="password" placeholder="Password"></ion-input>
         </ion-item>
 
-        <ion-item class="ion-margin-top" fill="outline" shape="round">
-          <ion-input :disabled="progress" v-model="passwordConfirmation" type="password"
+        <ion-item lines="none" class="ion-margin-top">
+          <ion-input class="custom" :disabled="progress" v-model="passwordConfirmation" type="password"
                      placeholder="Confirm Password"></ion-input>
         </ion-item>
 
         <ion-button @click="signup"
                     :disabled="!email || !phoneNumber || !password || !passwordConfirmation || progress"
                     class="ion-margin-top" size="large"
+                    mode="ios"
                     expand="block" shape="round">
           <template v-if="!progress">
             Finish
@@ -133,6 +134,7 @@
             fill="clear"
             class="ion-align-self-start"
             router-link="/login"
+            mode="ios"
         >Login</ion-button>
       </p>
 

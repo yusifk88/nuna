@@ -167,6 +167,49 @@ export default defineComponent({
 
 <style>
 
+
+ion-textarea.custom {
+  --background: #D3D3D328;
+  padding: 5px!important;
+  border-radius: 10px;
+  --placeholder-color: #80808090;
+  --placeholder-opacity: .8;
+
+  --padding-bottom: 10px;
+  --padding-end: 10px;
+  --padding-start: 10px;
+  --padding-top: 10px;
+}
+
+.nuna-select-item{
+  --background: #D3D3D328;
+  border-radius: 10px;
+  --placeholder-color: #80808090;
+  --placeholder-opacity: .8;
+}
+
+
+ion-input.custom {
+
+  --background: #D3D3D328;
+  padding: 5px!important;
+  border-radius: 10px;
+  --placeholder-color: #80808090;
+  --placeholder-opacity: .8;
+
+  --padding-bottom: 10px;
+  --padding-end: 10px;
+  --padding-start: 10px;
+  --padding-top: 10px;
+}
+
+ion-toolbar {
+  --background: white;
+  --border-width: 0;
+  --shadow: none !important;
+  border: none !important;
+}
+
 ion-card {
   box-shadow: none !important;
 }

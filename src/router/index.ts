@@ -3,8 +3,8 @@ import {RouteRecordRaw} from 'vue-router';
 import TabsPage from '../views/TabsPage.vue'
 import loginPage from "@/views/loginPage.vue";
 import signupPage from "@/views/signupPage.vue";
-import NewRegistryPage from "@/views/NewRegistryPage.vue"
-
+import NewRegistryPage from "@/views/NewRegistryPage.vue";
+import profilePage from "@/views/profilePage.vue";
 const routes: Array<RouteRecordRaw> = [
     {
         path: '/',
@@ -17,6 +17,10 @@ const routes: Array<RouteRecordRaw> = [
     {
         path: '/register',
         component: signupPage
+    },
+    {
+        path: '/profile',
+        component: profilePage
     },
     {
         path: '/event/wedding/:id',
