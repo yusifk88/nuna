@@ -60,7 +60,7 @@ class WeddingsController extends Controller
         $wedding = Wedding::find($record->wedding_id);
 
 
-        if ($status == 'approved' && $code == '000' && $transaction_id) {
+        if (strtolower($status) == 'approved' && $code == '000' && $transaction_id) {
 
 
             if ($record) {
