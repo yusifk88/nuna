@@ -17,6 +17,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Ladumor\OneSignal\OneSignal;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -65,6 +66,7 @@ class WeddingsController extends Controller
             if ($record) {
 
                 $res = Payswitch::verifyTransaction($transaction_id);
+
                 if ($res && $res->code == '00') {
 
                     $record->success = true;
@@ -132,7 +134,7 @@ class WeddingsController extends Controller
 
         $wedding = Wedding::find($wedding_id);
 
-        $description = "Gift for ".$request->name." ".$wedding->groom_name." and ".$wedding->bride_name;
+        $description = $wedding->tag."_".Str::random();
 
         $checkout = Payswitch::initialize_collection($request->amount, $request->email, $transaction_id, $url,$description);
 
