@@ -94,7 +94,7 @@ class Payswitch
                 "Merchant-Id" => self::merchant_id()
             ]
         )
-            ->get("https://test.theteller.net//v1.1/users/transactions/" . $transaction_id . "/status");
+            ->get("https://prod.theteller.net/v1.1/users/transactions/" . $transaction_id . "/status");
 
 
         return json_decode($res->body());
