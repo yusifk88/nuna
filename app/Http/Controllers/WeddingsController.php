@@ -156,7 +156,7 @@ class WeddingsController extends Controller
 
             return redirect($checkout->checkout_url);
         }
-        echo "Sorry, we could not initialize the checkout";
+        echo "Sorry, we could not initialize the checkout reason: ".$checkout->reason;
 
     }
 
