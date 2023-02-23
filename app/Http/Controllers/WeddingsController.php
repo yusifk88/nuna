@@ -48,6 +48,13 @@ class WeddingsController extends Controller
         $code = \request()->get("code");
         $reason = \request()->get("reason");
         $transaction_id = \request()->get("transaction_id");
+
+        if (!$transaction_id){
+
+            return view("wedding.payment_failed", ["reason" => "Payment was canceled", "wedding" => null]);
+
+
+        }
         $record = WeddingContribution::where("transaction_id", $transaction_id)->first();
         $wedding = Wedding::find($record->wedding_id);
 
@@ -119,11 +126,16 @@ class WeddingsController extends Controller
 
         }
 
-        $url = config("app.url") . "/w/confirm";
+        $url = "https://mynunaa.com/w/confirm";
 
         $transaction_id = Payswitch::getMaxID();
 
-        $checkout = Payswitch::initialize_collection($request->amount, $request->email, $transaction_id, $url);
+        $wedding = Wedding::find($wedding_id);
+
+        $description = "Gift for ".$request->name." ".$wedding->groom_name." and ".$wedding->bride_name;
+
+        $checkout = Payswitch::initialize_collection($request->amount, $request->email, $transaction_id, $url,$description);
+
 
 
         if ($checkout && $checkout->status === 'success') {

@@ -23,13 +23,15 @@
 
                             <div class="alert alert-warning text-center">
                                 <h3>Payment failed!</h3>
-                                 <strong>Reason:</strong> {{$reason}}
+                                <strong>Reason:</strong> {{$reason}}
 
                             </div>
+                            @if($wedding)
 
-                            <a class="btn btn-primary btn-lg" href="{{url("/w",$wedding->tag)}}">Back to wedding page</a>
+                                <a class="btn btn-primary btn-lg" href="{{url("/w",$wedding->tag)}}">Back to wedding
+                                    page</a>
 
-
+                            @endif
                         </div>
 
                     </div>

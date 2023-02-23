@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 
 use App\Models\WeddingContribution;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 use PhpParser\Node\Expr\Cast\Double;
@@ -12,26 +13,28 @@ class Payswitch
 {
 
 
-    public static function initialize_collection(float $amount, string $email, $transaction_id, string $url)
+    public static function initialize_collection(float $amount, string $email, $transaction_id, string $url,$desc="Wedding gift")
     {
+
 
         $payload = [
             "merchant_id" => self::merchant_id(),
-            "desc" => "test payment",
+            "desc" => $desc,
             "email" => $email,
             "transaction_id" => $transaction_id,
-            "redirect_url" => $url,
+            "redirect_url" =>$url,
             "amount" => self::floatToMinor($amount),
-            "apiuser" => self::username()
         ];
 
         $req = Http::withHeaders([
-            "Content-Type" => "application/json",
-            "Cache-Control" => "no-cache",
-            "Authorization" => " Basic " . base64_encode(self::username() . ":" . self::api_key())
-        ])->post(self::url() . "/initiate", $payload);
+            "Content-Type" => "Application/json",
+            "Accept" => "Application/json",
+            "Authorization" => "Basic " . base64_encode(self::username() . ":" . self::api_key())
+        ])->post( self::url()."/initiate", $payload);
+
 
         return json_decode($req->body());
+
 
     }
 
@@ -67,11 +70,11 @@ class Payswitch
 
     public static function getMaxID()
     {
-        $maxID = 10;
-        $lastRecord = WeddingContribution::get()->last();
+        $maxID = 100;
+        $lastRecord = WeddingContribution::select(DB::raw("max(id) as last_id"))->get()->first();
 
         if ($lastRecord) {
-            $maxID += $lastRecord->id + 1;
+            $maxID += $lastRecord->last_id + 1;
         }
 
         return self::floatToMinor($maxID);

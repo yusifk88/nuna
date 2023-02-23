@@ -169,7 +169,7 @@
             <div class="couple-wrap animate-box">
                 <div class="couple-half">
                     <div class="groom">
-                        <img src="{{$wedding->photo_two ?? '/images/groom.jpg'}}" alt="groom" class="img-responsive">
+                        <img src="{{$wedding->photo_two ?? '/images/groom.jpg'}}" alt="groom" class="img-responsive" style="object-fit: cover">
                     </div>
                     <div class="desc-groom">
                         <h3>{{$wedding->groom_name}}</h3>
@@ -179,7 +179,7 @@
                 <p class="heart text-center"><i class="icon-heart2"></i></p>
                 <div class="couple-half">
                     <div class="bride">
-                        <img src="{{$wedding->photo_three ?? '/images/bride.jpg'}}" alt="groom" class="img-responsive">
+                        <img src="{{$wedding->photo_three ?? '/images/bride.jpg'}}" alt="groom" class="img-responsive" style="object-fit: cover">
                     </div>
                     <div class="desc-bride">
                         <h3>{{$wedding->bride_name}}</h3>
@@ -268,48 +268,7 @@
                     <p>{!!$wedding->story!!}</p>
                 </div>
             </div>
-            {{--            <div class="row">--}}
-            {{--                <div class="col-md-12 col-md-offset-0">--}}
-            {{--                    <ul class="timeline animate-box">--}}
-            {{--                        <li class="animate-box">--}}
-            {{--                            <div class="timeline-badge" style="background-image:url(/images/couple-1.jpg);"></div>--}}
-            {{--                            <div class="timeline-panel">--}}
-            {{--                                <div class="timeline-heading">--}}
-            {{--                                    <h3 class="timeline-title">First We Meet</h3>--}}
-            {{--                                    <span class="date">December 25, 2015</span>--}}
-            {{--                                </div>--}}
-            {{--                                <div class="timeline-body">--}}
-            {{--                                    <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>--}}
-            {{--                                </div>--}}
-            {{--                            </div>--}}
-            {{--                        </li>--}}
-            {{--                        <li class="timeline-inverted animate-box">--}}
-            {{--                            <div class="timeline-badge" style="background-image:url(/images/couple-2.jpg);"></div>--}}
-            {{--                            <div class="timeline-panel">--}}
-            {{--                                <div class="timeline-heading">--}}
-            {{--                                    <h3 class="timeline-title">First Date</h3>--}}
-            {{--                                    <span class="date">December 28, 2015</span>--}}
-            {{--                                </div>--}}
-            {{--                                <div class="timeline-body">--}}
-            {{--                                    <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>--}}
-            {{--                                </div>--}}
-            {{--                            </div>--}}
-            {{--                        </li>--}}
-            {{--                        <li class="animate-box">--}}
-            {{--                            <div class="timeline-badge" style="background-image:url(/images/couple-3.jpg);"></div>--}}
-            {{--                            <div class="timeline-panel">--}}
-            {{--                                <div class="timeline-heading">--}}
-            {{--                                    <h3 class="timeline-title">In A Relationship</h3>--}}
-            {{--                                    <span class="date">January 1, 2016</span>--}}
-            {{--                                </div>--}}
-            {{--                                <div class="timeline-body">--}}
-            {{--                                    <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>--}}
-            {{--                                </div>--}}
-            {{--                            </div>--}}
-            {{--                        </li>--}}
-            {{--                    </ul>--}}
-            {{--                </div>--}}
-            {{--            </div>--}}
+
         </div>
     </div>
 
@@ -327,11 +286,9 @@
                     <ul id="fh5co-gallery-list">
                         @if($wedding->photo_one)
 
-                            <li class="one-third animate-box" data-animate-effect="fadeIn"
+                            <li class="couple-half animate-box" data-animate-effect="fadeIn"
                                 style="background-image: url({{$wedding->photo_one}}); ">
-                                <a href="{{$wedding->photo_one}}">
-
-                                </a>
+                                <a data-fslightbox href="{{url("/").$wedding->photo_one}}"></a>
                             </li>
 
                         @endif
@@ -341,7 +298,7 @@
 
                             <li class="one-third animate-box" data-animate-effect="fadeIn"
                                 style="background-image: url({{$wedding->photo_two}}); ">
-                                <a href="{{$wedding->photo_two}}" class="color-2">
+                                <a data-fslightbox href="{{$wedding->photo_two}}" class="color-2">
 
                                 </a>
                             </li>
@@ -349,9 +306,9 @@
 
                         @if($wedding->photo_three)
 
-                            <li class="one-third animate-box" data-animate-effect="fadeIn"
+                            <li class="couple-half animate-box" data-animate-effect="fadeIn"
                                 style="background-image: url({{$wedding->photo_three}}); ">
-                                <a href="{{$wedding->photo_three}}" class="color-3">
+                                <a data-fslightbox href="{{$wedding->photo_three}}" class="color-3">
 
                                 </a>
                             </li>
@@ -362,7 +319,7 @@
 
                             <li class="one-third animate-box" data-animate-effect="fadeIn"
                                 style="background-image: url({{$wedding->photo_four}}); ">
-                                <a href="{{$wedding->photo_four}}" class="color-4">
+                                <a data-fslightbox href="{{$wedding->photo_four}}" class="color-4">
 
                                 </a>
                             </li>
@@ -374,112 +331,6 @@
         </div>
     </div>
 
-    {{--    <div id="fh5co-counter" class="fh5co-bg fh5co-counter" style="background-image:url(/images/img_bg_5.jpg);">--}}
-    {{--        <div class="overlay"></div>--}}
-    {{--        <div class="container">--}}
-    {{--            <div class="row">--}}
-    {{--                <div class="display-t">--}}
-    {{--                    <div class="display-tc">--}}
-    {{--                        <div class="col-md-3 col-sm-6 animate-box">--}}
-    {{--                            <div class="feature-center">--}}
-    {{--								<span class="icon">--}}
-    {{--									<i class="icon-users"></i>--}}
-    {{--								</span>--}}
-
-    {{--                                <span class="counter js-counter" data-from="0" data-to="500" data-speed="5000" data-refresh-interval="50">1</span>--}}
-    {{--                                <span class="counter-label">Estimated Guest</span>--}}
-
-    {{--                            </div>--}}
-    {{--                        </div>--}}
-    {{--                        <div class="col-md-3 col-sm-6 animate-box">--}}
-    {{--                            <div class="feature-center">--}}
-    {{--								<span class="icon">--}}
-    {{--									<i class="icon-user"></i>--}}
-    {{--								</span>--}}
-
-    {{--                                <span class="counter js-counter" data-from="0" data-to="1000" data-speed="5000" data-refresh-interval="50">1</span>--}}
-    {{--                                <span class="counter-label">We Catter</span>--}}
-    {{--                            </div>--}}
-    {{--                        </div>--}}
-    {{--                        <div class="col-md-3 col-sm-6 animate-box">--}}
-    {{--                            <div class="feature-center">--}}
-    {{--								<span class="icon">--}}
-    {{--									<i class="icon-calendar"></i>--}}
-    {{--								</span>--}}
-    {{--                                <span class="counter js-counter" data-from="0" data-to="402" data-speed="5000" data-refresh-interval="50">1</span>--}}
-    {{--                                <span class="counter-label">Events Done</span>--}}
-    {{--                            </div>--}}
-    {{--                        </div>--}}
-    {{--                        <div class="col-md-3 col-sm-6 animate-box">--}}
-    {{--                            <div class="feature-center">--}}
-    {{--								<span class="icon">--}}
-    {{--									<i class="icon-clock"></i>--}}
-    {{--								</span>--}}
-
-    {{--                                <span class="counter js-counter" data-from="0" data-to="2345" data-speed="5000" data-refresh-interval="50">1</span>--}}
-    {{--                                <span class="counter-label">Hours Spent</span>--}}
-
-    {{--                            </div>--}}
-    {{--                        </div>--}}
-    {{--                    </div>--}}
-    {{--                </div>--}}
-    {{--            </div>--}}
-    {{--        </div>--}}
-    {{--    </div>--}}
-
-    {{--    <div id="fh5co-testimonial">--}}
-    {{--        <div class="container">--}}
-    {{--            <div class="row">--}}
-    {{--                <div class="row animate-box">--}}
-    {{--                    <div class="col-md-8 col-md-offset-2 text-center fh5co-heading">--}}
-    {{--                        <span>Best Wishes</span>--}}
-    {{--                        <h2>Friends Wishes</h2>--}}
-    {{--                    </div>--}}
-    {{--                </div>--}}
-    {{--                <div class="row">--}}
-    {{--                    <div class="col-md-12 animate-box">--}}
-    {{--                        <div class="wrap-testimony">--}}
-    {{--                            <div class="owl-carousel-fullwidth">--}}
-    {{--                                <div class="item">--}}
-    {{--                                    <div class="testimony-slide active text-center">--}}
-    {{--                                        <figure>--}}
-    {{--                                            <img src="/images/couple-1.jpg" alt="user">--}}
-    {{--                                        </figure>--}}
-    {{--                                        <span>John Doe, via <a href="#" class="twitter">Twitter</a></span>--}}
-    {{--                                        <blockquote>--}}
-    {{--                                            <p>"Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics"</p>--}}
-    {{--                                        </blockquote>--}}
-    {{--                                    </div>--}}
-    {{--                                </div>--}}
-    {{--                                <div class="item">--}}
-    {{--                                    <div class="testimony-slide active text-center">--}}
-    {{--                                        <figure>--}}
-    {{--                                            <img src="/images/couple-2.jpg" alt="user">--}}
-    {{--                                        </figure>--}}
-    {{--                                        <span>John Doe, via <a href="#" class="twitter">Twitter</a></span>--}}
-    {{--                                        <blockquote>--}}
-    {{--                                            <p>"Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, at the coast of the Semantics, a large language ocean."</p>--}}
-    {{--                                        </blockquote>--}}
-    {{--                                    </div>--}}
-    {{--                                </div>--}}
-    {{--                                <div class="item">--}}
-    {{--                                    <div class="testimony-slide active text-center">--}}
-    {{--                                        <figure>--}}
-    {{--                                            <img src="/images/couple-3.jpg" alt="user">--}}
-    {{--                                        </figure>--}}
-    {{--                                        <span>John Doe, via <a href="#" class="twitter">Twitter</a></span>--}}
-    {{--                                        <blockquote>--}}
-    {{--                                            <p>"Far far away, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean."</p>--}}
-    {{--                                        </blockquote>--}}
-    {{--                                    </div>--}}
-    {{--                                </div>--}}
-    {{--                            </div>--}}
-    {{--                        </div>--}}
-    {{--                    </div>--}}
-    {{--                </div>--}}
-    {{--            </div>--}}
-    {{--        </div>--}}
-    {{--    </div>--}}
 
     @if($wedding->zoom_link && $wedding->youtube_link)
 
@@ -626,6 +477,7 @@
 </script>
 
 <!-- jQuery -->
+<script src="/js/fslightbox.js"></script>
 <script src="/js/jquery.min.js"></script>
 <!-- jQuery Easing -->
 <script src="/js/jquery.easing.1.3.js"></script>
@@ -654,15 +506,15 @@
 
     // default example
     simplyCountdown('.simply-countdown-one', {
-        year: "<?=$year?>",
-        month: "<?=$month+1?> ",
-        day: "<?=$day?>",
+        year: <?=$year?>,
+        month: <?=$month?>,
+        day: <?=$day?>,
     });
 
     //jQuery example
     $('#simply-countdown-losange').simplyCountdown({
         year: <?=$year?>,
-        month: <?=$month+ 1?>,
+        month: <?=$month?>,
         day: <?=$day?>,
         enableUtc: false
     });
