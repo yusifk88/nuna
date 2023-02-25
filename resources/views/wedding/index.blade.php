@@ -23,17 +23,17 @@
           content="{{$wedding->groom_name}} & {{$wedding->bride_name}}'s wedding at {{$wedding->location}}"/>
 
     @if($wedding->photo_one)
-        <meta property="og:image" content="{{url($wedding->photo_one)}}"/>
+        <meta property="og:image" content="{{$wedding->photo_one}}"/>
 
     @elseif($wedding->photo_two)
 
-        <meta property="og:image" content="{{url($wedding->photo_two)}}"/>
+        <meta property="og:image" content="{{$wedding->photo_two}}"/>
 
     @elseif($wedding->photo_three)
-        <meta property="og:image" content="{{url($wedding->photo_three)}}"/>
+        <meta property="og:image" content="{{$wedding->photo_three}}"/>
     @elseif($wedding->photo_four)
 
-        <meta property="og:image" content="{{url($wedding->photo_four)}}"/>
+        <meta property="og:image" content="{{$wedding->photo_four}}"/>
 
     @else
 
@@ -44,17 +44,17 @@
 
 
     @if($wedding->photo_one)
-        <meta property="twitter:image" content="{{url($wedding->photo_one)}}"/>
+        <meta property="twitter:image" content="{{$wedding->photo_one}}"/>
 
     @elseif($wedding->photo_two)
 
-        <meta property="twitter:image" content="{{url($wedding->photo_two)}}"/>
+        <meta property="twitter:image" content="{{$wedding->photo_two}}"/>
 
     @elseif($wedding->photo_three)
-        <meta property="twitter:image" content="{{url($wedding->photo_three)}}"/>
+        <meta property="twitter:image" content="{{$wedding->photo_three}}"/>
     @elseif($wedding->photo_four)
 
-        <meta property="twitter:image" content="{{url($wedding->photo_four)}}"/>
+        <meta property="twitter:image" content="{{$wedding->photo_four}}"/>
 
     @else
 
