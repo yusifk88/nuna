@@ -49,7 +49,7 @@
           <ion-slide>
 
             <div :style="'background-image:url('+imgURL+')'"
-                 style="margin:5px; height: 300px; width: 100%; background-position: center; background-repeat: no-repeat; background-size: cover; border-radius: 3%;">
+                 style="margin:5px; height: 300px; width: 100%; background-position: center; background-repeat: no-repeat; background-size: contain; border-radius: 3%;">
               <div
                   style="width: 100%;height: 100%; padding: 10px; background-color: rgba(0,0,0,0.38); color: white;  border-radius: 3%; text-align: center;">
                 <h3 style="font-family: cursive;" class="ion-margin-top">Our Story</h3>
@@ -66,7 +66,7 @@
 
           <ion-slide v-if="wedding.photo_one">
 
-            <div :style="'background-image:url('+$store.state.baseURL+wedding.photo_one+')'"
+            <div :style="'background-image:url('+wedding.photo_one+')'"
                  style="margin:5px;height: 300px; width: 100%; background-repeat: no-repeat; background-size: cover; border-radius: 3%;">
             </div>
 
@@ -74,7 +74,7 @@
 
           <ion-slide v-if="wedding.photo_two">
 
-            <div :style="'background-image:url('+$store.state.baseURL+wedding.photo_two+')'"
+            <div :style="'background-image:url('+wedding.photo_two+')'"
                  style="margin:5px;height: 300px; width: 100%; background-repeat: no-repeat; background-size: cover; border-radius: 3%;">
             </div>
 
@@ -83,14 +83,14 @@
 
           <ion-slide v-if="wedding.photo_three">
 
-            <div :style="'background-image:url('+$store.state.baseURL+wedding.photo_three+')'"
+            <div :style="'background-image:url('+wedding.photo_three+')'"
                  style="margin:5px;height: 300px; width: 100%; background-repeat: no-repeat; background-size: cover; border-radius: 3%;">
             </div>
 
           </ion-slide>
           <ion-slide v-if="wedding.photo_four">
 
-            <div :style="'background-image:url('+$store.state.baseURL+wedding.photo_four+')'"
+            <div :style="'background-image:url('+wedding.photo_four+')'"
                  style="margin:5px;height: 300px; width: 100%; background-repeat: no-repeat; background-size: cover; border-radius: 3%;">
             </div>
 
@@ -313,5 +313,6 @@ export default {
 </script>
 
 <style scoped>
+
 
 </style>

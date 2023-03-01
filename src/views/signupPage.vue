@@ -1,6 +1,8 @@
 <template>
   <ion-page>
 
+
+
     <ion-content class="ion-padding" :fullscreen="true">
 
       <center>
@@ -10,9 +12,12 @@
       </center>
 
       <h5 class="ion-text-center">Create Account</h5>
+
+
+
       <div v-if="step==1" class="smooth-in">
 
-        <ion-item class="ion-margin-bottom nuna-select-item" lines="none" >
+        <ion-item class="ion-margin-bottom nuna-select-item ion-margin-end ion-margin-start" lines="none" >
           <ion-avatar slot="start">
             <flag :iso="countryCode"></flag>
           </ion-avatar>
@@ -34,7 +39,7 @@
           </ion-select>
         </ion-item>
 
-        <ion-button @click="goToStep(2)" size="large" expand="block" shape="round">Continue
+        <ion-button mode="ios" class="ion-margin-start ion-margin-end" @click="goToStep(2)" size="large" expand="block" shape="round">Continue
           <ion-icon :icon="arrowForwardOutline"/>
         </ion-button>
 
@@ -44,14 +49,15 @@
       <div id="section" class="smooth-in" v-if="step==2">
 
 
-        <h6 class="ion-text-center">Personal Information</h6>
         <ion-button fill="clear" class="ion-align-self-start" @click="step=step-1">
           <ion-icon
               :icon="arrowBackOutline"></ion-icon>
           Back
         </ion-button>
+        <small class="ion-text-center text-muted ion-align-self-end ion-margin">Personal Info.</small>
 
-        <ion-item lines="none">
+
+        <ion-item lines="none" class="no-padding">
           <ion-input class="custom" v-model="firstName" type="text" placeholder="First Name"></ion-input>
         </ion-item>
 
@@ -60,7 +66,7 @@
         </ion-item>
 
 
-        <ion-item style="margin-right: 16px; margin-left: 16px" lines="none" class="ion-margin-top nuna-select-item">
+        <ion-item style="margin-right: 15px; margin-left: 18px" lines="none" class="ion-margin-top nuna-select-item">
           <ion-label>Birth Date:</ion-label>
           <ion-datetime-button datetime="datetime"></ion-datetime-button>
           <ion-modal
@@ -78,24 +84,34 @@
 <!--          <ion-input v-model="idnumber" type="text" placeholder="ID Number"></ion-input>-->
 <!--        </ion-item>-->
 
+
         <ion-button mode="ios" @click="goToStep(3)" :disabled="!firstName || !lastName || !birthDate"
-                    class="ion-margin-top" size="large" expand="block" shape="round">Continue
+                    class="ion-margin-top ion-margin-end ion-margin-start" size="large" expand="block" shape="round">Continue
           <ion-icon :icon="arrowForwardOutline"/>
         </ion-button>
+
 
       </div>
 
       <div id="section" v-if="step==3" class="smooth-in">
 
 
-        <h6 class="ion-text-center">Account Information</h6>
-        <ion-button mode="ios" :disabled="progress" fill="clear" class="ion-align-self-start" @click="step=step-1">
+        <ion-button
+            mode="ios"
+            :disabled="progress"
+            fill="clear"
+            class="ion-align-self-start"
+            @click="step=step-1"
+        >
           <ion-icon
-              :icon="arrowBackOutline"></ion-icon>
+              :icon="arrowBackOutline"
+          ></ion-icon>
           Back
         </ion-button>
+        <small class="ion-text-center text-muted ion-margin">Login Info</small>
 
-        <ion-item lines="none">
+
+        <ion-item lines="none" >
           <ion-input class="custom" :disabled="progress" v-model="email" type="email" placeholder="Email"></ion-input>
         </ion-item>
 
@@ -114,9 +130,10 @@
 
         <ion-button @click="signup"
                     :disabled="!email || !phoneNumber || !password || !passwordConfirmation || progress"
-                    class="ion-margin-top" size="large"
+                    class="ion-margin-top ion-margin-start ion-margin-end" size="large"
                     mode="ios"
-                    expand="block" shape="round">
+                    expand="block"
+                    shape="round">
           <template v-if="!progress">
             Finish
             <ion-icon :icon="checkmarkOutline"/>
@@ -129,23 +146,33 @@
       </div>
 
 
-      <p>Already have an account?
-        <ion-button
-            fill="clear"
-            class="ion-align-self-start"
-            router-link="/login"
-            mode="ios"
-        >Login</ion-button>
-      </p>
+      <ion-row>
+        <ion-col size="8">
+          <p class="text-muted"> Already have an account?</p>
+        </ion-col>
+        <ion-col size="4">
+          <ion-button
+              fill="clear"
+              class="ion-align-self-start ion-no-padding ion-no-margin"
+              router-link="/login"
+              mode="ios"
+          >Login</ion-button>
+        </ion-col>
+      </ion-row>
 
+      <div class="ui-pattern">
+
+      </div>
     </ion-content>
   </ion-page>
 
 </template>
 
-<script lang="ts">
+<script>
+
 import {defineComponent} from 'vue';
 import store from "@/store";
+
 import {
   IonAvatar,
   IonButton,
@@ -160,7 +187,9 @@ import {
   IonDatetime,
   IonDatetimeButton,
     IonModal,
-    IonLabel
+    IonLabel,
+    IonRow,
+    IonCol
 } from '@ionic/vue';
 import {arrowBackOutline, arrowForwardOutline, checkmarkOutline} from "ionicons/icons";
 import Flag from "@/components/flag.vue";
@@ -183,7 +212,9 @@ export default defineComponent({
     IonDatetime,
     IonDatetimeButton,
     IonModal,
-    IonLabel
+    IonLabel,
+    IonRow,
+    IonCol
   },
   data() {
     return {
@@ -215,15 +246,16 @@ export default defineComponent({
           name: "Nigeria",
           code: "NG"
         }
-      ],
+      ]
+
     }
   },
   methods: {
 
-    dateSelected(dateTime: { detail: { value: string; }; }) {
+    dateSelected(dateTime) {
       this.birthDate = dateTime.detail.value;
     },
-    goToStep(userStep: number) {
+    goToStep(userStep) {
       this.step = userStep;
     },
     signup() {

@@ -34,6 +34,8 @@ import store from './store';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 
+
+
 const app = createApp(App)
     .use(store)
     .use(IonicVue)
@@ -56,7 +58,7 @@ function OneSignalInit(): void {
 
     OneSignal.setNotificationOpenedHandler(function (jsonData) {
 
-        console.log('notificationOpenedCallback: ' + JSON.stringify(jsonData));
+       // console.log('notificationOpenedCallback: ' + JSON.stringify(jsonData));
 
     });
 
@@ -73,7 +75,7 @@ function OneSignalInit(): void {
 
         OneSignal.setExternalUserId(UUID);
 
-        console.log(UUID);
+
 
 
     }

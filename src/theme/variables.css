@@ -76,7 +76,23 @@ http://ionicframework.com/docs/theming/ */
   --ion-color-light-tint: #f5f6f9;
 }
 
+ion-toolbar {
+  --background: white;
+  --border-width: 0;
+  --shadow: none !important;
+  border: none !important;
+}
+
 @media (prefers-color-scheme: dark) {
+
+
+  ion-toolbar {
+    --background: black;
+    --border-width: 0;
+    --shadow: none !important;
+    border: none !important;
+  }
+
   /*
    * Dark Colors
    * -------------------------------------------

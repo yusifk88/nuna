@@ -4,6 +4,7 @@ import router from "@/router";
 
 export default createStore({
     state: {
+        networkConnected:true,
         showStart: false,
         showErrorToast: false,
         errorMessage: "Something went wrong",

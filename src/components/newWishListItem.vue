@@ -55,14 +55,14 @@
       </sup>
       <ion-icon size="large" :icon="cashOutline"></ion-icon>
       <h1>Add Cash</h1>
-      <p class="text-muted ion-padding">Add cash to your wishlist so your loved ones can help you by contributing</p>
+      <p class="text-muted ion-padding">Set a target for the gifts coming your way</p>
       <ion-list class="ion-margin-bottom">
 
-        <ion-item shape="round" fill="outline" class="ion-margin-bottom">
-          <ion-label>
+        <ion-item lines="none"  shape="round" fill="outline" class="ion-margin-bottom" style="background-color: #F8F8F8 !important;">
+          <ion-label style="background-color: #F8F8F8 !important;">
             {{user.currency}}
           </ion-label>
-          <ion-input :autofocus="true" :disabled="saving" v-model="cash.amount" inputmode="decimal"
+          <ion-input class="custom" :autofocus="true" :disabled="saving" v-model="cash.amount" inputmode="decimal"
                      placeholder="Target Amount"></ion-input>
         </ion-item>
 

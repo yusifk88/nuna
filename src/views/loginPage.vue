@@ -27,6 +27,7 @@
           shape="round"
           @click="login"
           mode="ios"
+          class="ion-margin-start ion-margin-end"
       >
         <template v-if="!progress">
           Login
@@ -34,24 +35,34 @@
         <ion-spinner v-else></ion-spinner>
       </ion-button>
 
-      <p>Don't have an account ?
-        <ion-button mode="ios" router-link="/register" fill="clear" class="ion-align-self-start">Sign Up</ion-button>
-      </p>
 
+
+      <ion-row>
+        <ion-col size="8">
+         <p> Don't have an account ?</p>
+        </ion-col>
+        <ion-col size="4">
+          <ion-button mode="ios" router-link="/register" fill="clear" class="ion-align-self-start ion-no-margin ion-no-padding">Sign Up</ion-button>
+        </ion-col>
+      </ion-row>
+      <div class="ui-pattern"></div>
     </ion-content>
   </ion-page>
+
+
+
 </template>
 
 <script lang="ts">
 import {defineComponent} from 'vue';
 
-import {IonSpinner, IonPage, IonContent, IonInput, IonItem, IonButton} from '@ionic/vue';
+import {IonSpinner, IonPage, IonContent, IonInput, IonItem, IonButton,IonRow,IonCol} from '@ionic/vue';
 import axios from "axios";
 import store from "@/store";
 
 export default defineComponent({
   name: "loginPage",
-  components: {IonSpinner, IonContent, IonPage, IonInput, IonItem, IonButton},
+  components: {IonSpinner, IonContent, IonPage, IonInput, IonItem, IonButton,IonRow,IonCol},
   data() {
     return {
       email: "",
@@ -90,6 +101,8 @@ export default defineComponent({
 
 </script>
 
-<style scoped>
+<style>
+
+
 
 </style>

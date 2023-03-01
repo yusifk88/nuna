@@ -11,13 +11,13 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "@awesome-cordova-plugins/image-picker": "^5.45.0",
     "@capacitor/android": "4.2.0",
     "@capacitor/app": "4.0.1",
     "@capacitor/core": "4.2.0",
     "@capacitor/haptics": "4.0.1",
     "@capacitor/ios": "4.2.0",
     "@capacitor/keyboard": "4.0.1",
+    "@capacitor/network": "^4.1.0",
     "@capacitor/share": "^4.1.0",
     "@capacitor/status-bar": "4.0.1",
     "@fawmi/vue-google-maps": "^0.9.79",
@@ -43,6 +43,7 @@
     "vue-google-autocomplete": "^1.1.3",
     "vue-meta": "^2.4.0",
     "vue-router": "^4.0.12",
+    "vue-steps-progress-bar": "^1.0.4",
     "vue3-apexcharts": "^1.4.1",
     "vuelidate": "^0.7.7",
     "vuex": "^4.0.0-0"

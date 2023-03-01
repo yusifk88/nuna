@@ -69,19 +69,19 @@ export default {
     imgURL() {
       if (this.item.photo_one) {
 
-        return this.$store.state.baseURL + this.item.photo_one;
+        return  this.item.photo_one;
 
       } else if (this.item.photo_two) {
 
-        return this.$store.state.baseURL + this.item.photo_two;
+        return this.item.photo_two;
 
       } else if (this.item.photo_three) {
 
-        return this.$store.state.baseURL + this.item.photo_three;
+        return this.item.photo_three;
 
       } else if (this.item.photo_four) {
 
-        return this.$store.state.baseURL + this.item.photo_four;
+        return  this.item.photo_four;
 
       } else {
 

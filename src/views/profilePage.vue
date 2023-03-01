@@ -108,7 +108,6 @@
         mode="ios"
         ref="helpModal"
         :is-open="showHelpModal"
-        :presenting-element="presentingElement"
     >
       <ion-header>
         <ion-toolbar>
@@ -119,7 +118,7 @@
         </ion-toolbar>
       </ion-header>
       <ion-content class="ion-padding">
-        <iframe style="width: 100%!important; height: 85vh!important; border: none !important;" src="https://tawk.to/chat/63bf3892c2f1ac1e202cf879/1gmhf9vi0"> </iframe>
+        <iframe v-if="showHelpModal" style="width: 100%!important; height: 85vh!important; border: none !important;" src="https://tawk.to/chat/63bf3892c2f1ac1e202cf879/1gmhf9vi0"> </iframe>
       </ion-content>
 
     </ion-modal>

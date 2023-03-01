@@ -23,6 +23,7 @@
         expand="block"
         shape="round"
         v-if="showButton"
+        mode="ios"
         size="large"
     >
       {{buttonText}}

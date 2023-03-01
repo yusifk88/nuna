@@ -3,7 +3,18 @@
     <error-component></error-component>
     <ion-spinner style="font-size: 200px !important; margin: auto !important;" name="dots" color="primary"
                  v-if="$store.state.initApp"></ion-spinner>
-    <ion-router-outlet v-else/>
+
+    <ion-router-outlet v-else-if="store.state.networkConnected"/>
+
+    <ion-content class="ion-padding ion-text-center" v-else>
+
+      <img style="height: 100px; width: 100px; margin-top: 10%" class="ion-margin" src="/assets/icon/network.png">
+
+      <h1>No Internet</h1>
+      <p class="text-muted ion-padding">It looks like you are not connected to the internet, please check your connection and try again.</p>
+      <ion-button @click="retry" size="large" expand="block" mode="ios" class="ion-margin" >Retry</ion-button>
+
+    </ion-content>
 
     <!--    <loading-component v-if="!$store.state.initApp"></loading-component>-->
   </ion-app>
@@ -46,7 +57,7 @@
       </p>
 
 
-              <ion-button @click="goToNext" class="ion-margin" expand="block" size="large">Continue<ion-icon
+              <ion-button mode="ios" @click="goToNext" class="ion-margin" expand="block" size="large">Continue<ion-icon
                   :icon="arrowForwardOutline"></ion-icon></ion-button>
 
   </span>
@@ -67,7 +78,7 @@
         where your friends can indicate that they would be attending.
       </p>
 
-              <ion-button @click="goToNext" class="ion-margin" expand="block" size="large">Continue<ion-icon
+              <ion-button mode="ios"  @click="goToNext" class="ion-margin" expand="block" size="large">Continue<ion-icon
                   :icon="arrowForwardOutline"></ion-icon></ion-button>
 
   </span>
@@ -88,7 +99,7 @@
         Get started by creating your Nuna Account
       </p>
 
-              <ion-button @click="exitDialog" class="ion-margin" expand="block" size="large">Create Account</ion-button>
+              <ion-button mode="ios"  @click="exitDialog" class="ion-margin" expand="block" size="large">Create Account</ion-button>
 
   </span>
 
@@ -102,6 +113,8 @@
 </template>
 
 <script>
+
+import { Network } from '@capacitor/network';
 
 import {
   IonApp,
@@ -122,6 +135,7 @@ import {defineComponent} from 'vue';
 import ErrorComponent from "@/components/errorComponent.vue";
 import {arrowForwardOutline} from "ionicons/icons";
 import store from "@/store";
+import router from "@/router";
 
 export default defineComponent({
   name: 'App',
@@ -150,8 +164,15 @@ export default defineComponent({
     }
   },
   methods: {
+    retry(){
+      store.commit("initUser");
+
+    },
     exitDialog(){
       this.store.state.showStart=false;
+
+      router.push("/register");
+
       localStorage.setItem("showstart","true");
     },
     goToNext() {
@@ -161,11 +182,36 @@ export default defineComponent({
       swiper.slideNext();
 
     }
+  },
+  mounted() {
+
+    Network.addListener('networkStatusChange', status => {
+
+      store.state.networkConnected = status.connected;
+
+
+    });
+
   }
 });
 </script>
 
 <style>
+
+.ui-pattern{
+  width: 100%;
+  height: 15vh;
+  background-color: rgba(0, 128, 128, 0.99);
+  border-bottom-left-radius: 50%;
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-image: url("/public/assets/cardBG.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  transition: 0.3s ease-in-out;
+
+}
 
 
 ion-textarea.custom {
@@ -203,12 +249,6 @@ ion-input.custom {
   --padding-top: 10px;
 }
 
-ion-toolbar {
-  --background: white;
-  --border-width: 0;
-  --shadow: none !important;
-  border: none !important;
-}
 
 ion-card {
   box-shadow: none !important;
