@@ -282,6 +282,8 @@ export default defineComponent({
             };
 
             this.$router.push("/tabs");
+            store.commit("initUser");
+
 
 
           })

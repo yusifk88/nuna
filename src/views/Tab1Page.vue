@@ -11,7 +11,10 @@
                  src="https://objectstorage.uk-london-1.oraclecloud.com/n/lrj6a9vl4is6/b/MyBucket/o/logo.png"
             >
           </ion-col>
+          <ion-col size="2" >
+            <ion-icon @click="$router.push({path:'/notifications'})" size="large" class="ion-margin-top" :icon="notificationsOutline"></ion-icon>
 
+          </ion-col>
           <ion-col size="2" class="ion-align-self-end">
 
             <ion-avatar @click="$router.push({path:'/profile'})" height="20" v-if="$store.state.user">
@@ -130,7 +133,7 @@ import store from "@/store";
 import {Share} from '@capacitor/share';
 
 import {defineComponent} from 'vue';
-import {arrowForwardOutline, reloadCircleOutline, warningOutline, addOutline, shareOutline} from "ionicons/icons";
+import {arrowForwardOutline, reloadCircleOutline, warningOutline, addOutline, shareOutline,notificationsOutline} from "ionicons/icons";
 import {
   IonTitle,
   IonButtons,
@@ -195,7 +198,8 @@ export default defineComponent({
       loading: false,
       dashboard: null,
       presentingElement: null,
-      dialogType: "guest"
+      dialogType: "guest",
+      notificationsOutline
     }
   },
   methods: {

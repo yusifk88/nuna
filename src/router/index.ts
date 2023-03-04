@@ -5,6 +5,9 @@ import loginPage from "@/views/loginPage.vue";
 import signupPage from "@/views/signupPage.vue";
 import NewRegistryPage from "@/views/NewRegistryPage.vue";
 import profilePage from "@/views/profilePage.vue";
+import WeddingPreviewPage from "@/views/WeddingPreviewPage.vue";
+import NotificationsPage from "@/views/NotificationsPage.vue"
+
 const routes: Array<RouteRecordRaw> = [
     {
         path: '/',
@@ -24,11 +27,15 @@ const routes: Array<RouteRecordRaw> = [
     },
     {
         path: '/event/wedding/:id',
-        component: () => import("@/views/WeddingPreviewPage.vue")
+        component: WeddingPreviewPage
     },
     {
         path: '/new/:type',
         component: NewRegistryPage
+    },
+    {
+      path:"/notifications",
+      component:NotificationsPage
     },
     {
         path: '/tabs/',

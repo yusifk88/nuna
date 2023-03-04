@@ -59,7 +59,7 @@
       <ion-list class="ion-margin-bottom">
 
         <ion-item lines="none"  shape="round" fill="outline" class="ion-margin-bottom" style="background-color: #F8F8F8 !important;">
-          <ion-label style="background-color: #F8F8F8 !important;">
+          <ion-label>
             {{user.currency}}
           </ion-label>
           <ion-input class="custom" :autofocus="true" :disabled="saving" v-model="cash.amount" inputmode="decimal"

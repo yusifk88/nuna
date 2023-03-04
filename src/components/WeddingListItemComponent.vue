@@ -1,7 +1,7 @@
 <template>
   <ion-item-sliding>
 
-    <ion-item-options side="start">
+<!--    <ion-item-options side="start">-->
 
 <!--      <ion-item-option v-if="!item.public" color="success">-->
 <!--        <ion-icon :icon="globeOutline"></ion-icon>-->
@@ -12,13 +12,13 @@
 <!--      </ion-item-option>-->
 
 
-      <ion-item-option>
-        Share <ion-icon :icon="shareOutline" style="font-size: 20px" ></ion-icon>
+<!--      <ion-item-option>-->
+<!--        Share <ion-icon :icon="shareOutline" style="font-size: 20px" ></ion-icon>-->
 
-      </ion-item-option>
+<!--      </ion-item-option>-->
 
 
-    </ion-item-options>
+<!--    </ion-item-options>-->
 
     <ion-item botton detail="true">
       <ion-thumbnail slot="start">
@@ -40,7 +40,7 @@
 </template>
 
 <script>
-import {IonIcon, IonItem, IonItemOption, IonItemOptions, IonItemSliding, IonLabel, IonThumbnail} from "@ionic/vue";
+import {IonIcon, IonItem, IonItemSliding, IonLabel, IonThumbnail} from "@ionic/vue";
 import {closeCircleOutline, cloudOfflineOutline, copyOutline, globeOutline,shareOutline} from "ionicons/icons";
 
 export default {
@@ -50,7 +50,7 @@ export default {
     }
   },
   components: {
-    IonItem, IonLabel, IonThumbnail, IonIcon, IonItemSliding, IonItemOptions, IonItemOption
+    IonItem, IonLabel, IonThumbnail, IonIcon, IonItemSliding
   },
   name: "WeddingListItemComponent",
   data() {

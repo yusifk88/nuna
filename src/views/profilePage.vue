@@ -5,7 +5,7 @@
     <ion-toolbar>
       <ion-back-button slot="start"></ion-back-button>
       <ion-title>
-       Your Profile Settings
+       Profile
       </ion-title>
 
     </ion-toolbar>
@@ -20,6 +20,8 @@
         </ion-avatar>
         <ion-label style="border: none">
           <h1>{{user.first_name}} {{user.last_name}}</h1>
+          <p style="color: orange">Pending verification</p>
+
         </ion-label>
       </ion-item>
     </ion-list>
