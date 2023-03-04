@@ -6,7 +6,10 @@
         <ion-title>Notifications</ion-title>
       </ion-toolbar>
     </ion-header>
-    <ion-content>
+    <ion-content
+        :scroll-events="true"
+        @ionScrollEnd="getPage(this.nextPage)"
+    >
       <ion-refresher @ionRefresh="getNotifications($event)" slot="fixed">
         <ion-refresher-content></ion-refresher-content>
       </ion-refresher>
@@ -25,6 +28,7 @@
       <ion-icon v-if="item.type=='gift'" :icon="giftOutline" class="gift-icon"></ion-icon>
       <ion-icon v-if="item.type=='wish'" :icon="heartOutline" class="wish-icon"></ion-icon>
       <ion-icon v-if="item.type=='attendance'" :icon="personAddOutline" class="attendance-icon"></ion-icon>
+
       <ion-label>
         <h2>{{ item.title }}</h2>
         <p>{{ item.description }}</p>
@@ -45,7 +49,6 @@
 
 <script>
 import noRecordComponent from "@/components/NoRecordComponent";
-import loadingComponent from "@/components/loadingComponent";
 import listLoadingComponent from "@/components/ListLoadingComponent";
 import {
   IonPage,
@@ -85,21 +88,48 @@ export default {
     return {
       items: [],
       loading: false,
+      nextPage:null,
       giftOutline, heartOutline, personAddOutline
     }
   },
   methods: {
+
+    getPage(page){
+
+      window.axios.get(page)
+          .then(res => {
+
+            const oldItems = this.items;
+            this.items = [...oldItems,...res.data.data.notifications.data];
+            this.nextPage = res.data.data.notifications.next_page_url;
+
+            this.loading=false;
+
+          })
+          .catch(error=>{
+
+            this.loading=false;
+
+          })
+    },
+
     getNotifications(e) {
       this.loading = true;
       window.axios.get("/notifications")
           .then(res => {
             this.items = res.data.data.notifications.data;
+            this.nextPage = res.data.data.notifications.next_page_url;
             this.loading=false;
             if (e) {
               e.target.complete();
             }
 
           })
+      .catch(error=>{
+
+        this.loading=false;
+
+      })
 
     }
   },
