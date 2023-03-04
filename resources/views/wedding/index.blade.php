@@ -288,7 +288,7 @@
 
                             <li class="couple-half animate-box" data-animate-effect="fadeIn"
                                 style="background-image: url({{$wedding->photo_one}}); ">
-                                <a data-fslightbox href="{{url("/").$wedding->photo_one}}"></a>
+                                <a data-fslightbox href="{{$wedding->photo_one}}"></a>
                             </li>
 
                         @endif

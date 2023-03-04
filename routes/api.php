@@ -51,5 +51,11 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post("wishlist/{id}", [WishListCOntroller::class, "store"]);
     Route::get("wishlist/{id}", [WishListCOntroller::class, "items"]);
 
+    /**
+     * notifications Routes
+     */
+
+    Route::get("notifications",[DashboardControler::class,"notifications"]);
+
 
 });
