@@ -217,12 +217,12 @@
                                     </div>
                                     <div class="event-col">
                                         <i class="icon-add-user"></i>
-                                        <span>RSVP person:{{$wedding->rsv_person}}</span>
+                                        <span>RSVP:{{$wedding->rsv_person}}</span>
 
                                     </div>
                                     <div class="event-col">
                                         <i class="icon-old-phone"></i>
-                                        <span>RSVP Phone Number:{{$wedding->rsv_phone_number}}</span>
+                                        <span>RSVP:{{$wedding->rsv_phone_number}}</span>
                                     </div>
 
                                     <p>{{$wedding->location}}</p>
