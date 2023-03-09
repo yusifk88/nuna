@@ -31,6 +31,7 @@
     <meta name="description"
           content="Nuna gives you the most efficient way to receive gifts, by offering a digital wedding gift table, accessible globally. ">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="google-site-verification" content="atc2cpH1PgOu2hPAVSTM5yUjh6yAgn7KE3DTAqXLlLc" />
     <link rel="manifest" href="site.webmanifest">
     <link rel="shortcut icon" type="image/x-icon"
           href="https://objectstorage.uk-london-1.oraclecloud.com/n/lrj6a9vl4is6/b/MyBucket/o/logo.png">
