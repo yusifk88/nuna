@@ -20,6 +20,36 @@ class AuthController extends Controller
 
     }
 
+
+    public function updateProfile(Request $request)
+    {
+
+        $request->validate([
+            "first_name"=>"required",
+            "last_name"=>"required",
+            "phone_number"=>"required",
+            "birth_date"=>"required|date"
+        ]);
+
+        $user = $request->user();
+
+        if (!$user->approved){
+
+            User::where("id",$user->id)->update([
+                "first_name"=>$request->first_name,
+                "last_name"=>$request->last_name,
+                "phone_number"=>$request->phone_number,
+                "birth_date"=>$request->birth_date
+            ]);
+
+
+        }
+
+        return success_response($user);
+
+
+    }
+
     public function signUp(Request $request)
     {
 

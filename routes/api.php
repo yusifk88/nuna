@@ -30,6 +30,8 @@ Route::middleware('auth:sanctum')->group(function () {
     });
 
 
+    Route::post("update-profile",[AuthController::class,"updateProfile"]);
+
     Route::post("set-user-push-id", [AuthController::class, "SetPushUserID"]);
     /**
      * wedding routes
