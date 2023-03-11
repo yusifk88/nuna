@@ -2,7 +2,7 @@
   <ion-page ref="page">
 
 
-    <ion-header mode="ios" v-if="!$store.state.initApp">
+    <ion-header v-if="!$store.state.initApp" mode="ios">
       <ion-toolbar>
 
         <ion-row>
@@ -11,13 +11,14 @@
                  src="https://objectstorage.uk-london-1.oraclecloud.com/n/lrj6a9vl4is6/b/MyBucket/o/logo.png"
             >
           </ion-col>
-          <ion-col size="2" >
-            <ion-icon @click="$router.push({path:'/notifications'})" size="large" class="ion-margin-top" :icon="notificationsOutline"></ion-icon>
+          <ion-col size="2">
+            <ion-icon :icon="notificationsOutline" class="ion-margin-top" size="large"
+                      @click="$router.push({path:'/notifications'})"></ion-icon>
 
           </ion-col>
-          <ion-col size="2" class="ion-align-self-end">
+          <ion-col class="ion-align-self-end" size="2">
 
-            <ion-avatar @click="$router.push({path:'/profile'})" height="20" v-if="$store.state.user">
+            <ion-avatar v-if="$store.state.user" height="20" @click="$router.push({path:'/profile'})">
               <img :alt="$store.state.user.first_name+' profile photo'"
                    src="https://ionicframework.com/docs/demos/api/avatar/avatar.svg"/>
             </ion-avatar>
@@ -33,7 +34,7 @@
 
     <ion-content v-else :fullscreen="true" class="ion-padding">
 
-      <ion-refresher @ionRefresh="getDashboard($event)" slot="fixed">
+      <ion-refresher slot="fixed" @ionRefresh="getDashboard($event)">
         <ion-refresher-content></ion-refresher-content>
       </ion-refresher>
 
@@ -50,18 +51,18 @@
 
         <ion-col size="2">
 
-          <ion-button class="ion-margin-top" @click="getDashboard" shape="round" size="small" fill="clear">
-            <ion-icon size="large" :icon="reloadCircleOutline"></ion-icon>
+          <ion-button class="ion-margin-top" fill="clear" shape="round" size="small" @click="getDashboard">
+            <ion-icon :icon="reloadCircleOutline" size="large"></ion-icon>
           </ion-button>
 
         </ion-col>
 
         <ion-col size="2">
 
-          <ion-button v-if="dashboard && dashboard.weddings.length>0" class="ion-margin-top"
-                      @click="shareLink(getURL(dashboard.weddings[0]))" id="add-shortcut" fill="clear" shape="round"
-                      size="small">
-            <ion-icon size="large" :icon="shareOutline"></ion-icon>
+          <ion-button v-if="dashboard && dashboard.weddings.length>0" id="add-shortcut"
+                      class="ion-margin-top" fill="clear" shape="round" size="small"
+                      @click="shareLink(getURL(dashboard.weddings[0]))">
+            <ion-icon :icon="shareOutline" size="large"></ion-icon>
           </ion-button>
 
 
@@ -83,10 +84,10 @@
       </ion-row>
 
       <dashboard-summary-component
-          @guestTapped="showGuest"
-          @contributionTapped="showcontribution"
-          :dashboard="dashboard"
           v-if="dashboard && dashboard.weddings.length"
+          :dashboard="dashboard"
+          @contributionTapped="showcontribution"
+          @guestTapped="showGuest"
       ></dashboard-summary-component>
 
       <ion-row v-if="dashboard && dashboard.weddings.length">
@@ -99,7 +100,7 @@
           v-if="dashboard && dashboard.weddings.length"></dashbord-recent-acitivities-component>
 
 
-      <ion-modal mode="ios" ref="modal" :is-open="showGuestDialog" :presenting-element="presentingElement">
+      <ion-modal ref="modal" :is-open="showGuestDialog" :presenting-element="presentingElement" mode="ios">
         <ion-header>
           <ion-toolbar>
             <ion-title>{{ dialogType === 'guest' ? 'Guests' : 'Contributions' }} List</ion-title>
@@ -133,7 +134,14 @@ import store from "@/store";
 import {Share} from '@capacitor/share';
 
 import {defineComponent} from 'vue';
-import {arrowForwardOutline, reloadCircleOutline, warningOutline, addOutline, shareOutline,notificationsOutline} from "ionicons/icons";
+import {
+  arrowForwardOutline,
+  reloadCircleOutline,
+  warningOutline,
+  addOutline,
+  shareOutline,
+  notificationsOutline
+} from "ionicons/icons";
 import {
   IonTitle,
   IonButtons,
@@ -220,7 +228,6 @@ export default defineComponent({
     getURL(wedding) {
 
       return this.store.state.baseURL + "/w/" + wedding.tag;
-
 
     },
     async shareLink(link) {

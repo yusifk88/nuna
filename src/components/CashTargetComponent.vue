@@ -95,7 +95,7 @@
     </ion-modal>
     <ion-modal
         ref="itemModal"
-        :breakpoints="[0,0.5]"
+        :breakpoints="[0,0.5,0.7]"
         :initial-breakpoint="initState"
         :is-open="newItem"
         :swipeToClose="true"

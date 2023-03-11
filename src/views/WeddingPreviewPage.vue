@@ -6,6 +6,11 @@
         <ion-title>
           {{ wedding ? wedding.tag : "Wedding tag..." }}
         </ion-title>
+        <ion-buttons slot="end">
+          <ion-button size="large" mode="ios" :disabled="!wedding" @click="shareLink(getURL(wedding))">
+             <ion-icon :icon="shareOutline"></ion-icon> Share
+          </ion-button>
+        </ion-buttons>
       </ion-toolbar>
       <ion-toolbar>
         <ion-segment :scrollable="true" color="primary" :value="defaultSegment">
@@ -148,6 +153,7 @@
 <script>
 
 import QrcodeVue from 'qrcode.vue'
+import {Share} from '@capacitor/share';
 
 import {
   IonBackButton,
@@ -162,9 +168,11 @@ import {
   IonSlide,
   IonSlides,
   IonTitle,
-  IonToolbar
+  IonToolbar,
+    IonButtons,
+    IonButton
 } from "@ionic/vue";
-import {heartOutline} from "ionicons/icons";
+import {heartOutline,shareOutline} from "ionicons/icons";
 import moment from "moment";
 
 import axios from "axios";
@@ -191,13 +199,16 @@ export default {
     IonContent,
     IonIcon,
     IonRow,
-    IonCol
+    IonCol,
+    IonButtons,
+    IonButton
   },
   data() {
     return {
       defaultSegment: "items",
       wedding: null,
       heartOutline,
+      shareOutline,
       previewSlideOption: {
         spaceBetween: 10,
         slidesPerView: 1,
@@ -213,6 +224,10 @@ export default {
   },
   computed: {
 
+    weddingURL() {
+
+      return this.store.state.baseURL + "/w/" + this.wedding.tag;
+    },
     position() {
 
       if (this.wedding && this.wedding.coordinates) {
@@ -286,10 +301,19 @@ export default {
   },
   methods: {
 
+    async shareLink(link) {
+
+      await Share.share({
+        title: this.wedding.tag,
+        text: this.wedding.groom_name + " and " + this.wedding.bride_name + "'s wedding",
+        url: link,
+        dialogTitle: 'Share you wedding link',
+      });
+
+    },
     getURL(wedding) {
 
       return this.$store.state.baseURL +"/w/" + wedding.tag;
-
 
     },
     getWedding() {

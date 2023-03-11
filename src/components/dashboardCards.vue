@@ -37,8 +37,8 @@
 
 <ion-row>
   <ion-col size="8">
-        <small class="ion-margin-top ion-padding-top">Contributed/Target</small>
-         <h2 class="font-weight-bold">{{user.currency}}{{ Number(wedding.contributions_sum_amount).toFixed("2") }}/{{user.currency}}{{Number(wedding.items_sum_target_amount).toFixed("2") }}</h2>
+        <small class="ion-margin-top ion-padding-top font-weight-light">Contributed/Target</small>
+         <h3 class="font-weight-light">{{user.currency}}{{ Number(wedding.contributions_sum_amount).toFixed("2") }} / {{user.currency}}{{Number(wedding.items_sum_target_amount).toFixed("2") }}</h3>
   </ion-col>
   <ion-col size="4">
 

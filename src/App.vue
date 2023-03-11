@@ -99,7 +99,7 @@
         Get started by creating your Nuna Account
       </p>
 
-              <ion-button mode="ios"  @click="exitDialog" class="ion-margin" expand="block" size="large">Create Account</ion-button>
+        <ion-button mode="ios"  @click="exitDialog" class="ion-margin" expand="block" size="large">Create Account</ion-button>
 
   </span>
 

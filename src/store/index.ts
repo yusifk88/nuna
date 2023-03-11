@@ -50,6 +50,28 @@ export default createStore({
                 })
 
 
+        }  ,
+        initUserSilent(state) {
+            if (!localStorage.getItem("showstart")) {
+                state.showStart = true;
+            }
+
+            axios.get("/user")
+                .then(res => {
+                    state.user = res.data;
+
+                })
+                .catch(error => {
+                    if (error.response.status == 401) {
+                        state.mainLoading = false;
+                        router.push("/login");
+                    }
+                    state.initApp = false;
+
+
+                })
+
+
         }
 
     },
