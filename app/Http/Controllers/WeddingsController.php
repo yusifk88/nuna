@@ -50,7 +50,7 @@ class WeddingsController extends Controller
         $reason = \request()->get("reason");
         $transaction_id = \request()->get("transaction_id");
 
-        if (!$transaction_id){
+        if (!$transaction_id) {
 
             return view("wedding.payment_failed", ["reason" => "Payment was canceled", "wedding" => null]);
 
@@ -134,10 +134,9 @@ class WeddingsController extends Controller
 
         $wedding = Wedding::find($wedding_id);
 
-        $description = $wedding->tag."_".Str::random();
+        $description = $wedding->tag . "_" . Str::random();
 
-        $checkout = Payswitch::initialize_collection($request->amount, $request->email, $transaction_id, $url,$description);
-
+        $checkout = Payswitch::initialize_collection($request->amount, $request->email, $transaction_id, $url, $description);
 
 
         if ($checkout && $checkout->status === 'success') {
@@ -156,7 +155,21 @@ class WeddingsController extends Controller
 
             return redirect($checkout->checkout_url);
         }
-        echo "Sorry, we could not initialize the checkout reason: ".$checkout->reason;
+
+
+        WeddingContribution::create([
+            "name" => $request->name,
+            "email" => $request->email,
+            "amount" => $request->amount,
+            "phone_number" => $request->phone_number,
+            "checkout_token" => $checkout->token,
+            "message" => $checkout->reason,
+            "wedding_id" => $wedding_id,
+            "transaction_id" => Str::random()
+        ]);
+
+
+        echo "Sorry, we could not initialize the checkout reason: " . $checkout->reason;
 
     }
 
