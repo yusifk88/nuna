@@ -162,7 +162,7 @@ class WeddingsController extends Controller
             "email" => $request->email,
             "amount" => $request->amount,
             "phone_number" => $request->phone_number,
-            "checkout_token" => $checkout->token,
+            "checkout_token" => "not Available",
             "message" => $checkout->reason,
             "wedding_id" => $wedding_id,
             "transaction_id" => Str::random()

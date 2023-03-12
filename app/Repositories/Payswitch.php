@@ -70,7 +70,7 @@ class Payswitch
 
     public static function getMaxID()
     {
-        $maxID = 200;
+        $maxID = 300;
         $lastRecord = WeddingContribution::select(DB::raw("max(id) as last_id"))->first();
 
 
