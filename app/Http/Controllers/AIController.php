@@ -11,7 +11,6 @@ class AIController extends Controller
     public function loveStory()
     {
         $token = config("app.open_ai_key");
-        $token = config("app.open_ai_key");
         $res = Http::withHeaders([
             "authorization" => "Bearer " . $token
         ])->post('https://api.openai.com/v1/chat/completions', [
@@ -21,6 +20,7 @@ class AIController extends Controller
             "stop" => ["<br>"]
         ]);
         $response = $res->json();
+
         if (isset($response['choices'])) {
 
             $text = $response['choices'][0]['message']['content'];
@@ -47,7 +47,7 @@ class AIController extends Controller
 
         $answer = str_replace("\n", "<br>", $text);
 
-        return success_response($answer);
+        return success_response(["text"=>$answer]);
 
 
     }
