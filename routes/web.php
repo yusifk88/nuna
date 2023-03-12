@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\WeddingsController;
 use App\Repositories\Payswitch;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -30,7 +31,4 @@ Route::get("w/{tag}/contribute", [WeddingsController::class, "paymentPage"])->na
 Route::post("w/{id}/attending", [WeddingsController::class, "SaveRSV"])->name("reserve");
 Route::post("w/{id}/checkout", [WeddingsController::class, "initCheckout"])->name("initCheckout");
 
-//$checkout = Payswitch::initialize_collection(100, "ykatulie@gmail.com", Payswitch::getMaxID(), "https://mynunaa.com");
-//dd($checkout);
-//
-//
+
