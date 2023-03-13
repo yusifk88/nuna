@@ -1,8 +1,11 @@
 @import url("https://fonts.googleapis.com/css?family=Nunito:300,400,600,700,800,900|Poppins:300,400,500,600,700,800,900&display=swap");
+
+
 .fh5co-social-icons {
     margin: 0;
     padding: 0;
 }
+
 .fh5co-social-icons li {
     margin: 0;
     padding: 0;
@@ -12,6 +15,7 @@
     zoom: 1;
     *display: inline;
 }
+
 .fh5co-social-icons li a {
     display: -moz-inline-stack;
     display: inline-block;
@@ -21,6 +25,7 @@
     padding-left: 10px;
     padding-right: 10px;
 }
+
 .fh5co-social-icons li a i {
     font-size: 20px;
 }
@@ -47,7 +52,6 @@
     font-variant: normal;
     text-transform: none;
     line-height: 1;
-    /* Better Font Rendering =========== */
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
