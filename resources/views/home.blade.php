@@ -213,8 +213,7 @@
         </div>
     </div>
 </section>
-<!-- Services Area End -->
-<!-- Applic App Start -->
+
 <div class="applic-apps section-padding2">
     <div class="container-fluid">
         <div class="row">
@@ -222,9 +221,7 @@
             <div class="col-xl-4 col-lg-4 col-md-8">
                 <div class="single-cases-info mb-30">
                     <h3>Nuna<br> Screenshots</h3>
-                    {{--                        <p>Lorem ipsum dolor sit amet, consecadipiscing elit, sed do eiusmod tempor incididunt ut ore et--}}
-                    {{--                            dolore magna aliqua. Quis ipsum suspendisse gravida. Risus commodo viverra maecenasan lacus--}}
-                    {{--                            vel facilisis. </p>--}}
+
                 </div>
             </div>
             <!-- OwL -->
