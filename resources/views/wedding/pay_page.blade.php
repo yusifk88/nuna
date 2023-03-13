@@ -54,7 +54,7 @@
                                     </div>
 
                                     <div class="col-md-12">
-                                      <button class="btn btn-success btn-lg w-100 mt-5">Contribute Now!</button>
+                                      <button class="btn btn-success btn-lg w-100 mt-5">Send Gift!</button>
                                     </div>
 
 

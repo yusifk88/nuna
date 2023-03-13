@@ -35,8 +35,11 @@
     <link rel="manifest" href="site.webmanifest">
     <link rel="shortcut icon" type="image/x-icon"
           href="https://objectstorage.uk-london-1.oraclecloud.com/n/lrj6a9vl4is6/b/MyBucket/o/logo.png">
-
+    <link href='https://fonts.googleapis.com/css?family=Work+Sans:400,300,600,400italic,700' rel='stylesheet'
+          type='text/css'>
     <!-- CSS here -->
+    <link rel="stylesheet" href="/css/icomoon.css">
+
     <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="/assets/css/owl.carousel.min.css">
     <link rel="stylesheet" href="/assets/css/flaticon.css">
@@ -100,25 +103,6 @@
                         </div>
                     </div>
                     <div class="col-xl-10 col-lg-10 col-md-10">
-                        <!-- Main-menu -->
-                        {{--                        <div class="main-menu f-right d-none d-lg-block">--}}
-                        {{--                            <nav>--}}
-                        {{--                                <ul id="navigation">--}}
-                        {{--                                    <li class="active"><a href="index.html"> Home</a></li>--}}
-                        {{--                                    <li><a href="feature.html">Feature</a></li>--}}
-                        {{--                                    <li><a href="services.html">Services</a></li>--}}
-                        {{--                                    <li><a href="pricing.html">Pricing</a></li>--}}
-                        {{--                                    <li><a href="#">Pages</a>--}}
-                        {{--                                        <ul class="submenu">--}}
-                        {{--                                            <li><a href="blog.html">Blog</a></li>--}}
-                        {{--                                            <li><a href="single-blog.html">Blog Details</a></li>--}}
-                        {{--                                            <li><a href="elements.html">Element</a></li>--}}
-                        {{--                                        </ul>--}}
-                        {{--                                    </li>--}}
-                        {{--                                    <li><a href="contact.html">Contact</a></li>--}}
-                        {{--                                </ul>--}}
-                        {{--                            </nav>--}}
-                        {{--                        </div>--}}
                     </div>
                     <!-- Mobile Menu -->
                     <div class="col-12">
@@ -142,12 +126,23 @@
         <div class="footer-area footer-padding">
             <div class="container">
                 <div class="row  justify-content-between">
+
                     <div class="col-lg-3 col-md-4 col-sm-8">
+
                         <div class="single-footer-caption mb-30">
                             <!-- logo -->
-                            <div class="footer-logo">
+                            <div class="footer-logo text-center">
                                 <a href="/"><img width="100" height="40" src="https://objectstorage.uk-london-1.oraclecloud.com/n/lrj6a9vl4is6/b/MyBucket/o/logo.png" alt="Nuna logo"></a>
+                                <p>
+                                <ul class="fh5co-social-icons">
+                                    <li><a href="https://instagram.com/nunahqq?igshid=ZDdkNTZiNTM="><i class="icon-instagram"></i></a></li>
+                                    <li><a href="https://twitter.com/mynunahq?s=20"><i class="icon-twitter"></i></a></li>
+                                    <li><a href="https://www.facebook.com/profile.php?id=100086379382319"><i class="icon-facebook"></i></a></li>
+                                    <li><a href="https://www.linkedin.com/company/nuna-technologies-limited/"><i class="icon-linkedin"></i></a></li>
+                                </ul>
+                                </p>
                             </div>
+
                             <div class="footer-tittle">
                                 <div class="footer-pera">
                                     <p class="info1">Nuna gives you the most efficient way to
@@ -245,6 +240,7 @@
     <!-- Footer End-->
 
 </footer>
+
 
 <!-- All JS Custom Plugins Link Here here -->
 <script src="/assets/js/vendor/modernizr-3.5.0.min.js"></script>

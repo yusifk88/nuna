@@ -433,10 +433,10 @@
                     </p>
                     <p>
                     <ul class="fh5co-social-icons">
-                        <li><a href="#"><i class="icon-twitter"></i></a></li>
-                        <li><a href="#"><i class="icon-facebook"></i></a></li>
-                        <li><a href="#"><i class="icon-linkedin"></i></a></li>
-                        <li><a href="#"><i class="icon-dribbble"></i></a></li>
+                        <li><a href="https://instagram.com/nunahqq?igshid=ZDdkNTZiNTM="><i class="icon-instagram"></i></a></li>
+                        <li><a href="https://twitter.com/mynunahq?s=20"><i class="icon-twitter"></i></a></li>
+                        <li><a href="https://www.facebook.com/profile.php?id=100086379382319"><i class="icon-facebook"></i></a></li>
+                        <li><a href="https://www.linkedin.com/company/nuna-technologies-limited/"><i class="icon-linkedin"></i></a></li>
                     </ul>
                     </p>
                 </div>

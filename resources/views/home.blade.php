@@ -12,6 +12,14 @@
                             <h1 data-animation="fadeInUp" data-delay=".6s">Borderless gifting</h1>
                             <p data-animation="fadeInUp" data-delay=".8s">Nuna gives you the most efficient way to
                                 receive gifts, by offering a digital wedding gift table, accessible globally</p>
+                            <p class="text-center">
+                            <ul class="fh5co-social-icons">
+                                <li><a href="https://instagram.com/nunahqq?igshid=ZDdkNTZiNTM="><i style="font-size: 50px" class="icon-instagram"></i></a></li>
+                                <li><a href="https://twitter.com/mynunahq?s=20"><i style="font-size: 50px" class="icon-twitter"></i></a></li>
+                                <li><a href="https://www.facebook.com/profile.php?id=100086379382319"><i style="font-size: 50px" class="icon-facebook"></i></a></li>
+                                <li><a href="https://www.linkedin.com/company/nuna-technologies-limited/"><i style="font-size: 50px" class="icon-linkedin"></i></a></li>
+                            </ul>
+                            </p>
                             <div class="slider-btns">
                                 <!-- Hero-btn -->
                             {{--                                    <a data-animation="fadeInLeft" data-delay="1.0s" href="industries.html"--}}
@@ -140,6 +148,23 @@
 {{--    </section>--}}
 <!-- Best Features End -->
 <!-- Services Area Start -->
+
+    <div class="row sky-blue">
+        <div class="col-md-8 mx-auto">
+
+    <div class="card mt-5">
+        <div class="card-body">
+
+            <iframe id="welcome" width="100%" height="600" src="https://www.youtube.com/embed/1iqDY3kCBUo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+        </div>
+
+    </div>
+        </div>
+    </div>
+
+
+
 <section class="service-area sky-blue section-padding2">
     <div class="container">
         <!-- Section Tittle -->
