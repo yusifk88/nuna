@@ -77,7 +77,7 @@ class SMSRepository
             "exttrid"=>Carbon::now()->timestamp
         ];
 
-        $signature = hash_hmac('sha256', '', $secrete);
+        $signature = hash_hmac('sha256', json_encode($data), $secrete);
 
         $access_token = $token . ":" . $signature;
 
