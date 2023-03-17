@@ -3,6 +3,7 @@
 use App\Http\Controllers\AIController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardControler;
+use App\Http\Controllers\SMSController;
 use App\Http\Controllers\WeddingsController;
 use App\Http\Controllers\WishListCOntroller;
 use Illuminate\Http\Request;
@@ -30,7 +31,10 @@ Route::middleware('auth:sanctum')->group(function () {
     });
 
 
-    Route::post("update-profile",[AuthController::class,"updateProfile"]);
+    Route::post("test-sms", [SMSController::class, 'sendSMS']);
+    Route::post("test-name-resolution", [SMSController::class, 'getName']);
+
+    Route::post("update-profile", [AuthController::class, "updateProfile"]);
 
     Route::post("set-user-push-id", [AuthController::class, "SetPushUserID"]);
     /**
@@ -57,7 +61,7 @@ Route::middleware('auth:sanctum')->group(function () {
      * notifications Routes
      */
 
-    Route::get("notifications",[DashboardControler::class,"notifications"]);
+    Route::get("notifications", [DashboardControler::class, "notifications"]);
 
 
 });

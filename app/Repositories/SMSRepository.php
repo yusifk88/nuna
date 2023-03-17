@@ -1,0 +1,91 @@
+<?php
+
+namespace App\Repositories;
+
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Http;
+
+class SMSRepository
+{
+
+    public static function sendSMS(string $phone_number, string $message, string $senderID = "Nuna")
+    {
+
+        $token = self::token();
+        $secrete = self::secrete();
+        $url = self::url();
+        $userID = self::userID();
+
+        $data = [
+
+            "recipient_number" => $phone_number,
+            "unique_id" => Carbon::now()->timestamp,
+            "sender_id" => $senderID,
+            "trans_type" => "SMS",
+            "service_id" => $userID,
+            "msg_body" => $message
+        ];
+
+        $signature = hash_hmac('sha256', json_encode($data), $secrete);
+
+        $access_token = $token . ":" . $signature;
+
+
+        $res = Http::withHeaders([
+            "Authorization" => $access_token
+        ])->post($url.'sendSms', $data);
+
+        return $res->json();
+
+
+    }
+
+    private static function token()
+    {
+        return config("sms.token");
+    }
+
+    private static function secrete()
+    {
+        return config("sms.secrete");
+    }
+
+    private static function url()
+    {
+        return config("sms.base_url");
+    }
+
+    private static function userID()
+    {
+        return config("sms.user_id");
+    }
+
+    public static function resolveName(string $phone_number)
+    {
+
+        $token = self::token();
+        $secrete = self::secrete();
+        $url = self::url();
+        $userID = self::userID();
+
+        $signature = hash_hmac('sha256', '', $secrete);
+
+        $access_token = $token . ":" . $signature;
+
+
+       $res= Http::withToken($access_token,'')
+            ->post($url.'sendRequest',[
+                "customer_number"=>$phone_number,
+                "service_id"=>$userID,
+                "trans_type"=>"AII",
+                "nw"=>"VOD",
+                "ts"=>\Illuminate\Support\Carbon::now()->toDateTimeString(),
+                "exttrid"=>Carbon::now()->timestamp
+            ]);
+
+       return $res->json();
+
+    }
+
+
+}
