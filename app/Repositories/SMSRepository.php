@@ -68,20 +68,22 @@ class SMSRepository
         $url = self::url();
         $userID = self::userID();
 
+        $data =[
+            "customer_number"=>$phone_number,
+            "service_id"=>$userID,
+            "trans_type"=>"AII",
+            "nw"=>"VOD",
+            "ts"=>\Illuminate\Support\Carbon::now()->toDateTimeString(),
+            "exttrid"=>Carbon::now()->timestamp
+        ];
+
         $signature = hash_hmac('sha256', '', $secrete);
 
         $access_token = $token . ":" . $signature;
 
 
        $res= Http::withToken($access_token,'')
-            ->post($url.'sendRequest',[
-                "customer_number"=>$phone_number,
-                "service_id"=>$userID,
-                "trans_type"=>"AII",
-                "nw"=>"VOD",
-                "ts"=>\Illuminate\Support\Carbon::now()->toDateTimeString(),
-                "exttrid"=>Carbon::now()->timestamp
-            ]);
+            ->post($url.'sendRequest',$data);
 
        return $res->json();
 
