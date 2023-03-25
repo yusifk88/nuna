@@ -3,8 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\UserPin;
+use App\Repositories\SMSRepository;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 
 class AuthController extends Controller
@@ -25,21 +29,21 @@ class AuthController extends Controller
     {
 
         $request->validate([
-            "first_name"=>"required",
-            "last_name"=>"required",
-            "phone_number"=>"required",
-            "birth_date"=>"required|date"
+            "first_name" => "required",
+            "last_name" => "required",
+            "phone_number" => "required",
+            "birth_date" => "required|date"
         ]);
 
         $user = $request->user();
 
-        if (!$user->approved){
+        if (!$user->approved) {
 
-            User::where("id",$user->id)->update([
-                "first_name"=>$request->first_name,
-                "last_name"=>$request->last_name,
-                "phone_number"=>$request->phone_number,
-                "birth_date"=>$request->birth_date
+            User::where("id", $user->id)->update([
+                "first_name" => $request->first_name,
+                "last_name" => $request->last_name,
+                "phone_number" => $request->phone_number,
+                "birth_date" => $request->birth_date
             ]);
 
 
@@ -131,6 +135,27 @@ class AuthController extends Controller
             "token" => $user->createToken($request->device_name ?? "access token")->plainTextToken,
             "user" => $user
         ]);
+
+    }
+
+
+    public function sendVerificationCode(Request $request)
+    {
+        $request->validate([
+            "phone_number" => "required|min:10|max:10|exists:users,phone_number"
+        ]);
+
+        $code = substr(Carbon::now()->timestamp, -4);
+
+        UserPin::create([
+            "phone_number" => $request->phone_number,
+            "code" => $code
+        ]);
+
+        $text = "You verification code is ".$code;
+
+        SMSRepository::sendSMS($request->phone_number,$text);
+
 
     }
 

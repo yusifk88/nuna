@@ -35,11 +35,14 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post("test-name-resolution", [SMSController::class, 'getName']);
 
     Route::post("update-profile", [AuthController::class, "updateProfile"]);
+    Route::post("sendVerification", [AuthController::class, "sendVerificationCode"]);
 
     Route::post("set-user-push-id", [AuthController::class, "SetPushUserID"]);
+
     /**
      * wedding routes
      */
+
     Route::post("wedding", [WeddingsController::class, "store"]);
     Route::get("weddings/{id}", [WeddingsController::class, "show"]);
     Route::get("weddings", [WeddingsController::class, "index"]);
