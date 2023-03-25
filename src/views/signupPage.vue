@@ -7,9 +7,9 @@
 
       <center>
 
-        <img style="margin-top: 40%; text-align: center" width="100"
-             src="https://objectstorage.uk-london-1.oraclecloud.com/n/lrj6a9vl4is6/b/MyBucket/o/logo.png">
+        <img style="margin-top: 40%; text-align: center"  width="100" src="https://objectstorage.uk-london-1.oraclecloud.com/n/lrj6a9vl4is6/b/MyBucket/o/logo.png">
       </center>
+
 
       <h5 class="ion-text-center">Create Account</h5>
 
@@ -133,7 +133,8 @@
                     class="ion-margin-top ion-margin-start ion-margin-end" size="large"
                     mode="ios"
                     expand="block"
-                    shape="round">
+                    shape="round"
+        >
           <template v-if="!progress">
             Finish
             <ion-icon :icon="checkmarkOutline"/>

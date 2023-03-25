@@ -239,6 +239,8 @@ ion-input.custom {
 
   --background: #D3D3D328;
   padding: 5px!important;
+  padding-left: 20px !important;
+  padding-right: 20px !important;
   border-radius: 10px;
   --placeholder-color: #80808090;
   --placeholder-opacity: .8;

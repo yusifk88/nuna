@@ -18,7 +18,7 @@
       </ion-item>
 
 
-      <ion-button mode="ios" fill="clear" class="ion-align-self-start">Forget password?</ion-button>
+      <ion-button @click="resetPassword" mode="ios" fill="clear" class="ion-align-self-start">Forget password?</ion-button>
 
       <ion-button
           size="large"
@@ -71,6 +71,9 @@ export default defineComponent({
     }
   },
   methods: {
+    resetPassword(){
+      this.$router.push("/reset-password");
+    },
     login() {
       this.progress = true;
       const formData = new FormData();

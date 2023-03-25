@@ -7,11 +7,15 @@ import NewRegistryPage from "@/views/NewRegistryPage.vue";
 import profilePage from "@/views/profilePage.vue";
 import WeddingPreviewPage from "@/views/WeddingPreviewPage.vue";
 import NotificationsPage from "@/views/NotificationsPage.vue"
-
+import resetPasswordPage from "@/views/resetPasswordPage.vue";
 const routes: Array<RouteRecordRaw> = [
     {
         path: '/',
         redirect: '/tabs/tab1'
+    },
+    {
+        path: '/reset-password',
+        component: resetPasswordPage
     },
     {
         path: '/login',
