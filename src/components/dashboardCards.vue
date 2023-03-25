@@ -1,17 +1,17 @@
 <template>
 <span>
  <ion-slides class="no-padding no-margin">
-   <ion-slide class="no-margin no-padding" v-for="wedding in weddings" :key="wedding.id">
+   <ion-slide v-for="wedding in weddings" :key="wedding.id" class="no-margin no-padding">
      <ion-card
-         mode="ios"
-         color="primary"
          class="no-margin ion-text-left"
-         @click="$router.push({path:'/event/wedding/'+wedding.id})"
+         color="primary"
+         mode="ios"
          style="width: 100%; height: 200px;"
+         @click="$router.push({path:'/event/wedding/'+wedding.id})"
      >
  <ion-card-header>
    <ion-row>
-    <ion-col size="9" class="no-padding">
+    <ion-col class="no-padding" size="9">
 
     <ion-card-title>Wedding</ion-card-title>
     <ion-card-subtitle>{{ wedding.groom_name }} & {{ wedding.bride_name }}</ion-card-subtitle>
@@ -20,12 +20,17 @@
 
      <ion-col col="3">
 
+       <div style="background-color: white; text-align: center; padding-top: 5px; padding-bottom: 5px; border-radius: 10px; border: 0.5px solid lightgrey">
+
        <qrcode-vue
-           render-as="svg"
-           size="55"
            :value="getURL(wedding)"
            level="L"
+           render-as="svg"
+           size="55"
+
        ></qrcode-vue>
+
+                </div>
 
      </ion-col>
    </ion-row>
@@ -38,7 +43,9 @@
 <ion-row>
   <ion-col size="8">
         <small class="ion-margin-top ion-padding-top font-weight-light">Contributed/Target</small>
-         <h3 class="font-weight-light">{{user.currency}}{{ Number(wedding.contributions_sum_amount).toFixed("2") }} / {{user.currency}}{{Number(wedding.items_sum_target_amount).toFixed("2") }}</h3>
+         <h3 class="font-weight-light">{{ user.currency }}{{ Number(wedding.contributions_sum_amount).toFixed("2") }} / {{ user.currency }}{{
+             Number(wedding.items_sum_target_amount).toFixed("2")
+           }}</h3>
   </ion-col>
   <ion-col size="4">
 
@@ -95,9 +102,9 @@ export default {
   name: "dashboardCards",
 
   methods: {
-    dateFormat(date){
+    dateFormat(date) {
 
-      return moment(date).format("Do MMM,YYYY h:mm a");
+      return moment(date).format("Do MMM, YYYY h:mm a");
 
     },
 
@@ -108,8 +115,8 @@ export default {
 
     }
   },
-  computed:{
-    user(){
+  computed: {
+    user() {
       return this.$store.state.user;
     }
   },
@@ -124,7 +131,6 @@ export default {
 </script>
 
 <style scoped>
-
 
 
 </style>

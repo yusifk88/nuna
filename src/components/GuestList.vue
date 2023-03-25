@@ -1,7 +1,7 @@
 <template>
 
   <loading-component v-if="loading"></loading-component>
-  <span v-else class="ion-padding-bottom">
+  <span v-else class="ion-padding-bottom no-margin no-padding">
 
   <no-record-component :show-button="false" title="No Guests Yet"
                        description="No one has indicated that they would be attending yet"
@@ -9,8 +9,7 @@
   <ion-list style="margin-bottom: 60px" v-else>
 
     <ion-item v-for="(item,index) in items" :key="index">
-      <ion-avatar class="ion-margin">
-
+      <ion-avatar class="ion-margin-end">
           <img src="https://ionicframework.com/docs/demos/api/avatar/avatar.svg" alt="Guest avatar"/>
       </ion-avatar>
 

@@ -34,31 +34,31 @@
     <ion-content :fullscreen="true" class="ion-padding" v-if="wedding">
 
 
-      <ion-content style="transition: 0.3s ease-in-out;" class="no-padding" v-if="defaultSegment==='items'">
+      <span style="transition: 0.3s ease-in-out;" class="no-padding" v-if="defaultSegment==='items'">
 
 <!--        <wish-list-component  :wedding-i-d="wedding.id"></wish-list-component>-->
 
             <cash-target-component :wedding="wedding" @cashAdded="getWedding"  :wedding-i-d="wedding.id" ></cash-target-component>
 
-      </ion-content>
+      </span>
 
-      <ion-content style="transition: 0.3s ease-in-out;" class="ion-padding" v-if="defaultSegment==='guest'">
+      <span style="transition: 0.3s ease-in-out;" class="no-padding" v-if="defaultSegment==='guest'">
 
           <guest-list :wedding-i-d="wedding.id"></guest-list>
 
-      </ion-content>
+      </span>
 
 
-      <ion-content style="transition: 0.3s ease-in-out;" class="no-padding" v-if="defaultSegment==='info'">
+      <span style="transition: 0.3s ease-in-out;" class="no-padding" v-if="defaultSegment==='info'">
         <ion-slides :pager="true" :option="previewSlideOption">
           <ion-slide>
 
             <div :style="'background-image:url('+imgURL+')'"
-                 style="margin:5px; height: 300px; width: 100%; background-position: center; background-repeat: no-repeat; background-size: contain; border-radius: 3%;">
+                 style="margin:5px; height: 300px; width: 100%; background-position: center; background-repeat: no-repeat; background-size: cover; border-radius: 3%;">
               <div
                   style="width: 100%;height: 100%; padding: 10px; background-color: rgba(0,0,0,0.38); color: white;  border-radius: 3%; text-align: center;">
                 <h3 style="font-family: cursive;" class="ion-margin-top">Our Story</h3>
-                <small v-if="wedding && wedding.story" class="ion-margin-top" style="display: block;" v-html="wedding.story.substring(0,200)+'...'"></small>
+                <small v-if="wedding && wedding.story" class="ion-margin-top" style="display: block;" v-html="wedding.story.substring(0,150)+'...'"></small>
 
                 <ion-icon class="ion-margin-top" style="margin-right: -10px" :icon="heartOutline"
                           size="large"></ion-icon>
@@ -104,7 +104,7 @@
 
         </ion-slides>
 
-        <h2>Reservation</h2>
+        <h4>Reservation</h4>
 
         <ion-row>
           <ion-col size="6" class="ion-text-center">
@@ -139,12 +139,12 @@
         </div>
 
 
-        <h2>Location</h2>
+        <h4>Location</h4>
 
         <p>{{ wedding.location }}</p>
         <maps-component class="no-margin" :place="position" v-if="wedding.coordinates"></maps-component>
 
-      </ion-content>
+      </span>
 
     </ion-content>
   </ion-page>
