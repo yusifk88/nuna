@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\UserPin;
 use App\Repositories\SMSRepository;
 use Carbon\Carbon;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -54,6 +55,54 @@ class AuthController extends Controller
 
     }
 
+
+    /**
+     * @throws ValidationException
+     */
+    function resetPassword(Request $request)
+    {
+
+        $request->validate([
+            "code" => "required|exists:user_pin,code",
+            "password" => "required|min:6|required_with:password_confirmation|same:password_confirmation",
+            "password_confirmation" => "required|min:6"
+        ]);
+
+        $foundCode = UserPin::where("code", $request->code)->first();
+
+        if (!$foundCode) {
+            throw ValidationException::withMessages([
+                'code' => ['Code not found'],
+            ]);
+        }
+
+        $user = User::where("phone_number", $foundCode->phone_number)->first();
+
+        if (!$user) {
+
+            throw ValidationException::withMessages([
+                'account' => ['we could not find your account'],
+            ]);
+
+        }
+
+        User::where("id", $user->id)->update([
+            "password" => Hash::make($request->password)]);
+
+        $foundCode->used = true;
+
+        $foundCode->update();
+
+        return success_response([], "Password reset successfully");
+
+
+    }
+
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     * @throws ValidationException
+     */
     public function signUp(Request $request)
     {
 
@@ -152,9 +201,9 @@ class AuthController extends Controller
             "code" => $code
         ]);
 
-        $text = "Your verification code is ".$code;
+        $text = "Your verification code is " . $code;
 
-        SMSRepository::sendSMS($request->phone_number,$text);
+        SMSRepository::sendSMS($request->phone_number, $text);
 
 
     }

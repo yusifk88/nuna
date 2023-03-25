@@ -24,6 +24,10 @@ Route::post("signup", [AuthController::class, "signUp"]);
 Route::post("login", [AuthController::class, "login"]);
 Route::post("sendVerification", [AuthController::class, "sendVerificationCode"]);
 
+Route::middleware('mustHavePinCode')->group(function () {
+    Route::post("reset-password", [AuthController::class, "resetPassword"]);
+
+});
 
 Route::middleware('auth:sanctum')->group(function () {
 
