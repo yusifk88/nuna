@@ -194,6 +194,9 @@ class AuthController extends Controller
             "phone_number" => "required|min:10|max:10|exists:users,phone_number"
         ]);
 
+        UserPin::where("phone_number", $request->phone_number)->delete();
+
+
         $code = substr(Carbon::now()->timestamp, -4);
 
         UserPin::create([
