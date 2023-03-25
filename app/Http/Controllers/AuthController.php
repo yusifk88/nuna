@@ -152,7 +152,7 @@ class AuthController extends Controller
             "code" => $code
         ]);
 
-        $text = "You verification code is ".$code;
+        $text = "Your verification code is ".$code;
 
         SMSRepository::sendSMS($request->phone_number,$text);
 
