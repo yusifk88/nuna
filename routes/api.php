@@ -22,6 +22,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::post("signup", [AuthController::class, "signUp"]);
 Route::post("login", [AuthController::class, "login"]);
+Route::post("sendVerification", [AuthController::class, "sendVerificationCode"]);
 
 
 Route::middleware('auth:sanctum')->group(function () {
@@ -35,7 +36,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post("test-name-resolution", [SMSController::class, 'getName']);
 
     Route::post("update-profile", [AuthController::class, "updateProfile"]);
-    Route::post("sendVerification", [AuthController::class, "sendVerificationCode"]);
 
     Route::post("set-user-push-id", [AuthController::class, "SetPushUserID"]);
 
