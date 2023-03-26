@@ -54,7 +54,7 @@
           ></edit-profile>
         </ion-modal>
 
-        <ion-item detail="true">
+        <ion-item id="open-verify" detail="true">
           <ion-icon slot="start" :icon="idCardOutline" size="large">
           </ion-icon>
           <ion-label>
@@ -62,6 +62,22 @@
             <p>Help us know you better, this is required before any withdrawals</p>
           </ion-label>
         </ion-item>
+
+        <ion-modal
+            ref="verifyModal"
+            :breakpoints="[0.8,1]"
+            :initial-breakpoint="0.8"
+            handle-behavior="cycle"
+            mode="ios"
+            trigger="open-verify"
+        >
+          <ion-header>
+            <ion-toolbar>
+              <ion-title>Verify Account</ion-title>
+            </ion-toolbar>
+          </ion-header>
+          <verify-component></verify-component>
+        </ion-modal>
 
 
         <ion-item detail="true">
@@ -206,10 +222,12 @@ import {
 } from "ionicons/icons";
 import EditProfile from "@/components/EditProfile";
 import store from "@/store";
+import VerifyComponent from "@/components/verifyComponent";
 
 export default defineComponent({
   name: "profilePage",
   components: {
+    VerifyComponent,
     EditProfile,
     IonPage,
     IonContent,
@@ -248,6 +266,9 @@ export default defineComponent({
     }
   },
   methods: {
+    showVerificationDialog(){
+      alert("show alert")
+    },
     async showSuccess(message){
 
 

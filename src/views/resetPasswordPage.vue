@@ -10,7 +10,7 @@
       <div v-if="step==1" class="smooth-in">
         <p class="ion-text-center">
           <small class="text-muted">
-            To reset your password we would need to verify your phone number to continue.<br>
+            To reset your password we would need to verify your phone number.<br>
             Enter your phone number to receive the verification code.
           </small>
         </p>

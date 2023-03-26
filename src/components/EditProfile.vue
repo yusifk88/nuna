@@ -67,8 +67,10 @@
 
 
     </ion-list>
-    <ion-button class="ion-margin-start ion-margin-end" style="transition: 0.3s ease-in-out" :disabled="progress" v-if="!preventEdit" expand="block" mode="ios" size="large" @click="updateProfile">
-     <template  v-if="!progress">Update Profile</template>  <ion-spinner style="transition: 0.3s ease-in-out" v-if="progress"></ion-spinner>
+    <ion-button v-if="!preventEdit" :disabled="progress" class="ion-margin-start ion-margin-end"
+                expand="block" mode="ios" size="large" style="transition: 0.3s ease-in-out" @click="updateProfile">
+      <template v-if="!progress">Update Profile</template>
+      <ion-spinner v-if="progress" style="transition: 0.3s ease-in-out"></ion-spinner>
     </ion-button>
 
   </ion-content>
@@ -88,7 +90,7 @@ import {
   IonModal,
   IonButton,
   IonIcon,
-    IonSpinner
+  IonSpinner
 } from "@ionic/vue";
 import {pencilOutline, createOutline} from "ionicons/icons";
 import store from "@/store";
@@ -166,15 +168,15 @@ export default {
 
       this.progress = true;
       window.axios.post("/update-profile", formData)
-      .then(res=>{
-        this.progress=false;
-        this.$emit("done");
+          .then(res => {
+            this.progress = false;
+            this.$emit("done");
 
-      })
-      .catch(error=>{
-        this.progress=false;
+          })
+          .catch(error => {
+            this.progress = false;
 
-      })
+          })
 
 
     }

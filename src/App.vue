@@ -198,6 +198,27 @@ export default defineComponent({
 
 <style>
 
+@keyframes slide-in {
+  0% {
+    opacity: 0;
+    transform: translateX(250px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.font-weight-light {
+  font-weight: lighter;
+}
+
+
+.smooth-in {
+  animation: slide-in 0.3s ease-in-out 0s 1 normal forwards;
+}
+
 .ui-pattern{
   width: 100%;
   height: 15vh;

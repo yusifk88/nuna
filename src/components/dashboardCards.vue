@@ -20,11 +20,11 @@
 
      <ion-col col="3">
 
-       <div style="background-color: white; text-align: center; padding-top: 5px; padding-bottom: 5px; border-radius: 10px; border: 0.5px solid lightgrey">
+       <div style="background-color: white; text-align: center; padding-top: 8px; padding-bottom: 5px; border-radius: 10px; border: 0.5px solid lightgrey">
 
        <qrcode-vue
            :value="getURL(wedding)"
-           level="L"
+           level="M"
            render-as="svg"
            size="55"
 

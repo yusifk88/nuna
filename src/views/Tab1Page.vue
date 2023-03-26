@@ -78,7 +78,7 @@
 
       <ion-row v-if="dashboard && dashboard.weddings.length">
         <ion-col size="12">
-          <h3>Summary</h3>
+          <p>Summary</p>
 
         </ion-col>
       </ion-row>
@@ -92,7 +92,7 @@
 
       <ion-row v-if="dashboard && dashboard.weddings.length">
         <ion-col size="12">
-          <h3>Recent Activities</h3>
+          <p>Recent Activities</p>
         </ion-col>
       </ion-row>
 

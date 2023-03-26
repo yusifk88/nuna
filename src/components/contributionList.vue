@@ -1,5 +1,5 @@
 <template>
-  <h4 class="ion-margin-start" v-if="items.length">Contributions</h4>
+  <p class="ion-margin-start" v-if="items.length">Contributions</p>
   <list-loading-component v-if="loading" :count="8" :show-header=false></list-loading-component>
   <ion-list v-if="items.length && !loading" class="no-margin">
 
