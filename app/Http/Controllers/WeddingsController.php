@@ -184,9 +184,12 @@ class WeddingsController extends Controller
         }
 
         $user = User::find($wedding->user_id);
+
         if (strtolower($user->country_code) !== "gh") {
+
             $error = "Sorry, payment is not available in " . $user->country_code . " yet";
             return view("wedding.payment_failed", ['wedding' => $wedding, "reason" => $error]);
+
         }
 
 
@@ -307,6 +310,8 @@ class WeddingsController extends Controller
             ->where("id", $id)
             ->where("user_id", \request()->user()->id)
             ->first();
+
+
         if ($wedding) {
 
             return success_response($wedding);

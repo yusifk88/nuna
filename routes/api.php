@@ -36,11 +36,20 @@ Route::middleware('auth:sanctum')->group(function () {
     });
 
 
+    /**
+     * request verification routes
+     */
+
+
+    Route::post("request-verification", [AuthController::class, "submitVerification"]);
+
+
+    /**
+     * notification routes
+     */
     Route::post("test-sms", [SMSController::class, 'sendSMS']);
     Route::post("test-name-resolution", [SMSController::class, 'getName']);
-
     Route::post("update-profile", [AuthController::class, "updateProfile"]);
-
     Route::post("set-user-push-id", [AuthController::class, "SetPushUserID"]);
 
     /**

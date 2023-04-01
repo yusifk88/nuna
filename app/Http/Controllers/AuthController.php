@@ -4,11 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\UserPin;
+use App\Models\Verification;
+use App\Repositories\pushNotificationRepository;
 use App\Repositories\SMSRepository;
 use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 
@@ -207,6 +210,69 @@ class AuthController extends Controller
         $text = "Your verification code is " . $code;
 
         SMSRepository::sendSMS($request->phone_number, $text);
+
+
+    }
+
+
+    public function submitVerification(Request $request)
+    {
+        $request->validate([
+            "first_name" => "required",
+            "last_name" => "required",
+            "birth_date" => "required",
+            "id_type" => "required",
+            "id_number" => "required",
+            "card_photo" => "required|file"
+        ]);
+
+
+        $user = $request->user();
+
+        User::where("id", $user->id)->update([
+            "first_name" => $request->first_name,
+            "last_name" => $request->last_name,
+            "birth_date" => $request->birth_date
+        ]);
+
+        $card_photo_url = Storage::url($request->file("card_photo")->store("nuna/public/user/id_photos"));
+
+
+        $verification = Verification::where("user_id", $user->id)->first();
+
+        if ($verification) {
+
+            Verification::where("id", $verification->id)
+                ->update([
+                    "id_number" => $request->id_number,
+                    "id_type" => $request->id_type,
+                    "uuid" => Str::uuid(),
+                    "card_image_url" => $card_photo_url
+                ]);
+
+
+        } else {
+
+            $verification = new Verification([
+                "id_number" => $request->id_number,
+                "id_type" => $request->id_type,
+                "uuid" => Str::uuid(),
+                "card_image_url" => $card_photo_url,
+                "user_id" => $user->id,
+            ]);
+
+            $verification->save();
+
+
+        }
+
+
+        $phone_number = "233" . substr($user->phone_number, -9);
+        $message = "We have received your request to verify your account, your request is under review";
+
+        SMSRepository::sendSMS($phone_number, $message);
+
+        pushNotificationRepository::sendNotification($user, $message);
 
 
     }
