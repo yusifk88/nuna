@@ -229,16 +229,19 @@
                                 </div>
                             </div>
 
+                            <?php
+                            $codsArr = explode(',', $wedding->coordinates);
 
-                            @if($wedding->coordinates && $wedding->coordinates!=null)
+                            ?>
+
+                            @if(count($codsArr)==2)
                                 <div class="col-md-6 col-sm-6 text-center">
                                     <div class="event-wrap animate-box">
-
                                         <?php
-                                        $codsArr = explode(',', $wedding->coordinates);
                                         $reversCode = array_reverse($codsArr);
                                         $newCods = implode(",", $reversCode);
                                         ?>
+
                                         <iframe
                                             width="100%"
                                             height="250"
