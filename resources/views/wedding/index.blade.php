@@ -164,6 +164,9 @@
                     <h2>Hello!</h2>
                     <h3>{{\Carbon\Carbon::parse($wedding->date_time)->isoFormat('MMMM Do, YYYY')}} {{$wedding->location}}</h3>
                     <p>We invited you to celebrate our wedding</p>
+
+                    <p>{!! $wedding->story !!}</p>
+
                 </div>
             </div>
             <div class="couple-wrap animate-box">
@@ -173,7 +176,6 @@
                     </div>
                     <div class="desc-groom">
                         <h3>{{$wedding->groom_name}}</h3>
-                        <p>{!! $wedding->story !!}</p>
                     </div>
                 </div>
                 <p class="heart text-center"><i class="icon-heart2"></i></p>
@@ -183,7 +185,7 @@
                     </div>
                     <div class="desc-bride">
                         <h3>{{$wedding->bride_name}}</h3>
-                        <p>{!! $wedding->story !!}</p>
+
                     </div>
                 </div>
             </div>

@@ -190,7 +190,7 @@ class WeddingsController extends Controller
         $todayDate = Carbon::now();
 
 
-        if ($weddingDate->greaterThan($todayDate)){
+        if ($todayDate->greaterThan($weddingDate)){
 
             $error = "Sorry, this wedding has expired.";
             return view("wedding.payment_failed", ['wedding' => $wedding, "reason" => $error]);
