@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
+use Symfony\Component\HttpFoundation\Response;
 
 class AuthController extends Controller
 {
@@ -25,6 +26,107 @@ class AuthController extends Controller
 
         User::where("id", $request->user()->id)->update(["notification_token" => $request->user_id]);
 
+
+    }
+
+
+    public function unverifyAccount($uuid)
+    {
+
+        $verify = Verification::where("uuid", $uuid)->first();
+
+        if (!$verify) {
+
+            return redirect()->back();
+
+        }
+
+        $user = User::find($verify->user_id);
+
+
+        if ($user) {
+
+            $user->approved = false;
+            $user->update();
+
+
+            if (config("app.env") === 'production') {
+
+                $phone_number = "233" . substr($user->phone_number, -9);
+                $message = "Sorry, your verification has been removed please contact support.";
+
+                SMSRepository::sendSMS($phone_number, $message);
+
+                pushNotificationRepository::sendNotification($user, $message);
+            }
+
+
+        }
+
+        return redirect()->back();
+
+
+    }
+
+
+    public function confirmAccount($uuid)
+    {
+
+        $verify = Verification::where("uuid", $uuid)->first();
+
+        if (!$verify) {
+
+            return redirect()->back();
+
+        }
+
+        $user = User::find($verify->user_id);
+
+        if ($user) {
+
+            $user->approved = true;
+            $user->update();
+
+
+            if (config("app.env") === 'production') {
+
+                $phone_number = "233" . substr($user->phone_number, -9);
+                $message = "Congratulations, your account has been verified.";
+
+                SMSRepository::sendSMS($phone_number, $message);
+
+                pushNotificationRepository::sendNotification($user, $message);
+            }
+
+
+        }
+
+        return redirect()->back();
+
+    }
+
+
+    public function previewAccount($uuid)
+    {
+
+        $verification = Verification::where("uuid", $uuid)->first();
+        if (!$verification) {
+
+            abort(Response::HTTP_NOT_FOUND);
+
+        }
+
+
+        $user = User::find($verification->user_id);
+
+
+        $data = [
+            "request" => $verification,
+            "user" => $user
+        ];
+
+
+        return view("verifyAccount", $data);
 
     }
 
@@ -275,12 +377,22 @@ class AuthController extends Controller
         }
 
 
-        $phone_number = "233" . substr($user->phone_number, -9);
-        $message = "We have received your request to verify your account, your account is under review.";
+        if (config("app.env") === 'production') {
 
-        SMSRepository::sendSMS($phone_number, $message);
+            $phone_number = "233" . substr($user->phone_number, -9);
+            $message = "We have received your request to verify your account, your account is under review.";
 
-        pushNotificationRepository::sendNotification($user, $message);
+            SMSRepository::sendSMS($phone_number, $message);
+
+            pushNotificationRepository::sendNotification($user, $message);
+
+            $url = "https://mynunaa.com/verify-confirm/" . $verification->uuid;
+
+            $requestMessage = "Verification request from " . $user->first_name . " " . $user->last_name . ", click on the link to review and confirm " . $url;
+
+            SMSRepository::sendSMS('0592489135', $requestMessage);
+
+        }
 
 
     }
