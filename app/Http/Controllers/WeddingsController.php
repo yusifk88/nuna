@@ -178,10 +178,25 @@ class WeddingsController extends Controller
         $wedding = Wedding::where("tag", $tag)->first();
 
         if (!$wedding) {
+
             abort(Response::HTTP_NOT_FOUND, "Wedding not found");
         }
 
+
+
         $user = User::find($wedding->user_id);
+
+        $weddingDate = Carbon::parse($wedding->date_time);
+        $todayDate = Carbon::now();
+
+
+        if ($todayDate->greaterThan($weddingDate)){
+
+            $error = "Sorry, this wedding has expired.";
+            return view("wedding.payment_failed", ['wedding' => $wedding, "reason" => $error]);
+
+        }
+
 
         if (strtolower($user->country_code) !== "gh") {
 
