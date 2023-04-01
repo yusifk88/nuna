@@ -15,10 +15,8 @@ use App\Repositories\WeddingRepository;
 use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
-use Ladumor\OneSignal\OneSignal;
 use Symfony\Component\HttpFoundation\Response;
 
 class WeddingsController extends Controller

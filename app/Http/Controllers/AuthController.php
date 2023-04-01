@@ -229,6 +229,14 @@ class AuthController extends Controller
 
         $user = $request->user();
 
+        if ($user->approved) {
+
+            ValidationException::withMessages([
+                "user" => ['your account was already approved']
+            ]);
+
+        }
+
         User::where("id", $user->id)->update([
             "first_name" => $request->first_name,
             "last_name" => $request->last_name,
@@ -268,7 +276,7 @@ class AuthController extends Controller
 
 
         $phone_number = "233" . substr($user->phone_number, -9);
-        $message = "We have received your request to verify your account, your request is under review";
+        $message = "We have received your request to verify your account, your account is under review.";
 
         SMSRepository::sendSMS($phone_number, $message);
 
