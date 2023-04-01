@@ -110,6 +110,7 @@ class AuthController extends Controller
     {
 
         $verification = Verification::where("uuid", $uuid)->first();
+
         if (!$verification) {
 
             abort(Response::HTTP_NOT_FOUND);

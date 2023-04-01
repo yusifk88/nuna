@@ -101,7 +101,7 @@
                             This account was already verified
                         </div>
 
-                        <a href="{{route('unverifyAccount',$request->uuid)}}" onclick="return confirm('Are you sure you want to unverify this account? they user would be notified')" class="btn btn-danger btn-lg w-100 text-white" >Unverify</a>
+                        <a href="{{route('unverifyAccount',$request->uuid)}}" onclick="return confirm('Are you sure you want to unverify this account? the user would be notified')" class="btn btn-danger btn-lg w-100 text-white" >Unverify</a>
 
                     @endif
                 </div>

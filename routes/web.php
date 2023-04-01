@@ -28,6 +28,7 @@ Route::get('/privacy-policy', function () {
 
 Route::get("w/confirm", [WeddingsController::class, "confirmPayment"]);
 Route::get("w/{tag}", [WeddingsController::class, "publicPage"]);
+
 Route::get("verify/{uuid}", [AuthController::class, "previewAccount"])->name("confirmAccount");
 Route::get("verify-confirm/{uuid}", [AuthController::class, "confirmAccount"])->name("verifyAccount");
 Route::get("unverify-confirm/{uuid}", [AuthController::class, "unverifyAccount"])->name("unverifyAccount");

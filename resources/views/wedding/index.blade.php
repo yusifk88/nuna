@@ -230,7 +230,7 @@
                             </div>
 
 
-                            @if($wedding->coordinates)
+                            @if($wedding->coordinates && $wedding->coordinates!=null)
                                 <div class="col-md-6 col-sm-6 text-center">
                                     <div class="event-wrap animate-box">
 
