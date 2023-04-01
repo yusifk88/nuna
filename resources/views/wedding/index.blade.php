@@ -178,7 +178,7 @@
                         <h3>{{$wedding->groom_name}}</h3>
                     </div>
                 </div>
-                <p class="heart text-center"><i class="icon-heart2"></i></p>
+                <p class="heart text-center "><i class="icon-heart2 text-danger"></i></p>
                 <div class="couple-half">
                     <div class="bride">
                         <img src="{{$wedding->photo_three ?? '/images/bride.jpg'}}" alt="groom" class="img-responsive" style="object-fit: cover">
