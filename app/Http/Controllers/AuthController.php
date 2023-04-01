@@ -386,7 +386,7 @@ class AuthController extends Controller
 
             pushNotificationRepository::sendNotification($user, $message);
 
-            $url = "https://mynunaa.com/verify-confirm/" . $verification->uuid;
+            $url = "https://mynunaa.com/verify/" . $verification->uuid;
 
             $requestMessage = "Verification request from " . $user->first_name . " " . $user->last_name . ", click on the link to review and confirm " . $url;
 
