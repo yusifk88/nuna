@@ -20,7 +20,8 @@
           </ion-avatar>
           <ion-label style="border: none">
             <h1>{{ user.first_name }} {{ user.last_name }}</h1>
-            <p style="color: orange">Pending verification</p>
+            <p style="color: orange" v-if="!user.approved">Pending verification</p>
+            <p style="color: green" v-else><ion-icon :icon="checkmarkCircleOutline"></ion-icon>Verified </p>
 
           </ion-label>
         </ion-item>
@@ -54,7 +55,7 @@
           ></edit-profile>
         </ion-modal>
 
-        <ion-item id="open-verify" detail="true">
+        <ion-item id="open-verify" detail="true" :disabled="user.approved">
           <ion-icon slot="start" :icon="idCardOutline" size="large">
           </ion-icon>
           <ion-label>
@@ -65,7 +66,7 @@
 
         <ion-modal
             ref="verifyModal"
-            :breakpoints="[0.8,1]"
+            :breakpoints="[0,0.8,1]"
             :initial-breakpoint="0.8"
             handle-behavior="cycle"
             mode="ios"
@@ -76,7 +77,8 @@
               <ion-title>Verify Account</ion-title>
             </ion-toolbar>
           </ion-header>
-          <verify-component></verify-component>
+
+          <verify-component @done="dismissVerifyDialog"></verify-component>
         </ion-modal>
 
 
@@ -218,7 +220,8 @@ import {
   idCardOutline,
   informationCircleOutline,
   helpBuoyOutline,
-  shareSocialOutline
+  shareSocialOutline,
+    checkmarkCircleOutline
 } from "ionicons/icons";
 import EditProfile from "@/components/EditProfile";
 import store from "@/store";
@@ -262,12 +265,14 @@ export default defineComponent({
       shareSocialOutline,
       helpBuoyOutline,
       showHelpModal: false,
-      presentingElement: null
+      presentingElement: null,
+      checkmarkCircleOutline
     }
   },
   methods: {
-    showVerificationDialog(){
-      alert("show alert")
+
+    dismissVerifyDialog(){
+      this.$refs.verifyModal.$el.dismiss(null, 'cancel');
     },
     async showSuccess(message){
 
