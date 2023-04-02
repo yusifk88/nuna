@@ -183,14 +183,13 @@ class WeddingsController extends Controller
         }
 
 
-
         $user = User::find($wedding->user_id);
 
         $weddingDate = Carbon::parse($wedding->date_time);
         $todayDate = Carbon::now();
 
 
-        if ($todayDate->greaterThan($weddingDate)){
+        if ($todayDate->greaterThan($weddingDate)) {
 
             $error = "Sorry, this wedding has expired.";
             return view("wedding.payment_failed", ['wedding' => $wedding, "reason" => $error]);
@@ -311,6 +310,28 @@ class WeddingsController extends Controller
 
         return view("wedding.index", ["wedding" => $wedding, "year" => $year, "month" => $month, "day" => $day]);
 
+
+    }
+
+
+    public function getAmountDue($id): JsonResponse
+    {
+        $wedding = Wedding::withSum("items", "target_amount")
+            ->withSum("contributions", "amount")
+            ->where("id", $id)
+            ->where("user_id", \request()->user()->id)
+            ->first();
+
+        if (!$wedding) {
+
+            return failed_response([], Response::HTTP_NOT_FOUND, "Wedding not found");
+        }
+
+
+        $amountDUe = UtilityRepository::getAmountDue($wedding);
+
+
+        return success_response($amountDUe);
 
     }
 

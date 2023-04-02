@@ -37,6 +37,13 @@ Route::middleware('auth:sanctum')->group(function () {
 
 
     /**
+     * get amount due route
+     */
+
+    Route::get("get-amount-due/{id}", [WeddingsController::class, "getAmountDue"]);
+
+
+    /**
      * request verification routes
      */
 
