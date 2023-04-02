@@ -318,6 +318,35 @@ class AuthController extends Controller
     }
 
 
+    public function sendOTP(){
+
+        $user = \request()->user();
+
+        $phone_number= $user->phone_number;
+
+        UserPin::where("phone_number", $phone_number)->delete();
+
+
+        $code = substr(Carbon::now()->timestamp, -4);
+
+
+        UserPin::create([
+            "phone_number" => $phone_number,
+            "code" => $code
+        ]);
+
+
+        $text = "Your verification code is " . $code;
+
+
+        SMSRepository::sendSMS($phone_number, $text);
+
+
+
+    }
+
+
+
     public function submitVerification(Request $request)
     {
         $request->validate([

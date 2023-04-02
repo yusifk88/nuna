@@ -31,10 +31,17 @@ Route::middleware('mustHavePinCode')->group(function () {
 
 Route::middleware('auth:sanctum')->group(function () {
 
+
     Route::get("user", function (Request $request) {
         return $request->user();
     });
 
+
+    /**
+     * OTP request route
+     */
+
+    Route::get("request-otp", [AuthController::class, 'sendOTP']);
 
     /**
      * get amount due route
