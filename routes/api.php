@@ -37,6 +37,7 @@ Route::middleware('auth:sanctum')->group(function () {
     });
 
 
+
     /**
      * OTP request route
      */
