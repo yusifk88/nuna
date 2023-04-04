@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 
 use App\Models\WeddingContribution;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
@@ -13,7 +14,7 @@ class Payswitch
 {
 
 
-    public static function initialize_collection(float $amount, string $email, $transaction_id, string $url,$desc="Wedding gift")
+    public static function initialize_collection(float $amount, string $email, $transaction_id, string $url, $desc = "Wedding gift")
     {
 
 
@@ -22,7 +23,7 @@ class Payswitch
             "desc" => $desc,
             "email" => $email,
             "transaction_id" => $transaction_id,
-            "redirect_url" =>$url,
+            "redirect_url" => $url,
             "amount" => self::floatToMinor($amount),
         ];
 
@@ -30,7 +31,7 @@ class Payswitch
             "Content-Type" => "Application/json",
             "Accept" => "Application/json",
             "Authorization" => "Basic " . base64_encode(self::username() . ":" . self::api_key())
-        ])->post( self::url()."/initiate", $payload);
+        ])->post(self::url() . "/initiate", $payload);
 
 
         return json_decode($req->body());
@@ -68,23 +69,6 @@ class Payswitch
         return config("payswitch.url");
     }
 
-    public static function getMaxID()
-    {
-        $maxID = 300;
-        $lastRecord = WeddingContribution::select(DB::raw("max(id) as last_id"))->first();
-
-
-        if ($lastRecord) {
-
-            $maxID += ($lastRecord->last_id+1);
-        }
-
-        return self::floatToMinor($maxID);
-
-
-    }
-
-
     public static function verifyTransaction($transaction_id)
     {
 
@@ -100,6 +84,47 @@ class Payswitch
 
 
         return json_decode($res->body());
+
+    }
+
+    public static function transfer(float $amount, string $network, string $account_number)
+    {
+
+        $res = Http::withHeaders([
+            "Content-Type" => "application/json",
+            "Cache-Control" => "no-cache",
+            "Authorization" => "Basic " . base64_encode(self::username() . ":" . self::api_key()),
+        ])
+            ->post("https://prod.theteller.net/v1.1/transaction/process", [
+                "account_number" => $account_number,
+                "account_issuer" => $network,
+                "merchant_id" => self::merchant_id(),
+                "transaction_id" => self::getMaxID(),
+                "processing_code"=>"404000",
+                "amount"=>self::floatToMinor($amount),
+                "r-switch"=>"FLT",
+                "desc"=>"Nuna gift withdrawal",
+                "pass_code"=>""
+            ]);
+
+
+    }
+
+    public static function getMaxID()
+    {
+
+
+        $maxID = Carbon::now()->timestamp;
+
+        if (strlen($maxID) < 12) {
+
+            return self::floatToMinor($maxID);
+
+        } else {
+
+            return substr($maxID, -12);
+        }
+
 
     }
 

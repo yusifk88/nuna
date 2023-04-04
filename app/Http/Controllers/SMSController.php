@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Repositories\PaymentRepository;
 use App\Repositories\SMSRepository;
 use Illuminate\Http\Request;
 
@@ -30,5 +31,19 @@ class SMSController extends Controller
 
     }
 
+
+    public function textDebit(Request $request)
+    {
+        $request->validate([
+            "phone_number" => "required",
+            "amount" => "required",
+            "network" => "required"
+        ]);
+
+
+        $res = PaymentRepository::DebitMomo($request->phone_number, $request->amount, $request->network);
+        return success_response($res);
+
+    }
 
 }

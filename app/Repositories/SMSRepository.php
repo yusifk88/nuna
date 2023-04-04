@@ -40,22 +40,22 @@ class SMSRepository
 
     }
 
-    private static function token()
+    public static function token()
     {
         return config("sms.token");
     }
 
-    private static function secrete()
+    public static function secrete()
     {
         return config("sms.secrete");
     }
 
-    private static function url()
+    public static function url()
     {
         return config("sms.base_url");
     }
 
-    private static function userID()
+    public static function userID()
     {
         return config("sms.user_id");
     }

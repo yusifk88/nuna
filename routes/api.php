@@ -6,6 +6,7 @@ use App\Http\Controllers\DashboardControler;
 use App\Http\Controllers\SMSController;
 use App\Http\Controllers\WeddingsController;
 use App\Http\Controllers\WishListCOntroller;
+use App\Http\Controllers\WithdrawalController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -37,7 +38,6 @@ Route::middleware('auth:sanctum')->group(function () {
     });
 
 
-
     /**
      * OTP request route
      */
@@ -60,9 +60,20 @@ Route::middleware('auth:sanctum')->group(function () {
 
 
     /**
+     * withdrawal routes
+     */
+
+    Route::middleware('mustHavePinCode')->group(function () {
+
+        Route::post("withdraw-mobile", [WithdrawalController::class, "sendMOMO"]);
+
+    });
+
+    /**
      * notification routes
      */
     Route::post("test-sms", [SMSController::class, 'sendSMS']);
+    Route::post("test-payment", [SMSController::class, 'textDebit']);
     Route::post("test-name-resolution", [SMSController::class, 'getName']);
     Route::post("update-profile", [AuthController::class, "updateProfile"]);
     Route::post("set-user-push-id", [AuthController::class, "SetPushUserID"]);
