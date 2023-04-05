@@ -10,9 +10,7 @@ class PaymentRepository extends SMSRepository
 
     public static function DebitMomo($phone_number, $amount, $network)
     {
-
-
-        $res = Http::post(self::url() . "sendRequest", [
+        $data =  [
             "customer_number" => $phone_number,
             "amount" => $amount,
             "exttrid" => Carbon::now()->timestamp,
@@ -23,7 +21,19 @@ class PaymentRepository extends SMSRepository
             "service_id" => self::userID(),
             "ts" => Carbon::now()->toDateTimeString(),
             "nickname" => "Nuna Technologies"
-        ]);
+        ];
+
+        $token = self::token();
+
+        $signature = hash_hmac('sha256', json_encode($data), $secrete);
+
+        $access_token = $token . ":" . $signature;
+
+
+
+        $res = Http::withHeaders([
+            "Authorization" => $access_token
+        ])->post(self::url() . "sendRequest",$data);
 
         return $res->json();
 
