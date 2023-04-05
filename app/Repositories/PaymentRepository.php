@@ -24,6 +24,8 @@ class PaymentRepository extends SMSRepository
         ];
 
         $token = self::token();
+        $secrete = self::secrete();
+
 
         $signature = hash_hmac('sha256', json_encode($data), $secrete);
 
