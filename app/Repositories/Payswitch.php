@@ -13,7 +13,6 @@ use PhpParser\Node\Expr\Cast\Double;
 class Payswitch
 {
 
-
     public static function initialize_collection(float $amount, string $email, $transaction_id, string $url, $desc = "Wedding gift")
     {
 
@@ -87,6 +86,44 @@ class Payswitch
 
     }
 
+
+    public static function balance()
+    {
+
+
+        $curl = curl_init();
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => "https://prod.theteller.net/merchants/" . self::merchant_id() . "/balance",
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => "",
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 30,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => "GET",
+
+        ));
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
+
+        curl_close($curl);
+
+        if ($err) {
+            return $err;
+        }
+
+        $res = json_decode($response, true);
+
+        if ($res['code'] === '000') {
+
+            return (double)ltrim($res['reason']) / 100;
+        }
+
+        return 00;
+
+
+    }
+
+
     public static function transfer(float $amount, string $network, string $account_number)
     {
 
@@ -100,12 +137,15 @@ class Payswitch
                 "account_issuer" => $network,
                 "merchant_id" => self::merchant_id(),
                 "transaction_id" => self::getMaxID(),
-                "processing_code"=>"404000",
-                "amount"=>self::floatToMinor($amount),
-                "r-switch"=>"FLT",
-                "desc"=>"Nuna gift withdrawal",
-                "pass_code"=>""
+                "processing_code" => "404000",
+                "amount" => self::floatToMinor($amount),
+                "r-switch" => "FLT",
+                "desc" => "Nuna gift withdrawal",
+                "pass_code" => self::passcode()
             ]);
+
+
+        return $res->json();
 
 
     }
@@ -126,6 +166,11 @@ class Payswitch
         }
 
 
+    }
+
+    public static function passcode()
+    {
+        return config("payswitch.passcode");
     }
 
 }
