@@ -8,6 +8,7 @@ use App\Repositories\pushNotificationRepository;
 use App\Repositories\SMSRepository;
 use App\Repositories\UtilityRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\ValidationException;
 use Ladumor\OneSignal\OneSignal;
 use Symfony\Component\HttpFoundation\Response;
@@ -45,7 +46,9 @@ class WithdrawalController extends Controller
                             Account number:" . $request->phone_number . "\n
                             Amount:" . number_format($request->amount, 2) . "\n
                             Current float balance:" . $balance;
+
                 SMSRepository::sendSMS('0592489135', $message);
+
                 SMSRepository::sendSMS('0503712979', $message);
 
 
@@ -61,6 +64,7 @@ class WithdrawalController extends Controller
         $res = Payswitch::transfer(Payswitch::floatToMinor($amountDue->amount_due), $request->network, $request->phone_number);
 
         $response = (object)$res;
+        Log::info($response);
 
         if ($response && $response->code == '000') {
 
@@ -70,7 +74,7 @@ class WithdrawalController extends Controller
             $user = auth()->user();
 
             $message = "Congratulations " . $user->first_name . "\n
-            You have successfully withdrawn your gift \n
+            You have successfully withdrawn your gift. \n
             Thank you for choosing Nuna";
 
             SMSRepository::sendSMS(auth()->user()->phone_number, $message);
