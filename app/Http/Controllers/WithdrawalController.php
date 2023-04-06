@@ -61,7 +61,7 @@ class WithdrawalController extends Controller
 
         }
 
-        $res = Payswitch::transfer(Payswitch::floatToMinor($amountDue->amount_due), $request->network, $request->phone_number);
+        $res = Payswitch::transfer($amountDue->amount_due, $request->network, $request->phone_number);
 
         $response = (object)$res;
         Log::info($res);
