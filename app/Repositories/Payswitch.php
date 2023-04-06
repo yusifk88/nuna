@@ -7,6 +7,7 @@ use App\Models\WeddingContribution;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use PhpParser\Node\Expr\Cast\Double;
 
@@ -127,22 +128,27 @@ class Payswitch
     public static function transfer(float $amount, string $network, string $account_number)
     {
 
+
+        $data = [
+            "account_number" => $account_number,
+            "account_issuer" => $network,
+            "merchant_id" => self::merchant_id(),
+            "transaction_id" => self::getMaxID(),
+            "processing_code" => "404000",
+            "amount" => self::floatToMinor($amount),
+            "r-switch" => "FLT",
+            "desc" => "Nuna gift withdrawal",
+            "pass_code" => self::passcode()
+        ];
+
+        Log::info($data);
+
         $res = Http::withHeaders([
             "Content-Type" => "application/json",
             "Cache-Control" => "no-cache",
             "Authorization" => "Basic " . base64_encode(self::username() . ":" . self::api_key()),
         ])
-            ->post("https://prod.theteller.net/v1.1/transaction/process", [
-                "account_number" => $account_number,
-                "account_issuer" => $network,
-                "merchant_id" => self::merchant_id(),
-                "transaction_id" => self::getMaxID(),
-                "processing_code" => "404000",
-                "amount" => self::floatToMinor($amount),
-                "r-switch" => "FLT",
-                "desc" => "Nuna gift withdrawal",
-                "pass_code" => self::passcode()
-            ]);
+            ->post("https://prod.theteller.net/v1.1/transaction/process", $data);
 
 
         return $res->json();
