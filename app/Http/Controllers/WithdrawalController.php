@@ -35,6 +35,8 @@ class WithdrawalController extends Controller
         $balance = Payswitch::balance();
 
         $amountDue = (object)UtilityRepository::getAmountDue($wedding);
+        Log::info((array)$amountDue);
+
 
         if ($amountDue->amount_due > $balance) {
 
