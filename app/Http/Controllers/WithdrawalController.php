@@ -41,15 +41,15 @@ class WithdrawalController extends Controller
         $balance = Payswitch::balance();
 
         $amountDue = (object)UtilityRepository::getAmountDue($wedding);
-        Log::info((array)$amountDue);
 
+        $user = auth()->user();
 
         if ($amountDue->amount_due > $balance) {
 
             if (config("app.env") === 'production') {
 
 
-                $message = "Withdrawal failed\nfrom:" . auth()->user()->first_name . " " . auth()->user()->last_name . "\nAccount number:" . $request->phone_number . "\nAmount:" . number_format($amountDue->amount_due, 2) . "\nCurrent float balance:" . $balance;
+                $message = "Withdrawal failed\nfrom:" . auth()->user()->first_name . " " . auth()->user()->last_name . "\nAccount number:" . $request->phone_number . "\nAmount:" .$user->currency. number_format($amountDue->amount_due, 2) . "\nCurrent float balance:" .$user->currency. $balance;
 
                 SMSRepository::sendSMS('0592489135', $message);
 
@@ -74,7 +74,6 @@ class WithdrawalController extends Controller
             $wedding->withdraw_amount = $amountDue->total;
             $wedding->update();
 
-            $user = auth()->user();
 
             $message = "Congratulations " . $user->first_name . "\n
             You have successfully withdrawn your gift. \n
