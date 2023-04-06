@@ -165,7 +165,7 @@
                     <h3>{{\Carbon\Carbon::parse($wedding->date_time)->isoFormat('MMMM Do, YYYY')}} {{$wedding->location}}</h3>
                     <p>We invited you to celebrate our wedding</p>
 
-                    <p>{!! $wedding->story !!}</p>
+                    <p style="font-style: italic">{!! $wedding->story !!}</p>
 
                 </div>
             </div>
@@ -264,18 +264,18 @@
         </div>
     </div>
 
-    <div id="fh5co-couple-story">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-8 col-md-offset-2 text-center fh5co-heading animate-box">
-                    <span>We Love Each Other</span>
-                    <h2>Our Story</h2>
-                    <p>{!!$wedding->story!!}</p>
-                </div>
-            </div>
+{{--    <div id="fh5co-couple-story">--}}
+{{--        <div class="container">--}}
+{{--            <div class="row">--}}
+{{--                <div class="col-md-8 col-md-offset-2 text-center fh5co-heading animate-box">--}}
+{{--                    <span>We Love Each Other</span>--}}
+{{--                    <h2>Our Story</h2>--}}
+{{--                    <p>{!!$wedding->story!!}</p>--}}
+{{--                </div>--}}
+{{--            </div>--}}
 
-        </div>
-    </div>
+{{--        </div>--}}
+{{--    </div>--}}
 
     <div id="fh5co-gallery" class="fh5co-section-gray">
         <div class="container">
