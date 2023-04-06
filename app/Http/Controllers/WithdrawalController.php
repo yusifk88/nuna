@@ -55,15 +55,14 @@ class WithdrawalController extends Controller
             }
 
 
-            ValidationException::withMessages([
-                "error" => ["This service is currently unavailable"]
-            ]);
+            return failed_response(["error" => "This service is currently unavailable"], Response::HTTP_UNPROCESSABLE_ENTITY);
 
         }
 
         $res = Payswitch::transfer($amountDue->amount_due, $request->network, $request->phone_number);
 
         $response = (object)$res;
+
         Log::info($res);
 
         if ($response && $response->code == '000') {
@@ -82,9 +81,8 @@ class WithdrawalController extends Controller
 
         } else {
 
-            ValidationException::withMessages([
-                "error" => ["Something went wrong, please try again"]
-            ]);
+
+            return failed_response(["error" => "Something went wrong, please try again"], Response::HTTP_UNPROCESSABLE_ENTITY);
 
         }
 
