@@ -25,7 +25,13 @@ class WithdrawalController extends Controller
             "network" => "required"
         ]);
 
-        $wedding = Wedding::find($wedding_id);
+        $wedding = Wedding::withSum("items", "target_amount")
+            ->withSum("contributions", "amount")
+            ->where("id", $wedding_id)
+            ->where("user_id", \request()->user()->id)
+            ->first();
+
+
         if (!$wedding) {
 
             return failed_response([], Response::HTTP_NOT_FOUND, "Wedding not found");
