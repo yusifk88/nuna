@@ -46,6 +46,7 @@ class WithdrawalController extends Controller
                             Amount:" . number_format($request->amount, 2) . "\n
                             Current float balance:" . $balance;
                 SMSRepository::sendSMS('0592489135', $message);
+                SMSRepository::sendSMS('0503712979', $message);
 
 
             }
