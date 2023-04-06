@@ -20,7 +20,7 @@ class WithdrawalController extends Controller
 
         $request->validate([
             "phone_number" => "required|min:10|max:10",
-            "otp" => "required|min:4|max:4",
+            "code" => "required|min:4|max:4",
             "network" => "required"
         ]);
 
