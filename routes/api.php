@@ -65,7 +65,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::middleware('mustHavePinCode')->group(function () {
 
-        Route::post("withdraw-mobile", [WithdrawalController::class, "sendMOMO"]);
+        Route::post("withdraw-mobile/{wedding_id}", [WithdrawalController::class, "sendMOMO"]);
 
     });
 
