@@ -5,21 +5,19 @@
       <ion-card
           mode="ios"
           class="no-margin"
-          style="background-color: rgba(0,128,128,0.2)"
+          style="background-color: rgba(0,128,128,0.2); border: 2px solid #008080FF;"
           @click="$emit('guestTapped')"
 
       >
 
-        <ion-card-content>
+        <ion-card-content class="ion-text-center">
 
-          <ion-row>
-            <ion-col size="12" class="ion-text-center">
 
-              <h1 class="font-weight-light" style="color: teal">{{dashboard ? dashboard.guest : 0}} <ion-icon size="small" :icon="peopleOutline"></ion-icon></h1>
-              <small style="color: teal">Total Guests</small>
-            </ion-col>
 
-          </ion-row>
+              <h1 class="font-weight-bold" style="color: teal">{{dashboard ? dashboard.guest : 0}} <ion-icon size="small" :icon="peopleOutline"></ion-icon></h1>
+              <small class="text-muted">Total Guests</small>
+
+
 
         </ion-card-content>
       </ion-card>
@@ -30,20 +28,18 @@
           @click="$emit('contributionTapped')"
           mode="ios"
           class="no-margin"
-          style="background-color: rgba(45,211,111,0.19);color:#2dd36f;"
+          style="background-color: rgba(45,211,111,0.19); color: #2dd36f; border: 2px solid #2dd36f;"
 
       >
 
-        <ion-card-content>
+        <ion-card-content class="ion-text-center">
 
-          <ion-row>
-            <ion-col size="12" class="ion-text-center">
 
-              <h1 class="font-weight-light">{{dashboard ? dashboard.contributions : 0}} <ion-icon size="small" :icon="peopleOutline"></ion-icon></h1>
-              <small>Contributors</small>
-            </ion-col>
 
-          </ion-row>
+          <h1 class="font-weight-bold">{{dashboard ? dashboard.contributions : 0}} <ion-icon size="small" :icon="peopleOutline"></ion-icon></h1>
+
+          <small class="text-muted">Contributions</small>
+
 
         </ion-card-content>
       </ion-card>

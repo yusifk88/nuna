@@ -226,7 +226,6 @@ import {
   IonCard,
   IonCardContent,
   IonIcon,
-
   IonRow,
   IonCol,
   IonItem,
@@ -238,7 +237,6 @@ import {
   IonButton,
   IonSpinner,
   toastController,
-  IonPage
 } from "@ionic/vue";
 import {informationCircleOutline, chevronForward, cameraOutline, arrowBackOutline} from "ionicons/icons";
 import VerifyAnimation from "@/components/verifyAnimation";
@@ -249,7 +247,6 @@ import axios from "axios";
 export default {
   name: "verifyComponent",
   components: {
-    IonPage,
     IonSpinner,
     IonButton,
     VerifyAnimation,

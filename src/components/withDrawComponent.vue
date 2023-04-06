@@ -27,7 +27,154 @@
 
     <div v-if="step==3" class="smooth-in">
 
-      <h2>Withdraw goes here!!!!</h2>
+      <center v-if="loading">
+        <ion-spinner size="large"></ion-spinner>
+      </center>
+
+      <span v-else>
+
+      <ion-card v-if="amountDue" class="ion-text-center"
+                style="background-color: rgba(255,210,0,0.1); border: 1px solid rgb(255,210,0)">
+        <ion-card-content style="color: #ceb70b">
+          <strong>Note:</strong> You would not be able to receive gifts through your page after withdrawal.
+        </ion-card-content>
+      </ion-card>
+
+
+      <ion-card v-if="amountDue" class="ion-text-center"
+                style="background-color: rgba(0,128,0,0.1); border: 1px solid green">
+        <ion-card-content>
+          <h1 class="font-weight-light"
+              style="color: green; font-size: 2em">{{ currency }}{{ amountDue.amount_due }}</h1>
+          <small style="color: green;">Amount Due</small>
+
+          <h1 class="font-weight-light" style="color: green;">{{ currency }}{{ amountDue.charge }}</h1>
+          <small style="color: green;">Charges(8.5%)</small>
+        </ion-card-content>
+      </ion-card>
+
+
+
+      <h1 class="ion-text-center text-muted ion-margin">How would you like to withdraw your gift?</h1>
+
+      <ion-card class="no-padding"
+                style="border: 1px solid #008080; padding-top: 15px!important;"
+                @click="step=2;">
+        <ion-card-content class="no-padding">
+          <ion-row>
+            <ion-col size="2">
+              <img src="/assets/icon/bank_icon.png" style="margin: 6px">
+
+            </ion-col>
+            <ion-col class="ion-padding-start" size="8">
+              <h2>Send to bank account</h2>
+              <small>Send gift to supported bank accounts</small>
+            </ion-col>
+
+            <ion-col size="2">
+              <ion-icon :icon="chevronForward" class="ion-margin" color="primary" size="large"></ion-icon>
+            </ion-col>
+          </ion-row>
+
+        </ion-card-content>
+      </ion-card>
+
+
+      <ion-card class="no-padding"
+                style="border: 1px solid #008080; padding-top: 15px!important;"
+                @click="requestOTP(4)">
+        <ion-card-content class="no-padding">
+          <ion-row>
+            <ion-col size="2">
+              <img src="/assets/icon/mobile-payment.png" style="margin: 6px">
+
+            </ion-col>
+            <ion-col class="ion-padding-start" size="8">
+              <h2>Send to mobile money wallet</h2>
+              <small>Send gift to mobile money wallet</small>
+            </ion-col>
+
+            <ion-col size="2">
+              <ion-icon :icon="chevronForward" class="ion-margin" color="primary" size="large"></ion-icon>
+            </ion-col>
+          </ion-row>
+
+        </ion-card-content>
+      </ion-card>
+      </span>
+
+    </div>
+
+
+    <div v-if="step==4" class="smooth-in">
+
+      <ion-card v-if="amountDue" class="ion-text-center"
+                style="background-color: rgba(12,122,224,0.09); border: 1px solid rgba(12,122,224,0.86)">
+        <ion-card-content style="color: #0c7ae0">
+          A verification code was sent to <strong>{{ user.phone_number }}</strong>, enter the verification code together
+          with your mobile money number and network to withdraw your gift.
+        </ion-card-content>
+      </ion-card>
+
+      <ion-item class="ion-margin-top" lines="none">
+        <ion-input
+            v-model="otp"
+            class="custom"
+            inputmode="number"
+            placeholder="Verification Code"
+        ></ion-input>
+      </ion-item>
+
+
+      <ion-item class="ion-margin-top " lines="none">
+        <ion-input
+            v-model="phone_number"
+            class="custom"
+            inputmode="tel"
+            placeholder="Verification Code"
+        ></ion-input>
+      </ion-item>
+
+      <ion-item class="ion-margin-top nuna-select-item ion-margin-end ion-margin-start" lines="none">
+
+        <ion-select v-model="network" aria-label="network" interface="action-sheet" mode="ios"
+                    placeholder="Select Network">
+          <ion-select-option value="MTN">MTN</ion-select-option>
+          <ion-select-option value="VDF">Vodafone</ion-select-option>
+          <ion-select-option value="ATL">Airtel</ion-select-option>
+          <ion-select-option value="TGO">Tigo</ion-select-option>
+        </ion-select>
+
+      </ion-item>
+
+      <ion-button
+          :disabled="progress"
+          class="ion-margin-start ion-margin-end ion-margin-top"
+          expand="block"
+          mode="ios"
+          size="large"
+          style="transition: 0.3s ease-in-out"
+          @click="withdrawMomo"
+      >
+        <template v-if="!progress">Send</template>
+        <ion-spinner v-if="progress" style="transition: 0.3s ease-in-out"></ion-spinner>
+      </ion-button>
+
+      <ion-button
+          :disabled="progress"
+          class="ion-margin-start ion-margin-end ion-margin-top"
+          expand="block"
+          fill="outline"
+          mode="ios"
+          size="large"
+          @click="step=3"
+
+      >
+        <ion-icon :icon="arrowBackOutline"></ion-icon>
+        <template v-if="!progress">Change</template>
+        <ion-spinner v-if="progress" style="transition: 0.3s ease-in-out"></ion-spinner>
+      </ion-button>
+
 
     </div>
 
@@ -36,15 +183,53 @@
 </template>
 
 <script>
-import {IonContent, IonCard, IonCardContent, IonButton} from "@ionic/vue";
+import {
+  IonContent,
+  IonCard,
+  IonCardContent,
+  IonButton,
+  IonRow,
+  IonCol,
+  IonIcon,
+  IonSpinner,
+  IonItem,
+  IonInput,
+  IonSelect,
+  IonSelectOption, toastController
+} from "@ionic/vue";
+import {chevronForward, arrowBackOutline} from "ionicons/icons";
 import VerifyComponent from "@/components/verifyComponent";
+import axios from "axios";
 
 export default {
+  props: ['weddingID', 'currency'],
   name: "withDrawComponent",
-  components: {VerifyComponent, IonContent, IonCard, IonCardContent, IonButton},
+  components: {
+    IonSelect,
+    IonSelectOption,
+    VerifyComponent,
+    IonContent,
+    IonCard,
+    IonCardContent,
+    IonButton,
+    IonRow,
+    IonCol,
+    IonIcon,
+    IonSpinner,
+    IonItem,
+    IonInput
+  },
   data() {
     return {
-      step: 1
+      step: 1,
+      amountDue: null,
+      loading: false,
+      chevronForward,
+      arrowBackOutline,
+      phone_number: "",
+      otp: "",
+      network: null,
+      progress: false
     }
   },
   computed: {
@@ -52,7 +237,101 @@ export default {
       return this.$store.state.user;
     }
   },
+  methods: {
+    async showSuccess(message) {
+
+
+      const toast = await toastController.create({
+        message: message,
+        duration: 2500,
+        position: 'top',
+        color: "success",
+        mode: "ios"
+      });
+
+      await toast.present();
+
+    },
+    withdrawMomo() {
+
+      if (!this.phone_number) {
+
+        this.$store.state.ErrorPosition = "top";
+        this.$store.state.errorsArr = {name: ["Mobile money number is required"]};
+        this.$store.state.showErrorToast = true;
+        return;
+
+      }
+
+      if (!this.otp) {
+
+        this.$store.state.ErrorPosition = "top";
+        this.$store.state.errorsArr = {name: ["Verification code is required"]};
+        this.$store.state.showErrorToast = true;
+        return;
+
+      }
+
+      if (!this.network) {
+
+        this.$store.state.ErrorPosition = "top";
+        this.$store.state.errorsArr = {name: ["Select your network"]};
+        this.$store.state.showErrorToast = true;
+        return;
+
+      }
+
+      this.progress = true;
+      axios.post("withdraw-mobile/" + this.weddingID, {
+        code: this.otp,
+        phone_number: this.phone_number,
+        network: this.network
+      })
+          .then(res => {
+            this.progress = false;
+
+          })
+          .catch(error => {
+            this.progress = false;
+
+          })
+
+
+    },
+
+    requestOTP(toPage) {
+
+      this.loading = true;
+      axios.get("request-otp")
+          .then(res => {
+            this.step = toPage;
+            this.loading = false;
+            this.showSuccess("Withdrawal successful");
+            this.$emit("close");
+          })
+          .catch(error => {
+            this.loading = false;
+          })
+
+    },
+
+    getAmountDue() {
+      this.loading = true;
+      const url = "get-amount-due/" + this.weddingID;
+      axios.get(url)
+          .then(res => {
+            this.amountDue = res.data.data;
+            this.loading = false;
+          })
+          .catch(error => {
+            this.loading = false;
+          })
+
+    }
+  },
   mounted() {
+
+    this.phone_number = this.user.phone_number;
 
     if (!this.user.approved) {
 
@@ -60,6 +339,7 @@ export default {
 
     } else {
 
+      this.getAmountDue();
       this.step = 3;
 
     }

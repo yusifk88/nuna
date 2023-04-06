@@ -58,7 +58,7 @@
         </ion-toolbar>
       </ion-header>
 
-      <with-draw-component @done="dismissWithdrawDailog" @expand="initState=1"></with-draw-component>
+      <with-draw-component :currency="user.currency" :wedding-i-d="weddingID" @done="dismissWithdrawDailog" @expand="initState=1"></with-draw-component>
 
     </ion-modal>
 
