@@ -55,13 +55,15 @@ class WeddingsController extends Controller
 
         }
         $record = WeddingContribution::where("transaction_id", $transaction_id)->where('success',false)->first();
-        $wedding = Wedding::find($record->wedding_id);
+
 
 
         if ( $code == '000' && $transaction_id) {
 
 
             if ($record) {
+
+                $wedding = Wedding::find($record->wedding_id);
 
                 $res = Payswitch::verifyTransaction($transaction_id);
 
@@ -105,6 +107,7 @@ class WeddingsController extends Controller
 
                 if ($existingRecord){
 
+                    $wedding = Wedding::find($existingRecord->wedding_id);
 
                     $data = [
                         "wedding" => $wedding,
