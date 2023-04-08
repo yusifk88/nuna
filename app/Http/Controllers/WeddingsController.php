@@ -54,7 +54,7 @@ class WeddingsController extends Controller
 
 
         }
-        $record = WeddingContribution::where("transaction_id", $transaction_id)->first();
+        $record = WeddingContribution::where("transaction_id", $transaction_id)->where('success',false)->first();
         $wedding = Wedding::find($record->wedding_id);
 
 
@@ -96,6 +96,28 @@ class WeddingsController extends Controller
                     ];
 
                     return view("wedding.payment_success", $data);
+
+                }
+
+            }else{
+
+                $existingRecord = WeddingContribution::where("transaction_id", $transaction_id)->where('success',true)->first();
+
+                if ($existingRecord){
+
+
+                    $data = [
+                        "wedding" => $wedding,
+                        "amount" => $existingRecord->amount,
+                    ];
+
+                    return view("wedding.payment_success", $data);
+
+
+                }else {
+
+
+                    return view("wedding.payment_failed", ["reason" => "Transaction not found", "wedding" => $wedding]);
 
                 }
 
