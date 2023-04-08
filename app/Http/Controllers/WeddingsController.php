@@ -120,7 +120,7 @@ class WeddingsController extends Controller
                 }else {
 
 
-                    return view("wedding.payment_failed", ["reason" => "Transaction not found", "wedding" => $wedding]);
+                    return view("wedding.payment_failed", ["reason" => "Transaction not found"]);
 
                 }
 
@@ -128,7 +128,7 @@ class WeddingsController extends Controller
 
         } else {
 
-            return view("wedding.payment_failed", ["reason" => $reason, "wedding" => $wedding]);
+            return view("wedding.payment_failed", ["reason" => $reason]);
         }
 
 
