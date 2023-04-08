@@ -29,9 +29,9 @@ class UtilityRepository
 
         return [
             "rate" => self::CHARGE,
-            "total" => $subTotal,
-            "charge" => $charge,
-            "amount_due" => $amountDue
+            "total" => round($subTotal,2),
+            "charge" => round($charge,2),
+            "amount_due" => round($amountDue,2)
         ];
 
 
