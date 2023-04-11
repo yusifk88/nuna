@@ -9,7 +9,7 @@ if (!function_exists("failed_response")) {
 
         return response()->json([
             "status" => false,
-            "data" => $data,
+            "errors" => $data,
             "message" => $message
         ], $code);
 
