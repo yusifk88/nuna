@@ -140,7 +140,8 @@ class WithdrawalController extends Controller
 
 
         $res = Payswitch::transferToBank($amountDue->amount_due, $request->bank_code, $request->account_number);
-        if ($res && $res->code == '000') {
+
+        if ($res && $res['code'] == '000') {
 
             return success_response($res);
 
