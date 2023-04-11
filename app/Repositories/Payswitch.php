@@ -73,7 +73,7 @@ class Payswitch
     {
 
 
-        $res = Http::withHeaders(
+        return Http::withHeaders(
             [
                 "Content-Type" => "application/json",
                 "Cache-Control" => "no-cache",
@@ -81,9 +81,6 @@ class Payswitch
             ]
         )
             ->get("https://prod.theteller.net/v1.1/users/transactions/" . $transaction_id . "/status");
-
-
-        return json_decode($res->body());
 
     }
 
@@ -155,7 +152,28 @@ class Payswitch
 
     }
 
+    public static function getMaxID()
+    {
 
+
+        $maxID = Carbon::now()->timestamp;
+
+        if (strlen($maxID) < 12) {
+
+            return self::floatToMinor($maxID);
+
+        } else {
+
+            return substr($maxID, -12);
+        }
+
+
+    }
+
+    public static function passcode()
+    {
+        return config("payswitch.passcode");
+    }
 
     public static function transferToBank(float $amount, string $bank_code, string $account_number)
     {
@@ -187,32 +205,25 @@ class Payswitch
 
     }
 
-
-
-
-
-
-    public static function getMaxID()
+    public static function verifyTransfer(string $reference)
     {
 
+        $data = [
+            "merchant_id" => self::merchant_id(),
+            "reference_id" => $reference
+        ];
 
-        $maxID = Carbon::now()->timestamp;
+        $res = Http::withHeaders([
+            "Content-Type" => "application/json",
+            "Cache-Control" => "no-cache",
+            "Authorization" => "Basic " . base64_encode(self::username() . ":" . self::api_key()),
+        ])
+            ->post("https://prod.theteller.net/v1.1/transaction/bank/ftc/authorize", $data);
 
-        if (strlen($maxID) < 12) {
-
-            return self::floatToMinor($maxID);
-
-        } else {
-
-            return substr($maxID, -12);
-        }
+        return $res->json();
 
 
     }
 
-    public static function passcode()
-    {
-        return config("payswitch.passcode");
-    }
 
 }

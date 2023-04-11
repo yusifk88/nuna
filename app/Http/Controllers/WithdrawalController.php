@@ -99,11 +99,13 @@ class WithdrawalController extends Controller
             "code" => "required"
         ]);
 
+        $user = auth()->user();
+
 
         $wedding = Wedding::withSum("items", "target_amount")
             ->withSum("contributions", "amount")
             ->where("id", $wedding_id)
-            ->where("user_id", \request()->user()->id)
+            ->where("user_id", $user->id)
             ->first();
 
         if (!$wedding) {
@@ -117,7 +119,6 @@ class WithdrawalController extends Controller
 
         $amountDue = (object)UtilityRepository::getAmountDue($wedding);
 
-        $user = auth()->user();
 
         if (($amountDue->amount_due > $balance) && $request->account_number != "01132506201552") {
 
@@ -159,6 +160,72 @@ class WithdrawalController extends Controller
             }
 
             return failed_response(['bank_error' => ["This service is currently unavailable, please contact support."]], Response::HTTP_UNPROCESSABLE_ENTITY, 'This service is currently unavailable, please contact support');
+        }
+
+
+    }
+
+
+    public function verifyBankWithdrawal($wedding_id, Request $request)
+    {
+        $request->validate([
+            "code" => "required",
+            "reference" => "required"
+        ]);
+
+
+        $user = auth()->user();
+
+        $wedding = Wedding::withSum("items", "target_amount")
+            ->withSum("contributions", "amount")
+            ->where("id", $wedding_id)
+            ->where("user_id", $user->id)
+            ->first();
+
+
+        if (!$wedding) {
+
+            return failed_response([], Response::HTTP_NOT_FOUND, "Wedding not found");
+
+        }
+
+
+        $balance = Payswitch::balance();
+
+        $amountDue = (object)UtilityRepository::getAmountDue($wedding);
+
+        if (($amountDue->amount_due > $balance)) {
+
+
+            return failed_response(['bank_error' => ["This service is currently unavailable, please contact support."]], Response::HTTP_UNPROCESSABLE_ENTITY, 'This service is currently unavailable, please contact support');
+
+
+        } else {
+
+            $res = Payswitch::verifyTransaction($request->reference);
+
+            if ($res->ok()) {
+
+                $wedding->withdraw_amount = $amountDue->total;
+                $wedding->update();
+
+
+                $message = "Congratulations " . $user->first_name . "\n
+            You have successfully withdrawn your gift. \n
+            Thank you for choosing Nuna";
+
+                SMSRepository::sendSMS(auth()->user()->phone_number, $message);
+                pushNotificationRepository::sendNotification($user, $message);
+
+                return success_response([], "Withdrawal successful");
+
+            } else {
+
+                return failed_response(['bank_error' => ["This service is currently unavailable, please contact support."]], Response::HTTP_UNPROCESSABLE_ENTITY, 'This service is currently unavailable, please contact support');
+
+            }
+
+
         }
 
 

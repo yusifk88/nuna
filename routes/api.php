@@ -67,6 +67,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
         Route::post("withdraw-mobile/{wedding_id}", [WithdrawalController::class, "sendMOMO"]);
         Route::post("withdraw-bank/{wedding_id}", [WithdrawalController::class, "sendToBank"]);
+        Route::post("confirm-bank-withdrawal/{wedding_id}", [WithdrawalController::class, "verifyBankWithdrawal"]);
 
     });
 
