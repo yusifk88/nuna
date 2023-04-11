@@ -125,7 +125,7 @@ class WithdrawalController extends Controller
             if (config("app.env") === 'production') {
 
 
-                $message = "Withdrawal failed\nfrom:" . auth()->user()->first_name . " " . auth()->user()->last_name . "\nAccount number:" . $request->phone_number . "\nAmount:" . $user->currency . number_format($amountDue->amount_due, 2) . "\nCurrent float balance:" . $user->currency . $balance;
+                $message = "Withdrawal failed\nfrom:" . auth()->user()->first_name . " " . auth()->user()->last_name . "\nAccount number:" .  $request->bank_code."/".$request->account_number . "\nAmount:" . $user->currency . number_format($amountDue->amount_due, 2) . "\nCurrent float balance:" . $user->currency . $balance;
 
                 SMSRepository::sendSMS('0592489135', $message);
 
