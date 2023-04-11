@@ -146,7 +146,7 @@ class WithdrawalController extends Controller
             return success_response($res);
 
         } else {
-            return failed_response(["error" => "This service is currently unavailable, please contact support"], Response::HTTP_UNPROCESSABLE_ENTITY, 'This service is currently unavailable, please contact support');
+            return failed_response(["errors" => ["This service is currently unavailable, please contact support"]], Response::HTTP_UNPROCESSABLE_ENTITY, 'This service is currently unavailable, please contact support');
         }
 
 
