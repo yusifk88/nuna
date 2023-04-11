@@ -161,9 +161,9 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-8 col-md-offset-2 text-center fh5co-heading animate-box">
-                    <h2>Hello!</h2>
+                    <h2>Helloooo!</h2>
                     <h3>{{\Carbon\Carbon::parse($wedding->date_time)->isoFormat('MMMM Do, YYYY')}} {{$wedding->location}}</h3>
-                    <p>We invited you to celebrate our wedding</p>
+                    <h3 style="font-weight: lighter">We invite you to celebrate our wedding</h3>
 
                     <p style="font-style: italic">{!! $wedding->story !!}</p>
 
