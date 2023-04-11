@@ -1,5 +1,5 @@
 <template>
-  <p class="ion-margin-start" v-if="items.length">Contributions</p>
+  <p class="ion-margin-start" v-if="items.length">Contribution List</p>
   <list-loading-component v-if="loading" :count="8" :show-header=false></list-loading-component>
   <ion-list v-if="items.length && !loading" class="no-margin">
 
@@ -17,8 +17,8 @@
   </ion-list>
   <no-record-component
       :show-button="wedding && wedding.items_sum_target_amount <=0"
-      title="No contributions yet"
-      description="You do not have contributions yet, Good luck XD!"
+      title="No gifts yet"
+      description="No one has sent you a gift yet, Good luck 🤞."
       button-text="Add cash target"
       @buttonTapped="$emit('createNew')"
       :button-icon="addOutline"

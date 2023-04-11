@@ -3,9 +3,9 @@
   <ion-col size="12" class="no-padding">
 
     <no-record-component
-        title="You have no registries yet"
-        description="Your account is currently empty, create your first wedding registry page."
-        button-text="Create registry"
+        title="You have no registries yet."
+        description="Create your first wedding registry 😍"
+        button-text="Create Registry"
         :button-icon="arrowForwardOutline"
         show-icon
         @buttonTapped="NoRecordButtonTapped"
@@ -34,7 +34,7 @@ export default {
   methods:{
     NoRecordButtonTapped() {
       this.$router.push({
-        path: "/new/wedding"
+        path: "/new/Wedding"
       });
 
     }

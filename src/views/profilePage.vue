@@ -14,7 +14,7 @@
     <ion-content>
 
       <ion-list class="ion-margin-top">
-        <ion-item class="ion-margin" fill="outline">
+        <ion-item lines="none" class="ion-margin" style="border: 1px solid grey">
           <ion-avatar slot="start">
             <img alt="Silhouette of a person's head" src="https://ionicframework.com/docs/img/demos/avatar.svg"/>
           </ion-avatar>

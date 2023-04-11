@@ -40,7 +40,7 @@
 
       </span>
 
-      <ion-fab mode="ios" v-if="items && items.length" @click="$router.push({path:'/new/wedding'})" id="open-modal" vertical="bottom" class="ion-margin"
+      <ion-fab mode="ios" v-if="items && items.length" @click="$router.push({path:'/new/Wedding'})" id="open-modal" vertical="bottom" class="ion-margin"
                horizontal="end" slot="fixed">
         <ion-fab-button mode="ios">
           <ion-icon :icon="addOutline"></ion-icon>

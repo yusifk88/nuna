@@ -3,8 +3,8 @@
   <loading-component v-if="loading"></loading-component>
   <span v-else>
 
-  <no-record-component :show-button="false" title="No Activities Yet"
-                       description="You do not have activities on your wedding page yet"
+  <no-record-component :show-button="false" title="No Activities Yet."
+                       description="Get the word out for your big day and watch the love pour in."
                        v-if="!items.length"></no-record-component>
   <ion-list class="no-margin" v-else>
 

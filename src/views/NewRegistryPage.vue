@@ -4,12 +4,12 @@
       <ion-toolbar>
         <ion-back-button slot="start"></ion-back-button>
         <ion-title>
-          {{ $route.params.type }} registry
+          {{ $route.params.type }} Registry
         </ion-title>
 
       </ion-toolbar>
     </ion-header>
-    <wedding-registry-component v-if="$route.params.type==='wedding'"></wedding-registry-component>
+    <wedding-registry-component v-if="$route.params.type.toLowerCase()==='wedding'"></wedding-registry-component>
   </ion-page>
 
 </template>

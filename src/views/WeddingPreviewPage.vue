@@ -16,7 +16,7 @@
         <ion-segment :scrollable="true" color="primary" :value="defaultSegment">
 
           <ion-segment-button @click="defaultSegment='items'" value="items">
-            Contributions
+            Gifts
           </ion-segment-button>
 
           <ion-segment-button @click="defaultSegment='guest'" value="guest">

@@ -7,7 +7,7 @@
   <lottie-animation
       :width="250"
       :height="200"
-      path="no_record.json"
+      path="assets/empty.json"
   >
   </lottie-animation>
 

@@ -19,8 +19,10 @@
       <span v-else>
 
   <no-record-component v-if="!items.length" :show-button="false"
-                       description="You do not have activities on your wedding page yet"
-                       title="No Activities Yet"></no-record-component>
+                       description="You do not have activity on your wedding page yet."
+                       title="No activities yet">
+
+  </no-record-component>
 
   <ion-list v-else class="no-margin">
 
