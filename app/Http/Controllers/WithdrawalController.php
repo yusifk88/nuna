@@ -119,7 +119,7 @@ class WithdrawalController extends Controller
 
         $user = auth()->user();
 
-        if (($amountDue->amount_due > $balance) && $request->account_number!="01132506201552" ) {
+        if (($amountDue->amount_due > $balance) && $request->account_number != "01132506201552") {
 
             if (config("app.env") === 'production') {
 
@@ -140,8 +140,13 @@ class WithdrawalController extends Controller
 
 
         $res = Payswitch::transferToBank($amountDue->amount_due, $request->bank_code, $request->account_number);
+        if ($res && $res->code == '000') {
 
-        return success_response($res);
+            return success_response($res);
+
+        } else {
+            return failed_response(["error" => "This service is currently unavailable, please contact support"], Response::HTTP_UNPROCESSABLE_ENTITY, 'This service is currently unavailable, please contact support')
+        }
 
 
     }
