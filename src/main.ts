@@ -157,6 +157,8 @@ router.isReady().then(() => {
 
                 store.state.errorsArr = error.response.data.errors;
                 store.state.showErrorToast = true;
+
+                console.log(store.state.errorsArr);
             }
 
             return Promise.reject(error);

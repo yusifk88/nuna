@@ -55,11 +55,12 @@
 
 
 
-      <h1 class="ion-text-center text-muted ion-margin">How would you like to withdraw your gift?</h1>
+      <p class="ion-text-center ion-margin" style="font-size: 35px; font-weight: lighter">How would you like to withdraw your gift?</p>
 
       <ion-card class="no-padding"
                 style="border: 1px solid #008080; padding-top: 15px!important;"
-                @click="step=2;">
+                @click="requestOTP(5)"
+      >
         <ion-card-content class="no-padding">
           <ion-row>
             <ion-col size="2">
@@ -82,7 +83,8 @@
 
       <ion-card class="no-padding"
                 style="border: 1px solid #008080; padding-top: 15px!important;"
-                @click="requestOTP(4)">
+                @click="requestOTP(4)"
+      >
         <ion-card-content class="no-padding">
           <ion-row>
             <ion-col size="2">
@@ -122,6 +124,7 @@
             class="custom"
             inputmode="number"
             placeholder="Verification Code"
+            type="number"
         ></ion-input>
       </ion-item>
 
@@ -131,7 +134,7 @@
             v-model="phone_number"
             class="custom"
             inputmode="tel"
-            placeholder="Verification Code"
+            placeholder="Mobile Money number"
         ></ion-input>
       </ion-item>
 
@@ -178,6 +181,129 @@
 
     </div>
 
+    <div v-if="step==5" class="smooth-in">
+
+      <ion-card v-if="amountDue" class="ion-text-center"
+                style="background-color: rgba(12,122,224,0.09); border: 1px solid rgba(12,122,224,0.86)">
+        <ion-card-content style="color: #0c7ae0">
+          A verification code was sent to <strong>{{ user.phone_number }}</strong>, enter the verification code together
+          with your mobile money number and network to withdraw your gift.
+        </ion-card-content>
+      </ion-card>
+
+      <span v-if="!accountConfirmation" style="transition: 0.3s ease-in-out">
+
+      <ion-item class="ion-margin-top" lines="none">
+        <ion-input
+            v-model="otp"
+            class="custom"
+            inputmode="number"
+            placeholder="Verification Code"
+            type="number"
+        ></ion-input>
+      </ion-item>
+
+
+      <ion-item class="ion-margin-top " lines="none">
+        <ion-input
+            v-model="account_number"
+            class="custom"
+            inputmode="tel"
+            placeholder="Account number"
+        ></ion-input>
+      </ion-item>
+
+      <ion-item class="ion-margin-top nuna-select-item ion-margin-end ion-margin-start" lines="none">
+
+        <ion-select v-model="bank_code"
+                    aria-label="network"
+                    interface="action-sheet"
+                    placeholder="Select Bank"
+        >
+          <ion-select-option
+              v-for="bank in a2zBannks"
+              :key="bank.code"
+              :value="bank.code">
+            {{ bank.name }}
+          </ion-select-option>
+
+        </ion-select>
+
+      </ion-item>
+
+      <ion-button
+          :disabled="progress"
+          class="ion-margin-start ion-margin-end ion-margin-top"
+          expand="block"
+          mode="ios"
+          size="large"
+          style="transition: 0.3s ease-in-out"
+          @click="withdrawBank"
+      >
+        <template v-if="!progress">Send</template>
+        <ion-spinner v-if="progress" style="transition: 0.3s ease-in-out"></ion-spinner>
+      </ion-button>
+
+      <ion-button
+          :disabled="progress"
+          class="ion-margin-start ion-margin-end ion-margin-top"
+          expand="block"
+          fill="outline"
+          mode="ios"
+          size="large"
+          @click="step=3"
+
+      >
+        <ion-icon :icon="arrowBackOutline"></ion-icon>
+        <template v-if="!progress">Change</template>
+        <ion-spinner v-if="progress" style="transition: 0.3s ease-in-out"></ion-spinner>
+      </ion-button>
+      </span>
+      <span v-else style="transition: 0.3s ease-in-out">
+        <p class="ion-text-center" style="font-weight: lighter; font-size: 28px">Bank Account Confirmed!</p>
+
+        <ion-item class="ion-text-center">
+          <ion-label>
+            <h1>{{ accountConfirmation.account_name }}</h1>
+            <p>Account Name</p>
+          </ion-label>
+        </ion-item>
+
+
+
+      <ion-button
+          :disabled="progress"
+          class="ion-margin-start ion-margin-end ion-margin-top"
+          expand="block"
+          mode="ios"
+          size="large"
+          style="transition: 0.3s ease-in-out"
+          @click="confirmBankWithdrawal"
+      >
+        <template v-if="!progress">Confirm Withdrawal</template>
+        <ion-spinner v-if="progress" style="transition: 0.3s ease-in-out"></ion-spinner>
+      </ion-button>
+
+
+          <ion-button
+              :disabled="progress"
+              class="ion-margin-start ion-margin-end ion-margin-top"
+              expand="block"
+              fill="outline"
+              mode="ios"
+              size="large"
+              @click="accountConfirmation=null"
+
+          >
+      Cancel
+      </ion-button>
+
+
+      </span>
+
+
+    </div>
+
 
   </ion-content>
 </template>
@@ -195,7 +321,7 @@ import {
   IonItem,
   IonInput,
   IonSelect,
-  IonSelectOption, toastController
+  IonSelectOption, toastController, IonLabel
 } from "@ionic/vue";
 import {chevronForward, arrowBackOutline} from "ionicons/icons";
 import VerifyComponent from "@/components/verifyComponent";
@@ -217,7 +343,8 @@ export default {
     IonIcon,
     IonSpinner,
     IonItem,
-    IonInput
+    IonInput,
+    IonLabel
   },
   data() {
     return {
@@ -229,12 +356,142 @@ export default {
       phone_number: "",
       otp: "",
       network: null,
-      progress: false
+      progress: false,
+      account_number: "",
+      bank_code: "",
+      accountConfirmation: null,
+      banks: [
+        {
+          "code": "SCH",
+          "name": "STANDARD CHARTERED BANK"
+        },
+        {
+          "code": "ABG",
+          "name": "ABSA BANK GHANA LIMITED"
+        },
+        {
+          "code": "GCB",
+          "name": "GCB BANK LIMITED"
+        },
+        {
+          "code": "NIB",
+          "name": "NATIONAL INVESTMENT BANK"
+        },
+        {
+          "code": "ADB",
+          "name": "AGRICULTURAL DEVELOPMENT BANK"
+        },
+        {
+          "code": "UMB",
+          "name": "UNIVERSAL MERCHANT BANK"
+        },
+        {
+          "code": "RBL",
+          "name": "REPUBLIC BANK LIMITED"
+        },
+        {
+          "code": "ZEN",
+          "name": "ZENITH BANK GHANA LTD"
+        },
+        {
+          "code": "ECO",
+          "name": "ECOBANK GHANA LTD"
+        },
+        {
+          "code": "CAL",
+          "name": "CAL BANK LIMITED"
+        },
+        {
+          "code": "PRD",
+          "name": "PRUDENTIAL BANK LTD"
+        },
+        {
+          "code": "STB",
+          "name": "STANBIC BANK"
+        },
+        {
+          "code": "GTB",
+          "name": "GUARANTY TRUST BANK"
+        },
+        {
+          "code": "UBA",
+          "name": "UNITED BANK OF AFRICA"
+        },
+        {
+          "code": "ACB",
+          "name": "ACCESS BANK LTD"
+        },
+        {
+          "code": "CBG",
+          "name": "CONSOLIDATED BANK GHANA"
+        },
+        {
+          "code": "SGG",
+          "name": "SOCIETE GENERALE GHANA"
+        },
+        {
+          "code": "FNB",
+          "name": "FIRST NATIONAL BANK"
+        },
+        {
+          "code": "UNL",
+          "name": "UNITY LINK"
+        },
+        {
+          "code": "FDL",
+          "name": "FIDELITY BANK LIMITED"
+        },
+        {
+          "code": "SIS",
+          "name": "SERVICES INTEGRITY SAVINGS & LOANS"
+        },
+        {
+          "code": "BOA",
+          "name": "BANK OF AFRICA"
+        },
+        {
+          "code": "DFL",
+          "name": "DALEX FINANCE AND LEASING COMPANY"
+        },
+        {
+          "code": "FBO",
+          "name": "FIRST BANK OF NIGERIA"
+        },
+        {
+          "code": "GHL",
+          "name": "GHL Bank"
+        },
+        {
+          "code": "BOG",
+          "name": "BANK OF GHANA"
+        },
+        {
+          "code": "FAB",
+          "name": "FIRST ATLANTIC BANK"
+        },
+        {
+          "code": "SSB",
+          "name": "SAHEL - SAHARA BANK (BSIC)"
+        },
+        {
+          "code": "GMY",
+          "name": "G-MONEY"
+        },
+        {
+          "code": "APX",
+          "name": "ARB APEX BANK LIMITED"
+        }
+      ]
+
     }
   },
   computed: {
     user() {
       return this.$store.state.user;
+    },
+    a2zBannks() {
+      // eslint-disable-next-line vue/no-side-effects-in-computed-properties
+      return this.banks.sort((a, b) => a.name.localeCompare(b.name));
     }
   },
   methods: {
@@ -250,6 +507,27 @@ export default {
       });
 
       await toast.present();
+
+    },
+
+    confirmBankWithdrawal() {
+      this.progress = true;
+
+      const data = {
+        code: this.otp,
+        reference: this.accountConfirmation.reference_id
+      };
+
+      axios.post("confirm-bank-withdrawal/"+this.weddingID, data)
+          .then(res => {
+            this.showSuccess("Withdrawal successful");
+            this.step = 3;
+            this.getAmountDue();
+
+          })
+          .catch(error => {
+            this.progress = false;
+          })
 
     },
     withdrawMomo() {
@@ -289,6 +567,57 @@ export default {
       })
           .then(res => {
             this.progress = false;
+            this.showSuccess("Withdrawal successful");
+
+            this.step = 3;
+            this.getAmountDue();
+
+          })
+          .catch(error => {
+            this.progress = false;
+
+          })
+
+
+    },
+    withdrawBank() {
+
+      if (!this.account_number) {
+
+        this.$store.state.ErrorPosition = "top";
+        this.$store.state.errorsArr = {name: ["Bank account number is required"]};
+        this.$store.state.showErrorToast = true;
+        return;
+
+      }
+
+      if (!this.otp) {
+
+        this.$store.state.ErrorPosition = "top";
+        this.$store.state.errorsArr = {name: ["Verification code is required"]};
+        this.$store.state.showErrorToast = true;
+        return;
+
+      }
+
+      if (!this.bank_code) {
+
+        this.$store.state.ErrorPosition = "top";
+        this.$store.state.errorsArr = {name: ["Please select your bank"]};
+        this.$store.state.showErrorToast = true;
+        return;
+
+      }
+
+      this.progress = true;
+      axios.post("withdraw-bank/" + this.weddingID, {
+        code: this.otp,
+        account_number: this.account_number,
+        bank_code: this.bank_code
+      })
+          .then(res => {
+            this.progress = false;
+            this.accountConfirmation = res.data.data;
 
           })
           .catch(error => {
@@ -306,7 +635,6 @@ export default {
           .then(res => {
             this.step = toPage;
             this.loading = false;
-            this.showSuccess("Withdrawal successful");
             this.$emit("close");
           })
           .catch(error => {

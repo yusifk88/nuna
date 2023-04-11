@@ -28,7 +28,6 @@
     "@ionic/vue-router": "^6.0.0",
     "apexcharts": "^3.36.3",
     "axios": "^0.27.2",
-    "cordova-plugin-telerik-imagepicker": "^2.3.6",
     "core-js": "^3.6.5",
     "flag-icons": "^6.6.6",
     "ionicons": "^6.0.3",

@@ -1,18 +1,19 @@
 <template>
   <ion-app>
     <error-component></error-component>
-    <ion-spinner style="font-size: 200px !important; margin: auto !important;" name="dots" color="primary"
-                 v-if="$store.state.initApp"></ion-spinner>
+    <ion-spinner v-if="$store.state.initApp" color="primary" name="dots"
+                 style="font-size: 200px !important; margin: auto !important;"></ion-spinner>
 
     <ion-router-outlet v-else-if="store.state.networkConnected"/>
 
-    <ion-content class="ion-padding ion-text-center" v-else>
+    <ion-content v-else class="ion-padding ion-text-center">
 
-      <img style="height: 100px; width: 100px; margin-top: 10%" class="ion-margin" src="/assets/icon/network.png">
+      <img class="ion-margin" src="/assets/icon/network.png" style="height: 100px; width: 100px; margin-top: 10%">
 
       <h1>No Internet</h1>
-      <p class="text-muted ion-padding">It looks like you are not connected to the internet, please check your connection and try again.</p>
-      <ion-button @click="retry" size="large" expand="block" mode="ios" class="ion-margin" >Retry</ion-button>
+      <p class="text-muted ion-padding">It looks like you are not connected to the internet, please check your
+        connection and try again.</p>
+      <ion-button class="ion-margin" expand="block" mode="ios" size="large" @click="retry">Retry</ion-button>
 
     </ion-content>
 
@@ -31,7 +32,7 @@
 
       </ion-row>
       <ion-row>
-        <ion-col size="12" class="ion-text-center">
+        <ion-col class="ion-text-center" size="12">
 
           <img height="40" src="https://objectstorage.uk-london-1.oraclecloud.com/n/lrj6a9vl4is6/b/MyBucket/o/logo.png">
         </ion-col>
@@ -45,8 +46,8 @@
 
 <span>
  <lottie-animation
-     :width="350"
      :height="350"
+     :width="350"
      class="ion-margin"
      path="welcome.json"></lottie-animation>
 
@@ -57,7 +58,7 @@
       </p>
 
 
-              <ion-button mode="ios" @click="goToNext" class="ion-margin" expand="block" size="large">Continue<ion-icon
+              <ion-button class="ion-margin" expand="block" mode="ios" size="large" @click="goToNext">Continue<ion-icon
                   :icon="arrowForwardOutline"></ion-icon></ion-button>
 
   </span>
@@ -67,8 +68,8 @@
         <ion-slide>
          <span>
  <lottie-animation
-     :width="350"
      :height="350"
+     :width="350"
      class="ion-margin"
      path="people.json"></lottie-animation>
 
@@ -78,7 +79,7 @@
         where your friends can indicate that they would be attending.
       </p>
 
-              <ion-button mode="ios"  @click="goToNext" class="ion-margin" expand="block" size="large">Continue<ion-icon
+              <ion-button class="ion-margin" expand="block" mode="ios" size="large" @click="goToNext">Continue<ion-icon
                   :icon="arrowForwardOutline"></ion-icon></ion-button>
 
   </span>
@@ -89,8 +90,8 @@
         <ion-slide>
                 <span>
  <lottie-animation
-     :width="350"
      :height="350"
+     :width="350"
      class="ion-margin"
      path="signup.json"></lottie-animation>
 
@@ -99,7 +100,8 @@
         Get started by creating your Nuna Account
       </p>
 
-        <ion-button mode="ios"  @click="exitDialog" class="ion-margin" expand="block" size="large">Create Account</ion-button>
+        <ion-button class="ion-margin" expand="block" mode="ios" size="large"
+                    @click="exitDialog">Create Account</ion-button>
 
   </span>
 
@@ -114,7 +116,7 @@
 
 <script>
 
-import { Network } from '@capacitor/network';
+import {Network} from '@capacitor/network';
 
 import {
   IonApp,
@@ -164,16 +166,16 @@ export default defineComponent({
     }
   },
   methods: {
-    retry(){
+    retry() {
       store.commit("initUser");
 
     },
-    exitDialog(){
-      this.store.state.showStart=false;
+    exitDialog() {
+      this.store.state.showStart = false;
 
       router.push("/register");
 
-      localStorage.setItem("showstart","true");
+      localStorage.setItem("showstart", "true");
     },
     goToNext() {
       const swiper = document.querySelector('.swiper').swiper;
@@ -219,7 +221,7 @@ export default defineComponent({
   animation: slide-in 0.3s ease-in-out 0s 1 normal forwards;
 }
 
-.ui-pattern{
+.ui-pattern {
   width: 100%;
   height: 15vh;
   background-color: rgba(0, 128, 128, 0.99);
@@ -237,7 +239,7 @@ export default defineComponent({
 
 ion-textarea.custom {
   --background: #D3D3D328;
-  padding: 5px!important;
+  padding: 5px !important;
   border-radius: 10px;
   --placeholder-color: #80808090;
   --placeholder-opacity: .8;
@@ -248,7 +250,7 @@ ion-textarea.custom {
   --padding-top: 10px;
 }
 
-.nuna-select-item{
+.nuna-select-item {
   --background: #D3D3D328;
   border-radius: 10px;
   --placeholder-color: #80808090;
@@ -259,7 +261,7 @@ ion-textarea.custom {
 ion-input.custom {
 
   --background: #D3D3D328;
-  padding: 5px!important;
+  padding: 5px !important;
   padding-left: 20px !important;
   padding-right: 20px !important;
   border-radius: 10px;
