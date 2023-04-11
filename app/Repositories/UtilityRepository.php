@@ -15,7 +15,6 @@ class UtilityRepository
 
 
     #[ArrayShape(["rate" => "float", "total" => "mixed", "charge" => "float|int", "amount_due" => "float|int|mixed"])]
-
     public static function getAmountDue(Wedding $wedding): array
     {
 
@@ -29,9 +28,9 @@ class UtilityRepository
 
         return [
             "rate" => self::CHARGE,
-            "total" => round($subTotal,2),
-            "charge" => round($charge,2),
-            "amount_due" => round($amountDue,2)
+            "total" => round($subTotal, 2),
+            "charge" => round($charge, 2),
+            "amount_due" => round($amountDue, 2)
         ];
 
 
@@ -40,7 +39,6 @@ class UtilityRepository
 
     public static function makeTag($tag, string $brideName, string $groomName)
     {
-
 
         if ($tag) {
 

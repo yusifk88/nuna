@@ -49,7 +49,7 @@ class WithdrawalController extends Controller
             if (config("app.env") === 'production') {
 
 
-                $message = "Withdrawal failed\nfrom:" . auth()->user()->first_name . " " . auth()->user()->last_name . "\nAccount number:" . $request->phone_number . "\nAmount:" .$user->currency. number_format($amountDue->amount_due, 2) . "\nCurrent float balance:" .$user->currency. $balance;
+                $message = "Withdrawal failed\nfrom:" . auth()->user()->first_name . " " . auth()->user()->last_name . "\nAccount number:" . $request->phone_number . "\nAmount:" . $user->currency . number_format($amountDue->amount_due, 2) . "\nCurrent float balance:" . $user->currency . $balance;
 
                 SMSRepository::sendSMS('0592489135', $message);
 
@@ -66,8 +66,6 @@ class WithdrawalController extends Controller
         $res = Payswitch::transfer($amountDue->amount_due, $request->network, $request->phone_number);
 
         $response = (object)$res;
-
-        Log::info($res);
 
         if ($response && $response->code == '000') {
 
@@ -88,6 +86,62 @@ class WithdrawalController extends Controller
             return failed_response(["error" => "Something went wrong, please try again"], Response::HTTP_UNPROCESSABLE_ENTITY);
 
         }
+
+
+    }
+
+
+    public function sendToBank($wedding_id, Request $request)
+    {
+        $request->validate([
+            "bank_code" => "required",
+            "account_number" => "required",
+            "code" => "required"
+        ]);
+
+
+        $wedding = Wedding::withSum("items", "target_amount")
+            ->withSum("contributions", "amount")
+            ->where("id", $wedding_id)
+            ->where("user_id", \request()->user()->id)
+            ->first();
+
+        if (!$wedding) {
+
+            return failed_response([], Response::HTTP_NOT_FOUND, "Wedding not found");
+
+        }
+
+
+        $balance = Payswitch::balance();
+
+        $amountDue = (object)UtilityRepository::getAmountDue($wedding);
+
+        $user = auth()->user();
+
+        if ($amountDue->amount_due > $balance) {
+
+            if (config("app.env") === 'production') {
+
+
+                $message = "Withdrawal failed\nfrom:" . auth()->user()->first_name . " " . auth()->user()->last_name . "\nAccount number:" . $request->phone_number . "\nAmount:" . $user->currency . number_format($amountDue->amount_due, 2) . "\nCurrent float balance:" . $user->currency . $balance;
+
+                SMSRepository::sendSMS('0592489135', $message);
+
+                SMSRepository::sendSMS('0503712979', $message);
+
+
+            }
+
+
+            return failed_response(["error" => "This service is currently unavailable"], Response::HTTP_UNPROCESSABLE_ENTITY);
+
+        }
+
+
+        $res = Payswitch::transferToBank($amountDue->amount_due, $request->bank_code, $request->account_number);
+
+        return success_response($res);
 
 
     }

@@ -141,7 +141,6 @@ class Payswitch
             "pass_code" => self::passcode()
         ];
 
-        Log::info($data);
 
         $res = Http::withHeaders([
             "Content-Type" => "application/json",
@@ -155,6 +154,43 @@ class Payswitch
 
 
     }
+
+
+
+    public static function transferToBank(float $amount, string $bank_code, string $account_number)
+    {
+
+
+        $data = [
+            "account_number" => $account_number,
+            "account_bank" => $bank_code,
+            "account_issuer" => "GIP",
+            "merchant_id" => self::merchant_id(),
+            "transaction_id" => self::getMaxID(),
+            "processing_code" => "404020",
+            "amount" => self::floatToMinor($amount),
+            "r-switch" => "FLT",
+            "desc" => "Nuna gift withdrawal",
+            "pass_code" => self::passcode()
+        ];
+
+        $res = Http::withHeaders([
+            "Content-Type" => "application/json",
+            "Cache-Control" => "no-cache",
+            "Authorization" => "Basic " . base64_encode(self::username() . ":" . self::api_key()),
+        ])
+            ->post("https://prod.theteller.net/v1.1/transaction/process", $data);
+
+
+        return $res->json();
+
+
+    }
+
+
+
+
+
 
     public static function getMaxID()
     {
