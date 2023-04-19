@@ -69,11 +69,11 @@ class Payswitch
         return config("payswitch.url");
     }
 
-    public static function verifyTransaction($transaction_id)
+    public static function verifyTransaction($transaction_id): object
     {
 
 
-        return Http::withHeaders(
+        $res = Http::withHeaders(
             [
                 "Content-Type" => "application/json",
                 "Cache-Control" => "no-cache",
@@ -81,6 +81,8 @@ class Payswitch
             ]
         )
             ->get("https://prod.theteller.net/v1.1/users/transactions/" . $transaction_id . "/status");
+
+        return (object)$res->json();
 
     }
 
