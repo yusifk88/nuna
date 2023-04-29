@@ -13,4 +13,10 @@ class Wedding extends Model
     public function user(){
         return $this->hasOne(AppUser::class,"id","user_id");
     }
+
+    public function totalAmount(){
+
+        return $this->hasOne(WeddingContribution::class,"wedding_id","id")->where("success",1);
+
+    }
 }

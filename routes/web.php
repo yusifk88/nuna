@@ -23,9 +23,12 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/dashboard', [DashboardsControler::class, "index"])->name("dashboard");
 
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get("/users", [DashboardsControler::class, "users"])->name("users.index");
+    Route::get("/users/{id}", [DashboardsControler::class, "show"])->name("users.show");
+    Route::get("/weddings", [DashboardsControler::class, "weddings"])->name("weddings.index");
+    Route::get("/transactions", [DashboardsControler::class, "transactions"])->name("transactions.index");
+
+
 });
 
 require __DIR__ . '/auth.php';

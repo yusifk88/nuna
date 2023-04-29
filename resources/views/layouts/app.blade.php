@@ -29,7 +29,7 @@
     <link href="/assets/vendor/simple-datatables/style.css" rel="stylesheet">
 
     <!-- Template Main CSS File -->
-    <link href="assets/css/style.css" rel="stylesheet">
+    <link href="/assets/css/style.css" rel="stylesheet">
 
     <!-- =======================================================
     * Template Name: NiceAdmin - v2.2.2
@@ -100,15 +100,15 @@
 
         <ul class="sidebar-nav" id="sidebar-nav">
 
-            <li class="nav-item">
-                <a class="nav-link " href="{{route('dashboard')}}">
+            <li class="nav-item ">
+                <a class="nav-link" href="{{route('dashboard')}}">
                     <i class="bi bi-grid"></i>
                     <span>Dashboard</span>
                 </a>
             </li><!-- End Dashboard Nav -->
 
             <li class="nav-item">
-                <a class="nav-link " href="{{route('dashboard')}}">
+                <a class="nav-link " href="{{route('users.index')}}">
                     <i class="bi bi-user"></i>
                     <span>Users</span>
                 </a>
@@ -116,7 +116,7 @@
 
 
             <li class="nav-item">
-                <a class="nav-link " href="{{route('dashboard')}}">
+                <a class="nav-link " href="{{route('weddings.index')}}">
                     <i class="bi bi-list"></i>
                     <span>Weddings</span>
                 </a>
@@ -125,7 +125,7 @@
 
 
             <li class="nav-item">
-                <a class="nav-link " href="{{route('dashboard')}}">
+                <a class="nav-link " href="{{route('transactions.index')}}">
                     <i class="bi bi-list-check"></i>
                     <span>Transactions</span>
                 </a>
@@ -145,16 +145,16 @@
 
 
 <!-- Vendor JS Files -->
-<script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
-<script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="assets/vendor/chart.js/chart.min.js"></script>
-<script src="assets/vendor/echarts/echarts.min.js"></script>
-<script src="assets/vendor/quill/quill.min.js"></script>
-<script src="assets/vendor/simple-datatables/simple-datatables.js"></script>
-<script src="assets/vendor/tinymce/tinymce.min.js"></script>
-<script src="assets/vendor/php-email-form/validate.js"></script>
+<script src="/assets/vendor/apexcharts/apexcharts.min.js"></script>
+<script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/assets/vendor/chart.js/chart.min.js"></script>
+<script src="/assets/vendor/echarts/echarts.min.js"></script>
+<script src="/assets/vendor/quill/quill.min.js"></script>
+<script src="/assets/vendor/simple-datatables/simple-datatables.js"></script>
+<script src="/assets/vendor/tinymce/tinymce.min.js"></script>
+<script src="/assets/vendor/php-email-form/validate.js"></script>
 
 <!-- Template Main JS File -->
-<script src="assets/js/main.js"></script>
+<script src="/assets/js/main.js"></script>
 </body>
 </html>

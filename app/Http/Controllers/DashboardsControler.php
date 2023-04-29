@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AppUser;
 use App\Models\Wedding;
 use App\Models\WeddingContribution;
 use App\Services\Payswitch;
@@ -10,6 +11,7 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Symfony\Component\HttpFoundation\Response;
 
 class DashboardsControler extends Controller
 {
@@ -19,8 +21,8 @@ class DashboardsControler extends Controller
         $payswitchReq = Payswitch::getBalance();
 
 
-        $payswitchBalance = $payswitchReq['code']==='000' ? (int)$payswitchReq['reason'] : 0;
-        $convertedBalance =$payswitchBalance>0 ?  $payswitchBalance/100 : 0;
+        $payswitchBalance = $payswitchReq['code'] === '000' ? (int)$payswitchReq['reason'] : 0;
+        $convertedBalance = $payswitchBalance > 0 ? $payswitchBalance / 100 : 0;
 
 
         $totalUsers = DB::table("users")->count();
@@ -30,7 +32,7 @@ class DashboardsControler extends Controller
         $totalCharges = round(0.08 * $totalCollections, 2);
 
         $recentTransactions = WeddingContribution::with("wedding")
-            ->orderBy("id",'desc')->limit(10)->get();
+            ->orderBy("id", 'desc')->limit(10)->get();
 
         $recentWeddings = Wedding::with("user")->limit(10)->get();
 
@@ -38,13 +40,80 @@ class DashboardsControler extends Controller
             "totalUsers" => $totalUsers,
             "totalCollections" => $totalCollections,
             "totalCharges" => $totalCharges,
-            "recentTransactions"=>$recentTransactions,
-            "recentWeddings"=>$recentWeddings,
-            "balance"=>$convertedBalance
+            "recentTransactions" => $recentTransactions,
+            "recentWeddings" => $recentWeddings,
+            "balance" => $convertedBalance
         ];
 
         return view('dashboard', $data);
 
 
     }
+
+
+    /**
+     * @return Application|Factory|View|\Illuminate\Foundation\Application
+     */
+
+    public function users()
+    {
+
+        $allUsers = AppUser::orderBy("id", "desc")->paginate(100);
+
+
+        return \view("users.index", ["users" => $allUsers]);
+
+
+    }
+
+
+    public function show(int $id): Factory|\Illuminate\Foundation\Application|View|Application
+    {
+
+        $user = AppUser::find($id);
+
+        if (!$user) {
+            abort(Response::HTTP_NOT_FOUND);
+        }
+
+
+        $identity = DB::table("verifications")->where("user_id", $id)->first();
+
+        $weddings = DB::table("wedding")->where("user_id", $id)->orderBy("id", 'desc')->get();
+
+        return \view("users.show", [
+            "user" => $user,
+            "identity" => $identity,
+            "weddings" => $weddings
+        ]);
+
+
+    }
+
+
+    /**
+     * @return Factory|\Illuminate\Foundation\Application|View|Application
+     */
+    public function weddings(): Factory|\Illuminate\Foundation\Application|View|Application
+    {
+        $weddings = Wedding::with("user")->withSum("totalAmount", "amount")->orderBy("id", "desc")->paginate(100);
+
+
+        return \view("weddings.index", [
+            "weddings" => $weddings
+        ]);
+    }
+
+
+
+
+    public function transactions(){
+
+        $transactions = WeddingContribution::with("wedding")->orderBy("id","desc")->paginate(100);
+
+        return \view("transactions.index",['transactions'=>$transactions]);
+
+
+    }
+
 }
