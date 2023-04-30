@@ -33,7 +33,7 @@
                         <div class="card info-card revenue-card">
 
                             <div class="card-body">
-                                <h5 class="card-title">Total Charges</h5>
+                                <h5 class="card-title">Total Commissions</h5>
 
                                 <div class="d-flex align-items-center">
                                     <div
