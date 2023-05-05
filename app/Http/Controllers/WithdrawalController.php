@@ -72,7 +72,7 @@ class WithdrawalController extends Controller
         if ($response && $response->code == '000') {
 
 
-            Log::info($amountDue);
+            Log::info((array)$amountDue);
 
             Wedding::where("id", $wedding_id)->update(['withdraw_amount' => $amountDue->total]);
 
