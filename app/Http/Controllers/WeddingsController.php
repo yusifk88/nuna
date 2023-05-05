@@ -54,11 +54,12 @@ class WeddingsController extends Controller
 
 
         }
+
         $record = WeddingContribution::where("transaction_id", $transaction_id)->where('success',false)->first();
 
 
 
-        if ( $code == '000' && $transaction_id) {
+        if ($code == '000') {
 
 
             if ($record) {

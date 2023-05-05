@@ -44,6 +44,7 @@ class WithdrawalController extends Controller
 
         $user = auth()->user();
 
+
         if ($amountDue->amount_due > $balance) {
 
             if (config("app.env") === 'production') {
@@ -63,22 +64,22 @@ class WithdrawalController extends Controller
 
         }
 
+
         $res = Payswitch::transfer($amountDue->amount_due, $request->network, $request->phone_number);
 
         $response = (object)$res;
 
         if ($response && $response->code == '000') {
 
-            $wedding->withdraw_amount = $amountDue->total;
-            $wedding->update();
+            Wedding::where("id", $wedding_id)->update(['withdraw_amount' => $amountDue->total]);
 
 
-            $message = "Congratulations " . $user->first_name . "\n
-            You have successfully withdrawn your gift. \n
-            Thank you for choosing Nuna";
+            $message = "Congratulations " . $user->first_name . "\nYou have successfully withdrawn your gift. \nThank you for choosing Nuna";
 
             SMSRepository::sendSMS(auth()->user()->phone_number, $message);
+
             pushNotificationRepository::sendNotification($user, $message);
+
 
         } else {
 
@@ -108,6 +109,7 @@ class WithdrawalController extends Controller
             ->where("user_id", $user->id)
             ->first();
 
+
         if (!$wedding) {
 
             return failed_response([], Response::HTTP_NOT_FOUND, "Wedding not found");
@@ -120,12 +122,13 @@ class WithdrawalController extends Controller
         $amountDue = (object)UtilityRepository::getAmountDue($wedding);
 
 
-        if (($amountDue->amount_due > $balance) && $request->account_number != "01132506201552") {
+        if (($amountDue->amount_due > $balance)) {
+
 
             if (config("app.env") === 'production') {
 
 
-                $message = "Withdrawal failed\nfrom:" . auth()->user()->first_name . " " . auth()->user()->last_name . "\nAccount number:" .  $request->bank_code."/".$request->account_number . "\nAmount:" . $user->currency . number_format($amountDue->amount_due, 2) . "\nCurrent float balance:" . $user->currency . $balance;
+                $message = "Withdrawal failed\nfrom:" . auth()->user()->first_name . " " . auth()->user()->last_name . "\nAccount number:" . $request->bank_code . "/" . $request->account_number . "\nAmount:" . $user->currency . number_format($amountDue->amount_due, 2) . "\nCurrent float balance:" . $user->currency . $balance;
 
                 SMSRepository::sendSMS('0592489135', $message);
 
@@ -147,17 +150,7 @@ class WithdrawalController extends Controller
             return success_response($res);
 
         } else {
-            if ($request->account_number == "01132506201552") {
 
-                return success_response([
-                    "status" => "successful",
-                    "code" => "000",
-                    "reference_id" => "153600134089",
-                    "account_name" => "Yussif Katulie",
-                    "reason" => "success"
-                ]);
-
-            }
 
             return failed_response(['bank_error' => ["This service is currently unavailable, please contact support."]], Response::HTTP_UNPROCESSABLE_ENTITY, 'This service is currently unavailable, please contact support');
         }
@@ -210,9 +203,7 @@ class WithdrawalController extends Controller
                 $wedding->update();
 
 
-                $message = "Congratulations " . $user->first_name . "\n
-            You have successfully withdrawn your gift. \n
-            Thank you for choosing Nuna";
+                $message = "Congratulations " . $user->first_name . "\nYou have successfully withdrawn your gift.\nThank you for choosing Nuna";
 
                 SMSRepository::sendSMS(auth()->user()->phone_number, $message);
                 pushNotificationRepository::sendNotification($user, $message);
