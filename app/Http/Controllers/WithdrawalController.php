@@ -72,8 +72,6 @@ class WithdrawalController extends Controller
         if ($response && $response->code == '000') {
 
 
-            Log::info((array)$amountDue);
-
             Wedding::where("id", $wedding_id)->update(['withdraw_amount' => $amountDue->total]);
 
 
@@ -82,6 +80,9 @@ class WithdrawalController extends Controller
             SMSRepository::sendSMS(auth()->user()->phone_number, $message);
 
             pushNotificationRepository::sendNotification($user, $message);
+
+
+            return success_response([], "withdrawal successful");
 
 
         } else {
