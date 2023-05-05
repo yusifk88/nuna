@@ -72,7 +72,7 @@ class WithdrawalController extends Controller
         if ($response && $response->code == '000') {
 
 
-            Wedding::where("id", $wedding_id)->update(['withdraw_amount' => $amountDue->total]);
+            Wedding::where("id", $wedding_id)->update(['withdraw_amount' => $amountDue->total+$wedding->contributions_sum_amount]);
 
 
             $message = "Congratulations " . $user->first_name . "\nYou have successfully withdrawn your gift. \nThank you for choosing Nuna";
