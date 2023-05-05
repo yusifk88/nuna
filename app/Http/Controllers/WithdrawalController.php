@@ -8,9 +8,6 @@ use App\Repositories\pushNotificationRepository;
 use App\Repositories\SMSRepository;
 use App\Repositories\UtilityRepository;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Validation\ValidationException;
-use Ladumor\OneSignal\OneSignal;
 use Symfony\Component\HttpFoundation\Response;
 
 class WithdrawalController extends Controller
@@ -42,6 +39,15 @@ class WithdrawalController extends Controller
 
         $amountDue = (object)UtilityRepository::getAmountDue($wedding);
 
+
+        if ($amountDue->amount_due <= 0) {
+
+            return failed_response([], Response::HTTP_SERVICE_UNAVAILABLE, "Insufficient balance");
+
+
+        }
+
+
         $user = auth()->user();
 
 
@@ -72,7 +78,7 @@ class WithdrawalController extends Controller
         if ($response && $response->code == '000') {
 
 
-            Wedding::where("id", $wedding_id)->update(['withdraw_amount' => $amountDue->total+$wedding->contributions_sum_amount]);
+            Wedding::where("id", $wedding_id)->update(['withdraw_amount' => $amountDue->total + $wedding->contributions_sum_amount]);
 
 
             $message = "Congratulations " . $user->first_name . "\nYou have successfully withdrawn your gift. \nThank you for choosing Nuna";
@@ -124,6 +130,14 @@ class WithdrawalController extends Controller
         $balance = Payswitch::balance();
 
         $amountDue = (object)UtilityRepository::getAmountDue($wedding);
+
+
+        if ($amountDue->amount_due <= 0) {
+
+            return failed_response([], Response::HTTP_SERVICE_UNAVAILABLE, "Insufficient balance");
+
+
+        }
 
 
         if (($amountDue->amount_due > $balance)) {
