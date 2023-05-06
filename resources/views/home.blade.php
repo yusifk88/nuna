@@ -162,7 +162,7 @@
 
                                 </div>
                                 <div class="col-md-8 text-center" style="padding: 55px">
-                                    <h2 style="color: #004646">Efficient and personalised gift-giving</h2>
+                                    <h2 style="color: #004646">Efficient and personalised gifting</h2>
                                     <p style="color: #004646">Nuna is designed to provide you with a hassle-free
                                         gifting experience, where you can receive gifts from all around the world, all in one place.</p>
 
@@ -277,6 +277,20 @@
                             digital gift table that is accessible worldwide for any special occasion such as weddings,
                             birthdays, graduations, and more.
                         </p>
+                        <p class="text-center mt-5">
+                        <ul class="fh5co-social-icons">
+                            <li><a href="https://instagram.com/nunahqq?igshid=ZDdkNTZiNTM="><i
+                                        style="font-size: 50px" class="icon-instagram text-white"></i></a></li>
+                            <li><a href="https://twitter.com/mynunahq?s=20">
+                                    <i style="font-size: 50px"
+                                       class="icon-twitter text-white"></i></a>
+                            </li>
+                            <li><a href="https://www.facebook.com/profile.php?id=100086379382319"><i
+                                        style="font-size: 50px" class="icon-facebook text-white"></i></a></li>
+                            <li><a href="https://www.linkedin.com/company/nuna-technologies-limited/"><i
+                                        style="font-size: 50px" class="icon-linkedin text-white"></i></a></li>
+                        </ul>
+                        </p>
                     </div>
                 </div>
             </div>
@@ -359,12 +373,12 @@
         <div class="container">
             <div class="row justify-content-between align-items-center">
                 <div class="offset-xl-1 offset-lg-1 col-xl-5 col-lg-5">
-                    <div class="say-something-cap">
+                    <div class="say-something-cap text-center">
                         <h2>Let's connect, <br> get in touch</h2>
                     </div>
                 </div>
                 <div class="col-xl-2 col-lg-3">
-                    <div class="say-btn">
+                    <div class="say-btn text-center">
                         <a href="mailto:hello@mynunaa.com" class="btn radius-btn">Contact Us</a>
                     </div>
                 </div>

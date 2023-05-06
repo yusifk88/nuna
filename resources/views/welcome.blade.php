@@ -156,7 +156,7 @@
                             </div>
 
                             <div class="footer-tittle">
-                                <div class="footer-pera">
+                                <div class="footer-pera text-center">
                                     <p class="info1">Nuna gives you the most efficient way to
                                         receive gifts, by offering a digital wedding gift table, accessible globally</p>
                                 </div>
@@ -165,7 +165,7 @@
                     </div>
                     <div class="col-lg-2 col-md-4 col-sm-5">
                         <div class="single-footer-caption mb-50">
-                            <div class="footer-tittle">
+                            <div class="footer-tittle text-center">
                                 <h4>Contact info.</h4>
                                 <strong class="mt-4">Address:</strong> <br><span class="text-muted">Prof. Wellington St. GE-262-3544</span><br>
                                 <strong class="mt-4">Email:</strong> <br><span class="text-muted">hello@mynunaa.com</span><br>
@@ -183,7 +183,7 @@
                     </div>
                     <div class="col-lg-2 col-md-4 col-sm-7">
                         <div class="single-footer-caption mb-50">
-                            <div class="footer-tittle">
+                            <div class="footer-tittle text-center">
                                 <h4>Support</h4>
                                 <ul>
 {{--                                    <li><a href="#">Report a bug</a></li>--}}
@@ -199,7 +199,7 @@
                         <div class="single-footer-caption mb-50">
                             <div class="row mt-4">
 
-                                <div class="col-md-5 text-center">
+                                <div class="col-md-12 text-center">
                                     <a href="https://play.google.com/store/apps/details?id=com.nuna.app">
                                         <img class="img-fluid m-3" width="200px"
                                              src="https://objectstorage.uk-london-1.oraclecloud.com/n/lrj6a9vl4is6/b/nuna/o/en_badge_web_generic.png">
@@ -207,7 +207,7 @@
                                     </a>
                                 </div>
 
-                                <div class="col-md-5 text-center">
+                                <div class="col-md-12 text-center">
                                     <img class="img-fluid m-3" width="200px"
                                          src="https://objectstorage.uk-london-1.oraclecloud.com/n/lrj6a9vl4is6/b/nuna/o/5847e95fcef1014c0b5e4822.png">
                                 </div>
