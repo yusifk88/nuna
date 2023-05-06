@@ -197,50 +197,23 @@
                     </div>
                     <div class="col-lg-3 col-md-6 col-sm-8">
                         <div class="single-footer-caption mb-50">
-                            <div class="footer-tittle">
-                                <h4>Waiting list</h4>
-                                <div class="footer-pera footer-pera2">
-                                    <p>Join our waiting list to be among our first users</p>
+                            <div class="row mt-4">
+
+                                <div class="col-md-5 text-center">
+                                    <a href="https://play.google.com/store/apps/details?id=com.nuna.app">
+                                        <img class="img-fluid m-3" width="200px"
+                                             src="https://objectstorage.uk-london-1.oraclecloud.com/n/lrj6a9vl4is6/b/nuna/o/en_badge_web_generic.png">
+
+                                    </a>
                                 </div>
-                                <!-- Form -->
-                                <div >
-                                    <!-- Begin Mailchimp Signup Form -->
 
-                                    <div id="mc_embed_signup" style="width: 400px !important;">
-                                        <form action="https://mynunaa.us13.list-manage.com/subscribe/post?u=cf98938053d7813a773a3a678&amp;id=391548aa93&amp;f_id=0040e1e2f0" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
-                                            <div id="mc_embed_signup_scroll">
-                                                <h2>Join Nuna</h2>
-                                                <div class="indicates-required"><span class="asterisk">*</span> indicates required</div>
-                                                <div class="mc-field-group">
-                                                    <label for="mce-EMAIL">Email Address  <span class="asterisk">*</span>
-                                                    </label>
-                                                    <input type="email" value="" name="EMAIL" class="required email form-control" id="mce-EMAIL" required>
-                                                    <span id="mce-EMAIL-HELPERTEXT" class="helper_text"></span>
-                                                </div>
-                                                <div class="mc-field-group">
-                                                    <label for="mce-FNAME">First Name </label>
-                                                    <input type="text" value="" name="FNAME" class="form-control" id="mce-FNAME">
-                                                    <span id="mce-FNAME-HELPERTEXT" class="helper_text"></span>
-                                                </div>
-                                                <div class="mc-field-group size1of2">
-                                                    <label for="mce-PHONE">Phone Number </label>
-                                                    <input type="text" name="PHONE" class="form-control" value="" id="mce-PHONE">
-                                                    <span id="mce-PHONE-HELPERTEXT" class="helper_text"></span>
-                                                </div>
-                                                <div id="mce-responses" class="clear foot">
-                                                    <div class="response" id="mce-error-response" style="display:none"></div>
-                                                    <div class="response" id="mce-success-response" style="display:none"></div>
-                                                </div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
-                                                <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_cf98938053d7813a773a3a678_391548aa93" tabindex="-1" value=""></div>
-
-                                                        <input type="submit" value="Join the Waiting List Now!" name="subscribe" id="mc-embedded-subscribe" class="btn btn-success w-100">
-
-                                                </div>
-                                            </div>
-                                        </form>
-                                    </div>
-                                    <!--End mc_embed_signup-->
+                                <div class="col-md-5 text-center">
+                                    <img class="img-fluid m-3" width="200px"
+                                         src="https://objectstorage.uk-london-1.oraclecloud.com/n/lrj6a9vl4is6/b/nuna/o/5847e95fcef1014c0b5e4822.png">
                                 </div>
+
+
+                            </div>
                             </div>
                         </div>
                     </div>
