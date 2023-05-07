@@ -39,6 +39,12 @@ class WithdrawalController extends Controller
 
         $amountDue = (object)UtilityRepository::getAmountDue($wedding);
 
+        if ($wedding->withdraw_amount > 0) {
+
+            return failed_response([], Response::HTTP_UNPROCESSABLE_ENTITY, "You have already withdrawn your gift");
+
+        }
+
 
         if ($amountDue->amount_due <= 0) {
 
@@ -123,6 +129,12 @@ class WithdrawalController extends Controller
         if (!$wedding) {
 
             return failed_response([], Response::HTTP_NOT_FOUND, "Wedding not found");
+
+        }
+
+        if ($wedding->withdraw_amount > 0) {
+
+            return failed_response([], Response::HTTP_UNPROCESSABLE_ENTITY, "You have already withdrawn your gift");
 
         }
 
