@@ -3,7 +3,7 @@
   <list-loading-component v-if="loading" :count="8" :show-header=false></list-loading-component>
   <ion-list v-if="items.length && !loading" class="no-margin">
 
-    <ion-item v-for="(item,index) in items" :key="index">
+    <ion-item color="light" lines="none" style="margin: 5px" v-for="(item,index) in items" :key="index">
 
       <ion-icon class="gift-icon" :icon="giftOutline"></ion-icon>
 

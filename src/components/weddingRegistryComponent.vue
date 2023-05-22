@@ -1,5 +1,5 @@
 <template>
-  <ion-content :class="step<=5 ? 'ion-padding' : 'no-padding'" :fullscreen="true">
+  <ion-content color="light" :class="step<=5 ? 'ion-padding' : 'no-padding'" :fullscreen="true">
 
 
   <span v-if="step==1" class="ion-text-center content-span">
@@ -140,19 +140,19 @@
       <h4 class="ion-text-center ion-margin-top">{{ userIsGroom ? "Bride's " : "Groom's " }} Information</h4>
 
 
-      <ion-list v-if="userIsGroom" class="ion-margin-top">
+      <ion-list style="background-color: transparent !important;" v-if="userIsGroom" class="ion-margin-top">
 
-        <ion-item lines="none">
+        <ion-item lines="none" color="light">
           <ion-input v-model="bride_name" :autofocus="true" class="custom" placeholder="Bride's full name*"
                      type="text"></ion-input>
         </ion-item>
 
-        <ion-item class="ion-margin-top" lines="none">
+        <ion-item color="light" class="ion-margin-top" lines="none">
           <ion-input v-model="bride_phone_number" class="custom" inputmode="tel"
                      placeholder="Bride's phone number(optional)"></ion-input>
         </ion-item>
 
-        <ion-item class="ion-margin-top" lines="none">
+        <ion-item color="light" class="ion-margin-top" lines="none">
           <ion-input v-model="bride_email" class="custom" inputmode="email" lines="none"
                      placeholder="Bride's email address(optional)"></ion-input>
         </ion-item>
@@ -160,18 +160,18 @@
       </ion-list>
 
 
-      <ion-list v-else class="ion-margin-top">
+      <ion-list style="background-color: transparent !important;" v-else class="ion-margin-top">
 
-        <ion-item lines="none">
+        <ion-item color="light" lines="none">
           <ion-input v-model="groom_name" class="custom" placeholder="Groom's full name*" type="text"></ion-input>
         </ion-item>
 
-        <ion-item class="ion-margin-top" lines="none">
+        <ion-item color="light" class="ion-margin-top" lines="none">
           <ion-input v-model="groom_phone_number" class="custom" inputmode="tel"
                      placeholder="Groom's phone number(optional)"></ion-input>
         </ion-item>
 
-        <ion-item class="ion-margin-top" lines="none">
+        <ion-item color="light" class="ion-margin-top" lines="none">
           <ion-input v-model="groom_email" class="custom" inputmode="email"
                      placeholder="Groom's email address(optional)"></ion-input>
         </ion-item>
@@ -194,13 +194,13 @@
       <!--      <alert-component class="ion-margin-top" title="What's a tag?"-->
       <!--                       description="A tag is a unique text that identifies your wedding registry link. If you do not create one, a random tag would be created for you."></alert-component>-->
 
-      <ion-list class="ion-margin-top">
+      <ion-list style="background-color: transparent !important;" class="ion-margin-top">
 
-        <ion-item lines="none">
+        <ion-item color="light"  lines="none">
           <ion-input v-model="tag" class="custom" placeholder="Wedding #tag (optional)" type="text"></ion-input>
         </ion-item>
 
-        <ion-item class="ion-margin-top" lines="none">
+        <ion-item color="light"  class="ion-margin-top" lines="none">
           <ion-label>Date & Time:</ion-label>
           <ion-datetime-button datetime="datetime"></ion-datetime-button>
           <ion-modal
@@ -214,16 +214,16 @@
 
         </ion-item>
 
-        <ion-item class="ion-margin-top" lines="none">
+        <ion-item color="light"  class="ion-margin-top" lines="none">
           <ion-input v-model="rsvPhoneNumber" :autoGrow="true" class="custom" inputmode="tel"
                      placeholder="RSVP Tel number*"></ion-input>
         </ion-item>
 
-        <ion-item class="ion-margin-top" lines="none">
+        <ion-item  color="light" class="ion-margin-top" lines="none">
           <ion-input v-model="rsvPerson" class="custom" placeholder="RSVP contact person name*"></ion-input>
         </ion-item>
 
-        <ion-item class="ion-margin-top" lines="none">
+        <ion-item color="light"  class="ion-margin-top" lines="none">
           <ion-textarea v-model="location" :autoGrow="true" class="custom"
                         placeholder="Describe the location (optional)"
                         rows="1"></ion-textarea>
@@ -303,11 +303,11 @@
 
       </ion-item>
 
-      <ion-item v-if="showSocial" class="ion-margin-top" lines="none">
+      <ion-item color="light" v-if="showSocial" class="ion-margin-top" lines="none">
         <ion-input v-model="zoomLink" class="custom" inputmode="url" placeholder="Zoom link"></ion-input>
       </ion-item>
 
-      <ion-item v-if="showSocial" class="ion-margin-top" lines="none">
+      <ion-item color="light"  v-if="showSocial" class="ion-margin-top" lines="none">
         <ion-input v-model="youtubeLink" class="custom" inputmode="url" placeholder="YouTube link"></ion-input>
       </ion-item>
 
@@ -346,7 +346,7 @@
 
       <p>Share something nice about your union:</p>
 
-      <ion-item class="ion-margin-top" lines="none">
+      <ion-item color="light" class="ion-margin-top" lines="none">
         <ion-textarea v-model="story" :autoGrow="true" class="custom" placeholder="A short beautiful story"
                       rows="1"></ion-textarea>
       </ion-item>
@@ -366,10 +366,10 @@
       <p>How do you want to say thank you?</p>
       <ion-radio-group :value="thankYouvalue">
 
-        <ion-slides :options="slideOption" :scrollbar="true">
+        <swiper :options="slideOption" :scrollbar="true">
 
 
-          <ion-slide v-for="(page,index) in sampleThanks" :key="index">
+          <swiper-slide v-for="(page,index) in sampleThanks" :key="index">
             <ion-card class="ion-text-left" color="primary" mode="ios"
                       @click="thankYouvalue=index; thankYouText=page.text.trim()">
               <ion-item color="primary">
@@ -392,33 +392,33 @@
               </ion-card-content>
 
             </ion-card>
-          </ion-slide>
+          </swiper-slide>
 
-        </ion-slides>
+        </swiper>
 
       </ion-radio-group>
 
 
-      <ion-item class="ion-margin-top" lines="none">
+<!--      <ion-item class="ion-margin-top" lines="none">-->
 
-        <ion-textarea
-            v-model="thankYouText"
-            :autoGrow="true"
-            class="custom"
-            placeholder="Edit thank you message"
-            rows="1"
-        ></ion-textarea>
+<!--        <ion-textarea-->
+<!--            v-model="thankYouText"-->
+<!--            :autoGrow="true"-->
+<!--            class="custom"-->
+<!--            placeholder="Edit thank you message"-->
+<!--            rows="1"-->
+<!--        ></ion-textarea>-->
 
-      </ion-item>
+<!--      </ion-item>-->
 
     </div>
 
     <div v-if="step===6" class="smooth-in ion-color-primary" style="height: 100vh">
 
-      <ion-slides :options="previewSlideOption" :pager="true">
+      <swiper :options="previewSlideOption" :pager="true">
 
 
-        <ion-slide v-if="photoOne">
+        <swiper-slide v-if="photoOne">
 
           <ion-card class="card-gradient no-margin" mode="ios" style="width: 100%; height: 300px;margin: 0!important;">
             <ion-card-header class="ion-margin-top ion-padding-top">
@@ -439,39 +439,39 @@
           </ion-card>
 
 
-        </ion-slide>
+        </swiper-slide>
 
 
-        <ion-slide v-if="photoOne">
+        <swiper-slide v-if="photoOne">
           <div :style="'background-image:url('+photoOne.preview+')'"
                style="height: 300px; width: 100%; background-repeat: no-repeat; background-size: cover; border-radius: 3%;">
           </div>
 
-        </ion-slide>
+        </swiper-slide>
 
-        <ion-slide v-if="photoTwo">
+        <swiper-slide v-if="photoTwo">
           <div :style="'background-image:url('+photoTwo.preview+')'"
                style="height: 300px; width: 100%; background-repeat: no-repeat; background-size: cover; border-radius: 3%;">
           </div>
 
-        </ion-slide>
+        </swiper-slide>
 
-        <ion-slide v-if="photoThree">
+        <swiper-slide v-if="photoThree">
 
           <div :style="'background-image:url('+photoThree.preview+')'"
                style="height: 300px; width: 100%; background-repeat: no-repeat; background-size: cover; border-radius: 3%;">
           </div>
 
-        </ion-slide>
+        </swiper-slide>
 
-        <ion-slide v-if="photoFour">
+        <swiper-slide v-if="photoFour">
           <div :style="'background-image:url('+photoFour.preview+')'"
                style="height: 300px; width: 100%; background-repeat: no-repeat; background-size: cover; border-radius: 3%;">
           </div>
 
-        </ion-slide>
+        </swiper-slide>
 
-      </ion-slides>
+      </swiper>
 
 
       <ion-list :inset="true" lines="inset">
@@ -481,17 +481,17 @@
             Bride's Info.
           </ion-label>
         </ion-list-header>
-        <ion-item>
+        <ion-item color="light" style="margin: 5px">
           <ion-label><h1>{{ bride_name ? bride_name : "N/A" }}</h1>
             <p>Name</p>
           </ion-label>
         </ion-item>
-        <ion-item>
+        <ion-item color="light" style="margin: 5px">
           <ion-label><h1>{{ bride_phone_number ? bride_phone_number : "N/A" }}</h1>
             <p>Phone Number</p>
           </ion-label>
         </ion-item>
-        <ion-item>
+        <ion-item color="light" style="margin: 5px">
           <ion-label><h1>{{ bride_email ? bride_email : "N/A" }}</h1>
             <p>Email</p>
           </ion-label>
@@ -504,17 +504,17 @@
             Groom's Info.
           </ion-label>
         </ion-list-header>
-        <ion-item>
+        <ion-item color="light" style="margin: 5px">
           <ion-label><h1>{{ groom_name ? groom_name : "N/A" }}</h1>
             <p>Name</p>
           </ion-label>
         </ion-item>
-        <ion-item>
+        <ion-item color="light" style="margin: 5px">
           <ion-label><h1>{{ groom_phone_number ? groom_phone_number : "N/A" }}</h1>
             <p>Phone Number</p>
           </ion-label>
         </ion-item>
-        <ion-item>
+        <ion-item color="light" style="margin: 5px">
           <ion-label><h1>{{ groom_email ? groom_email : "N/A" }}</h1>
             <p>Email</p>
           </ion-label>
@@ -528,7 +528,7 @@
           </ion-label>
         </ion-list-header>
 
-        <ion-item>
+        <ion-item color="light" style="margin: 5px">
           <ion-label>
             <h1>{{ tag ? tag : "N/A" }}</h1>
             <p>
@@ -536,18 +536,18 @@
             </p>
           </ion-label>
         </ion-item>
-        <ion-item>
+        <ion-item color="light" style="margin: 5px">
           <ion-label><h1>{{ date ? formatedDate(date) : "N/A" }}</h1>
             <p>Date & Time</p>
           </ion-label>
         </ion-item>
-        <ion-item>
+        <ion-item color="light" style="margin: 5px">
           <ion-label><h1>{{ rsvPhoneNumber ? rsvPhoneNumber : "N/A" }}</h1>
             <p>RSV Tel.</p>
           </ion-label>
         </ion-item>
 
-        <ion-item>
+        <ion-item color="light" style="margin: 5px">
           <ion-label>
             <h1>{{ rsvPerson ? rsvPerson : "N/A" }}</h1>
             <p>RSV Person</p>
@@ -564,14 +564,14 @@
         </ion-list-header>
 
 
-        <ion-item v-if="youtubeLink">
+        <ion-item v-if="youtubeLink" color="light" style="margin: 5px">
           <ion-button :href="youtubeLink" color="danger" expand="block" fill="clear" mode="ios" size="large">
             <ion-icon :icon="logoYoutube"></ion-icon>
             YouTube
           </ion-button>
         </ion-item>
 
-        <ion-item v-if="zoomLink">
+        <ion-item v-if="zoomLink" color="light" style="margin: 5px">
           <ion-button :href="zoomLink" color="primary" expand="block" fill="clear" mode="ios" size="large">Zoom
           </ion-button>
         </ion-item>
@@ -643,12 +643,13 @@ import {
   IonRadio,
   IonRadioGroup,
   IonRow,
-  IonSlide,
-  IonSlides,
   IonSpinner,
   IonTextarea,
   IonToolbar
 } from "@ionic/vue";
+
+import { Swiper, SwiperSlide } from 'swiper/vue';
+
 import WeddinWelcomAnimation from "@/components/weddinWelcomAnimation";
 import {
   arrowForwardOutline,
@@ -677,6 +678,7 @@ import moment from "moment";
 export default {
   name: "weddingRegistryComponent",
   components: {
+    Swiper, SwiperSlide,
     IonSpinner,
     LoveAiComponent,
     IonListHeader,
@@ -701,8 +703,7 @@ export default {
     IonRow,
     IonCol,
     IonGrid,
-    IonSlides,
-    IonSlide,
+
     IonCard,
     IonCardHeader,
     IonCardTitle,

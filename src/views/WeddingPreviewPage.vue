@@ -7,23 +7,24 @@
           {{ wedding ? wedding.tag : "Wedding tag..." }}
         </ion-title>
         <ion-buttons slot="end">
-          <ion-button size="large" mode="ios" :disabled="!wedding" @click="shareLink(getURL(wedding))">
-             <ion-icon :icon="shareOutline"></ion-icon> Share
+          <ion-button :disabled="!wedding" mode="ios" size="large" @click="shareLink(getURL(wedding))">
+            <ion-icon :icon="shareOutline"></ion-icon>
+            Share
           </ion-button>
         </ion-buttons>
       </ion-toolbar>
       <ion-toolbar>
-        <ion-segment :scrollable="true" color="primary" :value="defaultSegment">
+        <ion-segment :scrollable="true" :value="defaultSegment" color="primary">
 
-          <ion-segment-button @click="defaultSegment='items'" value="items">
+          <ion-segment-button value="items" @click="defaultSegment='items'">
             Gifts
           </ion-segment-button>
 
-          <ion-segment-button @click="defaultSegment='guest'" value="guest">
+          <ion-segment-button value="guest" @click="defaultSegment='guest'">
             Guests
           </ion-segment-button>
 
-          <ion-segment-button @click="defaultSegment='info'" value="info">
+          <ion-segment-button value="info" @click="defaultSegment='info'">
             Event Info.
           </ion-segment-button>
 
@@ -31,105 +32,111 @@
         </ion-segment>
       </ion-toolbar>
     </ion-header>
-    <ion-content :fullscreen="true" class="ion-padding" v-if="wedding">
+    <ion-content v-if="wedding" :fullscreen="true" class="ion-padding">
 
 
-      <span style="transition: 0.3s ease-in-out;" class="no-padding" v-if="defaultSegment==='items'">
+      <span v-if="defaultSegment==='items'" class="no-padding" style="transition: 0.3s ease-in-out;">
 
-<!--        <wish-list-component  :wedding-i-d="wedding.id"></wish-list-component>-->
-
-            <cash-target-component :wedding="wedding" @cashAdded="getWedding"  :wedding-i-d="wedding.id" ></cash-target-component>
+            <cash-target-component :wedding="wedding" :wedding-i-d="wedding.id"
+                                   @cashAdded="getWedding"></cash-target-component>
 
       </span>
 
-      <span style="transition: 0.3s ease-in-out;" class="no-padding" v-if="defaultSegment==='guest'">
+      <span v-if="defaultSegment==='guest'" class="no-padding" style="transition: 0.3s ease-in-out;">
 
           <guest-list :wedding-i-d="wedding.id"></guest-list>
 
       </span>
 
 
-      <span style="transition: 0.3s ease-in-out;" class="no-padding" v-if="defaultSegment==='info'">
-        <ion-slides :pager="true" :option="previewSlideOption">
-          <ion-slide>
+      <span v-if="defaultSegment==='info'" class="no-padding" style="transition: 0.3s ease-in-out;">
+        <swiper :option="previewSlideOption" :pager="true">
+          <swiper-slide>
 
             <div :style="'background-image:url('+imgURL+')'"
                  style="margin:5px; height: 300px; width: 100%; background-position: center; background-repeat: no-repeat; background-size: cover; border-radius: 3%;">
               <div
                   style="width: 100%;height: 100%; padding: 10px; background-color: rgba(0,0,0,0.38); color: white;  border-radius: 3%; text-align: center;">
-                <h3 style="font-family: cursive;" class="ion-margin-top">Our Story</h3>
-                <small v-if="wedding && wedding.story" class="ion-margin-top" style="display: block;" v-html="wedding.story.substring(0,150)+'...'"></small>
+                <h3 class="ion-margin-top" style="font-family: cursive;">Our Story</h3>
+                <small v-if="wedding && wedding.story" class="ion-margin-top" style="display: block;"
+                       v-html="wedding.story.substring(0,150)+'...'"></small>
 
-                <ion-icon class="ion-margin-top" style="margin-right: -10px" :icon="heartOutline"
-                          size="large"></ion-icon>
-                <ion-icon class="ion-margin-top" style="margin-left: -10px" :icon="heartOutline"
-                          size="large"></ion-icon>
-                <h3 style="font-family: cursive;" class="ion-margin-top">{{ wedding.tag }}</h3>
+                <ion-icon :icon="heartOutline" class="ion-margin-top" size="large"
+                          style="margin-right: -10px"></ion-icon>
+                <ion-icon :icon="heartOutline" class="ion-margin-top" size="large"
+                          style="margin-left: -10px"></ion-icon>
+                <h3 class="ion-margin-top" style="font-family: cursive;">{{ wedding.tag }}</h3>
               </div>
             </div>
-          </ion-slide>
+          </swiper-slide>
 
-          <ion-slide v-if="wedding.photo_one">
+          <swiper-slide v-if="wedding.photo_one">
 
             <div :style="'background-image:url('+wedding.photo_one+')'"
                  style="margin:5px;height: 300px; width: 100%; background-repeat: no-repeat; background-size: cover; border-radius: 3%;">
             </div>
 
-          </ion-slide>
+          </swiper-slide>
 
-          <ion-slide v-if="wedding.photo_two">
+          <swiper-slide v-if="wedding.photo_two">
 
             <div :style="'background-image:url('+wedding.photo_two+')'"
                  style="margin:5px;height: 300px; width: 100%; background-repeat: no-repeat; background-size: cover; border-radius: 3%;">
             </div>
 
-          </ion-slide>
+          </swiper-slide>
 
 
-          <ion-slide v-if="wedding.photo_three">
+          <swiper-slide v-if="wedding.photo_three">
 
             <div :style="'background-image:url('+wedding.photo_three+')'"
                  style="margin:5px;height: 300px; width: 100%; background-repeat: no-repeat; background-size: cover; border-radius: 3%;">
             </div>
 
-          </ion-slide>
-          <ion-slide v-if="wedding.photo_four">
+          </swiper-slide>
+          <swiper-slide v-if="wedding.photo_four">
 
             <div :style="'background-image:url('+wedding.photo_four+')'"
                  style="margin:5px;height: 300px; width: 100%; background-repeat: no-repeat; background-size: cover; border-radius: 3%;">
             </div>
 
-          </ion-slide>
+          </swiper-slide>
 
 
-        </ion-slides>
+        </swiper>
 
         <h4>Reservation</h4>
 
-        <ion-row>
-          <ion-col size="6" class="ion-text-center">
+        <ion-card class="no-margin" color="light" style="height: 280px">
+          <ion-card-content class="ion-text-center" style="text-align: center !important; padding: 40px">
 
-            <qrcode-vue
-                render-as="svg"
-                size="120"
-                :value="getURL(wedding)"
-                level="L"
-                class="ion-margin"
-            ></qrcode-vue>
+            <center>
 
-          </ion-col>
-          <ion-col size="6" class="ion-text-center">
+               <qrcode-vue
+                   :value="getURL(wedding)"
+                   class="ion-margin ion-margin-top"
+                   level="L"
+                   render-as="svg"
+               ></qrcode-vue>
+<p>
             <a :href="getURL(wedding)">Preview</a>
-          </ion-col>
-        </ion-row>
+
+</p>
+            </center>
+
+          </ion-card-content>
+        </ion-card>
+
 
 
         <div
-            style=" background-image: url('/assets/rsvp_card.png'); height: 350px; width: 100%; background-repeat: no-repeat; background-size: cover; background-position: center; border-radius: 3%;">
+            style=" background-image: url('/assets/rsvp_card.png'); height: 300px; width: 100%; margin-top: 15px; background-repeat: no-repeat; background-size: cover; background-position: center; border-radius: 3%;">
           <div style="width: 100%;height: 100%; padding: 10px; text-align: center;">
 
-            <h2 style="color: #3E7460; margin-top: 170px; font-size: 45px; font-weight: lighter; margin-bottom: 0 !important;"
-                class="font-weight-light">{{ weddingNames }}</h2>
+            <h2 class="font-weight-light"
+                style="color: #3E7460; margin-top: 170px; font-size: 45px; font-weight: lighter; margin-bottom: 0 !important;">{{
+                weddingNames
+              }}</h2>
             <p style="color: black; margin-top: 0!important; margin-bottom: 0; letter-spacing: 0.1em;">
               {{ weddingDate }}</p>
             <p style="color: black; margin-top: 0!important; letter-spacing: 0.3em;">RSVP:
@@ -142,7 +149,7 @@
         <h4>Location</h4>
 
         <p>{{ wedding.location }}</p>
-        <maps-component class="no-margin" :place="position" v-if="wedding.coordinates"></maps-component>
+        <maps-component v-if="wedding.coordinates" :place="position" class="no-margin"></maps-component>
 
       </span>
 
@@ -154,25 +161,26 @@
 
 import QrcodeVue from 'qrcode.vue'
 import {Share} from '@capacitor/share';
+import {Swiper, SwiperSlide} from 'swiper/vue';
+
 
 import {
   IonBackButton,
-  IonCol,
   IonContent,
   IonHeader,
   IonIcon,
   IonPage,
-  IonRow,
   IonSegment,
   IonSegmentButton,
-  IonSlide,
-  IonSlides,
+
   IonTitle,
   IonToolbar,
-    IonButtons,
-    IonButton
+  IonButtons,
+  IonButton,
+  IonCard,
+  IonCardContent
 } from "@ionic/vue";
-import {heartOutline,shareOutline} from "ionicons/icons";
+import {heartOutline, shareOutline} from "ionicons/icons";
 import moment from "moment";
 
 import axios from "axios";
@@ -183,14 +191,15 @@ import GuestList from "@/components/GuestList";
 export default {
   name: "WeddingPreviewPage",
   components: {
+    IonCard,
+    IonCardContent,
     GuestList,
     CashTargetComponent,
     QrcodeVue,
     MapsComponent,
     IonSegment,
     IonSegmentButton,
-    IonSlide,
-    IonSlides,
+    Swiper, SwiperSlide,
     IonPage,
     IonHeader,
     IonToolbar,
@@ -198,8 +207,7 @@ export default {
     IonTitle,
     IonContent,
     IonIcon,
-    IonRow,
-    IonCol,
+
     IonButtons,
     IonButton
   },
@@ -284,7 +292,7 @@ export default {
 
         } else if (this.wedding.photo_four) {
 
-          return  this.wedding.photo_four;
+          return this.wedding.photo_four;
 
         } else {
 
@@ -313,7 +321,7 @@ export default {
     },
     getURL(wedding) {
 
-      return this.$store.state.baseURL +"/w/" + wedding.tag;
+      return this.$store.state.baseURL + "/w/" + wedding.tag;
 
     },
     getWedding() {

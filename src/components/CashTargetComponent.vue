@@ -10,10 +10,10 @@
 
         <ion-row>
           <ion-col size="8">
-            <small>Target/Contributed</small>
+            <small>Target/Gifts</small>
           </ion-col>
           <ion-col size="4">
-            <ion-button :disabled="Number(wedding.contributions_sum_amount)==0" class="ion-align-self-end" color="light"
+            <ion-button :disabled="amount_due<=0" class="ion-align-self-end" color="light"
                         mode="ios" size="small" style="place-self: end !important;" @click="verifyDialog=true">
               Withdraw
               <ion-icon :icon="walletOutline" style="margin-left: 5px"></ion-icon>
@@ -29,10 +29,22 @@
         </h2>
         <ion-progress-bar
             :value="percent"
+            class="no-margin"
             color="light"
             mode="ios"
             style="height: 10px; border-radius: 5px"></ion-progress-bar>
       </ion-card-content>
+
+      <ion-card v-if="amount_due<=0 && wedding.contributions_sum_amount>0" class="no-margin ion-margin-end ion-margin-start ion-text-center"
+                color="secondary"
+                style="border-radius: 20px; margin-left: 15px !important;margin-right: 15px !important;margin-bottom: 15px !important;">
+        <ion-card-content>
+          <h2>
+            <ion-icon :icon="checkmarkCircleOutline" size="medium"></ion-icon>
+            You have withdrawn your gift
+          </h2>
+        </ion-card-content>
+      </ion-card>
 
     </ion-card>
 
@@ -46,9 +58,9 @@
         :initial-breakpoint="initState"
         :is-open="verifyDialog"
         :swipeToClose="true"
+        class="no-padding"
         mode="ios"
         @willDismiss="verifyDialog=false;"
-        class="no-padding"
     >
       <ion-header>
         <ion-toolbar>
@@ -58,7 +70,8 @@
         </ion-toolbar>
       </ion-header>
 
-      <with-draw-component :currency="user.currency" :wedding-i-d="weddingID" @done="dismissWithdrawDailog" @expand="initState=1"></with-draw-component>
+      <with-draw-component :currency="user.currency" :wedding-i-d="weddingID" @done="dismissWithdrawDailog"
+                           @expand="initState=1"></with-draw-component>
 
     </ion-modal>
 
@@ -85,7 +98,7 @@
 </template>
 
 <script>
-import {addOutline, giftOutline, walletOutline} from "ionicons/icons";
+import {addOutline, giftOutline, walletOutline, checkmarkCircleOutline} from "ionicons/icons";
 
 import NewWishListItem from "@/components/newWishListItem";
 import {
@@ -125,6 +138,7 @@ export default {
       defaultSegment: '1d',
       giftOutline,
       walletOutline,
+      checkmarkCircleOutline,
       loading: false,
       verifyDialog: false,
       items: [],
@@ -181,6 +195,12 @@ export default {
     }
   },
   computed: {
+
+    amount_due() {
+
+      return Number(this.wedding.contributions_sum_amount) - Number(this.wedding.withdraw_amount);
+
+    },
     user() {
       return this.$store.state.user;
     },
@@ -228,7 +248,7 @@ export default {
   methods: {
 
     dismissWithdrawDailog() {
-      this.$refs.withdrawModal.$el.dismiss(null,"cancel");
+      this.$refs.withdrawModal.$el.dismiss(null, "cancel");
 
     },
     stepUp(state) {

@@ -1,11 +1,11 @@
 <template>
   <ion-page>
-    <ion-tabs>
+    <ion-tabs >
       <ion-router-outlet v-if="!$store.state.initApp" ></ion-router-outlet>
 
       <ion-tab-bar :translucent="true" slot="bottom" v-if="!$store.state.initApp">
 
-        <ion-tab-button tab="tab1" href="/tabs/tab1">
+        <ion-tab-button  tab="tab1" href="/tabs/tab1">
           <ion-icon :icon="homeOutline" />
           <ion-label>Home</ion-label>
         </ion-tab-button>

@@ -1,7 +1,7 @@
 <template>
   <ion-page>
 
-    <ion-content class="ion-padding" :fullscreen="true">
+    <ion-content color="light" class="ion-padding" :fullscreen="true">
       <center>
 
         <img style="margin-top: 40%; text-align: center"  width="100" src="https://objectstorage.uk-london-1.oraclecloud.com/n/lrj6a9vl4is6/b/MyBucket/o/logo.png">
@@ -9,12 +9,13 @@
 
       <h4 class="ion-text-center" >Login</h4>
 
-      <ion-item lines="none">
+      <ion-item color="light" lines="none">
         <ion-input class="custom" v-model="email" type="text" placeholder="Phone Number or Email"></ion-input>
       </ion-item>
 
-      <ion-item lines="none" class="ion-margin-top">
-        <ion-input class="custom" v-model="password" type="password" placeholder="Password"></ion-input>
+      <ion-item  lines="none" class="ion-margin">
+        <ion-input class="custom" v-model="password" :type="passwordType" placeholder="Password"></ion-input>
+        <ion-icon @click="showPassword=!showPassword" :icon="!showPassword ? eyeOutline : eyeOffOutline" slot="end"></ion-icon>
       </ion-item>
 
 
@@ -55,19 +56,27 @@
 
 <script lang="ts">
 import {defineComponent} from 'vue';
-
-import {IonSpinner, IonPage, IonContent, IonInput, IonItem, IonButton,IonRow,IonCol} from '@ionic/vue';
+import {eyeOutline,eyeOffOutline} from "ionicons/icons";
+import {IonSpinner, IonPage, IonContent, IonInput, IonItem, IonButton,IonRow,IonCol,IonIcon} from '@ionic/vue';
 import axios from "axios";
 import store from "@/store";
 
 export default defineComponent({
   name: "loginPage",
-  components: {IonSpinner, IonContent, IonPage, IonInput, IonItem, IonButton,IonRow,IonCol},
+  components: {IonSpinner, IonContent, IonPage, IonInput, IonItem, IonButton,IonRow,IonCol,IonIcon},
   data() {
     return {
       email: "",
       password: "",
-      progress: false
+      progress: false,
+      eyeOutline,
+      eyeOffOutline,
+      showPassword:false
+    }
+  },
+  computed:{
+    passwordType(){
+      return this.showPassword ? "text":"password";
     }
   },
   methods: {

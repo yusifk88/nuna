@@ -1,5 +1,5 @@
 <template>
-  <ion-content class="ion-padding">
+  <ion-content color="light" class="ion-padding">
 
     <ion-list class="ion-padding-bottom">
       <ion-list-header>
@@ -31,29 +31,20 @@
         ></ion-input>
       </ion-item>
 
-      <ion-item class="ion-margin-top nuna-select-item" lines="none"
+      <ion-item class="ion-margin-top nuna-select-item"
+                lines="none"
                 style="margin-right: 15px; margin-left: 18px; margin-top: 30px">
-        <ion-label>Birth Date:</ion-label>
-        <ion-datetime-button
-            :disabled="preventEdit"
-            datetime="datetime"
-        ></ion-datetime-button>
-        <ion-modal
-            :keep-contents-mounted="true">
-          <ion-datetime
-              id="datetime"
-              :show-default-buttons="true"
-              :value="birthDate"
-              hourCycle="h12"
-              locale="en-GB"
-              presentation="date"
-              @ionChange="dateSelected"
-          >
-            <span slot="title">Set your date of birth</span>
-          </ion-datetime>
-        </ion-modal>
 
+        <ion-label>Birth Date:</ion-label>
+
+        <ion-input
+            v-model="birthDate"
+            :disabled="preventEdit"
+            class="custom"
+            placeholder="Birth Date"
+            type="date"></ion-input>
       </ion-item>
+
 
       <ion-item class="ion-margin-top" lines="none">
         <ion-label position="stacked">Phone Number</ion-label>
@@ -85,9 +76,6 @@ import {
   IonInput,
   IonListHeader,
   IonLabel,
-  IonDatetimeButton,
-  IonDatetime,
-  IonModal,
   IonButton,
   IonIcon,
   IonSpinner
@@ -105,9 +93,6 @@ export default {
     IonInput,
     IonListHeader,
     IonLabel,
-    IonDatetimeButton,
-    IonDatetime,
-    IonModal,
     IonButton,
     IonIcon,
     IonSpinner

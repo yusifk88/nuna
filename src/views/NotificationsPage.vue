@@ -26,7 +26,7 @@
 
   <ion-list v-else class="no-margin">
 
-    <ion-item v-for="(item,index) in items" :key="index">
+    <ion-item color="light" lines="none" style="margin: 5px" v-for="(item,index) in items" :key="index">
       <ion-icon v-if="item.type=='gift'" :icon="giftOutline" class="gift-icon"></ion-icon>
       <ion-icon v-if="item.type=='wish'" :icon="heartOutline" class="wish-icon"></ion-icon>
       <ion-icon v-if="item.type=='attendance'" :icon="personAddOutline" class="attendance-icon"></ion-icon>

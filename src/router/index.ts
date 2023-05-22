@@ -8,6 +8,8 @@ import profilePage from "@/views/profilePage.vue";
 import WeddingPreviewPage from "@/views/WeddingPreviewPage.vue";
 import NotificationsPage from "@/views/NotificationsPage.vue"
 import resetPasswordPage from "@/views/resetPasswordPage.vue";
+import store from "@/store";
+
 const routes: Array<RouteRecordRaw> = [
     {
         path: '/',
@@ -38,8 +40,8 @@ const routes: Array<RouteRecordRaw> = [
         component: NewRegistryPage
     },
     {
-      path:"/notifications",
-      component:NotificationsPage
+        path: "/notifications",
+        component: NotificationsPage
     },
     {
         path: '/tabs/',
@@ -65,9 +67,34 @@ const routes: Array<RouteRecordRaw> = [
     }
 ]
 
+
 const router = createRouter({
     history: createWebHistory(process.env.BASE_URL),
     routes
 })
+
+
+router.beforeEach((to, from) => {
+    // ...
+
+    if (!store.state.initApp) {
+
+        if (store.state.user && store.state.user.email) {
+
+            if (to.path == '/login' || to.path == '/register' || to.path == '/reset-password') {
+                return false;
+
+            }
+        } else if (!['/login', '/register', '/reset-password'].includes(to.path)) {
+
+            return '/login'
+
+        }
+
+        return true;
+    }
+
+});
+
 
 export default router

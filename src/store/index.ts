@@ -14,7 +14,6 @@ export default createStore({
         user: {
             email:"",
             phone_number:""
-
         },
         weddings: [],
         initApp: false,
@@ -32,9 +31,11 @@ export default createStore({
                 state.showStart = true;
             }
             state.initApp = true;
+            router.push("/");
 
             axios.get("/user")
                 .then(res => {
+                    router.push("/");
                     state.user = res.data;
                     state.initApp = false;
 

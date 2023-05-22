@@ -8,7 +8,7 @@
                        v-if="!items.length"></no-record-component>
   <ion-list style="margin-bottom: 60px" v-else>
 
-    <ion-item v-for="(item,index) in items" :key="index">
+    <ion-item lines="none" color="light" style="margin: 5px" v-for="(item,index) in items" :key="index">
       <ion-avatar class="ion-margin-end">
           <img src="https://ionicframework.com/docs/demos/api/avatar/avatar.svg" alt="Guest avatar"/>
       </ion-avatar>

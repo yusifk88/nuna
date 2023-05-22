@@ -40,9 +40,9 @@
 
       </ion-row>
 
-      <ion-slides ref="startSlide" class="no-padding swiper" style="height: 76vh; margin-top: 80px">
+      <swiper ref="startSlide" class="no-padding swiper" style="height: 76vh; margin-top: 80px">
 
-        <ion-slide class="ion-text-center">
+        <swiper-slide class="ion-text-center">
 
 <span>
  <lottie-animation
@@ -63,9 +63,9 @@
 
   </span>
 
-        </ion-slide>
+        </swiper-slide>
 
-        <ion-slide>
+        <swiper-slide>
          <span>
  <lottie-animation
      :height="350"
@@ -85,9 +85,9 @@
   </span>
 
 
-        </ion-slide>
+        </swiper-slide>
 
-        <ion-slide>
+        <swiper-slide>
                 <span>
  <lottie-animation
      :height="350"
@@ -106,9 +106,9 @@
   </span>
 
 
-        </ion-slide>
+        </swiper-slide>
 
-      </ion-slides>
+      </swiper>
     </ion-content>
   </ion-modal>
 
@@ -117,15 +117,15 @@
 <script>
 
 import {Network} from '@capacitor/network';
-
+import {Swiper, SwiperSlide} from 'swiper/vue';
+import {useBackButton, useIonRouter} from '@ionic/vue';
+import {App} from '@capacitor/app';
 import {
   IonApp,
   IonRouterOutlet,
   IonSpinner,
   IonModal,
   IonContent,
-  IonSlides,
-  IonSlide,
   IonRow,
   IonCol,
   IonButton,
@@ -150,7 +150,8 @@ export default defineComponent({
     IonSpinner,
     IonModal,
     IonContent,
-    IonSlides, IonSlide, IonRow, IonCol, IonButton
+    IonRow, IonCol, IonButton,
+    Swiper, SwiperSlide
   },
   data() {
     return {
@@ -186,6 +187,15 @@ export default defineComponent({
     }
   },
   mounted() {
+    useBackButton(-1, () => {
+
+      if (['/', '/login', '/register', '/tabs/tab1'].includes(this.$route.path) || !(store.state.user && store.state.user.email)) {
+        App.exitApp();
+      }
+
+
+    });
+
 
     Network.addListener('networkStatusChange', status => {
 
@@ -239,14 +249,14 @@ export default defineComponent({
 
 ion-textarea.custom {
   --background: #D3D3D328;
-  padding: 5px !important;
-  border-radius: 10px;
+
+  --border-radius: 10px;
   --placeholder-color: #80808090;
   --placeholder-opacity: .8;
 
   --padding-bottom: 10px;
-  --padding-end: 10px;
-  --padding-start: 10px;
+  --padding-end: 20px !important;
+  --padding-start: 20px !important;
   --padding-top: 10px;
 }
 
@@ -261,22 +271,20 @@ ion-textarea.custom {
 ion-input.custom {
 
   --background: #D3D3D328;
-  padding: 5px !important;
-  padding-left: 20px !important;
-  padding-right: 20px !important;
-  border-radius: 10px;
+  --border-radius: 10px;
   --placeholder-color: #80808090;
   --placeholder-opacity: .8;
-
   --padding-bottom: 10px;
-  --padding-end: 10px;
-  --padding-start: 10px;
+  --padding-start: 20px !important;
+  --padding-end: 20px !important;
   --padding-top: 10px;
+  width: 100%;
 }
 
 
 ion-card {
   box-shadow: none !important;
+  border-radius: 20px !important;
 }
 
 ion-toolbar {
@@ -302,6 +310,11 @@ ion-button {
   box-shadow: none !important;
 
 
+}
+
+
+ion-item {
+  border-radius: 15px !important;
 }
 
 .font-weight-bold {

@@ -4,10 +4,17 @@
       <ion-title>Get help for love story</ion-title>
     </ion-toolbar>
   </ion-header>
-  <ion-content class="ion-padding" style="transition: 0.5s ease-in-out !important;">
+  <ion-content class="ion-padding-bottom" style="transition: 0.5s ease-in-out !important;">
 
 
     <div class="ion-padding ion-margin ion-text-center" v-if="!answers.length">
+      <lottie-animation
+          :width="250"
+          :height="200"
+          path="assets/robot.json"
+      >
+      </lottie-animation>
+
       <h3>Hello {{ user.first_name }},</h3>
       I am here to help by suggesting beautiful love stories for your wedding page encase you run out of ideas, please
       tap on the ask button.
@@ -18,10 +25,12 @@
       wedding!</small></P>
 
 
-    <ion-slides style="transition: 0.5s ease-in-out" :pager="true" v-if="answers.length && !loading">
+    <swiper
+        :navigation="answers.length>1"
+        style="transition: 0.5s ease-in-out" :pager="true" v-if="answers.length && !loading">
 
-      <ion-slide style="transition: 0.5s ease-in-out" v-for="(answer,i) in answers" :key="i">
-        <ion-card  style="border: 1px solid lightgrey">
+      <swiper-slide style="transition: 0.5s ease-in-out" v-for="(answer,i) in answers" :key="i">
+        <ion-card  color="light">
           <ion-card-content>
             <strong>Suggestion - {{i+1}}:</strong>
             <span style="font-style: italic" v-html="answer.text">
@@ -32,22 +41,30 @@
           </ion-card-content>
         </ion-card>
 
-      </ion-slide>
+      </swiper-slide>
 
-    </ion-slides>
+    </swiper>
 
 
     <!--    <div class="ion-padding ion-margin" style="border: 1px solid lightgrey; border-radius: 20px; transition: 0.4s ease-in-out"  >-->
     <!--    </div>-->
 
-    <ion-button class="ion-margin-top" :disabled="loading" @click="getStory" expand="block">Ask AI
+    <ion-button :disabled="loading" @click="getStory" expand="block">Ask AI
       {{ answers.length ? "Again" : "" }} {{ loading ? "(Thinking...)" : "" }}
     </ion-button>
   </ion-content>
 </template>
 
 <script>
-import {IonButton, IonContent, IonHeader, IonTitle, IonToolbar, IonCard, IonCardContent,IonSlides,IonSlide} from "@ionic/vue";
+import { Navigation } from 'swiper';
+import LottieAnimation from "lottie-vuejs/src/LottieAnimation.vue";
+
+import { Swiper, SwiperSlide } from 'swiper/vue';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import 'swiper/css/scrollbar';
+import {IonButton, IonContent, IonHeader, IonTitle, IonToolbar, IonCard, IonCardContent} from "@ionic/vue";
 import axios from "axios";
 
 export default {
@@ -58,8 +75,10 @@ export default {
     IonToolbar,
     IonTitle,
     IonButton,
-    IonCard, IonCardContent,IonSlides,IonSlide
-
+    // eslint-disable-next-line vue/no-unused-components
+    Navigation,
+    IonCard, IonCardContent,Swiper, SwiperSlide,
+    LottieAnimation
   },
   computed: {
     user() {
@@ -69,7 +88,9 @@ export default {
   data() {
     return {
       answers: [],
-      loading: false
+      loading: false,
+      modules: [Navigation],
+
     }
   },
   methods: {

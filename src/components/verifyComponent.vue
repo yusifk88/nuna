@@ -1,6 +1,6 @@
 <template>
 
-    <ion-content style="max-height: 100vh; overflow: auto;">
+    <ion-content color="light" style="max-height: 100vh; overflow: auto;">
       <div v-if="step==1" class="smooth-in ion-margin-bottom" style="margin-bottom: 5em;">
 
         <verify-animation></verify-animation>

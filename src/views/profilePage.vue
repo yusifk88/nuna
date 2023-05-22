@@ -14,7 +14,7 @@
     <ion-content>
 
       <ion-list class="ion-margin-top">
-        <ion-item lines="none" class="ion-margin" style="border: 1px solid grey">
+        <ion-item color="light" lines="none" class="ion-margin">
           <ion-avatar slot="start">
             <img alt="Silhouette of a person's head" src="https://ionicframework.com/docs/img/demos/avatar.svg"/>
           </ion-avatar>
@@ -28,7 +28,7 @@
       </ion-list>
 
       <ion-list class="ion-margin-top">
-        <ion-item id="open-profile" detail="true">
+        <ion-item lines="none" style="margin: 5px;" color="light" id="open-profile" detail="true">
           <ion-icon slot="start" :icon="personOutline" size="large">
           </ion-icon>
           <ion-label>
@@ -55,7 +55,7 @@
           ></edit-profile>
         </ion-modal>
 
-        <ion-item id="open-verify" detail="true" :disabled="user.approved">
+        <ion-item lines="none" style="margin: 5px;" color="light" id="open-verify" :detail="true" :disabled="user.approved">
           <ion-icon slot="start" :icon="idCardOutline" size="large">
           </ion-icon>
           <ion-label>
@@ -82,7 +82,7 @@
         </ion-modal>
 
 
-        <ion-item detail="true">
+        <ion-item color="light" style="margin: 5px;" lines="none" :detail="true">
           <ion-icon slot="start" :icon="informationCircleOutline" size="large">
           </ion-icon>
           <ion-label>
@@ -92,7 +92,7 @@
         </ion-item>
 
 
-        <ion-item detail="true">
+        <ion-item lines="none" color="light" style="margin: 5px;" :detail="true" @click="shareApp()">
           <ion-icon slot="start" :icon="shareSocialOutline" size="large">
           </ion-icon>
           <ion-label>
@@ -192,6 +192,8 @@
 </template>
 
 <script>
+import {Share} from '@capacitor/share';
+
 import {defineComponent} from 'vue';
 import {
   IonPage,
@@ -271,6 +273,18 @@ export default defineComponent({
   },
   methods: {
 
+    async shareApp() {
+
+      const link = "https://play.google.com/store/apps/details?id=com.nuna.app";
+      await Share.share({
+        title: "Show Nuna with a friend",
+        text: "Hi, download Nuna to create and share your digital wedding page. With Nuna you can track your guest and receive gifts from friends and family ",
+        url: link,
+        dialogTitle: 'Share Nuna with friend',
+      });
+
+    },
+
     dismissVerifyDialog(){
       this.$refs.verifyModal.$el.dismiss(null, 'cancel');
     },
@@ -300,6 +314,12 @@ export default defineComponent({
       this.showHelpModal = false;
     },
     confirmLogout() {
+
+      store.state.user={
+        email:"",
+        phone_number:""
+
+      };
 
       localStorage.removeItem("token");
       this.$refs.logoutModal.$el.dismiss(null, 'cancel');

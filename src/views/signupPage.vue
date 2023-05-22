@@ -66,16 +66,22 @@
         </ion-item>
 
 
-        <ion-item style="margin-right: 15px; margin-left: 18px" lines="none" class="ion-margin-top nuna-select-item">
+        <ion-item lines="none" class="ion-margin-top">
+
+
+
           <ion-label>Birth Date:</ion-label>
-          <ion-datetime-button datetime="datetime"></ion-datetime-button>
-          <ion-modal
-              :keep-contents-mounted="true">
-            <ion-datetime presentation="date" @ionChange="dateSelected" :show-default-buttons="true" hourCycle="h12" locale="en-GB"
-                          id="datetime">
-              <span slot="title">Set your date of birth</span>
-            </ion-datetime>
-          </ion-modal>
+          <ion-input type="date" class="custom" v-model="birthDate" placeholder="Birth Date"></ion-input>
+
+
+          <!--          <ion-datetime-button datetime="datetime"></ion-datetime-button>-->
+<!--          <ion-modal-->
+<!--              :keep-contents-mounted="true">-->
+<!--            <ion-datetime presentation="date" @ionChange="dateSelected" :show-default-buttons="true" hourCycle="h12" locale="en-GB"-->
+<!--                          id="datetime">-->
+<!--              <span slot="title">Set your date of birth</span>-->
+<!--            </ion-datetime>-->
+<!--          </ion-modal>-->
 
         </ion-item>
 
@@ -185,12 +191,9 @@ import {
   IonSelect,
   IonSelectOption,
   IonSpinner,
-  IonDatetime,
-  IonDatetimeButton,
-    IonModal,
-    IonLabel,
     IonRow,
-    IonCol
+    IonCol,
+    IonLabel
 } from '@ionic/vue';
 import {arrowBackOutline, arrowForwardOutline, checkmarkOutline} from "ionicons/icons";
 import Flag from "@/components/flag.vue";
@@ -199,6 +202,7 @@ import axios from "axios";
 export default defineComponent({
   name: "signupPage",
   components: {
+    IonLabel,
     IonSpinner,
     Flag,
     IonContent,
@@ -210,10 +214,6 @@ export default defineComponent({
     IonIcon,
     IonAvatar,
     IonInput,
-    IonDatetime,
-    IonDatetimeButton,
-    IonModal,
-    IonLabel,
     IonRow,
     IonCol
   },

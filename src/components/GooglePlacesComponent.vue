@@ -30,7 +30,7 @@
 
     </ion-toolbar>
   </ion-header>
-  <ion-content>
+  <ion-content color="light">
 
   </ion-content>
 </template>

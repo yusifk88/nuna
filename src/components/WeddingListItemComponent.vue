@@ -20,7 +20,7 @@
 
 <!--    </ion-item-options>-->
 
-    <ion-item botton detail="true">
+    <ion-item botton :detail="true" color="light" lines="none" style="margin: 5px">
       <ion-thumbnail slot="start">
         <img alt="wedding photo" :src="imgURL"/>
 

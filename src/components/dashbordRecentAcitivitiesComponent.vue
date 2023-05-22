@@ -8,7 +8,7 @@
                        v-if="!items.length"></no-record-component>
   <ion-list class="no-margin" v-else>
 
-    <ion-item  v-for="(item,index) in items" :key="index">
+    <ion-item style="margin-bottom: 5px" lines="none" color="light"  v-for="(item,index) in items" :key="index">
       <ion-icon v-if="item.type=='gift'" class="gift-icon" :icon="giftOutline"></ion-icon>
       <ion-icon v-if="item.type=='wish'" class="wish-icon" :icon="heartOutline"></ion-icon>
       <ion-icon v-if="item.type=='attendance'" class="attendance-icon" :icon="personAddOutline"></ion-icon>

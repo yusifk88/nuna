@@ -1,7 +1,7 @@
 <template>
 <span>
- <ion-slides class="no-padding no-margin">
-   <ion-slide v-for="wedding in weddings" :key="wedding.id" class="no-margin no-padding">
+ <swiper class="no-padding no-margin">
+   <swiper-slide v-for="wedding in weddings" :key="wedding.id" class="no-margin no-padding">
      <ion-card
          class="no-margin ion-text-left"
          color="primary"
@@ -49,7 +49,7 @@
   </ion-col>
   <ion-col size="4">
 
-    <img height="80" src="https://objectstorage.uk-london-1.oraclecloud.com/n/lrj6a9vl4is6/b/MyBucket/o/wedding.svg">
+    <img style="filter: drop-shadow(0 0 0.75rem rgba(255,210,0,0.69));" height="80" src="https://objectstorage.uk-london-1.oraclecloud.com/n/lrj6a9vl4is6/b/MyBucket/o/wedding.svg">
 
   </ion-col>
 </ion-row>
@@ -57,15 +57,16 @@
 
        </ion-card-content>
      </ion-card>
-   </ion-slide>
- </ion-slides>
+   </swiper-slide>
+ </swiper>
 </span>
 </template>
 
 <script>
 
 import QrcodeVue from 'qrcode.vue'
-
+import { Swiper, SwiperSlide } from 'swiper/vue';
+import 'swiper/css';
 import {
   IonCard,
   IonCardContent,
@@ -73,9 +74,7 @@ import {
   IonCardSubtitle,
   IonCardTitle,
   IonCol,
-  IonRow,
-  IonSlide,
-  IonSlides,
+  IonRow
 } from "@ionic/vue";
 
 import {cloudOfflineOutline, eyeOutline, globeOutline} from "ionicons/icons";
@@ -89,8 +88,7 @@ export default {
   },
   components: {
     QrcodeVue,
-    IonSlides,
-    IonSlide,
+    Swiper, SwiperSlide,
     IonCard,
     IonCardContent,
     IonCardHeader,

@@ -100,7 +100,10 @@
           v-if="dashboard && dashboard.weddings.length"></dashbord-recent-acitivities-component>
 
 
-      <ion-modal ref="modal" :is-open="showGuestDialog" :presenting-element="presentingElement" mode="ios">
+      <ion-modal ref="modal"
+                 :is-open="showGuestDialog"
+                 :presenting-element="presentingElement"
+                 mode="ios">
         <ion-header>
           <ion-toolbar>
             <ion-title>{{ dialogType === 'guest' ? 'Guests' : 'Contributions' }} List</ion-title>
@@ -132,6 +135,7 @@
 
 import store from "@/store";
 import {Share} from '@capacitor/share';
+
 
 import {defineComponent} from 'vue';
 import {
