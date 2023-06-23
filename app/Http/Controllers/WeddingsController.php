@@ -495,7 +495,7 @@ class WeddingsController extends Controller
 
             $photoFourURL = $path . $file_name;
 
-            Storage::put("nuna/public/wedding/photos" . $file_name, $image_base64);
+            Storage::put("nuna/public/wedding/photos/" . $file_name, $image_base64);
 
         } else {
 
