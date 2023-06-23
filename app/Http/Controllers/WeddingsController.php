@@ -410,11 +410,11 @@ class WeddingsController extends Controller
             $image_type_aux = explode("image/", $image_parts[0]);
             $image_type = $image_type_aux[1];
             $image_base64 = base64_decode($image_parts[1]);
-            $file_name = Str::random(6) . $image_type;
+            $file_name = Str::random(6) .'.'. $image_type;
 
             $photoOnURL = $path . $file_name;
 
-            Storage::put("nuna/public/wedding/photos" . $file_name, $image_base64);
+            Storage::put("nuna/public/wedding/photos/" . $file_name, $image_base64);
 
         } else {
 
@@ -436,11 +436,11 @@ class WeddingsController extends Controller
             $image_type_aux = explode("image/", $image_parts[0]);
             $image_type = $image_type_aux[1];
             $image_base64 = base64_decode($image_parts[1]);
-            $file_name = Str::random(6) . $image_type;
+            $file_name = Str::random(6) .'.'. $image_type;
 
             $photoTwoURL = $path . $file_name;
 
-            Storage::put("nuna/public/wedding/photos" . $file_name, $image_base64);
+            Storage::put("nuna/public/wedding/photos/" . $file_name, $image_base64);
 
         } else {
 
@@ -463,11 +463,11 @@ class WeddingsController extends Controller
             $image_type_aux = explode("image/", $image_parts[0]);
             $image_type = $image_type_aux[1];
             $image_base64 = base64_decode($image_parts[1]);
-            $file_name = Str::random(6) . $image_type;
+            $file_name = Str::random(6) .'.'. $image_type;
 
             $photoThreeURL = $path . $file_name;
 
-            Storage::put("nuna/public/wedding/photos" . $file_name, $image_base64);
+            Storage::put("nuna/public/wedding/photos/" . $file_name, $image_base64);
 
         } else {
 
@@ -491,7 +491,7 @@ class WeddingsController extends Controller
             $image_type_aux = explode("image/", $image_parts[0]);
             $image_type = $image_type_aux[1];
             $image_base64 = base64_decode($image_parts[1]);
-            $file_name = Str::random(6) . $image_type;
+            $file_name = Str::random(6) .'.'. $image_type;
 
             $photoFourURL = $path . $file_name;
 
