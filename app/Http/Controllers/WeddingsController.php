@@ -55,8 +55,7 @@ class WeddingsController extends Controller
 
         }
 
-        $record = WeddingContribution::where("transaction_id", $transaction_id)->where('success',false)->first();
-
+        $record = WeddingContribution::where("transaction_id", $transaction_id)->where('success', false)->first();
 
 
         if ($code == '000') {
@@ -102,11 +101,11 @@ class WeddingsController extends Controller
 
                 }
 
-            }else{
+            } else {
 
-                $existingRecord = WeddingContribution::where("transaction_id", $transaction_id)->where('success',true)->first();
+                $existingRecord = WeddingContribution::where("transaction_id", $transaction_id)->where('success', true)->first();
 
-                if ($existingRecord){
+                if ($existingRecord) {
 
                     $wedding = Wedding::find($existingRecord->wedding_id);
 
@@ -118,7 +117,7 @@ class WeddingsController extends Controller
                     return view("wedding.payment_success", $data);
 
 
-                }else {
+                } else {
 
 
                     return view("wedding.payment_failed", ["reason" => "Transaction not found"]);
@@ -395,6 +394,120 @@ class WeddingsController extends Controller
         ]);
 
 
+        $path = "https://lrj6a9vl4is6.compat.objectstorage.uk-london-1.oraclecloud.com/nuna/lrj6a9vl4is6/nuna/public/wedding/photos/";
+
+        /**
+         * photo one upload
+         */
+
+        if ($request->hasFile("photo_one")) {
+
+            $photoOnURL = Storage::url($request->file("photo_one")->store("nuna/public/wedding/photos"));
+
+        } elseif ($request->photo_one) {
+
+            $image_parts = explode(";base64,", $request->photo_one);
+            $image_type_aux = explode("image/", $image_parts[0]);
+            $image_type = $image_type_aux[1];
+            $image_base64 = base64_decode($image_parts[1]);
+            $file_name = Str::random(6) . $image_type;
+
+            $photoOnURL = $path . $file_name;
+
+            Storage::put("nuna/public/wedding/photos" . $file_name, $image_base64);
+
+        } else {
+
+            $photoOnURL = null;
+        }
+
+
+        /**
+         * photo two upload
+         */
+
+        if ($request->hasFile("photo_two")) {
+
+            $photoTwoURL = Storage::url($request->file("photo_two")->store("nuna/public/wedding/photos"));
+
+        } elseif ($request->photo_two) {
+
+            $image_parts = explode(";base64,", $request->photo_two);
+            $image_type_aux = explode("image/", $image_parts[0]);
+            $image_type = $image_type_aux[1];
+            $image_base64 = base64_decode($image_parts[1]);
+            $file_name = Str::random(6) . $image_type;
+
+            $photoTwoURL = $path . $file_name;
+
+            Storage::put("nuna/public/wedding/photos" . $file_name, $image_base64);
+
+        } else {
+
+            $photoTwoURL = null;
+        }
+
+
+
+        /**
+         * photo three upload
+         */
+
+        if ($request->hasFile("photo_three")) {
+
+            $photoThreeURL = Storage::url($request->file("photo_three")->store("nuna/public/wedding/photos"));
+
+        } elseif ($request->photo_three) {
+
+            $image_parts = explode(";base64,", $request->photo_three);
+            $image_type_aux = explode("image/", $image_parts[0]);
+            $image_type = $image_type_aux[1];
+            $image_base64 = base64_decode($image_parts[1]);
+            $file_name = Str::random(6) . $image_type;
+
+            $photoThreeURL = $path . $file_name;
+
+            Storage::put("nuna/public/wedding/photos" . $file_name, $image_base64);
+
+        } else {
+
+            $photoThreeURL = null;
+        }
+
+
+
+
+        /**
+         * photo Four upload
+         */
+
+        if ($request->hasFile("photo_four")) {
+
+            $photoFourURL = Storage::url($request->file("photo_four")->store("nuna/public/wedding/photos"));
+
+        } elseif ($request->photo_three) {
+
+            $image_parts = explode(";base64,", $request->photo_four);
+            $image_type_aux = explode("image/", $image_parts[0]);
+            $image_type = $image_type_aux[1];
+            $image_base64 = base64_decode($image_parts[1]);
+            $file_name = Str::random(6) . $image_type;
+
+            $photoFourURL = $path . $file_name;
+
+            Storage::put("nuna/public/wedding/photos" . $file_name, $image_base64);
+
+        } else {
+
+            $photoFourURL = null;
+        }
+
+
+
+
+
+
+
         $wedding = new Wedding([
             "bride_name" => $request->bride_name,
             "bride_phone_number" => $request->bride_phone_number,
@@ -410,13 +523,14 @@ class WeddingsController extends Controller
             "coordinates" => $request->coordinates,
             "date_time" => Carbon::parse($request->date_time)->toDateTimeString(),
             "user_id" => $request->user()->id,
-            "photo_one" => $request->hasFile("photo_one") ? Storage::url($request->file("photo_one")->store("nuna/public/wedding/photos")) : null,
-            "photo_two" => $request->hasFile("photo_two") ? Storage::url($request->file("photo_two")->store("nuna/public/wedding/photos")) : null,
-            "photo_three" => $request->hasFile("photo_three") ? Storage::url($request->file("photo_three")->store("nuna/public/wedding/photos")) : null,
-            "photo_four" => $request->hasFile("photo_four") ? Storage::url($request->file("photo_four")->store("nuna/public/wedding/photos")) : null
+            "photo_one" => $photoOnURL,
+            "photo_two" => $photoTwoURL,
+            "photo_three" => $photoThreeURL,
+            "photo_four" => $photoFourURL
         ]);
 
         $wedding->save();
+
 
         if ($wedding) {
 
