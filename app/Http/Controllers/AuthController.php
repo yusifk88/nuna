@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
+use Laravel\Sanctum\Sanctum;
 use Symfony\Component\HttpFoundation\Response;
 
 class AuthController extends Controller
@@ -358,9 +359,12 @@ class AuthController extends Controller
 
         $user = $request->user();
 
+
         if (Hash::check($request->password, $user->password)) {
 
+
             Wedding::where("user_id", $user->id)->delete();
+
 
             User::where("id", $user->id)->update([
                 "email" => $user->email . "_deleted_" . Str::random(6),
@@ -368,12 +372,13 @@ class AuthController extends Controller
                 "notification_token" => null
             ]);
 
-            Auth::logout();
+            $user->tokens()->delete();
+
             return success_response([], "Your account was deleted successfully");
 
         } else {
 
-            return failed_response([["password"=>["The password you entered is incorrect"]]], Response::HTTP_UNPROCESSABLE_ENTITY, "The password you entered is incorrect");
+            return failed_response([["password" => ["The password you entered is incorrect"]]], Response::HTTP_UNPROCESSABLE_ENTITY, "The password you entered is incorrect");
 
         }
 
