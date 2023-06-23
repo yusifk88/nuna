@@ -5,11 +5,13 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\UserPin;
 use App\Models\Verification;
+use App\Models\Wedding;
 use App\Repositories\pushNotificationRepository;
 use App\Repositories\SMSRepository;
 use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -318,11 +320,12 @@ class AuthController extends Controller
     }
 
 
-    public function sendOTP(){
+    public function sendOTP()
+    {
 
         $user = \request()->user();
 
-        $phone_number= $user->phone_number;
+        $phone_number = $user->phone_number;
 
         UserPin::where("phone_number", $phone_number)->delete();
 
@@ -342,9 +345,36 @@ class AuthController extends Controller
         SMSRepository::sendSMS($phone_number, $text);
 
 
-
     }
 
+
+    public function deleteAccount(Request $request)
+    {
+        $request->validate([
+            "password" => "required|min:6|required_with:password_confirmation|same:password_confirmation",
+            "password_confirmation" => "required|min:6"
+        ]);
+
+
+        $user = $request->user();
+
+        if (Hash::check($request->password, $user->password)) {
+
+            Wedding::where("user_id", $user->id)->delete();
+
+            User::where("id", $user->id)->updated([
+                "email" => $user->email . "_deleted_" . Str::random(6),
+                "phone_number" => $user->phone_number . "_deleted_" . Str::random(6),
+                "notification_token"=>null
+            ]);
+
+            Auth::logout();
+
+        }
+
+        return success_response([], "Your account was deleted successfully");
+
+    }
 
 
     public function submitVerification(Request $request)

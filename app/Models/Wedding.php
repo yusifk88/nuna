@@ -4,12 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Wedding extends Model
 {
 
 
-    use HasFactory;
+    use HasFactory,SoftDeletes;
 
     protected $table = "wedding";
     protected $fillable = ["user_id", "bride_name", "bride_phone_number", "bride_email", "groom_name", "groom_phone_number",
