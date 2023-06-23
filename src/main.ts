@@ -157,10 +157,10 @@ router.isReady().then(() => {
 
             if (error.response.status !== 401) {
 
+                store.state.errorMessage = error.response.data.message ? error.response.data.message : "Something went wrong"
                 store.state.errorsArr = error.response.data.errors;
-                store.state.showErrorToast = true;
 
-                console.log(store.state.errorsArr);
+                store.state.showErrorToast = true;
             }
 
             return Promise.reject(error);

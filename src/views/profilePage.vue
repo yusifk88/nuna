@@ -14,21 +14,24 @@
     <ion-content>
 
       <ion-list class="ion-margin-top">
-        <ion-item color="light" lines="none" class="ion-margin">
+        <ion-item class="ion-margin" color="light" lines="none">
           <ion-avatar slot="start">
             <img alt="Silhouette of a person's head" src="https://ionicframework.com/docs/img/demos/avatar.svg"/>
           </ion-avatar>
           <ion-label style="border: none">
             <h1>{{ user.first_name }} {{ user.last_name }}</h1>
-            <p style="color: orange" v-if="!user.approved">Pending verification</p>
-            <p style="color: green" v-else><ion-icon :icon="checkmarkCircleOutline"></ion-icon>Verified </p>
+            <p v-if="!user.approved" style="color: orange">Pending verification</p>
+            <p v-else style="color: green">
+              <ion-icon :icon="checkmarkCircleOutline"></ion-icon>
+              Verified
+            </p>
 
           </ion-label>
         </ion-item>
       </ion-list>
 
       <ion-list class="ion-margin-top">
-        <ion-item lines="none" style="margin: 5px;" color="light" id="open-profile" detail="true">
+        <ion-item id="open-profile" color="light" detail="true" lines="none" style="margin: 5px;">
           <ion-icon slot="start" :icon="personOutline" size="large">
           </ion-icon>
           <ion-label>
@@ -55,7 +58,8 @@
           ></edit-profile>
         </ion-modal>
 
-        <ion-item lines="none" style="margin: 5px;" color="light" id="open-verify" :detail="true" :disabled="user.approved">
+        <ion-item id="open-verify" :detail="true" :disabled="user.approved" color="light" lines="none"
+                  style="margin: 5px;">
           <ion-icon slot="start" :icon="idCardOutline" size="large">
           </ion-icon>
           <ion-label>
@@ -82,7 +86,7 @@
         </ion-modal>
 
 
-        <ion-item color="light" style="margin: 5px;" lines="none" :detail="true">
+        <ion-item :detail="true" color="light" lines="none" style="margin: 5px;">
           <ion-icon slot="start" :icon="informationCircleOutline" size="large">
           </ion-icon>
           <ion-label>
@@ -92,7 +96,7 @@
         </ion-item>
 
 
-        <ion-item lines="none" color="light" style="margin: 5px;" :detail="true" @click="shareApp()">
+        <ion-item :detail="true" color="light" lines="none" style="margin: 5px;" @click="shareApp()">
           <ion-icon slot="start" :icon="shareSocialOutline" size="large">
           </ion-icon>
           <ion-label>
@@ -146,6 +150,72 @@
           </ion-row>
         </ion-card-content>
       </ion-card>
+
+      <ion-button id="open-account-delete" class="ion-margin" color="medium" expand="block" fill="clear" mode="ios"
+                  size="small">
+        <ion-icon :icon="trashBinOutline" size="small"></ion-icon>
+        Delete Account
+      </ion-button>
+
+
+      <ion-modal
+          ref="closAccountModal"
+          :breakpoints="[0, 0.5,0.7,0.8]"
+          :initial-breakpoint="0.7"
+          handle-behavior="cycle"
+          mode="ios"
+          trigger="open-account-delete"
+      >
+        <ion-header>
+          <ion-toolbar>
+            <ion-title>Delete your account?</ion-title>
+          </ion-toolbar>
+        </ion-header>
+
+        <ion-content class="ion-padding">
+
+          <center>
+
+            <div style="height: 80px; width: 80px; background-color: rgba(255,0,0,0.2); border-radius: 50%;">
+
+              <ion-icon :icon="trashBinOutline" class="ion-margin" color="danger" size="large"></ion-icon>
+
+            </div>
+          </center>
+
+          <ion-text class="ion-margin ion-text-center" color="danger">
+            <h4>You are about to delete to your Nuna account</h4>
+            <p>All events(wedding,birthdays,funerals,..) created by you together with your account will be deleted
+              permanently! </p>
+          </ion-text>
+
+          <ion-item lines="none">
+
+            <ion-label position="stacked">Password</ion-label>
+            <ion-input type="password" v-model="password" class="ion-text-start custom ion-margin-bottom" placeholder="Password"
+            ></ion-input>
+          </ion-item>
+          <ion-item lines="none">
+
+            <ion-label position="stacked">Confirm Password</ion-label>
+            <ion-input type="password" v-model="confirm_password" class="ion-text-start  custom" placeholder="Confirm Password"
+            ></ion-input>
+          </ion-item>
+
+
+          <ion-button
+              :disabled="!(password && password===confirm_password) || loading"
+              class="ion-margin-top"
+              color="danger"
+              expand="block"
+              maode="ios"
+              size="large"
+              @click="deleteAccount">Yes, Delete Account
+            <ion-spinner v-if="loading"></ion-spinner>
+          </ion-button>
+        </ion-content>
+      </ion-modal>
+
 
       <ion-row class="ion-padding" style="border-bottom: 1px solid rgba(128,128,128,0.32)">
         <ion-col class="ion-text-center" size="6">
@@ -214,7 +284,9 @@ import {
   IonButton,
   IonModal,
   IonButtons,
-  toastController
+  IonInput,
+  toastController,
+  IonSpinner
 } from "@ionic/vue";
 import {
   logInOutline,
@@ -223,11 +295,13 @@ import {
   informationCircleOutline,
   helpBuoyOutline,
   shareSocialOutline,
-    checkmarkCircleOutline
+  checkmarkCircleOutline,
+  trashBinOutline
 } from "ionicons/icons";
 import EditProfile from "@/components/EditProfile";
 import store from "@/store";
 import VerifyComponent from "@/components/verifyComponent";
+import axios from "axios";
 
 export default defineComponent({
   name: "profilePage",
@@ -235,6 +309,7 @@ export default defineComponent({
     VerifyComponent,
     EditProfile,
     IonPage,
+    IonInput,
     IonContent,
     IonHeader,
     IonToolbar,
@@ -251,7 +326,8 @@ export default defineComponent({
     IonCol,
     IonButton,
     IonModal,
-    IonButtons
+    IonButtons,
+    IonSpinner
   },
   computed: {
     user() {
@@ -268,11 +344,37 @@ export default defineComponent({
       helpBuoyOutline,
       showHelpModal: false,
       presentingElement: null,
-      checkmarkCircleOutline
+      checkmarkCircleOutline,
+      trashBinOutline,
+      password: "",
+      confirm_password: "",
+      loading: false
     }
   },
   methods: {
 
+    deleteAccount() {
+
+      this.loading = true;
+      const data = {
+        password: this.password,
+        password_confirmation: this.confirm_password
+      };
+
+      axios.post("/close-account",data)
+        .then(()=>{
+
+          this.$router.push("/login");
+
+          this.loading=false;
+
+        })
+      .catch(()=>{
+        this.loading=false;
+      })
+
+
+    },
     async shareApp() {
 
       const link = "https://play.google.com/store/apps/details?id=com.nuna.app";
@@ -285,21 +387,21 @@ export default defineComponent({
 
     },
 
-    dismissVerifyDialog(){
+    dismissVerifyDialog() {
       this.$refs.verifyModal.$el.dismiss(null, 'cancel');
     },
-    async showSuccess(message){
+    async showSuccess(message) {
 
 
-        const toast = await toastController.create({
-          message: message,
-          duration: 1500,
-          position: 'top',
-          color:"success",
-          mode:"ios"
-        });
+      const toast = await toastController.create({
+        message: message,
+        duration: 1500,
+        position: 'top',
+        color: "success",
+        mode: "ios"
+      });
 
-        await toast.present();
+      await toast.present();
 
     },
 
@@ -315,9 +417,9 @@ export default defineComponent({
     },
     confirmLogout() {
 
-      store.state.user={
-        email:"",
-        phone_number:""
+      store.state.user = {
+        email: "",
+        phone_number: ""
 
       };
 

@@ -28,17 +28,17 @@ export default {
     errorMessage() {
       if (this.$store.state.errorsArr) {
         const keys = Object.keys(this.$store.state.errorsArr);
-        let message = "";
+        let message = this.$store.state.errorMessage+ '\n';
         if (keys.length) {
 
           keys.forEach(key => {
 
-            if (!message) {
-              message = this.$store.state.errorsArr[key][0] + '\n';
+            if (this.$store.state.errorsArr[key][0]) {
 
-            } else {
               message += this.$store.state.errorsArr[key][0] + '\n';
+
             }
+
           })
         } else {
           message = "Something went wrong, could not process request";

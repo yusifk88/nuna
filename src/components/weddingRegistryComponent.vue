@@ -319,6 +319,7 @@
       <h2 class="ion-text-center">Let's style things up</h2>
 
       <p>Add upto 4 photos to your wedding page:</p>
+
       <ion-grid>
 
         <ion-row>
@@ -413,7 +414,7 @@
 
     </div>
 
-    <div v-if="step===6" class="smooth-in ion-color-primary" style="height: 100vh">
+    <div v-if="step===6" class="smooth-in ion-color-primary">
 
       <swiper :options="previewSlideOption" :pager="true">
 
@@ -878,10 +879,10 @@ export default {
       formData.append("story", this.story);
       formData.append("rsv_phone_number", this.rsvPhoneNumber);
       formData.append("rsv_person", this.rsvPerson);
-      formData.append("photo_one", this.photoOne ? this.photoOne.file : null);
-      formData.append("photo_two", this.photoTwo ? this.photoTwo.file : null);
-      formData.append("photo_three", this.photoThree ? this.photoThree.file : null);
-      formData.append("photo_four", this.photoFour ? this.photoFour.file : null);
+      formData.append("photo_one", this.photoOne ? this.photoOne.preview : null);
+      formData.append("photo_two", this.photoTwo ? this.photoTwo.preview : null);
+      formData.append("photo_three", this.photoThree ? this.photoThree.preview : null);
+      formData.append("photo_four", this.photoFour ? this.photoFour.preview : null);
 
 
       axios.post("/wedding", formData)
