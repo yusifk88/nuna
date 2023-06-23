@@ -373,7 +373,7 @@ class AuthController extends Controller
 
         } else {
 
-            return failed_response([["password"=>"The password you entered is incorrect"]], Response::HTTP_UNPROCESSABLE_ENTITY, "The password you entered is incorrect");
+            return failed_response([["password"=>["The password you entered is incorrect"]]], Response::HTTP_UNPROCESSABLE_ENTITY, "The password you entered is incorrect");
 
         }
 
