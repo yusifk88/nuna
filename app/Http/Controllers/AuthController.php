@@ -362,7 +362,7 @@ class AuthController extends Controller
 
             Wedding::where("user_id", $user->id)->delete();
 
-            User::where("id", $user->id)->updated([
+            User::where("id", $user->id)->update([
                 "email" => $user->email . "_deleted_" . Str::random(6),
                 "phone_number" => $user->phone_number . "_deleted_" . Str::random(6),
                 "notification_token" => null
