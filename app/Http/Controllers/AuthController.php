@@ -365,14 +365,18 @@ class AuthController extends Controller
             User::where("id", $user->id)->updated([
                 "email" => $user->email . "_deleted_" . Str::random(6),
                 "phone_number" => $user->phone_number . "_deleted_" . Str::random(6),
-                "notification_token"=>null
+                "notification_token" => null
             ]);
 
             Auth::logout();
+            return success_response([], "Your account was deleted successfully");
+
+        } else {
+
+            return failed_response([], Response::HTTP_UNPROCESSABLE_ENTITY, "The password you entered is incorrect");
 
         }
 
-        return success_response([], "Your account was deleted successfully");
 
     }
 
