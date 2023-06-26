@@ -408,14 +408,18 @@ class WeddingsController extends Controller
 
             $image_parts = explode(";base64,", $request->photo_one);
             $image_type_aux = explode("image/", $image_parts[0]);
-            $image_type = $image_type_aux[1];
-            $image_base64 = base64_decode($image_parts[1]);
-            $file_name = Str::random(6) .'.'. $image_type;
+            if (count($image_type_aux)>0) {
+                $image_type = $image_type_aux[1];
+                $image_base64 = base64_decode($image_parts[1]);
+                $file_name = Str::random(6) . '.' . $image_type;
 
-            $photoOnURL = $path . $file_name;
+                $photoOnURL = $path . $file_name;
 
-            Storage::put("nuna/public/wedding/photos/" . $file_name, $image_base64);
+                Storage::put("nuna/public/wedding/photos/" . $file_name, $image_base64);
+            }else{
 
+                $photoOnURL = null;
+            }
         } else {
 
             $photoOnURL = null;
@@ -434,13 +438,20 @@ class WeddingsController extends Controller
 
             $image_parts = explode(";base64,", $request->photo_two);
             $image_type_aux = explode("image/", $image_parts[0]);
-            $image_type = $image_type_aux[1];
-            $image_base64 = base64_decode($image_parts[1]);
-            $file_name = Str::random(6) .'.'. $image_type;
+            if (count($image_type_aux)>0) {
 
-            $photoTwoURL = $path . $file_name;
+                $image_type = $image_type_aux[1];
+                $image_base64 = base64_decode($image_parts[1]);
+                $file_name = Str::random(6) . '.' . $image_type;
 
-            Storage::put("nuna/public/wedding/photos/" . $file_name, $image_base64);
+                $photoTwoURL = $path . $file_name;
+
+                Storage::put("nuna/public/wedding/photos/" . $file_name, $image_base64);
+            }else{
+
+
+                $photoTwoURL = null;
+            }
 
         } else {
 
@@ -461,13 +472,20 @@ class WeddingsController extends Controller
 
             $image_parts = explode(";base64,", $request->photo_three);
             $image_type_aux = explode("image/", $image_parts[0]);
-            $image_type = $image_type_aux[1];
-            $image_base64 = base64_decode($image_parts[1]);
-            $file_name = Str::random(6) .'.'. $image_type;
+            if (count($image_type_aux)>0) {
 
-            $photoThreeURL = $path . $file_name;
+                $image_type = $image_type_aux[1];
+                $image_base64 = base64_decode($image_parts[1]);
+                $file_name = Str::random(6) . '.' . $image_type;
 
-            Storage::put("nuna/public/wedding/photos/" . $file_name, $image_base64);
+                $photoThreeURL = $path . $file_name;
+
+                Storage::put("nuna/public/wedding/photos/" . $file_name, $image_base64);
+            }else{
+
+                $photoThreeURL = null;
+
+            }
 
         } else {
 
@@ -489,13 +507,20 @@ class WeddingsController extends Controller
 
             $image_parts = explode(";base64,", $request->photo_four);
             $image_type_aux = explode("image/", $image_parts[0]);
-            $image_type = $image_type_aux[1];
-            $image_base64 = base64_decode($image_parts[1]);
-            $file_name = Str::random(6) .'.'. $image_type;
+            if (count($image_type_aux)>0) {
 
-            $photoFourURL = $path . $file_name;
+                $image_type = $image_type_aux[1];
+                $image_base64 = base64_decode($image_parts[1]);
+                $file_name = Str::random(6) . '.' . $image_type;
 
-            Storage::put("nuna/public/wedding/photos/" . $file_name, $image_base64);
+                $photoFourURL = $path . $file_name;
+
+                Storage::put("nuna/public/wedding/photos/" . $file_name, $image_base64);
+            }else{
+
+                $photoFourURL = null;
+
+            }
 
         } else {
 
