@@ -151,15 +151,16 @@
         </ion-card-content>
       </ion-card>
 
-      <ion-button id="open-account-delete" class="ion-margin" color="medium" expand="block" fill="clear" mode="ios"
-                  size="small">
+      <ion-button id="open-account-delete" class="ion-margin" color="medium" expand="block"
+                  fill="clear" mode="ios" size="small"
+                  >
         <ion-icon :icon="trashBinOutline" size="small"></ion-icon>
         Delete Account
       </ion-button>
 
 
       <ion-modal
-          ref="closAccountModal"
+          ref="deleteAccountModal"
           :breakpoints="[0, 0.5,0.7,0.8]"
           :initial-breakpoint="0.7"
           handle-behavior="cycle"
@@ -184,21 +185,24 @@
           </center>
 
           <ion-text class="ion-margin ion-text-center" color="danger">
-            <h4>You are about to delete to your Nuna account</h4>
-            <p>All events(wedding,birthdays,funerals,..) created by you together with your account will be deleted
+            <h4>You are about to delete your Nuna account</h4>
+            <p>All events(wedding,birthdays,funerals,..) created by you together with your account and gifts will be
+              deleted
               permanently! </p>
           </ion-text>
 
           <ion-item lines="none">
 
             <ion-label position="stacked">Password</ion-label>
-            <ion-input type="password" v-model="password" class="ion-text-start custom ion-margin-bottom" placeholder="Password"
+            <ion-input v-model="password" class="ion-text-start custom ion-margin-bottom" placeholder="Password"
+                       type="password"
             ></ion-input>
           </ion-item>
           <ion-item lines="none">
 
             <ion-label position="stacked">Confirm Password</ion-label>
-            <ion-input type="password" v-model="confirm_password" class="ion-text-start  custom" placeholder="Confirm Password"
+            <ion-input v-model="confirm_password" class="ion-text-start  custom" placeholder="Confirm Password"
+                       type="password"
             ></ion-input>
           </ion-item>
 
@@ -236,6 +240,13 @@
         Nuna Technologies LTD {{ new Date().getFullYear() }}
       </h5>
 
+      <ion-alert
+          :buttons="alertButtons"
+          :is-open="deletedAlertOpen"
+          message="Your account was deleted"
+          title="Account Deleted"
+          @didDismiss="logout"
+      ></ion-alert>
 
       <ion-modal
           ref="helpModal"
@@ -263,7 +274,6 @@
 
 <script>
 import {Share} from '@capacitor/share';
-
 import {defineComponent} from 'vue';
 import {
   IonPage,
@@ -286,7 +296,8 @@ import {
   IonButtons,
   IonInput,
   toastController,
-  IonSpinner
+  IonSpinner,
+  IonAlert
 } from "@ionic/vue";
 import {
   logInOutline,
@@ -302,6 +313,7 @@ import EditProfile from "@/components/EditProfile";
 import store from "@/store";
 import VerifyComponent from "@/components/verifyComponent";
 import axios from "axios";
+import router from "@/router";
 
 export default defineComponent({
   name: "profilePage",
@@ -327,7 +339,8 @@ export default defineComponent({
     IonButton,
     IonModal,
     IonButtons,
-    IonSpinner
+    IonSpinner,
+    IonAlert
   },
   computed: {
     user() {
@@ -348,11 +361,23 @@ export default defineComponent({
       trashBinOutline,
       password: "",
       confirm_password: "",
-      loading: false
+      loading: false,
+      deletedAlertOpen: false,
+      alertButtons: ['Okay']
     }
   },
   methods: {
 
+    logout() {
+      store.state.user = {
+        email: "",
+        phone_number: ""
+
+      };
+
+      localStorage.removeItem("token");
+      this.$router.push("/login");
+    },
     deleteAccount() {
 
       this.loading = true;
@@ -361,17 +386,19 @@ export default defineComponent({
         password_confirmation: this.confirm_password
       };
 
-      axios.post("/close-account",data)
-        .then(()=>{
+      axios.post("/close-account", data)
+          .then(() => {
 
-          this.$router.push("/login");
+            this.$refs.deleteAccountModal.$el.dismiss(null, 'cancel');
 
-          this.loading=false;
+            this.logout();
 
-        })
-      .catch(()=>{
-        this.loading=false;
-      })
+            this.loading = false;
+
+          })
+          .catch(() => {
+            this.loading = false;
+          })
 
 
     },
