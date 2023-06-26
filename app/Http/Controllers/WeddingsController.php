@@ -408,7 +408,7 @@ class WeddingsController extends Controller
 
             $image_parts = explode(";base64,", $request->photo_one);
             $image_type_aux = explode("image/", $image_parts[0]);
-            if (count($image_type_aux)>0) {
+            if (count($image_type_aux)>1) {
                 $image_type = $image_type_aux[1];
                 $image_base64 = base64_decode($image_parts[1]);
                 $file_name = Str::random(6) . '.' . $image_type;
@@ -438,7 +438,7 @@ class WeddingsController extends Controller
 
             $image_parts = explode(";base64,", $request->photo_two);
             $image_type_aux = explode("image/", $image_parts[0]);
-            if (count($image_type_aux)>0) {
+            if (count($image_type_aux)>1) {
 
                 $image_type = $image_type_aux[1];
                 $image_base64 = base64_decode($image_parts[1]);
@@ -472,7 +472,7 @@ class WeddingsController extends Controller
 
             $image_parts = explode(";base64,", $request->photo_three);
             $image_type_aux = explode("image/", $image_parts[0]);
-            if (count($image_type_aux)>0) {
+            if (count($image_type_aux)>1) {
 
                 $image_type = $image_type_aux[1];
                 $image_base64 = base64_decode($image_parts[1]);
@@ -507,7 +507,7 @@ class WeddingsController extends Controller
 
             $image_parts = explode(";base64,", $request->photo_four);
             $image_type_aux = explode("image/", $image_parts[0]);
-            if (count($image_type_aux)>0) {
+            if (count($image_type_aux)>1) {
 
                 $image_type = $image_type_aux[1];
                 $image_base64 = base64_decode($image_parts[1]);
