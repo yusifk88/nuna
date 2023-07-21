@@ -35,8 +35,11 @@
                                     </div>
 
                                     <div class="col-md-6 text-center">
+                                        <a href="https://apps.apple.com/gh/app/nuna-digital-wedding-page-app/id6449852115">
+
                                         <img class="img-fluid m-3" width="200px"
                                              src="https://objectstorage.uk-london-1.oraclecloud.com/n/lrj6a9vl4is6/b/nuna/o/5847e95fcef1014c0b5e4822.png">
+                                        </a>
                                     </div>
 
 
@@ -109,8 +112,11 @@
                                         </div>
 
                                         <div class="col-md-5 text-center">
+                                            <a href="https://apps.apple.com/gh/app/nuna-digital-wedding-page-app/id6449852115">
+
                                             <img class="img-fluid m-3" width="200px"
                                                  src="https://objectstorage.uk-london-1.oraclecloud.com/n/lrj6a9vl4is6/b/nuna/o/5847e95fcef1014c0b5e4822.png">
+                                            </a>
                                         </div>
 
 
@@ -177,8 +183,12 @@
                                         </div>
 
                                         <div class="col-md-5 text-center">
+                                            <a href="https://apps.apple.com/gh/app/nuna-digital-wedding-page-app/id6449852115">
+
                                             <img class="img-fluid m-3" width="200px"
                                                  src="https://objectstorage.uk-london-1.oraclecloud.com/n/lrj6a9vl4is6/b/nuna/o/5847e95fcef1014c0b5e4822.png">
+                                            </a>
+
                                         </div>
 
 
@@ -226,8 +236,11 @@
                                         </div>
 
                                         <div class="col-md-5 text-center">
+                                            <a href="https://apps.apple.com/gh/app/nuna-digital-wedding-page-app/id6449852115">
+
                                             <img class="img-fluid m-3" width="200px"
                                                  src="https://objectstorage.uk-london-1.oraclecloud.com/n/lrj6a9vl4is6/b/nuna/o/5847e95fcef1014c0b5e4822.png">
+                                            </a>
                                         </div>
 
 
