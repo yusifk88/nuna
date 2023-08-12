@@ -3,6 +3,7 @@
 use App\Http\Controllers\AIController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardControler;
+use App\Http\Controllers\PaymentWebhooksController;
 use App\Http\Controllers\SMSController;
 use App\Http\Controllers\WeddingsController;
 use App\Http\Controllers\WishListCOntroller;
@@ -24,6 +25,7 @@ use Illuminate\Support\Facades\Route;
 Route::post("signup", [AuthController::class, "signUp"]);
 Route::post("login", [AuthController::class, "login"]);
 Route::post("sendVerification", [AuthController::class, "sendVerificationCode"]);
+Route::post("paystack/webhook", [PaymentWebhooksController::class, "handleWebHook"]);
 
 Route::middleware('mustHavePinCode')->group(function () {
     Route::post("reset-password", [AuthController::class, "resetPassword"]);
