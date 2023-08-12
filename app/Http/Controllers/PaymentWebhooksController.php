@@ -55,13 +55,17 @@ class PaymentWebhooksController extends Controller
                             "amount" => $record->amount,
                         ];
 
+                        $record->success = true;
+                        $record->message = "success";
+                        $record->update();
+
                         return success_response($data);
+
 
 
                     }
 
-                    $record->success = true;
-                    $record->update();
+
 
 
                 }
