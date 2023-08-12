@@ -2,8 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\WeddingsController;
-use App\Repositories\Payswitch;
-use Illuminate\Support\Facades\Http;
+use App\Repositories\Paystack;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -36,5 +35,4 @@ Route::get("unverify-confirm/{uuid}", [AuthController::class, "unverifyAccount"]
 Route::get("w/{tag}/contribute", [WeddingsController::class, "paymentPage"])->name("initPayment");
 Route::post("w/{id}/attending", [WeddingsController::class, "SaveRSV"])->name("reserve");
 Route::post("w/{id}/checkout", [WeddingsController::class, "initCheckout"])->name("initCheckout");
-
 

@@ -8,8 +8,7 @@ use App\Models\Reservation;
 use App\Models\User;
 use App\Models\Wedding;
 use App\Models\WeddingContribution;
-use App\Repositories\Payswitch;
-use App\Repositories\pushNotificationRepository;
+use App\Repositories\Paystack;
 use App\Repositories\UtilityRepository;
 use App\Repositories\WeddingRepository;
 use Carbon\Carbon;
@@ -43,93 +42,33 @@ class WeddingsController extends Controller
 
     public function confirmPayment()
     {
-        $status = \request()->get("status");
-        $code = \request()->get("code");
-        $reason = \request()->get("reason");
-        $transaction_id = \request()->get("transaction_id");
+        $ref = \request()->get("reference");
 
-        if (!$transaction_id) {
+        $record = WeddingContribution::where("transaction_id",$ref)->first();
 
-            return view("wedding.payment_failed", ["reason" => "Payment was canceled", "wedding" => null]);
+        $wedding=null;
 
+        if ($record){
 
-        }
+            $wedding = Wedding::find($record->wedding_id);
 
-        $record = WeddingContribution::where("transaction_id", $transaction_id)->where('success', false)->first();
+            if ($wedding){
 
-
-        if ($code == '000') {
-
-
-            if ($record) {
-
-                $wedding = Wedding::find($record->wedding_id);
-
-                $res = Payswitch::verifyTransaction($transaction_id);
-
-                if ($res && $res->code == '00') {
-
-                    $record->success = true;
-                    $record->message = $record->reason;
-                    $record->update();
-
-                    $wedding = Wedding::find($record->wedding_id);
-
-                    $wedding_event = new Event([
-                        "wedding_id" => $record->wedding_id,
-                        "title" => $record->name . "'s contribution",
-                        "description" => $record->name . " contributed GHS" . number_format($record->amount, 2),
-                        "type" => "gift"
-                    ]);
-
-                    $wedding_event->save();
-
-
-                    $user = User::find($wedding->user_id);
-                    $message = "🎁 You have received GHS" . number_format($record->amount, 2) . " from " . $record->name . " as a gift for your wedding(" . $wedding->tag . ")!";
-
-
-                    pushNotificationRepository::sendNotification($user, $message);
-
-
-                    $data = [
-                        "wedding" => $wedding,
-                        "amount" => $record->amount,
-                    ];
-
-                    return view("wedding.payment_success", $data);
-
-                }
-
-            } else {
-
-                $existingRecord = WeddingContribution::where("transaction_id", $transaction_id)->where('success', true)->first();
-
-                if ($existingRecord) {
-
-                    $wedding = Wedding::find($existingRecord->wedding_id);
-
-                    $data = [
-                        "wedding" => $wedding,
-                        "amount" => $existingRecord->amount,
-                    ];
-
-                    return view("wedding.payment_success", $data);
-
-
-                } else {
-
-
-                    return view("wedding.payment_failed", ["reason" => "Transaction not found"]);
-
-                }
+                return view("wedding.payment_success",[
+                    "wedding"=>$wedding,
+                    "amount"=>$record->amount
+                ]);
 
             }
 
-        } else {
 
-            return view("wedding.payment_failed", ["reason" => $reason]);
         }
+
+
+        return view("wedding.payment_failed",[
+            "wedding"=>$wedding,
+            "reason"=>"Sorry, we could not verify your transaction please try again"
+        ]);
 
 
     }
@@ -151,18 +90,22 @@ class WeddingsController extends Controller
 
         }
 
-        $url = "https://mynunaa.com/w/confirm";
-
-        $transaction_id = Payswitch::getMaxID();
+      $url = "https://mynunaa.com/w/confirm";
+//
+//        $transaction_id = Payswitch::getMaxID();
 
         $wedding = Wedding::find($wedding_id);
 
-        $description = $wedding->tag . "_" . Str::random();
+//        $description = $wedding->tag . "_" . Str::random();
+//
+    //  $checkout = Payswitch::initialize_collection($request->amount, $request->email, $transaction_id, $url, $description);
 
-        $checkout = Payswitch::initialize_collection($request->amount, $request->email, $transaction_id, $url, $description);
 
+        $amountInCents = ceil($request->amount*100);
 
-        if ($checkout && $checkout->status === 'success') {
+        $checkout = Paystack::initializePayment($amountInCents,$request->email,$request->name,$url);
+
+        if ($checkout && $checkout->status) {
 
 
             WeddingContribution::create([
@@ -170,27 +113,14 @@ class WeddingsController extends Controller
                 "email" => $request->email,
                 "amount" => $request->amount,
                 "phone_number" => $request->phone_number,
-                "checkout_token" => $checkout->token,
-                "message" => $checkout->reason,
+                "checkout_token" => $checkout->data->access_code,
+                "message" => $checkout->message,
                 "wedding_id" => $wedding_id,
-                "transaction_id" => $transaction_id
+                "transaction_id" => $checkout->data->reference
             ]);
 
-            return redirect($checkout->checkout_url);
+            return redirect($checkout->data->authorization_url);
         }
-
-
-        WeddingContribution::create([
-            "name" => $request->name,
-            "email" => $request->email,
-            "amount" => $request->amount,
-            "phone_number" => $request->phone_number,
-            "checkout_token" => "not Available",
-            "message" => $checkout->reason,
-            "wedding_id" => $wedding_id,
-            "transaction_id" => Str::random()
-        ]);
-
 
         echo "Sorry, we could not initialize the checkout reason: " . $checkout->reason;
 
