@@ -44,19 +44,19 @@ class WeddingsController extends Controller
     {
         $ref = \request()->get("reference");
 
-        $record = WeddingContribution::where("transaction_id",$ref)->first();
+        $record = WeddingContribution::where("transaction_id", $ref)->first();
 
-        $wedding=null;
+        $wedding = null;
 
-        if ($record){
+        if ($record) {
 
             $wedding = Wedding::find($record->wedding_id);
 
-            if ($wedding){
+            if ($wedding) {
 
-                return view("wedding.payment_success",[
-                    "wedding"=>$wedding,
-                    "amount"=>$record->amount
+                return view("wedding.payment_success", [
+                    "wedding" => $wedding,
+                    "amount" => $record->amount
                 ]);
 
             }
@@ -65,9 +65,9 @@ class WeddingsController extends Controller
         }
 
 
-        return view("wedding.payment_failed",[
-            "wedding"=>$wedding,
-            "reason"=>"Sorry, we could not verify your transaction please try again"
+        return view("wedding.payment_failed", [
+            "wedding" => $wedding,
+            "reason" => "Sorry, we could not verify your transaction please try again"
         ]);
 
 
@@ -90,20 +90,14 @@ class WeddingsController extends Controller
 
         }
 
-      $url = "https://mynunaa.com/w/confirm";
-//
-//        $transaction_id = Payswitch::getMaxID();
+        $url = "https://mynunaa.com/w/confirm";
 
         $wedding = Wedding::find($wedding_id);
 
-//        $description = $wedding->tag . "_" . Str::random();
-//
-    //  $checkout = Payswitch::initialize_collection($request->amount, $request->email, $transaction_id, $url, $description);
 
+        $amountInCents = ceil($request->amount * 100);
 
-        $amountInCents = ceil($request->amount*100);
-
-        $checkout = Paystack::initializePayment($amountInCents,$request->email,$request->name,$url);
+        $checkout = Paystack::initializePayment($amountInCents, $request->email, $request->name, $url);
 
         if ($checkout && $checkout->status) {
 
@@ -324,143 +318,6 @@ class WeddingsController extends Controller
         ]);
 
 
-        $path = "https://lrj6a9vl4is6.compat.objectstorage.uk-london-1.oraclecloud.com/nuna/lrj6a9vl4is6/nuna/public/wedding/photos/";
-
-        /**
-         * photo one upload
-         */
-
-        if ($request->hasFile("photo_one")) {
-
-            $photoOnURL = Storage::url($request->file("photo_one")->store("nuna/public/wedding/photos"));
-
-        } elseif ($request->photo_one) {
-
-            $image_parts = explode(";base64,", $request->photo_one);
-            $image_type_aux = explode("image/", $image_parts[0]);
-            if (count($image_type_aux)>1) {
-                $image_type = $image_type_aux[1];
-                $image_base64 = base64_decode($image_parts[1]);
-                $file_name = Str::random(6) . '.' . $image_type;
-
-                $photoOnURL = $path . $file_name;
-
-                Storage::put("nuna/public/wedding/photos/" . $file_name, $image_base64);
-            }else{
-
-                $photoOnURL = null;
-            }
-        } else {
-
-            $photoOnURL = null;
-        }
-
-
-        /**
-         * photo two upload
-         */
-
-        if ($request->hasFile("photo_two")) {
-
-            $photoTwoURL = Storage::url($request->file("photo_two")->store("nuna/public/wedding/photos"));
-
-        } elseif ($request->photo_two) {
-
-            $image_parts = explode(";base64,", $request->photo_two);
-            $image_type_aux = explode("image/", $image_parts[0]);
-            if (count($image_type_aux)>1) {
-
-                $image_type = $image_type_aux[1];
-                $image_base64 = base64_decode($image_parts[1]);
-                $file_name = Str::random(6) . '.' . $image_type;
-
-                $photoTwoURL = $path . $file_name;
-
-                Storage::put("nuna/public/wedding/photos/" . $file_name, $image_base64);
-            }else{
-
-
-                $photoTwoURL = null;
-            }
-
-        } else {
-
-            $photoTwoURL = null;
-        }
-
-
-
-        /**
-         * photo three upload
-         */
-
-        if ($request->hasFile("photo_three")) {
-
-            $photoThreeURL = Storage::url($request->file("photo_three")->store("nuna/public/wedding/photos"));
-
-        } elseif ($request->photo_three) {
-
-            $image_parts = explode(";base64,", $request->photo_three);
-            $image_type_aux = explode("image/", $image_parts[0]);
-            if (count($image_type_aux)>1) {
-
-                $image_type = $image_type_aux[1];
-                $image_base64 = base64_decode($image_parts[1]);
-                $file_name = Str::random(6) . '.' . $image_type;
-
-                $photoThreeURL = $path . $file_name;
-
-                Storage::put("nuna/public/wedding/photos/" . $file_name, $image_base64);
-            }else{
-
-                $photoThreeURL = null;
-
-            }
-
-        } else {
-
-            $photoThreeURL = null;
-        }
-
-
-
-
-        /**
-         * photo Four upload
-         */
-
-        if ($request->hasFile("photo_four")) {
-
-            $photoFourURL = Storage::url($request->file("photo_four")->store("nuna/public/wedding/photos"));
-
-        } elseif ($request->photo_three) {
-
-            $image_parts = explode(";base64,", $request->photo_four);
-            $image_type_aux = explode("image/", $image_parts[0]);
-            if (count($image_type_aux)>1) {
-
-                $image_type = $image_type_aux[1];
-                $image_base64 = base64_decode($image_parts[1]);
-                $file_name = Str::random(6) . '.' . $image_type;
-
-                $photoFourURL = $path . $file_name;
-
-                Storage::put("nuna/public/wedding/photos/" . $file_name, $image_base64);
-            }else{
-
-                $photoFourURL = null;
-
-            }
-
-        } else {
-
-            $photoFourURL = null;
-        }
-
-
-
-
-
 
 
         $wedding = new Wedding([
@@ -478,10 +335,10 @@ class WeddingsController extends Controller
             "coordinates" => $request->coordinates,
             "date_time" => Carbon::parse($request->date_time)->toDateTimeString(),
             "user_id" => $request->user()->id,
-            "photo_one" => $photoOnURL,
-            "photo_two" => $photoTwoURL,
-            "photo_three" => $photoThreeURL,
-            "photo_four" => $photoFourURL
+            "photo_one" => $request->photo_one,
+            "photo_two" => $request->photo_two,
+            "photo_three" => $request->photo_three,
+            "photo_four" => $request->photo_four
         ]);
 
         $wedding->save();
@@ -495,4 +352,25 @@ class WeddingsController extends Controller
         return failed_response([], Response::HTTP_INTERNAL_SERVER_ERROR, "Something went wrong, could not create wedding registry");
 
     }
+
+
+    /**
+     * @param int $wedding_id
+     * @return JsonResponse
+     */
+    public function destroy(int $wedding_id): JsonResponse
+    {
+        $user = \request()->user();
+        $wedding = Wedding::where("user_id", $user->id)->where("id", $wedding_id)->first();
+
+        if ($wedding) {
+            $wedding->delete();
+            return success_response([], "Wedding registery deleted");
+        }
+
+        return failed_response([], Response::HTTP_NOT_FOUND, "Wedding not cound");
+
+    }
+
+
 }

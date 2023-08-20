@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AIController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BucketController;
 use App\Http\Controllers\DashboardControler;
 use App\Http\Controllers\PaymentWebhooksController;
 use App\Http\Controllers\SMSController;
@@ -89,6 +90,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::post("wedding", [WeddingsController::class, "store"]);
     Route::get("weddings/{id}", [WeddingsController::class, "show"]);
+    Route::delete("weddings/{id}", [WeddingsController::class, "destroy"]);
     Route::get("weddings", [WeddingsController::class, "index"]);
     Route::get("activities", [WeddingsController::class, "weddingActivities"]);
     Route::get("guests-list", [WeddingsController::class, "guests"]);
@@ -96,6 +98,10 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get("contributions", [WeddingsController::class, "contributions"]);
     Route::get("get-love-story", [AIController::class, "loveStory"]);
 
+    /**
+     * bucket routes
+     */
+    Route::post("save-to-bucket", [BucketController::class, "store"]);
 
     /**
      * wishlist item
