@@ -255,7 +255,6 @@
       </div>
 
       <ion-button
-          v-if="!googlePlace"
           id="open-map"
           expand="block"
           fill="clear"
@@ -263,7 +262,7 @@
           shape="round"
           size="large"
 
-      >Attach map location
+      >Add location on map
         <ion-icon :icon="locationOutline"></ion-icon>
       </ion-button>
 
@@ -318,34 +317,32 @@
 
       <h2 class="ion-text-center">Let's style things up</h2>
 
-      <p>Add upto 4 photos to your wedding page:</p>
+      <p class="ion-text-center">Add upto 4 photos to your wedding page:</p>
 
-      <ion-grid>
+      <swiper  :navigation="true" class="ion-margin"
+               :pager="true">
 
-        <ion-row>
-          <ion-col size="6">
-            <thumbnail-component uuid="img1" @photoSelected="file=>photoOne=file"></thumbnail-component>
-          </ion-col>
+        <swiper-slide>
+          <thumbnail-component label="Bride's Photo" uuid="img1" @photoSelected="file=>photoOne=file"></thumbnail-component>
 
-          <ion-col size="6">
-            <thumbnail-component uuid="img2" @photoSelected="file=>photoTwo=file"></thumbnail-component>
-          </ion-col>
+        </swiper-slide>
 
+        <swiper-slide>
+          <thumbnail-component label="Groom's Photo" uuid="img2" @photoSelected="file=>photoTwo=file"></thumbnail-component>
 
-          <ion-col size="6">
-            <thumbnail-component uuid="img3" @photoSelected="file=>photoThree=file"></thumbnail-component>
-          </ion-col>
+        </swiper-slide>
+        <swiper-slide>
+          <thumbnail-component label="A photo together" uuid="img3" @photoSelected="file=>photoThree=file"></thumbnail-component>
 
+        </swiper-slide>
+          <swiper-slide>
+            <thumbnail-component label="A photo together" uuid="img4" @photoSelected="file=>photoFour=file"></thumbnail-component>
 
-          <ion-col size="6">
-            <thumbnail-component uuid="img4" @photoSelected="file=>photoFour=file"></thumbnail-component>
-          </ion-col>
+        </swiper-slide>
 
+      </swiper>
 
-        </ion-row>
-      </ion-grid>
-
-      <p>Share something nice about your union:</p>
+      <p class="ion-margin">Share something nice about your union:</p>
 
       <ion-item color="light" class="ion-margin-top" lines="none">
         <ion-textarea v-model="story" :autoGrow="true" class="custom" placeholder="A short beautiful story"
@@ -475,7 +472,7 @@
       </swiper>
 
 
-      <ion-list :inset="true" lines="inset">
+      <ion-list :inset="true" lines="none">
         <ion-list-header>
           <ion-label>
             <ion-icon :icon="personOutline"></ion-icon>
@@ -632,7 +629,6 @@ import {
   IonDatetime,
   IonDatetimeButton,
   IonFooter,
-  IonGrid,
   IonIcon,
   IonInput,
   IonItem,
@@ -643,7 +639,6 @@ import {
   IonProgressBar,
   IonRadio,
   IonRadioGroup,
-  IonRow,
   IonSpinner,
   IonTextarea,
   IonToolbar
@@ -701,10 +696,6 @@ export default {
     IonDatetimeButton,
     IonModal,
     IonDatetime,
-    IonRow,
-    IonCol,
-    IonGrid,
-
     IonCard,
     IonCardHeader,
     IonCardTitle,
@@ -743,7 +734,7 @@ export default {
         effect: "overflow"
       },
       previewSlideOption: {
-        slidesPerView: 1,
+        slidesPerView: 2,
         cycle: true,
         initialSlide: 0,
         speed: 400,
@@ -892,6 +883,7 @@ export default {
 
             const url = "/event/wedding/" + res.data.data.id;
             this.$router.push({path: url});
+            this.$store.commit("initUser");
 
           })
           .catch(error => {

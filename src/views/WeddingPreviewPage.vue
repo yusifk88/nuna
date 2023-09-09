@@ -4,7 +4,7 @@
       <ion-toolbar>
         <ion-back-button slot="start"></ion-back-button>
         <ion-title>
-          {{ wedding ? wedding.tag : "Wedding tag..." }}
+          {{ wedding ? "#"+wedding.tag : "Wedding tag..." }}
         </ion-title>
         <ion-buttons slot="end">
           <ion-button :disabled="!wedding" mode="ios" size="large" @click="shareLink(getURL(wedding))">
@@ -151,6 +151,7 @@
         <p>{{ wedding.location }}</p>
         <maps-component v-if="wedding.coordinates" :place="position" class="no-margin"></maps-component>
 
+        <wedding-controls-component :wedding-i-d="wedding.id" v-if="wedding"></wedding-controls-component>
       </span>
 
     </ion-content>
@@ -187,10 +188,12 @@ import axios from "axios";
 import MapsComponent from "@/components/MapsComponent";
 import CashTargetComponent from "@/components/CashTargetComponent";
 import GuestList from "@/components/GuestList";
+import WeddingControlsComponent from "@/components/weddingControlsComponent.vue";
 
 export default {
   name: "WeddingPreviewPage",
   components: {
+    WeddingControlsComponent,
     IonCard,
     IonCardContent,
     GuestList,

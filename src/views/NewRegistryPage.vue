@@ -9,7 +9,7 @@
 
       </ion-toolbar>
     </ion-header>
-    <wedding-registry-component v-if="$route.params.type.toLowerCase()==='wedding'"></wedding-registry-component>
+    <wedding-registry-component v-if="$route.params.type && $route.params.type.toLowerCase()==='wedding'"></wedding-registry-component>
   </ion-page>
 
 </template>

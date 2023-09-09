@@ -46,8 +46,7 @@
 
 <span>
  <lottie-animation
-     :height="350"
-     :width="350"
+     style="width: 10em; height: 10em"
      class="ion-margin"
      path="welcome.json"></lottie-animation>
 
@@ -68,13 +67,13 @@
         <swiper-slide>
          <span>
  <lottie-animation
-     :height="350"
-     :width="350"
+     style="width: 10em; height: 10em"
+
      class="ion-margin"
      path="people.json"></lottie-animation>
 
-      <h1 class="font-weight-bold ion-margin">Know your guests ahead of time!</h1>
-      <p class="text-muted ion-margin">
+      <h1 class="font-weight-bold ion-margin ion-text-center">Know your guests ahead of time!</h1>
+      <p class="text-muted ion-margin ion-text-center">
        Plan better by easily building a guest list ahead of time, get a personalised page
         where your friends can indicate that they would be attending.
       </p>
@@ -90,13 +89,14 @@
         <swiper-slide>
                 <span>
  <lottie-animation
-     :height="350"
-     :width="350"
+     style="width: 10em; height: 10em"
      class="ion-margin"
-     path="signup.json"></lottie-animation>
+     path="signup.json">
 
-      <h1 class="font-weight-bold ion-margin">Get Started</h1>
-      <p class="text-muted ion-margin">
+ </lottie-animation>
+
+      <h1 class="font-weight-bold ion-margin ion-text-center">Get Started</h1>
+      <p class="text-muted ion-margin ion-text-center">
         Get started by creating your Nuna Account
       </p>
 
@@ -180,8 +180,6 @@ export default defineComponent({
     },
     goToNext() {
       const swiper = document.querySelector('.swiper').swiper;
-
-// Now you can use all slider methods like
       swiper.slideNext();
 
     }

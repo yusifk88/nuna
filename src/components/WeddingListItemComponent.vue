@@ -22,14 +22,14 @@
 
     <ion-item botton :detail="true" color="light" lines="none" style="margin: 5px">
       <ion-thumbnail slot="start">
-        <img alt="wedding photo" :src="imgURL"/>
+        <img style="border-radius: 10px!important;" alt="wedding photo" :src="imgURL"/>
 
       </ion-thumbnail>
 
       <ion-label>
         <h1>{{ item.groom_name }} & {{ item.bride_name }}</h1>
         <h4>{{user.currency}}{{item.contributions_sum_amount}}/{{user.currency}}{{item.items_sum_target_amount}}</h4>
-        <p>{{ item.date_time }}</p>
+        <p class="text-muted">{{ weddingDate() }}</p>
       </ion-label>
       <ion-icon v-show="false" color="success" v-if="item.public" :icon="globeOutline" slot="end"></ion-icon>
       <ion-icon v-show="false" class="text-muted" v-else :icon="cloudOfflineOutline" slot="end"></ion-icon>
@@ -42,6 +42,7 @@
 <script>
 import {IonIcon, IonItem, IonItemSliding, IonLabel, IonThumbnail} from "@ionic/vue";
 import {closeCircleOutline, cloudOfflineOutline, copyOutline, globeOutline,shareOutline} from "ionicons/icons";
+import moment from "moment/moment";
 
 export default {
   props: {
@@ -92,6 +93,19 @@ export default {
     }
   },
 
+  methods:{
+    weddingDate() {
+
+      if (this.item) {
+
+
+        return moment(this.item.created_at).format("Do MMMM, Y h:mm a");
+
+      }
+
+      return "";
+    }
+  }
 }
 </script>
 

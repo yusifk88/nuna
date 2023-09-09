@@ -1,14 +1,14 @@
 <template>
-  <p class="ion-margin-start" v-if="items.length">Contribution List</p>
+  <p v-if="items.length" class="ion-margin-start">Contribution List</p>
   <list-loading-component v-if="loading" :count="8" :show-header=false></list-loading-component>
   <ion-list v-if="items.length && !loading" class="no-margin">
 
-    <ion-item color="light" lines="none" style="margin: 5px" v-for="(item,index) in items" :key="index">
+    <ion-item v-for="(item,index) in items" :key="index" color="light" lines="none" style="margin: 5px">
 
-      <ion-icon class="gift-icon" :icon="giftOutline"></ion-icon>
+      <ion-icon :icon="giftOutline" class="gift-icon"></ion-icon>
 
       <ion-label>
-        <h2>{{user.currency}}{{ item.amount }}</h2>
+        <h2>{{ user.currency }}{{ item.amount }}</h2>
         <p>From {{ item.name }}</p>
       </ion-label>
       <small class="text-muted">{{ item.human_date }}</small>
@@ -16,14 +16,14 @@
 
   </ion-list>
   <no-record-component
-      :show-button="wedding && wedding.items_sum_target_amount <=0"
-      title="No gifts yet"
-      description="No one has sent you a gift yet, Good luck 🤞."
-      button-text="Add cash target"
-      @buttonTapped="$emit('createNew')"
-      :button-icon="addOutline"
-      :show-icon="true"
       v-else-if="!items.length && !loading"
+      :button-icon="addOutline"
+      :show-button="showButton"
+      :show-icon="true"
+      button-text="Add cash target"
+      description="No one has sent you a gift yet, Good luck 🤞."
+      title="No gifts yet"
+      @buttonTapped="$emit('createNew')"
   ></no-record-component>
 </template>
 
@@ -31,13 +31,17 @@
 import axios from "axios";
 import store from "@/store";
 import {IonList, IonItem, IonLabel, IonIcon} from "@ionic/vue";
-import {giftOutline,addOutline} from "ionicons/icons";
+import {giftOutline, addOutline} from "ionicons/icons";
 import ListLoadingComponent from "@/components/ListLoadingComponent";
 import NoRecordComponent from "@/components/NoRecordComponent";
 
 export default {
   name: "contributionList",
   props: {
+    lite: {
+      type: Boolean,
+      default: false
+    },
     wedding: {
       type: Object,
     }
@@ -52,10 +56,13 @@ export default {
     }
   },
   computed: {
+    showButton() {
+      return Boolean(this.wedding && this.wedding.items_sum_target_amount <= 0 && !this.lite);
+    },
     items() {
       return store.state.contributionList;
     },
-    user(){
+    user() {
       return this.$store.state.user;
     }
   },
@@ -80,6 +87,7 @@ export default {
   },
   mounted() {
     this.getContributions();
+    console.log(this.showButton);
   }
 }
 </script>

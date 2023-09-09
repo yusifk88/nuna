@@ -49,7 +49,7 @@
     <!--    <div class="ion-padding ion-margin" style="border: 1px solid lightgrey; border-radius: 20px; transition: 0.4s ease-in-out"  >-->
     <!--    </div>-->
 
-    <ion-button :disabled="loading" @click="getStory" expand="block">Ask AI
+    <ion-button class="ion-margin" size="large" :disabled="loading" @click="getStory" expand="block">Ask AI
       {{ answers.length ? "Again" : "" }} {{ loading ? "(Thinking...)" : "" }}
     </ion-button>
   </ion-content>

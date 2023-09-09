@@ -117,7 +117,7 @@
         <ion-content class="ion-padding">
 
           <guest-list v-if="dialogType==='guest'"></guest-list>
-          <contribution-list v-else></contribution-list>
+          <contribution-list :lite="true" v-else></contribution-list>
 
         </ion-content>
 

@@ -32,11 +32,13 @@
 
       <ion-list class="ion-margin-top">
         <ion-item id="open-profile" color="light" detail="true" lines="none" style="margin: 5px;">
-          <ion-icon slot="start" :icon="personOutline" size="large">
-          </ion-icon>
+            <ion-icon  color="success" slot="start" :icon="personOutline" size="large">
+            </ion-icon>
+
+
           <ion-label>
             <h2>Profile</h2>
-            <p>View and update your profile</p>
+            <p class="text-muted">View and update your profile</p>
           </ion-label>
         </ion-item>
 
@@ -60,11 +62,11 @@
 
         <ion-item id="open-verify" :detail="true" :disabled="user.approved" color="light" lines="none"
                   style="margin: 5px;">
-          <ion-icon slot="start" :icon="idCardOutline" size="large">
+          <ion-icon color="warning" slot="start" :icon="idCardOutline" size="large">
           </ion-icon>
           <ion-label>
             <h2>Verify your identity</h2>
-            <p>Help us know you better, this is required before any withdrawals</p>
+            <p class="text-muted">Help us know you better, this is required before any withdrawals</p>
           </ion-label>
         </ion-item>
 
@@ -87,17 +89,17 @@
 
 
         <ion-item :detail="true" color="light" lines="none" style="margin: 5px;">
-          <ion-icon slot="start" :icon="informationCircleOutline" size="large">
+          <ion-icon color="primary" slot="start" :icon="informationCircleOutline" size="large">
           </ion-icon>
           <ion-label>
             <h2>About Nuna</h2>
-            <p>Find out what Nuna is about</p>
+            <p class="text-muted">Find out what Nuna is about</p>
           </ion-label>
         </ion-item>
 
 
         <ion-item :detail="true" color="light" lines="none" style="margin: 5px;" @click="shareApp()">
-          <ion-icon slot="start" :icon="shareSocialOutline" size="large">
+          <ion-icon color="tertiary" slot="start" :icon="shareSocialOutline" size="large">
           </ion-icon>
           <ion-label>
             <h2>Share Nuna with friends</h2>
