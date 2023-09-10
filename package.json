@@ -14,6 +14,7 @@
     "@capacitor/android": "4.2.0",
     "@capacitor/app": "^4.0.1",
     "@capacitor/core": "4.2.0",
+    "@capacitor/device": "^5.0.6",
     "@capacitor/haptics": "4.0.1",
     "@capacitor/ios": "4.2.0",
     "@capacitor/keyboard": "4.0.1",

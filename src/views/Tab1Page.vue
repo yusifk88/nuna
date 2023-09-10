@@ -124,7 +124,7 @@
 
       </ion-modal>
 
-
+<tips-component></tips-component>
     </ion-content>
   </ion-page>
 
@@ -171,10 +171,12 @@ import DashbordRecentAcitivitiesComponent from "@/components/dashbordRecentAciti
 import ListLoadingComponent from "@/components/ListLoadingComponent";
 import GuestList from "@/components/GuestList";
 import ContributionList from "@/components/contributionList";
+import TipsComponent from "@/components/TipsComponent.vue";
 
 export default defineComponent({
   name: 'Tab1Page',
   components: {
+    TipsComponent,
     ContributionList,
     GuestList,
     IonTitle,

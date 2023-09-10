@@ -2,22 +2,21 @@
   <ion-page>
 
 
-
     <ion-content class="ion-padding" :fullscreen="true">
 
       <center>
 
-        <img style="margin-top: 40%; text-align: center"  width="100" src="https://objectstorage.uk-london-1.oraclecloud.com/n/lrj6a9vl4is6/b/MyBucket/o/logo.png">
+        <img style="margin-top: 40%; text-align: center" width="100"
+             src="https://objectstorage.uk-london-1.oraclecloud.com/n/lrj6a9vl4is6/b/MyBucket/o/logo.png">
       </center>
 
 
       <h5 class="ion-text-center">Create Account</h5>
 
 
-
       <div v-if="step==1" class="smooth-in">
 
-        <ion-item class="ion-margin-bottom nuna-select-item ion-margin-end ion-margin-start" lines="none" >
+        <ion-item class="ion-margin-bottom nuna-select-item ion-margin-end ion-margin-start" lines="none">
           <ion-avatar slot="start">
             <flag :iso="countryCode"></flag>
           </ion-avatar>
@@ -32,14 +31,19 @@
                 :key="country.code"
                 :value="country.code"
             >
+              <span>
+
               <flag :iso="country.code"></flag>
               {{ country.name }}
+              </span>
+
             </ion-select-option>
 
           </ion-select>
         </ion-item>
 
-        <ion-button mode="ios" class="ion-margin-start ion-margin-end" @click="goToStep(2)" size="large" expand="block" shape="round">Continue
+        <ion-button mode="ios" class="ion-margin-start ion-margin-end" @click="goToStep(2)" size="large" expand="block"
+                    shape="round">Continue
           <ion-icon :icon="arrowForwardOutline"/>
         </ion-button>
 
@@ -69,30 +73,30 @@
         <ion-item lines="none" class="ion-margin-top">
 
 
-
           <ion-label>Birth Date:</ion-label>
           <ion-input type="date" class="custom" v-model="birthDate" placeholder="Birth Date"></ion-input>
 
 
           <!--          <ion-datetime-button datetime="datetime"></ion-datetime-button>-->
-<!--          <ion-modal-->
-<!--              :keep-contents-mounted="true">-->
-<!--            <ion-datetime presentation="date" @ionChange="dateSelected" :show-default-buttons="true" hourCycle="h12" locale="en-GB"-->
-<!--                          id="datetime">-->
-<!--              <span slot="title">Set your date of birth</span>-->
-<!--            </ion-datetime>-->
-<!--          </ion-modal>-->
+          <!--          <ion-modal-->
+          <!--              :keep-contents-mounted="true">-->
+          <!--            <ion-datetime presentation="date" @ionChange="dateSelected" :show-default-buttons="true" hourCycle="h12" locale="en-GB"-->
+          <!--                          id="datetime">-->
+          <!--              <span slot="title">Set your date of birth</span>-->
+          <!--            </ion-datetime>-->
+          <!--          </ion-modal>-->
 
         </ion-item>
 
 
-<!--        <ion-item class="ion-margin-top" fill="outline" shape="round">-->
-<!--          <ion-input v-model="idnumber" type="text" placeholder="ID Number"></ion-input>-->
-<!--        </ion-item>-->
+        <!--        <ion-item class="ion-margin-top" fill="outline" shape="round">-->
+        <!--          <ion-input v-model="idnumber" type="text" placeholder="ID Number"></ion-input>-->
+        <!--        </ion-item>-->
 
 
         <ion-button mode="ios" @click="goToStep(3)" :disabled="!firstName || !lastName || !birthDate"
-                    class="ion-margin-top ion-margin-end ion-margin-start" size="large" expand="block" shape="round">Continue
+                    class="ion-margin-top ion-margin-end ion-margin-start" size="large" expand="block" shape="round">
+          Continue
           <ion-icon :icon="arrowForwardOutline"/>
         </ion-button>
 
@@ -117,16 +121,18 @@
         <small class="ion-text-center text-muted ion-margin">Login Info</small>
 
 
-        <ion-item lines="none" >
+        <ion-item lines="none">
           <ion-input class="custom" :disabled="progress" v-model="email" type="email" placeholder="Email"></ion-input>
         </ion-item>
 
         <ion-item lines="none" class="ion-margin-top">
-          <ion-input class="custom" :disabled="progress" v-model="phoneNumber" type="tel" placeholder="Phone Number"></ion-input>
+          <ion-input class="custom" :disabled="progress" v-model="phoneNumber" type="tel"
+                     placeholder="Phone Number"></ion-input>
         </ion-item>
 
         <ion-item lines="none" class="ion-margin-top">
-          <ion-input class="custom" :disabled="progress" v-model="password" type="password" placeholder="Password"></ion-input>
+          <ion-input class="custom" :disabled="progress" v-model="password" type="password"
+                     placeholder="Password"></ion-input>
         </ion-item>
 
         <ion-item lines="none" class="ion-margin-top">
@@ -163,7 +169,8 @@
               class="ion-align-self-start ion-no-padding ion-no-margin"
               router-link="/login"
               mode="ios"
-          >Login</ion-button>
+          >Login
+          </ion-button>
         </ion-col>
       </ion-row>
 
@@ -180,20 +187,21 @@
 import {defineComponent} from 'vue';
 import store from "@/store";
 
+
 import {
   IonAvatar,
   IonButton,
+  IonCol,
   IonContent,
   IonIcon,
   IonInput,
   IonItem,
+  IonLabel,
   IonPage,
+  IonRow,
   IonSelect,
   IonSelectOption,
-  IonSpinner,
-    IonRow,
-    IonCol,
-    IonLabel
+  IonSpinner
 } from '@ionic/vue';
 import {arrowBackOutline, arrowForwardOutline, checkmarkOutline} from "ionicons/icons";
 import Flag from "@/components/flag.vue";
@@ -233,26 +241,30 @@ export default defineComponent({
       birthDate: "",
       idnumber: "",
       progress: false,
-      store,
-      countries: [
-        {
-          name: "Ghana",
-          code: "GH"
-        },
-        {
-          name: "Kenya",
-          code: "KE"
-        },
-        {
-          name: "Nigeria",
-          code: "NG"
-        }
-      ]
-
+      store
     }
   },
-  methods: {
+  computed: {
+    countries() {
 
+      // eslint-disable-next-line @typescript-eslint/no-var-requires
+      const list = require("../countries.json");
+
+      return list.sort((a, b) => a.name.localeCompare(b.name));
+    }
+  },
+  mounted() {
+    this.getCurrentCountryCode();
+  },
+  methods: {
+    getCurrentCountryCode() {
+      axios.get("http://ip-api.com/json/")
+          .then(res => {
+
+            this.countryCode = res.data.countryCode;
+
+          });
+    },
     dateSelected(dateTime) {
       this.birthDate = dateTime.detail.value;
     },
@@ -284,7 +296,6 @@ export default defineComponent({
 
             this.$router.push("/tabs");
             store.commit("initUser");
-
 
 
           })

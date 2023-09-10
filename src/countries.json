@@ -1,0 +1,681 @@
+[
+  {
+    "name": "Angola",
+    "native": "Angola",
+    "phone": "244",
+    "capital": "Luanda",
+    "currency": "AOA",
+    "languages": [
+      "pt"
+    ],
+    "code": "AO"
+  },
+  {
+    "name": "Burkina Faso",
+    "native": "Burkina Faso",
+    "phone": "226",
+    "capital": "Ouagadougou",
+    "currency": "XOF",
+    "languages": [
+      "fr",
+      "ff"
+    ],
+    "code": "BF"
+  },
+  {
+    "name": "Burundi",
+    "native": "Burundi",
+    "phone": "257",
+    "capital": "Bujumbura",
+    "currency": "BIF",
+    "languages": [
+      "fr",
+      "rn"
+    ],
+    "code": "BI"
+  },
+  {
+    "name": "Benin",
+    "native": "Bénin",
+    "phone": "229",
+    "capital": "Porto-Novo",
+    "currency": "XOF",
+    "languages": [
+      "fr"
+    ],
+    "code": "BJ"
+  },
+  {
+    "name": "Botswana",
+    "native": "Botswana",
+    "phone": "267",
+    "capital": "Gaborone",
+    "currency": "BWP",
+    "languages": [
+      "en",
+      "tn"
+    ],
+    "code": "BW"
+  },
+  {
+    "name": "Democratic Republic of the Congo",
+    "native": "République démocratique du Congo",
+    "phone": "243",
+    "capital": "Kinshasa",
+    "currency": "CDF",
+    "languages": [
+      "fr",
+      "ln",
+      "kg",
+      "sw",
+      "lu"
+    ],
+    "code": "CD"
+  },
+  {
+    "name": "Central African Republic",
+    "native": "Ködörösêse tî Bêafrîka",
+    "phone": "236",
+    "capital": "Bangui",
+    "currency": "XAF",
+    "languages": [
+      "fr",
+      "sg"
+    ],
+    "code": "CF"
+  },
+  {
+    "name": "Republic of the Congo",
+    "native": "République du Congo",
+    "phone": "242",
+    "capital": "Brazzaville",
+    "currency": "XAF",
+    "languages": [
+      "fr",
+      "ln"
+    ],
+    "code": "CG"
+  },
+  {
+    "name": "Ivory Coast",
+    "native": "Côte d'Ivoire",
+    "phone": "225",
+    "capital": "Yamoussoukro",
+    "currency": "XOF",
+    "languages": [
+      "fr"
+    ],
+    "code": "CI"
+  },
+  {
+    "name": "Cameroon",
+    "native": "Cameroon",
+    "phone": "237",
+    "capital": "Yaoundé",
+    "currency": "XAF",
+    "languages": [
+      "en",
+      "fr"
+    ],
+    "code": "CM"
+  },
+  {
+    "name": "Cape Verde",
+    "native": "Cabo Verde",
+    "phone": "238",
+    "capital": "Praia",
+    "currency": "CVE",
+    "languages": [
+      "pt"
+    ],
+    "code": "CV"
+  },
+  {
+    "name": "Djibouti",
+    "native": "Djibouti",
+    "phone": "253",
+    "capital": "Djibouti",
+    "currency": "DJF",
+    "languages": [
+      "fr",
+      "ar"
+    ],
+    "code": "DJ"
+  },
+  {
+    "name": "Algeria",
+    "native": "الجزائر",
+    "phone": "213",
+    "capital": "Algiers",
+    "currency": "DZD",
+    "languages": [
+      "ar"
+    ],
+    "code": "DZ"
+  },
+  {
+    "name": "Egypt",
+    "native": "مصر‎",
+    "phone": "20",
+    "capital": "Cairo",
+    "currency": "EGP",
+    "languages": [
+      "ar"
+    ],
+    "code": "EG"
+  },
+  {
+    "name": "Western Sahara",
+    "native": "الصحراء الغربية",
+    "phone": "212",
+    "capital": "El Aaiún",
+    "currency": "MAD,DZD,MRO",
+    "languages": [
+      "es"
+    ],
+    "code": "EH"
+  },
+  {
+    "name": "Eritrea",
+    "native": "ኤርትራ",
+    "phone": "291",
+    "capital": "Asmara",
+    "currency": "ERN",
+    "languages": [
+      "ti",
+      "ar",
+      "en"
+    ],
+    "code": "ER"
+  },
+  {
+    "name": "Ethiopia",
+    "native": "ኢትዮጵያ",
+    "phone": "251",
+    "capital": "Addis Ababa",
+    "currency": "ETB",
+    "languages": [
+      "am"
+    ],
+    "code": "ET"
+  },
+  {
+    "name": "Gabon",
+    "native": "Gabon",
+    "phone": "241",
+    "capital": "Libreville",
+    "currency": "XAF",
+    "languages": [
+      "fr"
+    ],
+    "code": "GA"
+  },
+  {
+    "name": "Ghana",
+    "native": "Ghana",
+    "phone": "233",
+    "capital": "Accra",
+    "currency": "GHS",
+    "languages": [
+      "en"
+    ],
+    "code": "GH"
+  },
+  {
+    "name": "Gambia",
+    "native": "Gambia",
+    "phone": "220",
+    "capital": "Banjul",
+    "currency": "GMD",
+    "languages": [
+      "en"
+    ],
+    "code": "GM"
+  },
+  {
+    "name": "Guinea",
+    "native": "Guinée",
+    "phone": "224",
+    "capital": "Conakry",
+    "currency": "GNF",
+    "languages": [
+      "fr",
+      "ff"
+    ],
+    "code": "GN"
+  },
+  {
+    "name": "Equatorial Guinea",
+    "native": "Guinea Ecuatorial",
+    "phone": "240",
+    "capital": "Malabo",
+    "currency": "XAF",
+    "languages": [
+      "es",
+      "fr"
+    ],
+    "code": "GQ"
+  },
+  {
+    "name": "Guinea-Bissau",
+    "native": "Guiné-Bissau",
+    "phone": "245",
+    "capital": "Bissau",
+    "currency": "XOF",
+    "languages": [
+      "pt"
+    ],
+    "code": "GW"
+  },
+  {
+    "name": "Kenya",
+    "native": "Kenya",
+    "phone": "254",
+    "capital": "Nairobi",
+    "currency": "KES",
+    "languages": [
+      "en",
+      "sw"
+    ],
+    "code": "KE"
+  },
+  {
+    "name": "Comoros",
+    "native": "Komori",
+    "phone": "269",
+    "capital": "Moroni",
+    "currency": "KMF",
+    "languages": [
+      "ar",
+      "fr"
+    ],
+    "code": "KM"
+  },
+  {
+    "name": "Liberia",
+    "native": "Liberia",
+    "phone": "231",
+    "capital": "Monrovia",
+    "currency": "LRD",
+    "languages": [
+      "en"
+    ],
+    "code": "LR"
+  },
+  {
+    "name": "Lesotho",
+    "native": "Lesotho",
+    "phone": "266",
+    "capital": "Maseru",
+    "currency": "LSL,ZAR",
+    "languages": [
+      "en",
+      "st"
+    ],
+    "code": "LS"
+  },
+  {
+    "name": "Libya",
+    "native": "‏ليبيا",
+    "phone": "218",
+    "capital": "Tripoli",
+    "currency": "LYD",
+    "languages": [
+      "ar"
+    ],
+    "code": "LY"
+  },
+  {
+    "name": "Morocco",
+    "native": "المغرب",
+    "phone": "212",
+    "capital": "Rabat",
+    "currency": "MAD",
+    "languages": [
+      "ar"
+    ],
+    "code": "MA"
+  },
+  {
+    "name": "Madagascar",
+    "native": "Madagasikara",
+    "phone": "261",
+    "capital": "Antananarivo",
+    "currency": "MGA",
+    "languages": [
+      "fr",
+      "mg"
+    ],
+    "code": "MG"
+  },
+  {
+    "name": "Mali",
+    "native": "Mali",
+    "phone": "223",
+    "capital": "Bamako",
+    "currency": "XOF",
+    "languages": [
+      "fr"
+    ],
+    "code": "ML"
+  },
+  {
+    "name": "Mauritania",
+    "native": "موريتانيا",
+    "phone": "222",
+    "capital": "Nouakchott",
+    "currency": "MRO",
+    "languages": [
+      "ar"
+    ],
+    "code": "MR"
+  },
+  {
+    "name": "Mauritius",
+    "native": "Maurice",
+    "phone": "230",
+    "capital": "Port Louis",
+    "currency": "MUR",
+    "languages": [
+      "en"
+    ],
+    "code": "MU"
+  },
+  {
+    "name": "Malawi",
+    "native": "Malawi",
+    "phone": "265",
+    "capital": "Lilongwe",
+    "currency": "MWK",
+    "languages": [
+      "en",
+      "ny"
+    ],
+    "code": "MW"
+  },
+  {
+    "name": "Mozambique",
+    "native": "Moçambique",
+    "phone": "258",
+    "capital": "Maputo",
+    "currency": "MZN",
+    "languages": [
+      "pt"
+    ],
+    "code": "MZ"
+  },
+  {
+    "name": "Namibia",
+    "native": "Namibia",
+    "phone": "264",
+    "capital": "Windhoek",
+    "currency": "NAD,ZAR",
+    "languages": [
+      "en",
+      "af"
+    ],
+    "code": "NA"
+  },
+  {
+    "name": "Niger",
+    "native": "Niger",
+    "phone": "227",
+    "capital": "Niamey",
+    "currency": "XOF",
+    "languages": [
+      "fr"
+    ],
+    "code": "NE"
+  },
+  {
+    "name": "Nigeria",
+    "native": "Nigeria",
+    "phone": "234",
+    "capital": "Abuja",
+    "currency": "NGN",
+    "languages": [
+      "en"
+    ],
+    "code": "NG"
+  },
+  {
+    "name": "Réunion",
+    "native": "La Réunion",
+    "phone": "262",
+    "capital": "Saint-Denis",
+    "currency": "EUR",
+    "languages": [
+      "fr"
+    ],
+    "code": "RE"
+  },
+  {
+    "name": "Rwanda",
+    "native": "Rwanda",
+    "phone": "250",
+    "capital": "Kigali",
+    "currency": "RWF",
+    "languages": [
+      "rw",
+      "en",
+      "fr"
+    ],
+    "code": "RW"
+  },
+  {
+    "name": "Seychelles",
+    "native": "Seychelles",
+    "phone": "248",
+    "capital": "Victoria",
+    "currency": "SCR",
+    "languages": [
+      "fr",
+      "en"
+    ],
+    "code": "SC"
+  },
+  {
+    "name": "Sudan",
+    "native": "السودان",
+    "phone": "249",
+    "capital": "Khartoum",
+    "currency": "SDG",
+    "languages": [
+      "ar",
+      "en"
+    ],
+    "code": "SD"
+  },
+  {
+    "name": "Saint Helena",
+    "native": "Saint Helena",
+    "phone": "290",
+    "capital": "Jamestown",
+    "currency": "SHP",
+    "languages": [
+      "en"
+    ],
+    "code": "SH"
+  },
+  {
+    "name": "Sierra Leone",
+    "native": "Sierra Leone",
+    "phone": "232",
+    "capital": "Freetown",
+    "currency": "SLL",
+    "languages": [
+      "en"
+    ],
+    "code": "SL"
+  },
+  {
+    "name": "Senegal",
+    "native": "Sénégal",
+    "phone": "221",
+    "capital": "Dakar",
+    "currency": "XOF",
+    "languages": [
+      "fr"
+    ],
+    "code": "SN"
+  },
+  {
+    "name": "Somalia",
+    "native": "Soomaaliya",
+    "phone": "252",
+    "capital": "Mogadishu",
+    "currency": "SOS",
+    "languages": [
+      "so",
+      "ar"
+    ],
+    "code": "SO"
+  },
+  {
+    "name": "South Sudan",
+    "native": "South Sudan",
+    "phone": "211",
+    "capital": "Juba",
+    "currency": "SSP",
+    "languages": [
+      "en"
+    ],
+    "code": "SS"
+  },
+  {
+    "name": "São Tomé and Príncipe",
+    "native": "São Tomé e Príncipe",
+    "phone": "239",
+    "capital": "São Tomé",
+    "currency": "STD",
+    "languages": [
+      "pt"
+    ],
+    "code": "ST"
+  },
+  {
+    "name": "Swaziland",
+    "native": "Swaziland",
+    "phone": "268",
+    "capital": "Lobamba",
+    "currency": "SZL",
+    "languages": [
+      "en",
+      "ss"
+    ],
+    "code": "SZ"
+  },
+  {
+    "name": "Chad",
+    "native": "Tchad",
+    "phone": "235",
+    "capital": "N'Djamena",
+    "currency": "XAF",
+    "languages": [
+      "fr",
+      "ar"
+    ],
+    "code": "TD"
+  },
+  {
+    "name": "Togo",
+    "native": "Togo",
+    "phone": "228",
+    "capital": "Lomé",
+    "currency": "XOF",
+    "languages": [
+      "fr"
+    ],
+    "code": "TG"
+  },
+  {
+    "name": "Tunisia",
+    "native": "تونس",
+    "phone": "216",
+    "capital": "Tunis",
+    "currency": "TND",
+    "languages": [
+      "ar"
+    ],
+    "code": "TN"
+  },
+  {
+    "name": "Tanzania",
+    "native": "Tanzania",
+    "phone": "255",
+    "capital": "Dodoma",
+    "currency": "TZS",
+    "languages": [
+      "sw",
+      "en"
+    ],
+    "code": "TZ"
+  },
+  {
+    "name": "Uganda",
+    "native": "Uganda",
+    "phone": "256",
+    "capital": "Kampala",
+    "currency": "UGX",
+    "languages": [
+      "en",
+      "sw"
+    ],
+    "code": "UG"
+  },
+  {
+    "name": "Mayotte",
+    "native": "Mayotte",
+    "phone": "262",
+    "capital": "Mamoudzou",
+    "currency": "EUR",
+    "languages": [
+      "fr"
+    ],
+    "code": "YT"
+  },
+  {
+    "name": "South Africa",
+    "native": "South Africa",
+    "phone": "27",
+    "capital": "Pretoria",
+    "currency": "ZAR",
+    "languages": [
+      "af",
+      "en",
+      "nr",
+      "st",
+      "ss",
+      "tn",
+      "ts",
+      "ve",
+      "xh",
+      "zu"
+    ],
+    "code": "ZA"
+  },
+  {
+    "name": "Zambia",
+    "native": "Zambia",
+    "phone": "260",
+    "capital": "Lusaka",
+    "currency": "ZMK",
+    "languages": [
+      "en"
+    ],
+    "code": "ZM"
+  },
+  {
+    "name": "Zimbabwe",
+    "native": "Zimbabwe",
+    "phone": "263",
+    "capital": "Harare",
+    "currency": "ZWL",
+    "languages": [
+      "en",
+      "sn",
+      "nd"
+    ],
+    "code": "ZW"
+  }
+]

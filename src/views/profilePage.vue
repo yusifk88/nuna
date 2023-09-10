@@ -32,8 +32,8 @@
 
       <ion-list class="ion-margin-top">
         <ion-item id="open-profile" color="light" detail="true" lines="none" style="margin: 5px;">
-            <ion-icon  color="success" slot="start" :icon="personOutline" size="large">
-            </ion-icon>
+          <ion-icon color="success" slot="start" :icon="personOutline" size="large">
+          </ion-icon>
 
 
           <ion-label>
@@ -98,7 +98,7 @@
         </ion-item>
 
 
-        <ion-item :detail="true" color="light" lines="none" style="margin: 5px;" @click="shareApp()">
+        <ion-item :detail="true" color="light" lines="none" style="margin: 5px;" @click="startShare()">
           <ion-icon color="tertiary" slot="start" :icon="shareSocialOutline" size="large">
           </ion-icon>
           <ion-label>
@@ -155,7 +155,7 @@
 
       <ion-button id="open-account-delete" class="ion-margin" color="medium" expand="block"
                   fill="clear" mode="ios" size="small"
-                  >
+      >
         <ion-icon :icon="trashBinOutline" size="small"></ion-icon>
         Delete Account
       </ion-button>
@@ -276,46 +276,46 @@
 
 <script>
 import {Share} from '@capacitor/share';
+import {Device} from '@capacitor/device';
 import {defineComponent} from 'vue';
 import {
-  IonPage,
-  IonContent,
-  IonHeader,
-  IonToolbar,
-  IonBackButton,
-  IonTitle,
-  IonList,
-  IonItem,
-  IonLabel,
+  IonAlert,
   IonAvatar,
-  IonIcon,
+  IonBackButton,
+  IonButton,
+  IonButtons,
   IonCard,
   IonCardContent,
-  IonRow,
   IonCol,
-  IonButton,
-  IonModal,
-  IonButtons,
+  IonContent,
+  IonHeader,
+  IonIcon,
   IonInput,
-  toastController,
+  IonItem,
+  IonLabel,
+  IonList,
+  IonModal,
+  IonPage,
+  IonRow,
   IonSpinner,
-  IonAlert
+  IonTitle,
+  IonToolbar,
+  toastController
 } from "@ionic/vue";
 import {
-  logInOutline,
-  personOutline,
+  checkmarkCircleOutline,
+  helpBuoyOutline,
   idCardOutline,
   informationCircleOutline,
-  helpBuoyOutline,
+  logInOutline,
+  personOutline,
   shareSocialOutline,
-  checkmarkCircleOutline,
   trashBinOutline
 } from "ionicons/icons";
 import EditProfile from "@/components/EditProfile";
 import store from "@/store";
 import VerifyComponent from "@/components/verifyComponent";
 import axios from "axios";
-import router from "@/router";
 
 export default defineComponent({
   name: "profilePage",
@@ -370,6 +370,33 @@ export default defineComponent({
   },
   methods: {
 
+    async startShare() {
+
+      const info = await Device.getInfo();
+
+      let link = "https://mynunaa.com";
+
+      if (info) {
+
+        if (info.platform === "android") {
+
+          link = "https://play.google.com/store/apps/details?id=com.nuna.app";
+
+        }
+
+        if (info.platform === "ios") {
+
+          link = "https://apps.apple.com/gh/app/nuna-digital-wedding-page-app/id6449852115";
+
+        }
+
+      }
+
+      this.shareApp(link);
+
+
+    },
+
     logout() {
       store.state.user = {
         email: "",
@@ -404,9 +431,9 @@ export default defineComponent({
 
 
     },
-    async shareApp() {
+    async shareApp(link) {
 
-      const link = "https://play.google.com/store/apps/details?id=com.nuna.app";
+
       await Share.share({
         title: "Show Nuna with a friend",
         text: "Hi, download Nuna to create and share your digital wedding page. With Nuna you can track your guest and receive gifts from friends and family ",
