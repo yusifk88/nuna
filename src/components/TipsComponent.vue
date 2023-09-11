@@ -23,7 +23,7 @@
     <ion-modal @didDismiss="saveState()" :is-open="isOpen" :keep-contents-mounted="true">
 
       <ion-card-content class="tip-bg">
-        <ion-row style="margin-top: 10%">
+        <ion-row>
           <ion-col size="9">
 
           </ion-col>
