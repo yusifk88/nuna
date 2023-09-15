@@ -100,17 +100,17 @@
 <body>
 
 <!-- Preloader Start -->
-<div id="preloader-active">
-    <div class="preloader d-flex align-items-center justify-content-center">
-        <div class="preloader-inner position-relative">
-            <div class="preloader-circle"></div>
-            <div class="preloader-img pere-text">
-                <img src="https://objectstorage.uk-london-1.oraclecloud.com/n/lrj6a9vl4is6/b/MyBucket/o/logo.png"
-                     alt="nuna logo">
-            </div>
-        </div>
-    </div>
-</div>
+{{--<div id="preloader-active">--}}
+{{--    <div class="preloader d-flex align-items-center justify-content-center">--}}
+{{--        <div class="preloader-inner position-relative">--}}
+{{--            <div class="preloader-circle"></div>--}}
+{{--            <div class="preloader-img pere-text">--}}
+{{--                <img src="https://objectstorage.uk-london-1.oraclecloud.com/n/lrj6a9vl4is6/b/MyBucket/o/logo.png"--}}
+{{--                     alt="nuna logo">--}}
+{{--            </div>--}}
+{{--        </div>--}}
+{{--    </div>--}}
+{{--</div>--}}
 <!-- Preloader Start -->
 
 <header>

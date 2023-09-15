@@ -1,4 +1,5 @@
-<!DOCTYPE html>
+@php use Carbon\Carbon; @endphp
+    <!DOCTYPE html>
 <!--[if lt IE 7]>
 <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>
@@ -147,9 +148,21 @@
 
                             <div class="simply-countdown simply-countdown-one"></div>
 
-                            <a href="{{route('initPayment',$wedding->tag)}}" class="btn bg-success btn-lg">Send a gift</a>
-                            <button id="calendar-button" class="btn btn-default btn-lg">Save the date</button>
-                            <a href="#fh5co-started" class="btn btn-primary btn-lg">Add RSVP</a>
+                            <?php
+                            $weddingDate = Carbon::parse($wedding->date_time);
+                            $todayDate = Carbon::now();
+                            ?>
+                            @if($wedding->withdraw_amount==0 and !$todayDate->greaterThan($weddingDate))
+                                <a href="{{route('initPayment',$wedding->tag)}}" class="btn bg-success btn-lg">Send a
+                                    gift</a>
+                            @endif
+
+
+                            @if(!$todayDate->greaterThan($weddingDate))
+
+                                <button id="calendar-button" class="btn btn-default btn-lg">Save the date</button>
+                                <a href="#fh5co-started" class="btn btn-primary btn-lg">Add RSVP</a>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -162,7 +175,7 @@
             <div class="row">
                 <div class="col-md-8 col-md-offset-2 text-center fh5co-heading animate-box">
                     <h2>Helloooo!</h2>
-                    <h3>{{\Carbon\Carbon::parse($wedding->date_time)->isoFormat('MMMM Do, YYYY')}} {{$wedding->location}}</h3>
+                    <h3>{{Carbon::parse($wedding->date_time)->isoFormat('MMMM Do, YYYY')}} {{$wedding->location}}</h3>
                     <h3 style="font-weight: lighter">We invite you to celebrate our wedding</h3>
 
                     <p style="font-style: italic">{!! $wedding->story !!}</p>
@@ -172,7 +185,8 @@
             <div class="couple-wrap animate-box">
                 <div class="couple-half">
                     <div class="groom">
-                        <img src="{{$wedding->photo_two ?? '/images/groom.jpg'}}" alt="groom" class="img-responsive" style="object-fit: cover">
+                        <img src="{{$wedding->photo_two ?? '/images/groom.jpg'}}" alt="groom" class="img-responsive"
+                             style="object-fit: cover">
                     </div>
                     <div class="desc-groom">
                         <h3>{{$wedding->groom_name}}</h3>
@@ -181,7 +195,8 @@
                 <p class="heart text-center "><i class="icon-heart2 text-danger"></i></p>
                 <div class="couple-half">
                     <div class="bride">
-                        <img src="{{$wedding->photo_three ?? '/images/bride.jpg'}}" alt="groom" class="img-responsive" style="object-fit: cover">
+                        <img src="{{$wedding->photo_three ?? '/images/bride.jpg'}}" alt="groom" class="img-responsive"
+                             style="object-fit: cover">
                     </div>
                     <div class="desc-bride">
                         <h3>{{$wedding->bride_name}}</h3>
@@ -210,11 +225,11 @@
                                     <h3>Main Ceremony</h3>
                                     <div class="event-col">
                                         <i class="icon-clock"></i>
-                                        <span>{{\Carbon\Carbon::parse($wedding->date_time)->toTimeString()}}</span>
+                                        <span>{{Carbon::parse($wedding->date_time)->toTimeString()}}</span>
                                     </div>
                                     <div class="event-col">
                                         <i class="icon-calendar"></i>
-                                        <span>{{\Carbon\Carbon::parse($wedding->date_time)->isoFormat('MMMM Do, YYYY')}}</span>
+                                        <span>{{Carbon::parse($wedding->date_time)->isoFormat('MMMM Do, YYYY')}}</span>
 
                                     </div>
                                     <div class="event-col">
@@ -238,11 +253,11 @@
 
                             @if(count($codsArr)==2)
                                 <div class="col-md-6 col-sm-6 text-center">
-                                    <div class="event-wrap animate-box">
-                                        <?php
-                                        $reversCode = array_reverse($codsArr);
-                                        $newCods = implode(",", $reversCode);
-                                        ?>
+                                    <div class="event-wrap animate-box p-0" style="padding: 0 !important;">
+                                            <?php
+                                            $reversCode = array_reverse($codsArr);
+                                            $newCods = implode(",", $reversCode);
+                                            ?>
 
                                         <iframe
                                             width="100%"
@@ -264,18 +279,18 @@
         </div>
     </div>
 
-{{--    <div id="fh5co-couple-story">--}}
-{{--        <div class="container">--}}
-{{--            <div class="row">--}}
-{{--                <div class="col-md-8 col-md-offset-2 text-center fh5co-heading animate-box">--}}
-{{--                    <span>We Love Each Other</span>--}}
-{{--                    <h2>Our Story</h2>--}}
-{{--                    <p>{!!$wedding->story!!}</p>--}}
-{{--                </div>--}}
-{{--            </div>--}}
+    {{--    <div id="fh5co-couple-story">--}}
+    {{--        <div class="container">--}}
+    {{--            <div class="row">--}}
+    {{--                <div class="col-md-8 col-md-offset-2 text-center fh5co-heading animate-box">--}}
+    {{--                    <span>We Love Each Other</span>--}}
+    {{--                    <h2>Our Story</h2>--}}
+    {{--                    <p>{!!$wedding->story!!}</p>--}}
+    {{--                </div>--}}
+    {{--            </div>--}}
 
-{{--        </div>--}}
-{{--    </div>--}}
+    {{--        </div>--}}
+    {{--    </div>--}}
 
     <div id="fh5co-gallery" class="fh5co-section-gray">
         <div class="container">
@@ -289,7 +304,7 @@
             <div class="row row-bottom-padded-md">
                 <div class="col-md-12">
                     <ul id="fh5co-gallery-list">
-                        @if($wedding->photo_one)
+                        @if((boolean)$wedding->photo_one)
 
                             <li class="couple-half animate-box" data-animate-effect="fadeIn"
                                 style="background-image: url({{$wedding->photo_one}}); ">
@@ -299,7 +314,7 @@
                         @endif
 
 
-                        @if($wedding->photo_two)
+                        @if((boolean)$wedding->photo_two)
 
                             <li class="one-third animate-box" data-animate-effect="fadeIn"
                                 style="background-image: url({{$wedding->photo_two}}); ">
@@ -309,7 +324,7 @@
                             </li>
                         @endif
 
-                        @if($wedding->photo_three)
+                        @if((boolean)$wedding->photo_three)
 
                             <li class="couple-half animate-box" data-animate-effect="fadeIn"
                                 style="background-image: url({{$wedding->photo_three}}); ">
@@ -319,8 +334,7 @@
                             </li>
 
                         @endif
-                        @if($wedding->photo_four)
-
+                        @if((boolean)$wedding->photo_four)
 
                             <li class="one-third animate-box" data-animate-effect="fadeIn"
                                 style="background-image: url({{$wedding->photo_four}}); ">
@@ -385,46 +399,58 @@
          style="background-image:url({{$wedding->photo_one ?? '/images/img_bg_4.jpg'}});">
         <div class="overlay"></div>
         <div class="container">
-            <div class="row animate-box">
-                <div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
-                    <h2>Are You Attending?</h2>
-                    <p>Please Fill-up the form to notify you that you're attending. Thanks.</p>
+            @if(!$todayDate->greaterThan($weddingDate))
+                <div class="row animate-box">
+                    <div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
+                        <h2>Are You Attending?</h2>
+                        <p>Please Fill-up the form to notify you that you're attending. Thanks.</p>
+                    </div>
+                    @endif
+
                 </div>
-            </div>
-            <div class="row animate-box">
-                <div class="col-md-10 col-md-offset-1">
-                    <form class="form-inline" method="post" action="{{route("reserve",$wedding->id)}}">
-                        {{csrf_field()}}
+                <div class="row animate-box">
+                    <div class="col-md-10 col-md-offset-1">
+                        @if(!$todayDate->greaterThan($weddingDate))
+                            <form class="form-inline" method="post" action="{{route("reserve",$wedding->id)}}">
+                                {{csrf_field()}}
 
-                        <div class="col-md-4 col-sm-4">
-                            <div class="form-group">
-                                <label for="name" class="sr-only">Full Name*</label>
-                                <input name="name" required type="text" class="form-control" id="name"
-                                       placeholder="Full Name*">
-                            </div>
-                        </div>
+                                <div class="col-md-4 col-sm-4">
+                                    <div class="form-group">
+                                        <label for="name" class="sr-only">Full Name*</label>
+                                        <input name="name" required type="text" class="form-control" id="name"
+                                               placeholder="Full Name*">
+                                    </div>
+                                </div>
 
-                        <div class="col-md-4 col-sm-4">
-                            <div class="form-group">
-                                <label for="name" class="sr-only">Phone Number*</label>
-                                <input name="phone_number" required type="tel" class="form-control" id="phone_number"
-                                       placeholder="Phone Number*">
-                            </div>
-                        </div>
+                                <div class="col-md-4 col-sm-4">
+                                    <div class="form-group">
+                                        <label for="name" class="sr-only">Phone Number*</label>
+                                        <input name="phone_number" required type="tel" class="form-control"
+                                               id="phone_number"
+                                               placeholder="Phone Number*">
+                                    </div>
+                                </div>
 
-                        <div class="col-md-4 col-sm-4">
-                            <div class="form-group">
-                                <label for="email" class="sr-only">Email(optional)</label>
-                                <input name="email" type="email" class="form-control" id="email"
-                                       placeholder="Email(optional)">
+                                <div class="col-md-4 col-sm-4">
+                                    <div class="form-group">
+                                        <label for="email" class="sr-only">Email(optional)</label>
+                                        <input name="email" type="email" class="form-control" id="email"
+                                               placeholder="Email(optional)">
+                                    </div>
+                                </div>
+                                <div class="col-md-4 col-sm-4">
+                                    <button type="submit" class="btn btn-default btn-block">I am Attending</button>
+                                </div>
+                            </form>
+                        @else
+
+                            <div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
+                                <h2>It has happend?</h2>
+                                <p>This event is over and cannot take guests at the moment</p>
                             </div>
-                        </div>
-                        <div class="col-md-4 col-sm-4">
-                            <button type="submit" class="btn btn-default btn-block">I am Attending</button>
-                        </div>
-                    </form>
+                        @endif
+                    </div>
                 </div>
-            </div>
         </div>
     </div>
 
@@ -438,10 +464,13 @@
                     </p>
                     <p>
                     <ul class="fh5co-social-icons">
-                        <li><a href="https://instagram.com/nunahqq?igshid=ZDdkNTZiNTM="><i class="icon-instagram"></i></a></li>
+                        <li><a href="https://instagram.com/nunahqq?igshid=ZDdkNTZiNTM="><i
+                                    class="icon-instagram"></i></a></li>
                         <li><a href="https://twitter.com/mynunahq?s=20"><i class="icon-twitter"></i></a></li>
-                        <li><a href="https://www.facebook.com/profile.php?id=100086379382319"><i class="icon-facebook"></i></a></li>
-                        <li><a href="https://www.linkedin.com/company/nuna-technologies-limited/"><i class="icon-linkedin"></i></a></li>
+                        <li><a href="https://www.facebook.com/profile.php?id=100086379382319"><i
+                                    class="icon-facebook"></i></a></li>
+                        <li><a href="https://www.linkedin.com/company/nuna-technologies-limited/"><i
+                                    class="icon-linkedin"></i></a></li>
                     </ul>
                     </p>
                 </div>
@@ -462,10 +491,10 @@
 
 <script>
     const config = {
-        name:" <?php echo $wedding->groom_name." & ".$wedding->bride_name."'s wedding" ?>",
-        description: "<?= $wedding->groom_name." & ".$wedding->bride_name."'s wedding <br> [url]".url('/w/')."/".$wedding->tag."[/url]" ?>",
-        startDate: "<?php echo \Carbon\Carbon::parse($wedding->date_time)->format("Y-m-d")?>",
-        endDate: "<?php echo \Carbon\Carbon::parse($wedding->date_time)->format("Y-m-d")?>",
+        name: " <?php echo $wedding->groom_name . " & " . $wedding->bride_name . "'s wedding" ?>",
+        description: "<?= $wedding->groom_name . " & " . $wedding->bride_name . "'s wedding <br> [url]" . url('/w/') . "/" . $wedding->tag . "[/url]" ?>",
+        startDate: "<?php echo Carbon::parse($wedding->date_time)->format("Y-m-d") ?>",
+        endDate: "<?php echo Carbon::parse($wedding->date_time)->format("Y-m-d") ?>",
         options: [
             "Apple",
             "Google",
@@ -511,16 +540,16 @@
 
     // default example
     simplyCountdown('.simply-countdown-one', {
-        year: <?=$year?>,
-        month: <?=$month?>,
-        day: <?=$day?>,
+        year: <?= $year ?>,
+        month: <?= $month ?>,
+        day: <?= $day ?>,
     });
 
     //jQuery example
     $('#simply-countdown-losange').simplyCountdown({
-        year: <?=$year?>,
-        month: <?=$month?>,
-        day: <?=$day?>,
+        year: <?= $year ?>,
+        month: <?= $month ?>,
+        day: <?= $day ?>,
         enableUtc: false
     });
 </script>

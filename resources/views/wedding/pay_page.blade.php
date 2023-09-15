@@ -50,7 +50,7 @@
 
                                     <div class="col-md-12">
                                         <label class="text-muted mt-3" for="attending">Am attending</label>
-                                        <input checked  id="attending" type="checkbox" name="attending">
+                                        <input  id="attending" type="checkbox" name="attending">
                                     </div>
 
                                     <div class="col-md-12">

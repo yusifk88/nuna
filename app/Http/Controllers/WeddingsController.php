@@ -14,8 +14,6 @@ use App\Repositories\WeddingRepository;
 use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
 use Symfony\Component\HttpFoundation\Response;
 
 class WeddingsController extends Controller
@@ -141,6 +139,14 @@ class WeddingsController extends Controller
         if ($todayDate->greaterThan($weddingDate)) {
 
             $error = "Sorry, this wedding has expired.";
+            return view("wedding.payment_failed", ['wedding' => $wedding, "reason" => $error]);
+
+        }
+
+
+        if ($wedding->withdraw_amount > 0) {
+
+            $error = "Sorry, this wedding cannot accept payments at the moment.";
             return view("wedding.payment_failed", ['wedding' => $wedding, "reason" => $error]);
 
         }
@@ -316,8 +322,6 @@ class WeddingsController extends Controller
             "date_time" => "required",
             "tag" => "unique:wedding,tag"
         ]);
-
-
 
 
         $wedding = new Wedding([
