@@ -15,7 +15,7 @@
     <title>{{strtok($wedding->groom_name," ")}} & {{strtok($wedding->bride_name," ")}}'s wedding . Nuna</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description"
-          content="{{$wedding->groom_name}} & {{$wedding->bride_name}}'s wedding at {{$wedding->location}}"/>
+          content="{{strtok($wedding->groom_name," ")}} & {{strtok($wedding->bride_name," ")}}'s wedding at {{$wedding->location}}"/>
     <meta name="keywords"
           content="wedding, {{$wedding->groom_name}}, {{$wedding->bride_name}}, {{$wedding->location}}  "/>
     <meta name="author" content="Nuna Technologies"/>
