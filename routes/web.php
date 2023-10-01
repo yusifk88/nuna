@@ -37,4 +37,3 @@ Route::post("w/{id}/attending", [WeddingsController::class, "SaveRSV"])->name("r
 Route::post("w/{id}/checkout", [WeddingsController::class, "initCheckout"])->name("initCheckout");
 
 
-
