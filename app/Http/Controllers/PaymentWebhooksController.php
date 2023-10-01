@@ -10,6 +10,7 @@ use App\Repositories\Flutterwave;
 use App\Repositories\Paystack;
 use App\Repositories\pushNotificationRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class PaymentWebhooksController extends Controller
 {
@@ -19,6 +20,9 @@ class PaymentWebhooksController extends Controller
     {
 
         $data = $request->all();
+
+        Log::info($data);
+
 
         if (isset($data['status']) && $data['status'] == 'successful') {
 
