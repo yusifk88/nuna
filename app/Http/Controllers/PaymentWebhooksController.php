@@ -21,18 +21,19 @@ class PaymentWebhooksController extends Controller
 
         $data = $request->all();
 
-        Log::info($data);
+
+        if (isset($data['event']) && $data['event']==='charge.completed'){
 
 
-        if (isset($data['status']) && $data['status'] == 'successful') {
+        if (isset($data['data']['status']) && $data['data']['status'] == 'successful') {
 
 
-            $ref = isset($data['txRef']) ? $data['txRef'] : null;
+            $ref = isset($data['data']['txRef']) ? $data['data']['txRef'] : null;
 
             if ($ref) {
 
 
-                $redID = isset($data['id']) ? $data['id'] : null;
+                $redID = isset($data['data']['id']) ? $data['data']['id'] : null;
                 $verifyPayment = Flutterwave::verifyTransaction($redID);
 
                 if ($verifyPayment && $verifyPayment->status === 'success') {
@@ -75,7 +76,7 @@ class PaymentWebhooksController extends Controller
 
 
             }
-
+        }
 
         }
 
