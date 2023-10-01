@@ -12,7 +12,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>{{$wedding->groom_name}} & {{$wedding->bride_name}}'s wedding . Nuna</title>
+    <title>{{strtok($wedding->groom_name," ")}} & {{strtok($wedding->bride_name," ")}}'s wedding . Nuna</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description"
           content="{{$wedding->groom_name}} & {{$wedding->bride_name}}'s wedding at {{$wedding->location}}"/>

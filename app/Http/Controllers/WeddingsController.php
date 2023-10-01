@@ -8,12 +8,14 @@ use App\Models\Reservation;
 use App\Models\User;
 use App\Models\Wedding;
 use App\Models\WeddingContribution;
+use App\Repositories\Flutterwave;
 use App\Repositories\Paystack;
 use App\Repositories\UtilityRepository;
 use App\Repositories\WeddingRepository;
 use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Symfony\Component\HttpFoundation\Response;
 
 class WeddingsController extends Controller
@@ -40,33 +42,38 @@ class WeddingsController extends Controller
 
     public function confirmPayment()
     {
-        $ref = \request()->get("reference");
+        $ref = \request()->get("tx_ref",null);
+        $txID = \request()->get("transaction_id",null);
 
-        $record = WeddingContribution::where("transaction_id", $ref)->first();
+        if ($txID && $txID) {
 
-        $wedding = null;
+            $record = WeddingContribution::where("transaction_id", $ref)->first();
 
-        if ($record) {
+            $wedding = null;
 
-            $wedding = Wedding::find($record->wedding_id);
+            if ($record) {
 
-            if ($wedding) {
+                $wedding = Wedding::find($record->wedding_id);
 
-                return view("wedding.payment_success", [
-                    "wedding" => $wedding,
-                    "amount" => $record->amount
-                ]);
+                if ($wedding) {
+
+                    return view("wedding.payment_success", [
+                        "wedding" => $wedding,
+                        "amount" => $record->amount
+                    ]);
+
+                }
+
 
             }
 
 
+            return view("wedding.payment_failed", [
+                "wedding" => $wedding,
+                "reason" => "Sorry, we could not verify your transaction please try again"
+            ]);
+
         }
-
-
-        return view("wedding.payment_failed", [
-            "wedding" => $wedding,
-            "reason" => "Sorry, we could not verify your transaction please try again"
-        ]);
 
 
     }
@@ -92,12 +99,22 @@ class WeddingsController extends Controller
 
         $wedding = Wedding::find($wedding_id);
 
+        if (!$wedding) {
 
-        $amountInCents = ceil($request->amount * 100);
+            abort(Response::HTTP_NOT_FOUND, "Event not found");
 
-        $checkout = Paystack::initializePayment($amountInCents, $request->email, $request->name, $url);
+        }
 
-        if ($checkout && $checkout->status) {
+
+        $ref = Str::random(4) . "_" . Carbon::now()->timestamp;
+
+        $checkout = Flutterwave::initializePayment($request->amount, $request->email, $ref, $url, $request->name);
+
+//        $amountInCents = ceil($request->amount * 100);
+//
+//        $checkout = Paystack::initializePayment($amountInCents, $request->email, $request->name, $url);
+
+        if ($checkout && strtolower($checkout->status) === 'success') {
 
 
             WeddingContribution::create([
@@ -105,16 +122,16 @@ class WeddingsController extends Controller
                 "email" => $request->email,
                 "amount" => $request->amount,
                 "phone_number" => $request->phone_number,
-                "checkout_token" => $checkout->data->access_code,
+                "checkout_token" => $ref,
                 "message" => $checkout->message,
                 "wedding_id" => $wedding_id,
-                "transaction_id" => $checkout->data->reference
+                "transaction_id" => $ref
             ]);
 
-            return redirect($checkout->data->authorization_url);
+            return redirect($checkout->data->link);
         }
 
-        echo "Sorry, we could not initialize the checkout reason: " . $checkout->reason;
+        echo "Sorry, we could not initialize the checkout reason: " . $checkout->message;
 
     }
 
