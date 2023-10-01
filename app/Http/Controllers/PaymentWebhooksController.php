@@ -33,11 +33,12 @@ class PaymentWebhooksController extends Controller
             if ($ref) {
 
 
-                $redID = isset($data['data']['id']) ? $data['data']['id'] : null;
-                $verifyPayment = Flutterwave::verifyTransaction($redID);
-
-                if ($verifyPayment && $verifyPayment->status === 'success') {
-
+//                $redID = isset($data['data']['id']) ? $data['data']['id'] : null;
+//
+//                $verifyPayment = Flutterwave::verifyTransaction($redID);
+//
+//                if ($verifyPayment && $verifyPayment->status === 'success') {
+//
                     $record = WeddingContribution::where("transaction_id", $ref)->where('success', false)->first();
 
                     if ($record) {
@@ -72,8 +73,8 @@ class PaymentWebhooksController extends Controller
 
                     }
 
-                }
-
+//                }
+//
 
             }
         }
