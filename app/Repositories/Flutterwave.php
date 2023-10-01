@@ -10,7 +10,7 @@ class Flutterwave
 {
 
 
-    public static function initializePayment(float $amount, string $email, string $ref, string $callback = null, string $name = "")
+    public static function initializePayment(float $amount, string $email, string $ref, string $callback = null, string $name = "",string $title="")
     {
 
 
@@ -22,6 +22,10 @@ class Flutterwave
             "customer" => [
                 "email" => $email,
                 "name" => $name
+            ],
+            "customizations" => [
+                "title" => $title ?? "Nuna Technologies",
+                "logo" => "https://objectstorage.uk-london-1.oraclecloud.com/n/lrj6a9vl4is6/b/MyBucket/o/logo.png"
             ]
         ]);
 
@@ -40,17 +44,17 @@ class Flutterwave
         return config("flutterwave.url");
     }
 
-    private static function public_key()
-    {
-        return config("flutterwave.public_key");
-    }
-
     public static function verifyTransaction($transaction_id)
     {
 
-        $res = Http::withToken(self::secret_key())->get(self::url()."/transactions/".$transaction_id."/verify");
+        $res = Http::withToken(self::secret_key())->get(self::url() . "/transactions/" . $transaction_id . "/verify");
         return json_decode($res->body());
 
+    }
+
+    private static function public_key()
+    {
+        return config("flutterwave.public_key");
     }
 
 

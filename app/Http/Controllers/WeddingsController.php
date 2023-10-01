@@ -108,7 +108,9 @@ class WeddingsController extends Controller
 
         $ref = Str::random(4) . "_" . Carbon::now()->timestamp;
 
-        $checkout = Flutterwave::initializePayment($request->amount, $request->email, $ref, $url, $request->name);
+        $title = strtok($wedding->groom_name," ")." & ".strtok($wedding->bride_name," ")."' wedding";
+
+        $checkout = Flutterwave::initializePayment($request->amount, $request->email, $ref, $url, $request->name,$title);
 
 //        $amountInCents = ceil($request->amount * 100);
 //
