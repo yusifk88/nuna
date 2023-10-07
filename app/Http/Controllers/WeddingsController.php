@@ -151,7 +151,7 @@ class WeddingsController extends Controller
 
         $user = User::find($wedding->user_id);
 
-        $weddingDate = Carbon::parse($wedding->date_time);
+        $weddingDate = Carbon::parse($wedding->date_time)->endOfDay();
         $todayDate = Carbon::now();
 
 
