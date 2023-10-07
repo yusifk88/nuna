@@ -152,8 +152,8 @@
                             <div class="simply-countdown simply-countdown-one"></div>
 
                             <?php
-                            $weddingDate = Carbon::parse($wedding->date_time);
-                            $todayDate = Carbon::now();
+                            $weddingDate = Carbon::parse($wedding->date_time)->toDate();
+                            $todayDate = Carbon::now()->toDate();
                             ?>
                             @if($wedding->withdraw_amount==0 and !$todayDate->greaterThan($weddingDate))
                                 <a href="{{route('initPayment',$wedding->tag)}}" class="btn bg-success btn-lg">Send a
