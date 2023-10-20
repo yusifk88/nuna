@@ -28,7 +28,6 @@ Route::post("login", [AuthController::class, "login"]);
 Route::post("sendVerification", [AuthController::class, "sendVerificationCode"]);
 Route::post("paystack/webhook", [PaymentWebhooksController::class, "handleWebHook"]);
 Route::post("flwv/webhook", [PaymentWebhooksController::class, "handleFlutterwaveWebhook"]);
-Route::post("psw-trans", [PaymentWebhooksController::class, "transPsw"]);
 
 
 Route::middleware('mustHavePinCode')->group(function () {
