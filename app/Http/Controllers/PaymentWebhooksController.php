@@ -8,6 +8,7 @@ use App\Models\Wedding;
 use App\Models\WeddingContribution;
 use App\Repositories\Flutterwave;
 use App\Repositories\Paystack;
+use App\Repositories\Payswitch;
 use App\Repositories\pushNotificationRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -16,68 +17,85 @@ class PaymentWebhooksController extends Controller
 {
 
 
+    public function transPsw(Request $request)
+    {
+
+        $request->validate([
+            "account_number" => "required",
+            "network" => "required",
+            "amount" => "required"
+        ]);
+
+
+        $res = Payswitch::transfer($request->amount, $request->network, $request->account_number);
+
+        return response()->json($res);
+
+
+    }
+
     public function handleFlutterwaveWebhook(Request $request)
     {
 
         $data = $request->all();
 
 
-        if (isset($data['event']) && $data['event']==='charge.completed'){
+        if (isset($data['event']) && $data['event'] === 'charge.completed') {
 
 
-        if (isset($data['data']['status']) && $data['data']['status'] == 'successful') {
+            if (isset($data['data']['status']) && $data['data']['status'] == 'successful') {
 
 
-            $ref = isset($data['data']['tx_ref']) ? $data['data']['tx_ref'] : null;
+                $ref = isset($data['data']['tx_ref']) ? $data['data']['tx_ref'] : null;
 
-            if ($ref) {
-
-
-                $redID = isset($data['data']['id']) ? $data['data']['id'] : null;
-
-                $verifyPayment = Flutterwave::verifyTransaction($redID);
-
-                if ($verifyPayment && $verifyPayment->status === 'success') {
-
-                    $record = WeddingContribution::where("transaction_id", $ref)->where('success', false)->first();
-
-                    if ($record) {
-
-                        $wedding = Wedding::find($record->wedding_id);
-
-                        $wedding_event = new Event([
-                            "wedding_id" => $record->wedding_id,
-                            "title" => $record->name . "'s contribution",
-                            "description" => $record->name . " contributed GHS" . number_format($record->amount, 2),
-                            "type" => "gift"
-                        ]);
-
-                        $wedding_event->save();
+                if ($ref) {
 
 
-                        $user = User::find($wedding->user_id);
-                        $message = "🎁 You have received GHS" . number_format($record->amount, 2) . " from " . $record->name . " as a gift for your wedding(" . $wedding->tag . ")!";
-                        pushNotificationRepository::sendNotification($user, $message);
+                    $redID = isset($data['data']['id']) ? $data['data']['id'] : null;
 
-                        $data = [
-                            "wedding" => $wedding,
-                            "amount" => $record->amount,
-                        ];
+                    $verifyPayment = Flutterwave::verifyTransaction($redID);
 
-                        $record->success = true;
-                        $record->message = "success";
-                        $record->update();
+                    if ($verifyPayment && $verifyPayment->status === 'success') {
 
-                        return success_response($data);
+                        $record = WeddingContribution::where("transaction_id", $ref)->where('success', false)->first();
 
+                        if ($record) {
+
+                            $wedding = Wedding::find($record->wedding_id);
+
+                            $wedding_event = new Event([
+                                "wedding_id" => $record->wedding_id,
+                                "title" => $record->name . "'s contribution",
+                                "description" => $record->name . " contributed GHS" . number_format($record->amount, 2),
+                                "type" => "gift"
+                            ]);
+
+                            $wedding_event->save();
+
+
+                            $user = User::find($wedding->user_id);
+                            $message = "🎁 You have received GHS" . number_format($record->amount, 2) . " from " . $record->name . " as a gift for your wedding(" . $wedding->tag . ")!";
+                            pushNotificationRepository::sendNotification($user, $message);
+
+                            $data = [
+                                "wedding" => $wedding,
+                                "amount" => $record->amount,
+                            ];
+
+                            $record->success = true;
+                            $record->message = "success";
+                            $record->update();
+
+                            return success_response($data);
+
+
+                        }
 
                     }
 
+
                 }
-
-
             }
-        }
 
         }
 
