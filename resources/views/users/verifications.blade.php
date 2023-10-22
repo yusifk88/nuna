@@ -44,6 +44,7 @@
                                 <th>User</th>
                                 <th>ID type</th>
                                 <th>ID Number</th>
+                                <th>Status</th>
                                 <th>Created At</th>
                             </tr>
                             </thead>
@@ -66,6 +67,17 @@
 
                                         <td>
                                             {{$verification->id_number}}
+                                        </td>
+                                        <td>
+                                            @if($verification->user->approved)
+                                                <span class="p-2 text-success">Verified</span>
+                                            @else
+                                                <span class="p-2 text-warning">Pending Verification</span>
+
+
+                                            @endif
+
+
                                         </td>
                                         <td>
                                             {{$verification->created_at}}
