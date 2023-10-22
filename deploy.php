@@ -34,5 +34,6 @@ host('134.209.186.174')
 
 // Hooks
 
-task("clear-cache","service php8.1-fpm restart");
+shell_exec("service php8.1-fpm reload");
+
 after('deploy:failed', 'deploy:unlock');
