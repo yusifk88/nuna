@@ -50,7 +50,7 @@
 
                             <tbody>
 
-                            @foreach($items as $items)
+                            @foreach($items as $item)
 
                                 <tr>
                                     <td>
