@@ -21,9 +21,18 @@ class DashboardsControler extends Controller
     public function VerificationRequest()
     {
 
+        $verifiedCount = VerificationRequest::whereIn("user_id",AppUser::select("id")->where("approved",true))->count();
+        $unverifiedCount = VerificationRequest::whereIn("user_id",AppUser::select("id")->where("approved",false))->count();
+        $allCount = VerificationRequest::all()->count();
+
         $items = VerificationRequest::with("user")->orderBy("id", "desc")->paginate(50);
 
-        return view("users.verifications", ["verifications" => $items]);
+        return view("users.verifications", [
+            "verifications" => $items,
+            "verifiedCount"=>$verifiedCount,
+            "unverifiedCount"=>$unverifiedCount,
+            "allCount"=>$allCount
+            ]);
 
     }
 

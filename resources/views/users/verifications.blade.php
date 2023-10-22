@@ -6,7 +6,7 @@
             <div class="col-md-4">
                 <div class="card">
                     <div class="card-body text-center p-3">
-                        <h2>10</h2>
+                        <h2>{{$allCount}}</h2>
                         <small>All</small>
                     </div>
                 </div>
@@ -15,7 +15,7 @@
             <div class="col-md-4">
                 <div class="card">
                     <div class="card-body text-center p-3">
-                        <h2 class="text-success">10</h2>
+                        <h2 class="text-success">{{$verifiedCount}}</h2>
                         <small class="text-success">Verified</small>
                     </div>
                 </div>
@@ -24,7 +24,7 @@
             <div class="col-md-4">
                 <div class="card">
                     <div class="card-body text-center p-3">
-                        <h2 class="text-danger">30</h2>
+                        <h2 class="text-danger">{{$unverifiedCount}}</h2>
                         <small class="text-danger">Unverified</small>
                     </div>
                 </div>
