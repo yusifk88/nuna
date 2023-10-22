@@ -23,7 +23,7 @@ class DashboardsControler extends Controller
 
         $items = VerificationRequest::with("user")->orderBy("id", "desc")->paginate(50);
 
-        return \view("users.verifications", ["items" => $items]);
+        return view("users.verifications", ["items" => $items]);
 
     }
 
