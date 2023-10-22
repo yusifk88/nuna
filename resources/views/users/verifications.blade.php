@@ -52,30 +52,33 @@
 
                             @foreach($items as $item)
 
-                                <tr>
-                                    <td>
+                                @if($item)
+                                    <tr>
+                                        <td>
 
-                                        <a href="{{route("users.show",$item->user->id)}}">
-                                            {{$item->user->first_name}} &nbsp; {{$item->user->last_name}}
-                                        </a>
-                                    </td>
-                                    <td>
-                                        {{$item->id_type}}
-                                    </td>
+                                            <a href="{{route("users.show",$item->user->id)}}">
+                                                {{$item->user->first_name}} &nbsp; {{$item->user->last_name}}
+                                            </a>
+                                        </td>
+                                        <td>
+                                            {{$item->id_type}}
+                                        </td>
 
-                                    <td>
-                                        {{$item->id_number}}
-                                    </td>
-                                    <td>
-                                        {{$item->created_at}}
-                                    </td>
-                                </tr>
+                                        <td>
+                                            {{$item->id_number}}
+                                        </td>
+                                        <td>
+                                            {{$item->created_at}}
+                                        </td>
+                                    </tr>
+                                @endif
 
                             @endforeach
 
                             </tbody>
                         </table>
 
+                        {{$items->links()}}
                     </div>
                 </div>
             </div>
