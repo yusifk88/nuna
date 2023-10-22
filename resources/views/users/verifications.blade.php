@@ -50,25 +50,25 @@
 
                             <tbody>
 
-                            @foreach($items as $item)
+                            @foreach($verifications as $verification)
 
-                                @if($item)
+                                @if($verification)
                                     <tr>
                                         <td>
 
-                                            <a href="{{route("users.show",$item->user->id)}}">
-                                                {{$item->user->first_name}} &nbsp; {{$item->user->last_name}}
+                                            <a href="{{route("users.show",$verification->user->id)}}">
+                                                {{$verification->user->first_name}} &nbsp; {{$verification->user->last_name}}
                                             </a>
                                         </td>
                                         <td>
-                                            {{$item->id_type}}
+                                            {{$verification->id_type}}
                                         </td>
 
                                         <td>
-                                            {{$item->id_number}}
+                                            {{$verification->id_number}}
                                         </td>
                                         <td>
-                                            {{$item->created_at}}
+                                            {{$verification->created_at}}
                                         </td>
                                     </tr>
                                 @endif
@@ -78,7 +78,7 @@
                             </tbody>
                         </table>
 
-                        {{$items->links()}}
+                        {{$verifications->links()}}
                     </div>
                 </div>
             </div>
