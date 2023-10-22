@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\AppUser;
+use App\Models\VerificationRequest;
 use App\Models\Wedding;
 use App\Models\WeddingContribution;
 use App\Services\Payswitch;
@@ -15,6 +16,18 @@ use Symfony\Component\HttpFoundation\Response;
 
 class DashboardsControler extends Controller
 {
+
+
+    public function VerificationRequest()
+    {
+
+        $items = VerificationRequest::with("user")->orderBy("id", "desc")->paginate(50);
+
+        return \view("users.verifications", ["items" => $items]);
+
+    }
+
+
     public function index(): Factory|\Illuminate\Foundation\Application|View|Application
     {
 
@@ -105,13 +118,12 @@ class DashboardsControler extends Controller
     }
 
 
+    public function transactions()
+    {
 
+        $transactions = WeddingContribution::with("wedding")->orderBy("id", "desc")->paginate(100);
 
-    public function transactions(){
-
-        $transactions = WeddingContribution::with("wedding")->orderBy("id","desc")->paginate(100);
-
-        return \view("transactions.index",['transactions'=>$transactions]);
+        return \view("transactions.index", ['transactions' => $transactions]);
 
 
     }

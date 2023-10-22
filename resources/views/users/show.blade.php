@@ -75,6 +75,20 @@
                                     <small class="text-muted">ID Number</small>
                                 </div>
 
+                                <div class="list-group-item border-bottom">
+
+                                    @if(!$user->approved)
+
+                                        <a class="btn btn-success text-white" href="https://mynunaa.com/verify-confirm/{{$identity->uuid}}">Approve Verification</a>
+
+                                    @else
+
+                                        <a class="btn btn-danger text-white" href="https://mynunaa.com/verify-confirm/{{$identity->uuid}}">Unverify User</a>
+
+                                    @endif
+
+                                </div>
+
 
                             </div>
 

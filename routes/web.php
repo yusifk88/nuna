@@ -22,7 +22,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/', [DashboardsControler::class, "index"]);
 
     Route::get('/dashboard', [DashboardsControler::class, "index"])->name("dashboard");
-
+    Route::get('/verification-request', [DashboardsControler::class, "VerificationRequest"])->name("VerificationRequest");
     Route::get("/users", [DashboardsControler::class, "users"])->name("users.index");
     Route::get("/users/{id}", [DashboardsControler::class, "show"])->name("users.show");
     Route::get("/weddings", [DashboardsControler::class, "weddings"])->name("weddings.index");

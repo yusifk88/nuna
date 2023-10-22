@@ -116,6 +116,13 @@
 
 
             <li class="nav-item">
+                <a class="nav-link " href="{{route('VerificationRequest')}}">
+                    <i class="bi bi-list"></i>
+                    <span>Verification Requests</span>
+                </a>
+            </li><!-- End Dashboard Nav -->
+
+            <li class="nav-item">
                 <a class="nav-link " href="{{route('weddings.index')}}">
                     <i class="bi bi-list"></i>
                     <span>Weddings</span>

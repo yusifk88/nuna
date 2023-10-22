@@ -163,6 +163,7 @@
                                     <tbody>
 
                                     @foreach($recentTransactions as $transaction)
+                                        @if($transaction->wedding)
                                         <tr>
                                             <td>{{number_format($transaction->amount,2)}}</td>
                                             <td>{{$transaction->name}}</td>
@@ -181,6 +182,7 @@
                                             </td>
                                             <td>{{$transaction->created_at}}</td>
                                         </tr>
+                                        @endif
 
                                     @endforeach
 
