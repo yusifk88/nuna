@@ -445,23 +445,23 @@ class AuthController extends Controller
 
         }
 
-
-        if (config("app.env") === 'production') {
-
-            $phone_number = "233" . substr($user->phone_number, -9);
-            $message = "We have received your request to verify your account, your account is under review.";
-
-            SMSRepository::sendSMS($phone_number, $message);
-
-            pushNotificationRepository::sendNotification($user, $message);
-
-            $url = "https://mynunaa.com/verify/" . $verification->uuid;
-
-            $requestMessage = "Verification request from " . $user->first_name . " " . $user->last_name . ", click on the link to review and confirm " . $url;
-
-            SMSRepository::sendSMS('0592489135', $requestMessage);
-
-        }
+//
+//        if (config("app.env") === 'production') {
+//
+//            $phone_number = "233" . substr($user->phone_number, -9);
+//            $message = "We have received your request to verify your account, your account is under review.";
+//
+//            SMSRepository::sendSMS($phone_number, $message);
+//
+//            pushNotificationRepository::sendNotification($user, $message);
+//
+//            $url = "https://mynunaa.com/verify/" . $verification->uuid;
+//
+//            $requestMessage = "Verification request from " . $user->first_name . " " . $user->last_name . ", click on the link to review and confirm " . $url;
+//
+//            SMSRepository::sendSMS('0592489135', $requestMessage);
+//
+//        }
 
 
     }

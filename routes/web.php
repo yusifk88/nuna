@@ -35,5 +35,3 @@ Route::get("unverify-confirm/{uuid}", [AuthController::class, "unverifyAccount"]
 Route::get("w/{tag}/contribute", [WeddingsController::class, "paymentPage"])->name("initPayment");
 Route::post("w/{id}/attending", [WeddingsController::class, "SaveRSV"])->name("reserve");
 Route::post("w/{id}/checkout", [WeddingsController::class, "initCheckout"])->name("initCheckout");
-
-
