@@ -34,6 +34,6 @@ host('134.209.186.174')
 
 // Hooks
 desc("clear opcache cache");
-after('deploy:success', run('service php8.1-fpm reload'));
+after('deploy:success', function (){run('service php8.1-fpm reload');});
 
 after('deploy:failed', 'deploy:unlock');
