@@ -13,7 +13,7 @@ class VerificationRequest extends Model
 
     public function user (){
 
-        return $this->belongsTo(AppUser::class,"id", "user_id");
+        return $this->belongsTo(AppUser::class, "user_id","id");
 
     }
 
