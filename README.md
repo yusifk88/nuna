@@ -10,6 +10,6 @@ This is the codebase for the nuna weding page maker app, it includes the wedding
 ## installation 
 - clone this repository
 - run `composer install` in your terminal at the root directory of the project
-- copy the content of the .env.example in to a file names .env setup your database connection
+- copy the content of the .env.example in to a file name .env in your project root directory ,setup your database connection
 - run `php artisan migrate` in a termina at the root directory of the project
 - finally run `php artisan serve`
